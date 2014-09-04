@@ -1,0 +1,7 @@
+defaultTasks 'jar'
+
+apply plugin: 'java'
+
+dependencies {
+  compile fileTree(dir: 'lib', include: '*.jar')
+}
