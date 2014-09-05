@@ -10,3 +10,19 @@ dependencies {
     compile fileTree(dir: 'lib', include: '*.jar')
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.0.6'
 }
+
+task copyFiles(type: Copy) {
+    from("lib")
+    into("build/libs")
+    include('*.jar')
+}
+
+jar {
+    manifest {
+        attributes(
+            "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+        )
+    }
+}
+
+jar.dependsOn copyFiles
