@@ -2,6 +2,7 @@
 
 ### NetBeans ###
 nbproject/private/
+.nb-gradle/private/
 build/
 nbbuild/
 dist/
