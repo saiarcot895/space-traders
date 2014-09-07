@@ -1,6 +1,4 @@
-defaultTasks 'jar'
-
-apply plugin: 'java'
+apply from: 'javafx.plugin'
 
 sourceCompatibility = '1.8'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
@@ -27,7 +25,8 @@ task copyFiles(type: Copy) {
 jar {
     manifest {
         attributes(
-            "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+            "Class-Path": configurations.compile.collect { it.getName() }.join(' '),
+            "Main-Class": 'javafxapplication1.JavaFXApplication1'
         )
     }
 }
