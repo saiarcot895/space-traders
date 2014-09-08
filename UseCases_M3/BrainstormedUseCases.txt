@@ -1,1 +1,3 @@
 Brainstormed List of Use Cases:
+1) Create new character
+2) Allocate points to skills in new character page
