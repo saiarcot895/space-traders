@@ -1,0 +1,34 @@
+apply from: 'javafx.plugin'
+
+sourceCompatibility = '1.8'
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+if (!hasProperty('mainClass')) {
+    ext.mainClass = ''
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile fileTree(dir: 'lib', include: '*.jar')
+    compile group: 'org.controlsfx', name: 'controlsfx', version: '8.0.6'
+}
+
+task copyFiles(type: Copy) {
+    from("lib")
+    into("build/libs")
+    include('*.jar')
+}
+
+jar {
+    manifest {
+        attributes(
+            "Class-Path": configurations.compile.collect { it.getName() }.join(' '),
+            "Main-Class": 'javafxapplication1.JavaFXApplication1'
+        )
+    }
+}
+
+jar.dependsOn copyFiles
