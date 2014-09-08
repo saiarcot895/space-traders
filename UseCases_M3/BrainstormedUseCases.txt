@@ -1,3 +1,5 @@
 Brainstormed List of Use Cases:
 1) Create new character
 2) Allocate points to skills and assign name in new character page
+3) Buy goods/resources from a system
+4) Sell goods/resources to a system
