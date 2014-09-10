@@ -1,3 +1,5 @@
+defaultTasks 'assemble'
+
 apply from: 'javafx.plugin'
 
 sourceCompatibility = '1.8'
