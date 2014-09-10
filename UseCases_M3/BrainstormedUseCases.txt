@@ -5,3 +5,6 @@ Brainstormed List of Use Cases:
 4) Sell goods/resources to a system
 5) Save a character
 6) Load a character
+7) Exchange investments
+8) Travel to planets
+9) Hire mercenaries
