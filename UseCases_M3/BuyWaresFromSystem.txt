@@ -1,0 +1,6 @@
+Use Case
+Title: Buy resources/products from a system
+Primary Actor: Player
+Stakeholders: The system selling the wares, police ships in the area (if wares are illegal)
+Precondition: Player has empty cargo holds in their ship enough to hold the wares, player is present in the system, player has enough credits to afford the wares, wares are present in the               system
+Postcondition: Player has filled the appropriate number of cargo holds with the bought wares, 
