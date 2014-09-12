@@ -1,7 +1,7 @@
 Abhishek Deo
 Milestone 3
 
-Use Case: Allocate points to skills and assign name in new character page.
+Use Case: Allocate points
 	
 	Primary Actor: 
 		The main actor of this use case is the player. The player
