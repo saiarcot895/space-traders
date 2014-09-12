@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<!--  Allocation Page -->
+<AnchorPane id="AnchorPane" prefHeight="404.0" prefWidth="726.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.AllocationController">
+    <children>
+        <ImageView fitHeight="479.0" fitWidth="726.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@SED_walltilt_1920x1200.jpg" />
+            </image>
+        </ImageView>
+      <GridPane prefHeight="347.0" prefWidth="726.0">
+        <columnConstraints>
+            <ColumnConstraints maxWidth="251.0" minWidth="145.0" prefWidth="219.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="288.0" minWidth="10.0" prefWidth="214.0" />
+            <ColumnConstraints maxWidth="251.0" minWidth="145.0" prefWidth="219.0" />
+            <ColumnConstraints maxWidth="251.0" minWidth="145.0" prefWidth="219.0" />
+            <ColumnConstraints maxWidth="251.0" minWidth="145.0" prefWidth="219.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField alignment="CENTER" promptText="Pilot" GridPane.rowIndex="1" />
+            <TextField alignment="CENTER" promptText="Fighter" GridPane.rowIndex="2" />
+            <TextField alignment="CENTER" promptText="Trader" GridPane.rowIndex="3" />
+            <TextField alignment="CENTER" promptText="Engineer" GridPane.rowIndex="4" />
+            <TextField alignment="CENTER" promptText="Investor" GridPane.rowIndex="5" />
+            <TextField alignment="CENTER" promptText="Skill Type" />
+            <Button fx:id="pilot" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="+" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button fx:id="fighter" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="+" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="trader" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="+" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Button fx:id="engineer" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="+" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Button fx:id="investor" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="+" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <TextField fx:id="point" alignment="CENTER" promptText="8" GridPane.columnIndex="2">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="pCounter" alignment="CENTER" promptText="1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="fCounter" alignment="CENTER" promptText="1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="tCounter" alignment="CENTER" promptText="1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="eCounter" alignment="CENTER" promptText="1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="iCounter" alignment="CENTER" promptText="1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField alignment="CENTER" promptText="Character Properties" GridPane.columnIndex="3" />
+            <TextField alignment="CENTER" promptText="Input" GridPane.columnIndex="4" />
+            <TextField fx:id="name" alignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <TextField fx:id="age" alignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <TextField alignment="CENTER" promptText="Points" GridPane.columnIndex="1" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Age:" textFill="#0900e0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Name:" textFill="WHITE" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Sex:" textFill="#0900e0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Color:" textFill="#0900e0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Race:" textFill="#0900e0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Name:" textFill="#0900e0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <MenuButton fx:id="sex" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Sex" GridPane.columnIndex="4" GridPane.rowIndex="3">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+            </MenuButton>
+            <MenuButton fx:id="color" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Color" GridPane.columnIndex="4" GridPane.rowIndex="4">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+            <MenuButton fx:id="race" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Race" GridPane.columnIndex="4" GridPane.rowIndex="5">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+         </children>
+      </GridPane>
+      <Button fx:id="goBack" layoutX="32.0" layoutY="369.0" mnemonicParsing="false" onAction="#goBack" text="Return" />
+      <Button fx:id="create" layoutX="623.0" layoutY="369.0" mnemonicParsing="false" onAction="#create" text="Confirm" />
+      <Button fx:id="reset" layoutX="337.0" layoutY="369.0" mnemonicParsing="false" text="Reset Skills" />
+    </children>
+</AnchorPane>

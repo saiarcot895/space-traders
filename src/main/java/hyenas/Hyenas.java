@@ -43,6 +43,14 @@ public class Hyenas extends Application {
         
     }
 
+    public void goToHomeScreen() {
+        
+    }
+    
+    public void confirmSelection() {
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
