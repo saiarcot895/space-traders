@@ -8,12 +8,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="370.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.MainWindowController">
+<AnchorPane id="AnchorPane" prefHeight="370.0" prefWidth="640.0" style="-fx-background-image: url('hyenas/2015-Star-Citizen.jpg'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.MainWindowController">
    <children>
-      <ImageView fitHeight="370.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@SED_walltilt_1920x1200.jpg" />
-         </image></ImageView>
       <Group AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.455078125">
          <children>
             <Button defaultButton="true" layoutX="524.0" layoutY="281.0" mnemonicParsing="false" onAction="#onStartGameClicked" text="Start Game" />
