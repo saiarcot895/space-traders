@@ -25,6 +25,8 @@ public class Hyenas extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        instance = this;
+        
         Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
         
         Scene scene = new Scene(root);
