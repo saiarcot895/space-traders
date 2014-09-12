@@ -5,6 +5,9 @@
  */
 package hyenas;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +22,8 @@ public class Hyenas extends Application {
     
     private static Hyenas instance;
     
+    private Stage stage;
+    
     public static Hyenas getInstance() {
         return instance;
     }
@@ -26,6 +31,7 @@ public class Hyenas extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         instance = this;
+        this.stage = stage;
         
         Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
         
@@ -36,7 +42,11 @@ public class Hyenas extends Application {
     }
     
     public void goToStartGameScreen() {
-        
+        try {
+            changePage("Allocation.fxml");
+        } catch (IOException ex) {
+            Logger.getLogger(Hyenas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void goToSettingsScreen() {
@@ -44,7 +54,18 @@ public class Hyenas extends Application {
     }
 
     public void goToHomeScreen() {
+        try {
+            changePage("MainWindow.fxml");
+        } catch (IOException ex) {
+            Logger.getLogger(Hyenas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void changePage(String pageName) throws IOException {
+        Parent page = FXMLLoader.load(getClass().getResource(pageName));
         
+        stage.getScene().setRoot(page);
+        stage.sizeToScene();
     }
     
     public void confirmSelection() {

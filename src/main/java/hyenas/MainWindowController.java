@@ -26,7 +26,7 @@ public class MainWindowController implements Initializable {
         // TODO
     }
     
-    public void onStartGameClicked(ActionEvent e) {
+    public void onStartGameClicked(ActionEvent e)  {
         Hyenas.getInstance().goToStartGameScreen();
     }
     
