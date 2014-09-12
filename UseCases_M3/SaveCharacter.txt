@@ -1,6 +1,6 @@
 JR Mailig (jmailig3)
 
-Title: Save a character
+Title: Save character
 
 Primary Actor: Player
 
