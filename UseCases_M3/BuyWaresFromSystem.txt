@@ -1,4 +1,4 @@
-Use Case
+Use Case By Brian Surber
 
 Title: Buy resources/products from a system
 
