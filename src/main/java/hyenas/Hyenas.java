@@ -50,7 +50,11 @@ public class Hyenas extends Application {
     }
     
     public void goToSettingsScreen() {
-        
+        try {
+            changePage("Settings.fxml");
+        } catch (IOException ex) {
+            Logger.getLogger(Hyenas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void goToHomeScreen() {
