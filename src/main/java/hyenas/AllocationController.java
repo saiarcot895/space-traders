@@ -19,70 +19,70 @@ import javafx.scene.control.TextField;
 public class AllocationController implements Initializable {
 
     private int startingPoints = 8;
-   
+
     @FXML
     private Button goBack;
-    
+
     @FXML
     private Button reset;
-    
+
     @FXML
     private Button create;
-    
+
     @FXML
     private Button pilot;
-    
+
     @FXML
     private Button fighter;
-    
+
     @FXML
     private Button trader;
-    
+
     @FXML
     private Button engineer;
-    
+
     @FXML
     private Button investor;
-    
+
     @FXML
     private TextField name;
-    
+
     @FXML
     private TextField age;
-    
+
     @FXML
     private MenuButton sex;
-    
+
     @FXML
     private MenuButton color;
-    
+
     @FXML
     private MenuButton race;
-    
+
     @FXML
     private Label pCounter;
-    
+
     @FXML
     private Label fCounter;
-    
+
     @FXML
     private Label tCounter;
-    
+
     @FXML
     private Label eCounter;
-    
+
     @FXML
     private Label iCounter;
-    
+
     @FXML
     private Label point;
-    
+
     int pValue = 1;
     int fValue = 1;
     int tValue = 1;
     int eValue = 1;
     int iValue = 1;
-    
+
     /**
      * Initializes the controller class.
      * @param url
@@ -95,7 +95,7 @@ public class AllocationController implements Initializable {
         assert trader != null;
         assert engineer != null;
         assert investor != null;
-        
+
         pilot.setOnAction((ActionEvent t) -> {
             if (startingPoints > 0) {
                 pValue++;
@@ -104,7 +104,7 @@ public class AllocationController implements Initializable {
                 point.setText(Integer.toString(startingPoints));
             }
         });
-        
+
         fighter.setOnAction((ActionEvent t) -> {
             if (startingPoints > 0) {
                 fValue++;
@@ -113,7 +113,7 @@ public class AllocationController implements Initializable {
                 point.setText(Integer.toString(startingPoints));
             }
         });
-        
+
         trader.setOnAction((ActionEvent t) -> {
             if (startingPoints > 0) {
                 tValue++;
@@ -122,7 +122,7 @@ public class AllocationController implements Initializable {
                 point.setText(Integer.toString(startingPoints));
             }
         });
-        
+
         engineer.setOnAction((ActionEvent t) -> {
             if (startingPoints > 0) {
                 eValue++;
@@ -131,7 +131,7 @@ public class AllocationController implements Initializable {
                 point.setText(Integer.toString(startingPoints));
             }
         });
-        
+
         investor.setOnAction((ActionEvent t) -> {
             if (startingPoints > 0) {
                 iValue++;
@@ -140,7 +140,7 @@ public class AllocationController implements Initializable {
                 point.setText(Integer.toString(startingPoints));
             }
         });
-        
+
         reset.setOnAction((ActionEvent t) -> {
            startingPoints = 8;
            pValue = 1;
@@ -156,13 +156,12 @@ public class AllocationController implements Initializable {
            iCounter.setText(Integer.toString(iValue));
         });
     }
-    
+
     public void create(ActionEvent e) {
         // TODO: Create character with all attributes user inputted.
     }
-    
+
     public void goBack(ActionEvent e) {
         Hyenas.getInstance().goToHomeScreen();
     }
-    
 }

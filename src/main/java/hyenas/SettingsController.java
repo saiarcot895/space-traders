@@ -25,13 +25,13 @@ public class SettingsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-    
+
     public void onCancelClicked(ActionEvent e) {
         Hyenas.getInstance().goToHomeScreen();
     }
-    
+
     public void onSaveClicked(ActionEvent e) {
         Hyenas.getInstance().goToHomeScreen();
     }
-    
+
 }

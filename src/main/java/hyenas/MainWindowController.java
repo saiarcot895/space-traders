@@ -25,13 +25,13 @@ public class MainWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-    
+
     public void onStartGameClicked(ActionEvent e)  {
         Hyenas.getInstance().goToStartGameScreen();
     }
-    
+
     public void onSettingsClicked(ActionEvent e) {
         Hyenas.getInstance().goToSettingsScreen();
     }
-    
+
 }
