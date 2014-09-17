@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 
@@ -59,22 +60,22 @@ public class AllocationController implements Initializable {
     private MenuButton race;
     
     @FXML
-    private TextField pCounter;
+    private Label pCounter;
     
     @FXML
-    private TextField fCounter;
+    private Label fCounter;
     
     @FXML
-    private TextField tCounter;
+    private Label tCounter;
     
     @FXML
-    private TextField eCounter;
+    private Label eCounter;
     
     @FXML
-    private TextField iCounter;
+    private Label iCounter;
     
     @FXML
-    private TextField point;
+    private Label point;
     
     int pValue = 1;
     int fValue = 1;
@@ -108,7 +109,7 @@ public class AllocationController implements Initializable {
             if (startingPoints > 0) {
                 fValue++;
                 startingPoints--;
-                pCounter.setText(Integer.toString(fValue));
+                fCounter.setText(Integer.toString(fValue));
                 point.setText(Integer.toString(startingPoints));
             }
         });
@@ -117,7 +118,7 @@ public class AllocationController implements Initializable {
             if (startingPoints > 0) {
                 tValue++;
                 startingPoints--;
-                pCounter.setText(Integer.toString(tValue));
+                tCounter.setText(Integer.toString(tValue));
                 point.setText(Integer.toString(startingPoints));
             }
         });
@@ -126,7 +127,7 @@ public class AllocationController implements Initializable {
             if (startingPoints > 0) {
                 eValue++;
                 startingPoints--;
-                pCounter.setText(Integer.toString(eValue));
+                eCounter.setText(Integer.toString(eValue));
                 point.setText(Integer.toString(startingPoints));
             }
         });
@@ -135,7 +136,7 @@ public class AllocationController implements Initializable {
             if (startingPoints > 0) {
                 iValue++;
                 startingPoints--;
-                pCounter.setText(Integer.toString(iValue));
+                iCounter.setText(Integer.toString(iValue));
                 point.setText(Integer.toString(startingPoints));
             }
         });
