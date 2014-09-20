@@ -51,6 +51,15 @@ public class Hyenas extends Application {
         }
     }
 
+    public void goToMapScreen() {
+        try {
+            changePage("UserUI.fxml");
+        } catch (IOException ex) {
+            Logger.getLogger(Hyenas.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        }
+    }
+
     public void goToSettingsScreen() {
         try {
             changePage("Settings.fxml");

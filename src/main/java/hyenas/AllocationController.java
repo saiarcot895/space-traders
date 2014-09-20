@@ -158,7 +158,7 @@ public class AllocationController implements Initializable {
     }
 
     public void create(ActionEvent e) {
-        // TODO: Create character with all attributes user inputted.
+        Hyenas.getInstance().goToMapScreen();
     }
 
     public void goBack(ActionEvent e) {
