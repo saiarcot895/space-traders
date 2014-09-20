@@ -54,9 +54,6 @@ public class UserUIController implements Initializable {
     @FXML
     private Button menu;
     
-    @FXML
-    private Button confirm;
-    
     private final int level_0 = 60;
     
     private final int level_1 = 70;
@@ -81,8 +78,6 @@ public class UserUIController implements Initializable {
     
     private final int level_11 = 170;
     
-    private static StringBuilder confirmText;
-    
     /**
      * Initializes the controller class.
      * @param url
@@ -90,55 +85,6 @@ public class UserUIController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        assert utopia != null;
-        assert earth616 != null;
-        assert tantolos != null;
-        assert carzon != null;
-        assert omega != null;
-        assert destiny != null;
-        assert frolix != null;
-        assert random != null;
-        assert exo != null;
-        assert menu != null;
-        
-        assert confirm != null;
-        
-        confirmText.append("Would you like to go to ");
-        
-        confirm = new Button("Confirm");
-        
-        utopia.setOnAction((ActionEvent t) -> {
-            toUtopia(t);
-        });
-        
-        earth616.setOnAction((ActionEvent t) -> {
-            toEarth616(t);
-        });
-        
-        tantolos.setOnAction((ActionEvent t) -> {
-            toTantalos(t);
-        });
-        
-        carzon.setOnAction((ActionEvent t) -> {
-            toCarzon(t);
-        });
-        
-        omega.setOnAction((ActionEvent t) -> {
-            toOmega(t);
-        });
-        
-        destiny.setOnAction((ActionEvent t) -> {
-            toDestiny(t);
-        });
-        
-        frolix.setOnAction((ActionEvent t) -> {
-            toFrolix(t);
-        });
-        
-        exo.setOnAction((ActionEvent t) -> {
-            toExo(t);
-        });
-        
     }    
  
     public void toEarth616(ActionEvent t) {
