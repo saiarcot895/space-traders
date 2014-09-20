@@ -8,16 +8,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.UserUIController">
-    <stylesheets>
-        <URL value="@userui.css" />
-    </stylesheets>
+<AnchorPane id="AnchorPane" fx:id="myrthe" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" style="-fx-background-image: url('hyenas/2015-Star-Citizen.jpg'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.UserUIController">
     <children>
-        <javafx.scene.image.ImageView fx:id="myrthe">
-            <image>
-                <javafx.scene.image.Image url="@2015-Star-Citizen.jpg" />
-            </image>
-        </javafx.scene.image.ImageView>
       <Button fx:id="Earth616" layoutX="605.0" layoutY="69.0" mnemonicParsing="false" onAction="#toEarth616" text="Earth616" />
       <Button fx:id="tantalos" layoutX="398.0" layoutY="289.0" mnemonicParsing="false" onAction="#toTantalos" text="Tantalos" />
       <Button fx:id="exo" layoutX="159.0" layoutY="494.0" mnemonicParsing="false" onAction="#toExo" text="Exo" />

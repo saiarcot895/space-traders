@@ -12,13 +12,8 @@
 
 <!--  Allocation Page -->
 
-<AnchorPane id="AnchorPane" prefHeight="404.0" prefWidth="726.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.AllocationController">
+<AnchorPane id="AnchorPane" prefHeight="404.0" prefWidth="726.0" style="-fx-background-image: url('hyenas/2015-Star-Citizen.jpg'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.AllocationController">
     <children>
-        <ImageView fitHeight="479.0" fitWidth="726.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <image>
-                <Image url="@2015-Star-Citizen.jpg" />
-            </image>
-        </ImageView>
       <Button fx:id="goBack" layoutX="14.0" layoutY="415.0" mnemonicParsing="false" onAction="#goBack" text="Return" AnchorPane.bottomAnchor="13.75" AnchorPane.leftAnchor="14.0" />
       <Button fx:id="create" layoutX="642.0" layoutY="415.0" mnemonicParsing="false" onAction="#create" text="Confirm" AnchorPane.bottomAnchor="13.75" AnchorPane.rightAnchor="14.0" />
       <Button fx:id="reset" layoutX="317.0" layoutY="415.0" mnemonicParsing="false" text="Reset Skills" AnchorPane.bottomAnchor="13.75" />
