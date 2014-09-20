@@ -1,3 +1,5 @@
+package hyenas;
+
 import java.util.Random;
 import java.util.ArrayList;
 
@@ -11,6 +13,33 @@ public class SolarSystem {
     
     private static final int MAX_TECH_LEVEL = 7;
     private static final int MAX_RESOURCE_TYPE = 12;
+    
+    private static final String[] TECH_LEVELS = new String[] {
+        "Pre-Agriculture",
+        "Agriculture",
+        "Medieval",
+        "Renaissance",
+        "Early Industrial",
+        "Industrial",
+        "Post-Industrial",
+        "Hi-Tech",
+    };
+    
+    private static final String[] RESOURCE_TYPES = new String[] {
+        "No Specialized Resources",
+        "Mineral Rich",
+        "Mineral Poor",
+        "Desert",
+        "Lots of Water",
+        "Rich Soil",
+        "Poor Soil",
+        "Rich Fauna",
+        "Lifeless",
+        "Wierd Mushrooms",
+        "Lots of Herbs",
+        "Artistic",
+        "Warlike",
+    };
 
     public SolarSystem(String systemName) {
         this.systemName = systemName;
@@ -32,36 +61,11 @@ public class SolarSystem {
     }
 
     public String techLevelString() {
-        final String[] techLevels = new String[] {
-            "Pre-Agriculture",
-            "Agriculture",
-            "Medieval",
-            "Renaissance",
-            "Early Industrial",
-            "Industrial",
-            "Post-Industrial",
-            "Hi-Tech",
-        };
-        return techLevels[this.techLevel];
+        return TECH_LEVELS[this.techLevel];
     }
 
     public String resourceTypeString() {
-        final String[] resourceTypes = new String[] {
-            "No Specialized Resources",
-            "Mineral Rich",
-            "Mineral Poor",
-            "Desert",
-            "Lots of Water",
-            "Rich Soil",
-            "Poor Soil",
-            "Rich Fauna",
-            "Lifeless",
-            "Wierd Mushrooms",
-            "Lots of Herbs",
-            "Artistic",
-            "Warlike",
-        };
-        return resourceTypes[this.resourceType];
+        return RESOURCE_TYPES[this.resourceType];
     }
 
     @Override

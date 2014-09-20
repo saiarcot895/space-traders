@@ -1,3 +1,5 @@
+package hyenas;
+
 import java.util.Random;
 
 public class Planet {

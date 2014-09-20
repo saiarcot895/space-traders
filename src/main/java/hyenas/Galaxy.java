@@ -1,3 +1,5 @@
+package hyenas;
+
 public class Galaxy {
     private SolarSystem[] solarSystems;
 
