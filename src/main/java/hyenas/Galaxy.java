@@ -32,16 +32,12 @@ public class Galaxy {
         return solarSystems;
     }
 
-    public void printGalaxy() {
-        SolarSystem[] solarSystems = this.getSolarSystems();
+    public static void main(String[] args) {
+        Galaxy galaxy = new Galaxy();
+        SolarSystem[] solarSystems = galaxy.getSolarSystems();
         for (int x = 0; x < solarSystems.length; x++) {
             SolarSystem system = solarSystems[x];
             System.out.println(system);
         }
-    }
-
-    public static void main(String[] args) {
-        Galaxy galaxy = new Galaxy();
-        galaxy.printGalaxy();
     }
 }
