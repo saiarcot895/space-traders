@@ -1,7 +1,6 @@
 package hyenas;
 
 import java.util.Random;
-import java.util.ArrayList;
 
 public class SolarSystem {
     private String systemName;
@@ -10,10 +9,10 @@ public class SolarSystem {
     private double locY;
     private int techLevel;
     private int resourceType;
-    
+
     private static final int MAX_TECH_LEVEL = 7;
     private static final int MAX_RESOURCE_TYPE = 12;
-    
+
     private static final String[] TECH_LEVELS = new String[] {
         "Pre-Agriculture",
         "Agriculture",
@@ -24,7 +23,7 @@ public class SolarSystem {
         "Post-Industrial",
         "Hi-Tech",
     };
-    
+
     private static final String[] RESOURCE_TYPES = new String[] {
         "No Specialized Resources",
         "Mineral Rich",
@@ -70,9 +69,9 @@ public class SolarSystem {
 
     @Override
     public String toString() {
-        return "<System: " + this.systemName +
-                ", Tech: " + this.techLevelString() +
-                ", Resource: " + this.resourceTypeString() +
-                ", Loc: (" + locX + ", " + locY + ")" + ">";
+        return "<System: " + this.systemName
+            + ", Tech: " + this.techLevelString()
+            + ", Resource: " + this.resourceTypeString()
+            + ", Loc: (" + locX + ", " + locY + ")" + ">";
     }
 }
