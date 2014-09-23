@@ -37,6 +37,7 @@ public class Hyenas extends Application {
                     "MainWindow.fxml"));
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("hyenas/MapScreen.css");
 
         stage.setScene(scene);
         stage.show();

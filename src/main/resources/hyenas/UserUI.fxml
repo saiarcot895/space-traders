@@ -8,16 +8,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="myrthe" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" style="-fx-background-image: url('hyenas/2015-Star-Citizen.jpg'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.UserUIController">
+<AnchorPane id="AnchorPane" fx:id="myrthe" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url('hyenas/2015-Star-Citizen.jpg'); -fx-background-size: cover;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.UserUIController">
     <children>
-      <Button fx:id="Earth616" layoutX="605.0" layoutY="69.0" mnemonicParsing="false" onAction="#toEarth616" text="Earth616" />
-      <Button fx:id="tantalos" layoutX="398.0" layoutY="289.0" mnemonicParsing="false" onAction="#toTantalos" text="Tantalos" />
-      <Button fx:id="exo" layoutX="159.0" layoutY="494.0" mnemonicParsing="false" onAction="#toExo" text="Exo" />
-      <Button fx:id="destiny" layoutX="335.0" layoutY="507.0" mnemonicParsing="false" onAction="#toDestiny" text="Destiny" />
-      <Button fx:id="utopia" layoutX="254.0" layoutY="117.0" mnemonicParsing="false" onAction="#toUtopia" text="Utopia" />
-      <Button fx:id="frolix" layoutX="818.0" layoutY="612.0" mnemonicParsing="false" onAction="#toFrolix" text="Frolix" />
-      <Button fx:id="omega" layoutX="89.0" layoutY="264.0" mnemonicParsing="false" onAction="#toOmega" text="Omega" />
-      <Button fx:id="carzon" layoutX="691.0" layoutY="258.0" mnemonicParsing="false" onAction="#toCarzon" text="Carzon" />
+      <Button fx:id="Earth616" layoutX="605.0" layoutY="69.0" mnemonicParsing="false" onAction="#toEarth616" styleClass="planet" text="Earth616" />
+      <Button fx:id="tantalos" layoutX="398.0" layoutY="289.0" mnemonicParsing="false" onAction="#toTantalos" styleClass="planet" text="Tantalos" />
+      <Button fx:id="exo" layoutX="159.0" layoutY="494.0" mnemonicParsing="false" onAction="#toExo" styleClass="planet" text="Exo" />
+      <Button fx:id="destiny" layoutX="335.0" layoutY="507.0" mnemonicParsing="false" onAction="#toDestiny" styleClass="planet" text="Destiny" />
+      <Button fx:id="utopia" layoutX="254.0" layoutY="117.0" mnemonicParsing="false" onAction="#toUtopia" styleClass="planet" text="Utopia" />
+      <Button fx:id="frolix" layoutX="683.0" layoutY="520.0" mnemonicParsing="false" onAction="#toFrolix" styleClass="planet" text="Frolix" />
+      <Button fx:id="omega" layoutX="89.0" layoutY="264.0" mnemonicParsing="false" onAction="#toOmega" styleClass="planet" text="Omega" />
+      <Button fx:id="carzon" layoutX="691.0" layoutY="258.0" mnemonicParsing="false" onAction="#toCarzon" styleClass="planet" text="Carzon" />
       <MenuButton fx:id="options" layoutX="18.0" layoutY="38.0" mnemonicParsing="false" text="Options">
         <items>
           <MenuItem mnemonicParsing="false" text="Settings" />

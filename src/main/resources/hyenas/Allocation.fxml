@@ -67,64 +67,64 @@
             <MenuItem mnemonicParsing="false" text="Action 2" />
          </items>
       </MenuButton>
-      <Label layoutX="161.0" layoutY="106.0" text="Points" textFill="#de7600" AnchorPane.topAnchor="103.0">
+      <Label layoutX="161.0" layoutY="110.0" text="Points" textFill="#de7600" AnchorPane.topAnchor="110.0">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="103.0" text="Skill Type" textFill="#de7600" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="103.0">
+      <Label layoutX="14.0" layoutY="110.0" text="Skill Type" textFill="#de7600" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="110.0">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
       <Label layoutX="18.0" layoutY="143.0" text="Pilot" textFill="#de7600" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="143.0">
          <font>
-            <Font size="23.0" />
+            <Font size="19.0" />
          </font>
       </Label>
       <Label layoutX="18.0" layoutY="174.0" text="Fighter" textFill="#de7600" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="177.0">
          <font>
-            <Font size="23.0" />
+            <Font size="19.0" />
          </font>
       </Label>
       <Label layoutX="18.0" layoutY="206.0" text="Trader" textFill="#de7600" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="206.0">
          <font>
-            <Font size="23.0" />
+            <Font size="19.0" />
          </font>
       </Label>
       <Label layoutX="18.0" layoutY="239.0" text="Engineer" textFill="#de7600" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="244.0">
          <font>
-            <Font size="23.0" />
+            <Font size="19.0" />
          </font>
       </Label>
       <Label layoutX="17.0" layoutY="270.0" text="Inventor" textFill="#de7600" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="273.0">
          <font>
-            <Font size="23.0" />
+            <Font size="19.0" />
          </font>
       </Label>
       <Label fx:id="pCounter" layoutX="189.0" layoutY="143.0" text="1" textFill="#de7600" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="143.0">
          <font>
-            <Font size="23.0" />
+            <Font size="19.0" />
          </font>
       </Label>
       <Label fx:id="fCounter" layoutX="189.0" layoutY="177.0" text="1" textFill="#de7600" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="177.0">
          <font>
-            <Font size="23.0" />
+            <Font size="19.0" />
          </font>
       </Label>
       <Label fx:id="tCounter" layoutX="189.0" layoutY="209.0" text="1" textFill="#de7600" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="206.0">
          <font>
-            <Font size="23.0" />
+            <Font size="19.0" />
          </font>
       </Label>
       <Label fx:id="eCounter" layoutX="189.0" layoutY="242.0" text="1" textFill="#de7600" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="244.0">
          <font>
-            <Font size="23.0" />
+            <Font size="19.0" />
          </font>
       </Label>
       <Label fx:id="iCounter" layoutX="189.0" layoutY="273.0" text="1" textFill="#de7600" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="273.0">
          <font>
-            <Font size="23.0" />
+            <Font size="19.0" />
          </font>
       </Label>
       <Label layoutX="14.0" layoutY="40.0" text="Character Properties" textFill="#de7600">
@@ -134,12 +134,12 @@
       </Label>
       <Label fx:id="point" layoutX="24.0" layoutY="67.0" text="8" textFill="#de7600">
          <font>
-            <Font size="23.0" />
+            <Font size="19.0" />
          </font>
       </Label>
       <Label layoutX="45.0" layoutY="67.0" text="point(s) remaining" textFill="#de7600">
          <font>
-            <Font size="23.0" />
+            <Font size="19.0" />
          </font>
       </Label>
     </children>
