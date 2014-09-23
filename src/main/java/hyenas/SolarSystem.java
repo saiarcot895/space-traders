@@ -5,8 +5,8 @@ import java.util.Random;
 public class SolarSystem {
     private String systemName;
     private Planet planet;
-    private double locX;
-    private double locY;
+    private double x;
+    private double y;
     private int techLevel;
     private int resourceType;
 
@@ -47,8 +47,8 @@ public class SolarSystem {
         Random rand = new Random();
         this.techLevel = rand.nextInt(MAX_TECH_LEVEL + 1);
         this.resourceType = rand.nextInt(MAX_RESOURCE_TYPE + 1);
-        this.locX = rand.nextDouble();
-        this.locY = rand.nextDouble();
+        this.x = rand.nextDouble();
+        this.y = rand.nextDouble();
     }
 
     public String getSystemName() {
@@ -72,6 +72,6 @@ public class SolarSystem {
         return "<System: " + this.systemName
             + ", Tech: " + this.techLevelString()
             + ", Resource: " + this.resourceTypeString()
-            + ", Loc: (" + locX + ", " + locY + ")" + ">";
+            + ", Loc: (" + x + ", " + y + ")" + ">";
     }
 }
