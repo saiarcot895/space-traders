@@ -28,6 +28,11 @@ public class Galaxy {
         }
     }
 
+    /**
+     * Get the solar systems in the galaxy.
+     *
+     * @return Array of solar systems in the galaxy
+     */
     public SolarSystem[] getSolarSystems() {
         return solarSystems;
     }
