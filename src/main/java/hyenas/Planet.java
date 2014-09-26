@@ -6,6 +6,8 @@ public class Planet {
     private static final int MAX_TECH_LEVEL = 7;
     private static final int MAX_RESOURCE_TYPE = 12;
     private static final int NUM_ITEMS = 10;
+    private static final int[] TTP = {2, 0, 1, 3, 6, 5, 6, 5, 5, 7};
+    private static final int[] MTLP = {0, 0, 1, 2, 3, 3, 4, 4, 5, 6};
 
     private double x;
     private double y;
@@ -60,8 +62,26 @@ public class Planet {
      * Adds new stock to wares after each round
      */
     public void produceWares() {
-        // TODO: formula for how much to produce per turn
-        changeWares(new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
+        changeWares(howMuchToProduce());
+    }
+
+
+    /**
+     * Calculates how much of each product to produce every turn based on
+     * minimum tech level to produce item and tech level that produces the
+     * highest amount of that item.
+     * @return an array containing how much of each item to produce
+     */
+    private int[] howMuchToProduce() {
+        int[] howMuchToProduce = new int[NUM_ITEMS];
+        for (int i = 0; i < NUM_ITEMS; i++) {
+            if (techLevel < MTLP[i]) {
+                howMuchToProduce[i] = 0;
+            } else {
+                howMuchToProduce[i] = 1 + TTP[i] - MTLP[i];
+            }
+        }
+        return howMuchToProduce;
     }
 
     /**
