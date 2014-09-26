@@ -242,4 +242,52 @@ public class MarketController implements Initializable {
     	
     }
     
+    public void sellWater(ActionEvent e)	{
+    	
+    }
+    
+    public void sellFurs(ActionEvent e)	{
+    	
+    }
+    
+    public void sellFood(ActionEvent e)	{
+    	
+    }
+    
+    public void sellOre(ActionEvent e)	{
+    	
+    }
+    
+    public void sellGames(ActionEvent e)	{
+    	
+    }
+    
+    public void sellFirearms(ActionEvent e)	{
+    	
+    }
+    
+    public void sellMedicine(ActionEvent e)	{
+    	
+    }
+    
+    public void sellMachines(ActionEvent e)	{
+    	
+    }
+    
+    public void sellNarcotics(ActionEvent e)	{
+    	
+    }
+    
+    public void sellRobots(ActionEvent e)	{
+    	
+    }
+    
+    public void cancelTrade(ActionEvent e)	{
+    	
+    }
+    
+    public void confirmTrade(ActionEvent e)	{
+    	
+    }
+    
 }
