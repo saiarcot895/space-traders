@@ -32,6 +32,53 @@ public class Wares {
         
     }
     
+    public String getName()    {
+        return name;
+    }
+    
+    public int getMTLP()    {
+        return mtlp;
+    }
+    
+    public int getMTLU()    {
+        return mtlu;
+    }
+    
+    public int getTTP()    {
+        return ttp;
+    }
+    
+    public int getBasePrice()   {
+        return basePrice;
+    }
+    
+    public int getIPL() {
+        return ipl;
+    }
+    
+    public int getVar() {
+        return var;
+    }
+    
+    public String getIE()   {
+        return ie;
+    }
+    
+    public String getCR()   {
+        return cr;
+    }
+    
+    public String getER()   {
+        return er;
+    }
+    
+    public int getMTL() {
+        return mtl;
+    }
+    
+    public int getMTH() {
+        return mth;
+    }
     
     public enum Good {
         Water,
