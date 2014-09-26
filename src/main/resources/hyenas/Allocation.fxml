@@ -24,123 +24,108 @@
       <Button fx:id="investor" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="275.0" mnemonicParsing="false" text="+" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="273.0" />
       <TextField fx:id="name" alignment="CENTER" layoutX="544.0" layoutY="56.0" />
       <TextField fx:id="age" alignment="CENTER" layoutX="544.0" layoutY="98.0" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="480.0" layoutY="96.0" text="Age:" textFill="#de7600">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="480.0" layoutY="96.0" text="Age:">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="481.0" layoutY="137.0" text="Sex:" textFill="#de7600">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="481.0" layoutY="137.0" text="Sex:">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="472.0" layoutY="188.0" text="Color:" textFill="#de7600">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="472.0" layoutY="188.0" text="Color:">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="470.0" layoutY="233.0" text="Race:" textFill="#de7600">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="470.0" layoutY="233.0" text="Race:">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="468.0" layoutY="54.0" text="Name:" textFill="#de7600">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="468.0" layoutY="54.0" text="Name:">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <MenuButton fx:id="sex" alignment="CENTER" contentDisplay="CENTER" layoutX="540.0" layoutY="140.0" mnemonicParsing="false" text="Sex">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
-        </items>
-      </MenuButton>
-      <MenuButton fx:id="color" alignment="CENTER" contentDisplay="CENTER" layoutX="540.0" layoutY="190.0" mnemonicParsing="false" text="Color">
-         <items>
-            <MenuItem mnemonicParsing="false" text="Action 1" />
-            <MenuItem mnemonicParsing="false" text="Action 2" />
-         </items>
-      </MenuButton>
-      <MenuButton fx:id="race" alignment="CENTER" contentDisplay="CENTER" layoutX="540.0" layoutY="235.0" mnemonicParsing="false" text="Race">
-         <items>
-            <MenuItem mnemonicParsing="false" text="Action 1" />
-            <MenuItem mnemonicParsing="false" text="Action 2" />
-         </items>
-      </MenuButton>
-      <Label layoutX="161.0" layoutY="110.0" text="Points" textFill="#de7600" AnchorPane.topAnchor="110.0">
+      <Label layoutX="161.0" layoutY="110.0" text="Points" AnchorPane.topAnchor="110.0">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="110.0" text="Skill Type" textFill="#de7600" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="110.0">
+      <Label layoutX="14.0" layoutY="110.0" text="Skill Type" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="110.0">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="143.0" text="Pilot" textFill="#de7600" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="143.0">
+      <Label layoutX="18.0" layoutY="143.0" text="Pilot" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="143.0">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="174.0" text="Fighter" textFill="#de7600" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="177.0">
+      <Label layoutX="18.0" layoutY="174.0" text="Fighter" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="177.0">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="206.0" text="Trader" textFill="#de7600" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="206.0">
+      <Label layoutX="18.0" layoutY="206.0" text="Trader" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="206.0">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="239.0" text="Engineer" textFill="#de7600" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="244.0">
+      <Label layoutX="18.0" layoutY="239.0" text="Engineer" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="244.0">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Label layoutX="17.0" layoutY="270.0" text="Inventor" textFill="#de7600" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="273.0">
+      <Label layoutX="17.0" layoutY="270.0" text="Inventor" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="273.0">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Label fx:id="pCounter" layoutX="189.0" layoutY="143.0" text="1" textFill="#de7600" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="143.0">
+      <Label fx:id="pCounter" layoutX="189.0" layoutY="143.0" text="1" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="143.0">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Label fx:id="fCounter" layoutX="189.0" layoutY="177.0" text="1" textFill="#de7600" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="177.0">
+      <Label fx:id="fCounter" layoutX="189.0" layoutY="177.0" text="1" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="177.0">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Label fx:id="tCounter" layoutX="189.0" layoutY="209.0" text="1" textFill="#de7600" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="206.0">
+      <Label fx:id="tCounter" layoutX="189.0" layoutY="209.0" text="1" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="206.0">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Label fx:id="eCounter" layoutX="189.0" layoutY="242.0" text="1" textFill="#de7600" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="244.0">
+      <Label fx:id="eCounter" layoutX="189.0" layoutY="242.0" text="1" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="244.0">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Label fx:id="iCounter" layoutX="189.0" layoutY="273.0" text="1" textFill="#de7600" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="273.0">
+      <Label fx:id="iCounter" layoutX="189.0" layoutY="273.0" text="1" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="273.0">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="40.0" text="Character Properties" textFill="#de7600">
+      <Label layoutX="14.0" layoutY="40.0" text="Character Properties">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <Label fx:id="point" layoutX="24.0" layoutY="67.0" text="8" textFill="#de7600">
+      <Label fx:id="point" layoutX="24.0" layoutY="67.0" text="8">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Label layoutX="45.0" layoutY="67.0" text="point(s) remaining" textFill="#de7600">
+      <Label layoutX="45.0" layoutY="67.0" text="point(s) remaining">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
+      <ChoiceBox fx:id="sex" layoutX="544.0" layoutY="139.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="color" layoutX="544.0" layoutY="190.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="race" layoutX="544.0" layoutY="235.0" prefWidth="150.0" />
     </children>
 </AnchorPane>

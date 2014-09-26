@@ -3,10 +3,12 @@ package hyenas;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
@@ -51,13 +53,13 @@ public class AllocationController implements Initializable {
     private TextField age;
 
     @FXML
-    private MenuButton sex;
+    private ChoiceBox sex;
 
     @FXML
-    private MenuButton color;
+    private ChoiceBox color;
 
     @FXML
-    private MenuButton race;
+    private ChoiceBox race;
 
     @FXML
     private Label pCounter;
@@ -155,6 +157,8 @@ public class AllocationController implements Initializable {
            eCounter.setText(Integer.toString(eValue));
            iCounter.setText(Integer.toString(iValue));
         });
+
+        sex.setItems(FXCollections.observableArrayList("Male", "Female"));
     }
 
     public void create(ActionEvent e) {
