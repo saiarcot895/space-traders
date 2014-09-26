@@ -319,7 +319,7 @@ public class MarketController implements Initializable {
     private int price(Wares.Good good) {
         Wares wares = new Wares(good);
         Random rand = new Random();
-        int variance = rand.nextInt(1);
-        return wares.getBasePrice() + (wares.getipl()*(planet.getTechLevel() - mtlp)) + wares.variance*;
+        int factor = rand.nextInt(1) == 0 ? 1 : -1;
+        return wares.getBasePrice() + (wares.getIPL()*(planet.getTechLevel() - wares.getMTLP())) + wares.getVar()*factor;
     }
 }
