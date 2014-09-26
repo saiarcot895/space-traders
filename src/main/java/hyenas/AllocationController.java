@@ -162,6 +162,13 @@ public class AllocationController implements Initializable {
     }
 
     public void create(ActionEvent e) {
+        Player player = new Player(name.getText());
+        player.setPilotSkill(pValue);
+        player.setFighterSkill(fValue);
+        player.setTraderSkill(tValue);
+        player.setEngineerSkill(eValue);
+        player.setInvestorSkill(iValue);
+
         Hyenas.getInstance().goToMapScreen();
     }
 
