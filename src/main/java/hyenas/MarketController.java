@@ -202,4 +202,44 @@ public class MarketController implements Initializable {
     	// TODO: Will implement the buying and selling here.
     }
     
+    public void buyWater(ActionEvent e)	{
+    	
+    }
+    
+    public void buyFurs(ActionEvent e)	{
+    	
+    }
+    
+    public void buyFood(ActionEvent e)	{
+    	
+    }
+    
+    public void buyOre(ActionEvent e)	{
+    	
+    }
+    
+    public void buyGames(ActionEvent e)	{
+    	
+    }
+    
+    public void buyFirearms(ActionEvent e)	{
+    	
+    }
+    
+    public void buyMedicine(ActionEvent e)	{
+    	
+    }
+    
+    public void buyMachines(ActionEvent e)	{
+    	
+    }
+    
+    public void buyNarcotics(ActionEvent e)	{
+    	
+    }
+    
+    public void buyRobots(ActionEvent e)	{
+    	
+    }
+    
 }
