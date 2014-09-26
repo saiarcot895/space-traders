@@ -82,6 +82,10 @@ public class Planet {
     public String techLevelString() {
         return TECH_LEVELS[techLevel];
     }
+    
+    public int getTechLevel() {
+        return techLevel;
+    }
 
     /**
      * Get the resources of the planet.

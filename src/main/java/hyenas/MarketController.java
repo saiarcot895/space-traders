@@ -2,6 +2,7 @@
 package hyenas;
 
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -313,5 +314,12 @@ public class MarketController implements Initializable {
     
     public void sellItem(ActionEvent e) {
         
-    }    
+    }
+    
+    private int price(Wares.Good good) {
+        Wares wares = new Wares(good);
+        Random rand = new Random();
+        int variance = rand.nextInt(1);
+        return wares.getBasePrice() + (wares.getipl()*(planet.getTechLevel() - mtlp)) + wares.variance*;
+    }
 }
