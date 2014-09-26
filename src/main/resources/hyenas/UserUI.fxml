@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="myrthe" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url('hyenas/2015-Star-Citizen.jpg'); -fx-background-size: cover;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.UserUIController">
+<AnchorPane id="AnchorPane" fx:id="myrthe" prefHeight="400.0" prefWidth="600.0" styleClass="default-background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.UserUIController">
     <children>
       <Button fx:id="Earth616" layoutX="605.0" layoutY="69.0" mnemonicParsing="false" onAction="#toEarth616" styleClass="planet" text="Earth616" />
       <Button fx:id="tantalos" layoutX="398.0" layoutY="289.0" mnemonicParsing="false" onAction="#toTantalos" styleClass="planet" text="Tantalos" />

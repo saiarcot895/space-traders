@@ -8,6 +8,11 @@ and open the template in the editor.
     Author     : saikrishna
 */
 
+.default-background {
+    -fx-background-image: url('/hyenas/2015-Star-Citizen.jpg');
+    -fx-background-size: cover;
+}
+
 .label, .check-box {
     -fx-text-fill: orange;
 }
