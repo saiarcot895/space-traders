@@ -21,6 +21,7 @@ public class Player {
     private SolarSystem currentSystem;
     private Planet tradingPlanet;
     private Ship ship;
+    private int credits;
 
     public Player(String name) {
         this.name = name;
@@ -96,5 +97,13 @@ public class Player {
 
     public void setShip(Ship ship) {
         this.ship = ship;
+    }
+    
+    public int getCredits() {
+        return credits;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
     }
 }
