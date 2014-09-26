@@ -3,39 +3,12 @@ package hyenas;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 public class MarketController implements Initializable {
-
-	@FXML
-	private Label lWater;
-	
-	@FXML
-	private Label lFurs;
-
-	@FXML
-	private Label lFood;
-	
-	@FXML
-	private Label lOre;
-	
-	@FXML
-	private Label lGames;
-	
-	@FXML
-	private Label lFirearms;
-	
-	@FXML
-	private Label lMedicine;
-	
-	@FXML
-	private Label lMachines;
-
-	@FXML
-	private Label lNarcotics;
-	
-	@FXML
-	private Label lRobots;
 
 	@FXML
 	private Label pWater;
@@ -98,36 +71,6 @@ public class MarketController implements Initializable {
 	private Label nRobots;
 
 	@FXML
-	private Label cWater;
-	
-	@FXML
-	private Label cFurs;
-
-	@FXML
-	private Label cFood;
-	
-	@FXML
-	private Label cOre;
-	
-	@FXML
-	private Label cGames;
-	
-	@FXML
-	private Label cFirearms;
-	
-	@FXML
-	private Label cMedicine;
-	
-	@FXML
-	private Label cMachines;
-
-	@FXML
-	private Label cNarcotics;
-	
-	@FXML
-	private Label cRobots;
-
-	@FXML
 	private Button bWater;
 	
 	@FXML
@@ -188,7 +131,7 @@ public class MarketController implements Initializable {
 	private Button sRobots;
 	
 	@FXML
-	private Labee eWater;
+	private Label eWater;
 	
 	@FXML
 	private Label eFurs;
