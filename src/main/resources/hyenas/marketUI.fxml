@@ -75,7 +75,7 @@
             </Label>
             <Label fx:id="lFree" layoutX="570.0" layoutY="83.0" text="Free Cargo Slots:" />
             <Label fx:id="tFree" layoutX="703.0" layoutY="83.0" text="-1" />
-            <Button fx:id="bWater" layoutX="327.0" layoutY="171.0" mnemonicParsing="false" onAction="buyItem" text="BUY" />
+            <Button fx:id="bWater" layoutX="327.0" layoutY="171.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
             <Button fx:id="bFurs" layoutX="327.0" layoutY="221.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
             <Button fx:id="bFood" layoutX="327.0" layoutY="271.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
             <Button fx:id="bOre" layoutX="327.0" layoutY="321.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />

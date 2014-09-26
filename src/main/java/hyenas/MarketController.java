@@ -212,4 +212,12 @@ public class MarketController implements Initializable {
         
     }
     
+    public void confirmTrade(ActionEvent e) {
+        
+    }
+    
+    public void cancelTrade(ActionEvent e) {
+        
+    }
+    
 }
