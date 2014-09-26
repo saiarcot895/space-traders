@@ -43,11 +43,11 @@ public class Planet {
 
     public Planet() {
         Random rand = new Random();
-        this.x = rand.nextDouble();
-        this.y = rand.nextDouble();
-        this.size = rand.nextDouble();
-        this.techLevel = rand.nextInt(MAX_TECH_LEVEL + 1);
-        this.resourceType = rand.nextInt(MAX_RESOURCE_TYPE + 1);
+        x = rand.nextDouble();
+        y = rand.nextDouble();
+        size = rand.nextDouble();
+        techLevel = rand.nextInt(MAX_TECH_LEVEL + 1);
+        resourceType = rand.nextInt(MAX_RESOURCE_TYPE + 1);
         // initialize item amounts;
     }
 
@@ -61,22 +61,22 @@ public class Planet {
      * @return tech level of the planet
      */
     public String techLevelString() {
-        return TECH_LEVELS[this.techLevel];
+        return TECH_LEVELS[techLevel];
     }
 
     /**
-     * Get the resource type the planet has.
-     * @return resource type of the planet
+     * Get the resources of the planet.
+     * @return quantity of the resources of the planet
      */
-    public String resourceTypeString() {
-        return RESOURCE_TYPES[this.resourceType];
+    public int[] resourceTypeString() {
+        return items;
     }
 
     @Override
     public String toString() {
-        return "<Planet: " + this.planetName
-            + ", Tech: " + this.techLevelString()
-            + ", Resource: " + this.resourceTypeString()
+        return "<Planet: " + planetName
+            + ", Tech: " + techLevelString()
+            + ", Resources: ["+items[0]+", "+items[1]+", "+items[2]+", "+items[3]+", "+items[4]+", "+items[5]+", "+items[6]+", "+items[7]+", "+items[8]+", "+items[9]+"]"
             + ", Loc: (" + x + ", " + y + ")" + ">";
     }
 
