@@ -190,6 +190,12 @@ public class MarketController implements Initializable {
 	@FXML
 	private Label aRobots;
 	
+	@FXML
+	private Button cancel;
+	
+	@FXML
+	private Button confirm;
+	
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
