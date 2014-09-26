@@ -2,7 +2,6 @@
 package hyenas;
 
 import java.net.URL;
-import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -202,6 +201,7 @@ public class MarketController implements Initializable {
         private int creditCount;
         private int[] wares;
         private Planet planet;
+        private int[] tempWare;
         
         int waterPrice = 30;
         int fursPrice = 250;
@@ -216,7 +216,7 @@ public class MarketController implements Initializable {
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    	// TODO: Will implement the buying and selling here.
+        
     }
     
     public MarketController(Planet planet) {
@@ -224,6 +224,7 @@ public class MarketController implements Initializable {
         wares = planet.getItems();
         freeCargo = Player.getInstance().getShip().getFreeCargo();
         creditCount = Player.getInstance().getCredits();
+        tempWare = new int[10];
     }
     
     public void buyItem(ActionEvent e) {
@@ -313,13 +314,76 @@ public class MarketController implements Initializable {
     }
     
     public void sellItem(ActionEvent e) {
-        
-    }
-    
-    private int price(Wares.Good good) {
-        Wares wares = new Wares(good);
-        Random rand = new Random();
-        int factor = rand.nextInt(1) == 0 ? 1 : -1;
-        return wares.getBasePrice() + (wares.getIPL()*(planet.getTechLevel() - wares.getMTLP())) + wares.getVar()*factor;
-    }
+        if (e.getSource() == sWater) {
+            if (Player.getInstance().getShip()
+                .getCargo().contains(new Wares(Wares.Good.Water))) {
+                freeCargo++;
+                wares[0]++;
+                creditCount += waterPrice;
+            }
+        } else if (e.getSource() == sFurs) {
+            if (Player.getInstance().getShip()
+                .getCargo().contains(new Wares(Wares.Good.Furs))) {
+                freeCargo++;
+                wares[1]++;
+                creditCount += fursPrice;
+            }
+        } else if (e.getSource() == sFood) {
+            if (Player.getInstance().getShip()
+                .getCargo().contains(new Wares(Wares.Good.Food))) {
+                freeCargo++;
+                wares[2]++;
+                creditCount += waterPrice;
+            }
+        } else if (e.getSource() == sOre) {
+            if (Player.getInstance().getShip()
+                .getCargo().contains(new Wares(Wares.Good.Ore))) {
+                freeCargo++;
+                wares[3]++;
+                creditCount += orePrice;
+            }
+        } else if (e.getSource() == sGames) {
+            if (Player.getInstance().getShip()
+                .getCargo().contains(new Wares(Wares.Good.Games))) {
+                freeCargo++;
+                wares[4]++;
+                creditCount += gamesPrice;
+            }
+        } else if (e.getSource() == sFirearms) {
+            if (Player.getInstance().getShip()
+                .getCargo().contains(new Wares(Wares.Good.Firearms))) {
+                freeCargo++;
+                wares[5]++;
+                creditCount += firearmsPrice;
+            }
+        } else if (e.getSource() == sMachines) {
+            if (Player.getInstance().getShip()
+                .getCargo().contains(new Wares(Wares.Good.Machines))) {
+                freeCargo++;
+                wares[6]++;
+                creditCount += machinesPrice;
+            }
+        } else if (e.getSource() == sMedicine) {
+            if (Player.getInstance().getShip()
+                .getCargo().contains(new Wares(Wares.Good.Medicine))) {
+                freeCargo++;
+                wares[7]++;
+                creditCount += medicinePrice;
+            }
+        } else if (e.getSource() == sNarcotics) {
+            if (Player.getInstance().getShip()
+                .getCargo().contains(new Wares(Wares.Good.Narcotics))) {
+                freeCargo++;
+                wares[8]++;
+                creditCount += narcoticsPrice;
+            }
+        } else if (e.getSource() == sRobots) {
+            if (Player.getInstance().getShip()
+                .getCargo().contains(new Wares(Wares.Good.Robots))) {
+                freeCargo++;
+                wares[9]++;
+                creditCount += robotsPrice;
+            }
+        }
+    }    
 }

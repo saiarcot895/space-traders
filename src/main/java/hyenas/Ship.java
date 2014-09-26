@@ -38,4 +38,8 @@ public class Ship {
         return maxCargo - goods.size();
     }
     
+    public ArrayList<Good> getCargo() {
+        return goods;
+    }
+    
 }
