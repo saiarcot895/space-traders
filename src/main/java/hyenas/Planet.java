@@ -52,7 +52,8 @@ public class Planet {
     }
 
     public void produceWares() {
-        // 
+        //TODO
+    	//will be called every turn or so to update product counts
     }
 
 
