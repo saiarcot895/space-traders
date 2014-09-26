@@ -1,0 +1,25 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Sep 23, 2014, 2:43:37 PM
+    Author     : saikrishna
+*/
+
+.planet {
+    -fx-font-size: 14px;
+    -fx-text-fill: orange;
+    -fx-background-radius: 7px;
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
+.planet:hover {
+    -fx-text-fill: lightsalmon;
+    -fx-background-color: rgba(0, 0, 0, 0.8);
+}
+
+.planet:pressed {
+    -fx-text-fill: orange
+}
