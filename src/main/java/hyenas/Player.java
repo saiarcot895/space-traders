@@ -20,6 +20,7 @@ public class Player {
     private int investorSkill;
     private SolarSystem currentSystem;
     private Planet tradingPlanet;
+    private int credits;
 
     public Player(String name) {
         this.name = name;
@@ -71,5 +72,13 @@ public class Player {
 
     public void setInvestorSkill(int investorSkill) {
         this.investorSkill = investorSkill;
+    }
+    
+    public int getCredits() {
+        return credits;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
     }
 }
