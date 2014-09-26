@@ -75,26 +75,26 @@
             </Label>
             <Label fx:id="lFree" layoutX="570.0" layoutY="83.0" text="Free Cargo Slots:" />
             <Label fx:id="tFree" layoutX="703.0" layoutY="83.0" text="-1" />
-            <Button fx:id="bWater" layoutX="327.0" layoutY="171.0" mnemonicParsing="false" onAction="#buyWater" text="BUY" />
-            <Button fx:id="bFurs" layoutX="327.0" layoutY="221.0" mnemonicParsing="false" onAction="#buyFurs" text="BUY" />
-            <Button fx:id="bFood" layoutX="327.0" layoutY="271.0" mnemonicParsing="false" onAction="#buyFood" text="BUY" />
-            <Button fx:id="bOre" layoutX="327.0" layoutY="321.0" mnemonicParsing="false" onAction="#buyOre" text="BUY" />
-            <Button fx:id="bGames" layoutX="327.0" layoutY="371.0" mnemonicParsing="false" onAction="#buyGames" text="BUY" />
-            <Button fx:id="bFirearms" layoutX="327.0" layoutY="421.0" mnemonicParsing="false" onAction="#buyFirearms" text="BUY" />
-            <Button fx:id="bMachines" layoutX="327.0" layoutY="469.0" mnemonicParsing="false" onAction="#buyMachines" text="BUY" />
-            <Button fx:id="bMedicine" layoutX="327.0" layoutY="521.0" mnemonicParsing="false" onAction="#buyMedicine" text="BUY" />
-            <Button fx:id="bNarcotics" layoutX="327.0" layoutY="571.0" mnemonicParsing="false" onAction="#buyNarcotics" text="BUY" />
-            <Button fx:id="bRobots" layoutX="327.0" layoutY="621.0" mnemonicParsing="false" onAction="#buyRobots" text="BUY" />
-            <Button fx:id="sWater" layoutX="770.0" layoutY="171.0" mnemonicParsing="false" onAction="#sellWater" text="SELL" />
-            <Button fx:id="sFurs" layoutX="770.0" layoutY="221.0" mnemonicParsing="false" onAction="#sellFurs" text="SELL" />
-            <Button fx:id="sFood" layoutX="770.0" layoutY="271.0" mnemonicParsing="false" onAction="#sellFood" text="SELL" />
-            <Button fx:id="sOre" layoutX="770.0" layoutY="321.0" mnemonicParsing="false" onAction="#sellOre" text="SELL" />
-            <Button fx:id="sGames" layoutX="770.0" layoutY="371.0" mnemonicParsing="false" onAction="#sellGames" text="SELL" />
-            <Button fx:id="sFirearms" layoutX="770.0" layoutY="421.0" mnemonicParsing="false" onAction="#sellFirearms" text="SELL" />
-            <Button fx:id="sMachines" layoutX="770.0" layoutY="469.0" mnemonicParsing="false" onAction="#sellMachines" text="SELL" />
-            <Button fx:id="sMedicine" layoutX="770.0" layoutY="521.0" mnemonicParsing="false" onAction="#sellMedicine" text="SELL" />
-            <Button fx:id="sNarcotics" layoutX="770.0" layoutY="571.0" mnemonicParsing="false" onAction="#sellNarcotics" text="SELL" />
-            <Button fx:id="sRobotics" layoutX="770.0" layoutY="621.0" mnemonicParsing="false" onAction="#sellRobotics" text="SELL" />
+            <Button fx:id="bWater" layoutX="327.0" layoutY="171.0" mnemonicParsing="false" onAction="buyItem" text="BUY" />
+            <Button fx:id="bFurs" layoutX="327.0" layoutY="221.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
+            <Button fx:id="bFood" layoutX="327.0" layoutY="271.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
+            <Button fx:id="bOre" layoutX="327.0" layoutY="321.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
+            <Button fx:id="bGames" layoutX="327.0" layoutY="371.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
+            <Button fx:id="bFirearms" layoutX="327.0" layoutY="421.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
+            <Button fx:id="bMachines" layoutX="327.0" layoutY="469.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
+            <Button fx:id="bMedicine" layoutX="327.0" layoutY="521.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
+            <Button fx:id="bNarcotics" layoutX="327.0" layoutY="571.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
+            <Button fx:id="bRobots" layoutX="327.0" layoutY="621.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
+            <Button fx:id="sWater" layoutX="770.0" layoutY="171.0" mnemonicParsing="false" onAction="#buyItem" text="SELL" />
+            <Button fx:id="sFurs" layoutX="770.0" layoutY="221.0" mnemonicParsing="false" onAction="#buyItem" text="SELL" />
+            <Button fx:id="sFood" layoutX="770.0" layoutY="271.0" mnemonicParsing="false" onAction="#sellItem" text="SELL" />
+            <Button fx:id="sOre" layoutX="770.0" layoutY="321.0" mnemonicParsing="false" onAction="#sellItem" text="SELL" />
+            <Button fx:id="sGames" layoutX="770.0" layoutY="371.0" mnemonicParsing="false" onAction="#sellItem" text="SELL" />
+            <Button fx:id="sFirearms" layoutX="770.0" layoutY="421.0" mnemonicParsing="false" onAction="#sellItem" text="SELL" />
+            <Button fx:id="sMachines" layoutX="770.0" layoutY="469.0" mnemonicParsing="false" onAction="#sellItem" text="SELL" />
+            <Button fx:id="sMedicine" layoutX="770.0" layoutY="521.0" mnemonicParsing="false" onAction="#sellItem" text="SELL" />
+            <Button fx:id="sNarcotics" layoutX="770.0" layoutY="571.0" mnemonicParsing="false" onAction="#sellItem" text="SELL" />
+            <Button fx:id="sRobotics" layoutX="770.0" layoutY="621.0" mnemonicParsing="false" onAction="#sellItem" text="SELL" />
             <Label layoutX="413.0" layoutY="125.0" text="Conditions">
                <font>
                   <Font name="System Bold" size="20.0" />

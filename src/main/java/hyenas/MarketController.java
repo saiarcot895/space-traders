@@ -3,6 +3,7 @@ package hyenas;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -195,99 +196,20 @@ public class MarketController implements Initializable {
 	
 	@FXML
 	private Button confirm;
-	
-
+        
+        Wares ware = new Wares();
+        
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     	// TODO: Will implement the buying and selling here.
     }
     
-    public void buyWater(ActionEvent e)	{
-    	
+    public void buyItem(ActionEvent e) {
+        
     }
     
-    public void buyFurs(ActionEvent e)	{
-    	
-    }
-    
-    public void buyFood(ActionEvent e)	{
-    	
-    }
-    
-    public void buyOre(ActionEvent e)	{
-    	
-    }
-    
-    public void buyGames(ActionEvent e)	{
-    	
-    }
-    
-    public void buyFirearms(ActionEvent e)	{
-    	
-    }
-    
-    public void buyMedicine(ActionEvent e)	{
-    	
-    }
-    
-    public void buyMachines(ActionEvent e)	{
-    	
-    }
-    
-    public void buyNarcotics(ActionEvent e)	{
-    	
-    }
-    
-    public void buyRobots(ActionEvent e)	{
-    	
-    }
-    
-    public void sellWater(ActionEvent e)	{
-    	
-    }
-    
-    public void sellFurs(ActionEvent e)	{
-    	
-    }
-    
-    public void sellFood(ActionEvent e)	{
-    	
-    }
-    
-    public void sellOre(ActionEvent e)	{
-    	
-    }
-    
-    public void sellGames(ActionEvent e)	{
-    	
-    }
-    
-    public void sellFirearms(ActionEvent e)	{
-    	
-    }
-    
-    public void sellMedicine(ActionEvent e)	{
-    	
-    }
-    
-    public void sellMachines(ActionEvent e)	{
-    	
-    }
-    
-    public void sellNarcotics(ActionEvent e)	{
-    	
-    }
-    
-    public void sellRobots(ActionEvent e)	{
-    	
-    }
-    
-    public void cancelTrade(ActionEvent e)	{
-    	
-    }
-    
-    public void confirmTrade(ActionEvent e)	{
-    	
+    public void sellItem(ActionEvent e) {
+        
     }
     
 }
