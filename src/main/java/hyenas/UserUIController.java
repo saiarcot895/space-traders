@@ -83,6 +83,10 @@ public class UserUIController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
+    
+    public void goToMarketplace(ActionEvent e) {
+        Hyenas.getInstance().goToMarketplace();
+    }
 
     public void toEarth616(ActionEvent t) {
         final Stage popup = new Stage();

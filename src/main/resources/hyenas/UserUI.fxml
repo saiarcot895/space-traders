@@ -24,5 +24,6 @@
           <MenuItem mnemonicParsing="false" text="Quit" />
         </items>
       </MenuButton>
+      <Button layoutX="346.0" layoutY="26.0" mnemonicParsing="false" onAction="#goToMarketplace" text="Marketplace" AnchorPane.topAnchor="26.0" />
     </children>
 </AnchorPane>

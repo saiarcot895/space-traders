@@ -79,7 +79,7 @@ public class Hyenas extends Application {
         }
     }
     
-    public void goToMarket() {
+    public void goToMarketplace() {
         try {
             changePage("marketUI.fxml");
         } catch (IOException ex) {
