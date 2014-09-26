@@ -3,16 +3,17 @@ package hyenas;
 import java.util.Random;
 
 public class Planet {
+    private static final int MAX_TECH_LEVEL = 7;
+    private static final int MAX_RESOURCE_TYPE = 12;
+    private static final int NUM_ITEMS = 10;
+
     private double x;
     private double y;
     private double size;
-    private int[] items = new int[10];
+    private int[] items = new int[NUM_ITEMS];
     private int techLevel;
     private int resourceType;
-    private String[] planetName;
-
-    private static final int MAX_TECH_LEVEL = 7;
-    private static final int MAX_RESOURCE_TYPE = 12;
+    private String planetName;
 
     private static final String[] TECH_LEVELS = new String[] {
         "Pre-Agriculture",
@@ -35,7 +36,7 @@ public class Planet {
         "Poor Soil",
         "Rich Fauna",
         "Lifeless",
-        "Wierd Mushrooms",
+        "Weird Mushrooms",
         "Lots of Herbs",
         "Artistic",
         "Warlike",
@@ -48,14 +49,31 @@ public class Planet {
         size = rand.nextDouble();
         techLevel = rand.nextInt(MAX_TECH_LEVEL + 1);
         resourceType = rand.nextInt(MAX_RESOURCE_TYPE + 1);
-        // initialize item amounts;
+
+        // start out with 0 stock for all items. Maybe we should change this
+        for (int i = 0; i < NUM_ITEMS; i++) {
+            items[i] = 0;
+        }
     }
 
+    /**
+     * Adds new stock to wares after each round
+     */
     public void produceWares() {
-        //TODO
-    	//will be called every turn or so to update product counts
+        // TODO: formula for how much to produce per turn
+        changeWares(new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
     }
 
+    /**
+     * Changes the amount of each item by the amount passed in. This is for
+     * buying and selling.
+     * @param differences
+     */
+    public void changeWares(int[] differences) {
+        for (int i = 0; i < items.length; i++) {
+            items[i] += differences[i];
+        }
+    }
 
     /**
      * Get the tech level of the planet.
@@ -69,7 +87,7 @@ public class Planet {
      * Get the resources of the planet.
      * @return quantity of the resources of the planet
      */
-    public int[] resourceTypeString() {
+    public int[] getItems() {
         return items;
     }
 
