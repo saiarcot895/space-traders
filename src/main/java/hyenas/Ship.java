@@ -32,12 +32,15 @@ public class Ship {
     private int pirate;
     private int repairCost;
     private int size;
-    
-    
+    private int maxCargo;
     
     public Ship() {
         this.goods = new ArrayList<Good>();
         
+    }
+    
+    public int getFreeCargo() {
+        return maxCargo - goods.size();
     }
     
 }
