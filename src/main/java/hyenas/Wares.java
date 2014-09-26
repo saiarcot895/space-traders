@@ -6,27 +6,31 @@ public class Wares {
     /* Name of good */
     private String name;
     /* Minimum Tech Level to Produce */
-    private int MTLP;
+    private int mtlp;
     /* Minimum Tech Level to Use */
-    private int MTLU;
+    private int mtlu;
     /* Tech Level Production */
-    private int TTP;
+    private int ttp;
     /* The Cost of the good */
-    private int BasePrice;
+    private int basePrice;
     /* Price Increase Per Tech Level */
-    private int IPL;
+    private int ipl;
     /* Variance of good */
-    private int VAR;
+    private int var;
     /* For Extra Credit TODO! */
-    private String IE;
+    private String ie;
     /* For Extra Credit TODO! */
-    private String CR;
+    private String cr;
     /* For Extra Credit TODO! */
-    private String ER;
+    private String er;
     /* Min Price in space trade for good (Random Encounter) */
-    private int MTL;
+    private int mtl;
     /* Max Price in space trade for good (Random Encounter) */
-    private int MTH;
+    private int mth;
+
+    public Wares() {
+        
+    }
     
     
     public enum Good {
@@ -52,113 +56,113 @@ public class Wares {
         switch(good) {
             case Water:
                 name = "Water";
-                MTLP = 0;
-                MTLU = 0;
-                TTP = 2;
-                BasePrice = 30;
-                IPL = 3;
-                VAR = 4;
-                MTL = 30;
-                MTH = 50;
+                mtlp = 0;
+                mtlu = 0;
+                ttp = 2;
+                basePrice = 30;
+                ipl = 3;
+                var = 4;
+                mtl = 30;
+                mth = 50;
                 break;
             case Furs:
                 name = "Furs";
-                MTLP = 0;
-                MTLU = 0;
-                TTP = 0;
-                BasePrice = 250;
-                IPL = 10;
-                VAR = 10;
-                MTL = 230;
-                MTH = 280;
+                mtlp = 0;
+                mtlu = 0;
+                ttp = 0;
+                basePrice = 250;
+                ipl = 10;
+                var = 10;
+                mtl = 230;
+                mth = 280;
                 break;
             case Food:
                 name = "Food";
-                MTLP = 1;
-                MTLU = 0;
-                TTP = 1;
-                BasePrice = 100;
-                IPL = 5;
-                VAR = 5;
-                MTL = 90;
-                MTH = 160;
+                mtlp = 1;
+                mtlu = 0;
+                ttp = 1;
+                basePrice = 100;
+                ipl = 5;
+                var = 5;
+                mtl = 90;
+                mth = 160;
                 break;
             case Ore:
                 name = "Ore";
-                MTLP = 2;
-                MTLU = 2;
-                TTP = 3;
-                BasePrice = 350;
-                IPL = 20;
-                VAR = 10;
-                MTL = 350;
-                MTH = 420;
+                mtlp = 2;
+                mtlu = 2;
+                ttp = 3;
+                basePrice = 350;
+                ipl = 20;
+                var = 10;
+                mtl = 350;
+                mth = 420;
                 break;
             case Games:
                 name = "Games";
-                MTLP = 3;
-                MTLU = 1;
-                TTP = 6;
-                BasePrice = 250;
-                IPL = -10;
-                VAR = 5;
-                MTL = 160;
-                MTH = 270;
+                mtlp = 3;
+                mtlu = 1;
+                ttp = 6;
+                basePrice = 250;
+                ipl = -10;
+                var = 5;
+                mtl = 160;
+                mth = 270;
                 break;
             case Firearms:
                 name = "Firearms";
-                MTLP = 3;
-                MTLU = 1;
-                TTP = 5;
-                BasePrice = 1250;
-                IPL = -75;
-                VAR = 100;
-                MTL = 600;
-                MTH = 1100;
+                mtlp = 3;
+                mtlu = 1;
+                ttp = 5;
+                basePrice = 1250;
+                ipl = -75;
+                var = 100;
+                mtl = 600;
+                mth = 1100;
                 break;
             case Medicine:
                 name = "Medicine";
-                MTLP = 4;
-                MTLU = 1;
-                TTP = 6;
-                BasePrice = 650;
-                IPL = -20;
-                VAR = 10;
-                MTL = 400;
-                MTH = 700;
+                mtlp = 4;
+                mtlu = 1;
+                ttp = 6;
+                basePrice = 650;
+                ipl = -20;
+                var = 10;
+                mtl = 400;
+                mth = 700;
                 break;
             case Machines:
                 name = "Machines";
-                MTLP = 4;
-                MTLU = 3;
-                TTP = 5;
-                BasePrice = 900;
-                IPL = -30;
-                VAR = 5;
-                MTL = 600;
-                MTH = 800;
+                mtlp = 4;
+                mtlu = 3;
+                ttp = 5;
+                basePrice = 900;
+                ipl = -30;
+                var = 5;
+                mtl = 600;
+                mth = 800;
                 break;
             case Narcotics:
                 name = "Narcotics";
-                MTLP = 5;
-                MTLU = 0;
-                TTP = 5;
-                BasePrice = 3500;
-                IPL = -125;
-                VAR = 150;
-                MTL = 2000;
-                MTH = 3000;
+                mtlp = 5;
+                mtlu = 0;
+                ttp = 5;
+                basePrice = 3500;
+                ipl = -125;
+                var = 150;
+                mtl = 2000;
+                mth = 3000;
                 break;
             case Robots:
                 name = "Robots";
-                MTLP = 6;
-                MTLU = 4;
-                TTP = 7;
-                BasePrice = 5000;
-                IPL = -150;
-                VAR = 100;
-                MTL = 3500;
-                MTH = 5000;
+                mtlp = 6;
+                mtlu = 4;
+                ttp = 7;
+                basePrice = 5000;
+                ipl = -150;
+                var = 100;
+                mtl = 3500;
+                mth = 5000;
                 break;
             default:
                 // Do nothing
