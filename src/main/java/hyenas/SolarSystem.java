@@ -4,13 +4,13 @@ import java.util.Random;
 
 public class SolarSystem {
     private String systemName;
-    private Planet planet;
+    private Planet[] planets = new Planet[1];
     private double x;
     private double y;
 
     public SolarSystem(String systemName) {
         this.systemName = systemName;
-        this.planet = new Planet();
+        this.planets[0] = new Planet();
 
         Random rand = new Random();
         this.x = rand.nextDouble();
@@ -26,12 +26,11 @@ public class SolarSystem {
     }
 
     /**
-     * Get the planet in the solar system. This may be later changed to an array
-     * so that multiple planets may be returned.
-     * @return planet in the solar system
+     * Get the planets in the solar system.
+     * @return planets in the solar system
      */
-    public Planet getPlanet() {
-        return this.planet;
+    public Planet[] getPlanets() {
+        return this.planets;
     }
 
 
