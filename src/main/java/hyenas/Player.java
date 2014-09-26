@@ -15,6 +15,7 @@ public class Player {
     private int investorSkill;
     private SolarSystem currentSystem;
     private Planet tradingPlanet;
+    private Ship ship;
     private int credits;
     private static Player instance = null;
 
@@ -75,6 +76,30 @@ public class Player {
 
     public void setInvestorSkill(int investorSkill) {
         this.investorSkill = investorSkill;
+    }
+
+    public SolarSystem getCurrentSystem() {
+        return currentSystem;
+    }
+
+    public void setCurrentSystem(SolarSystem currentSystem) {
+        this.currentSystem = currentSystem;
+    }
+
+    public Planet getTradingPlanet() {
+        return tradingPlanet;
+    }
+
+    public void setTradingPlanet(Planet tradingPlanet) {
+        this.tradingPlanet = tradingPlanet;
+    }
+
+    public Ship getShip() {
+        return ship;
+    }
+
+    public void setShip(Ship ship) {
+        this.ship = ship;
     }
     
     public int getCredits() {
