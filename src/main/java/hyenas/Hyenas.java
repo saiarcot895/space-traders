@@ -78,6 +78,15 @@ public class Hyenas extends Application {
                     null, ex);
         }
     }
+    
+    public void goToMarket() {
+        try {
+            changePage("marketUI.fxml");
+        } catch (IOException ex) {
+            Logger.getLogger(Hyenas.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        }
+    }
 
     private void changePage(String pageName) throws IOException {
         Parent page = FXMLLoader.load(getClass().getResource(pageName));
