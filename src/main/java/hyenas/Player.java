@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hyenas;
 
 /**
@@ -21,9 +16,17 @@ public class Player {
     private SolarSystem currentSystem;
     private Planet tradingPlanet;
     private int credits;
+    private static Player instance = null;
 
-    public Player(String name) {
-        this.name = name;
+    protected Player() {
+        // Exists only to defeat instantiation.
+    }
+    
+    public static Player getInstance() {
+        if(instance == null) {
+            instance = new Player();
+        }
+        return instance;
     }
 
     public String getName() {
