@@ -8,6 +8,14 @@ and open the template in the editor.
     Author     : saikrishna
 */
 
+.label, .check-box {
+    -fx-text-fill: orange;
+}
+
+.choice-box .label, .menu-button .label {
+    -fx-text-fill: black;
+}
+
 .planet {
     -fx-font-size: 14px;
     -fx-text-fill: orange;
