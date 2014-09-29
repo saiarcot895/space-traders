@@ -26,6 +26,7 @@ public class Player {
     public static Player getInstance() {
         if(instance == null) {
             instance = new Player();
+            instance.ship = new Ship();
         }
         return instance;
     }
