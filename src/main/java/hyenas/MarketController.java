@@ -219,12 +219,15 @@ public class MarketController implements Initializable {
         
     }
     
-    public MarketController(Planet planet) {
-        this.planet = planet;
-        wares = planet.getItems();
+    public MarketController() {
         freeCargo = Player.getInstance().getShip().getFreeCargo();
         creditCount = Player.getInstance().getCredits();
         tempWare = new int[10];
+    }
+    
+    public void setPlanet(Planet planet) {
+        this.planet = planet;
+        wares = planet.getItems();
     }
     
     public void buyItem(ActionEvent e) {
