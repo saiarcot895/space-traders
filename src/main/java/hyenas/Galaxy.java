@@ -2,9 +2,18 @@ package hyenas;
 
 public class Galaxy {
     private SolarSystem[] solarSystems;
+    
+    private static Galaxy instance;
 
-    public Galaxy() {
+    private Galaxy() {
         setupSolarSystems();
+    }
+    
+    public static Galaxy getInstance() {
+        if (instance == null) {
+            instance = new Galaxy();
+        }
+        return instance;
     }
 
     private void setupSolarSystems() {

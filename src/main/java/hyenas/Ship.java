@@ -1,6 +1,6 @@
 package hyenas;
 
-import hyenas.Wares.Good;
+import hyenas.Ware.Good;
 import java.util.ArrayList;
 
 /**
@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * @author Alex
  */
 public class Ship {
+    private ShipType type;
     private boolean insurance;
     private int upkeep;
     private ArrayList<Good> goods;
@@ -29,9 +30,9 @@ public class Ship {
     private int size;
     private int maxCargo;
     
-    public Ship() {
+    public Ship(ShipType type) {
+        this.type = type;
         this.goods = new ArrayList<Good>();
-        
     }
     
     public int getFreeCargo() {

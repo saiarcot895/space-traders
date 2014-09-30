@@ -17,16 +17,19 @@ public class Player {
     private Planet tradingPlanet;
     private Ship ship;
     private int credits;
-    private static Player instance = null;
+    
+    private static Player instance;
 
-    protected Player() {
+    private Player() {
         // Exists only to defeat instantiation.
     }
     
     public static Player getInstance() {
         if(instance == null) {
             instance = new Player();
-            instance.ship = new Ship();
+            instance.ship = new Ship(ShipType.FLEA);
+            instance.currentSystem = Galaxy.getInstance().getSolarSystems()[0];
+            instance.tradingPlanet = instance.currentSystem.getPlanets()[0];
         }
         return instance;
     }

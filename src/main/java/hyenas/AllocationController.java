@@ -92,12 +92,6 @@ public class AllocationController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        assert pilot != null;
-        assert fighter != null;
-        assert trader != null;
-        assert engineer != null;
-        assert investor != null;
-
         pilot.setOnAction((ActionEvent t) -> {
             if (startingPoints > 0) {
                 pValue++;
