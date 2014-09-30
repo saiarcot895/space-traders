@@ -227,6 +227,73 @@ public class MarketController implements Initializable {
         planet = player.getTradingPlanet();
         wares = planet.getItems();
         tempWare = new int[10];
+        
+        pWater.setText("" + waterPrice);
+        pFurs.setText("" + fursPrice);
+        pFood.setText("" + foodPrice);
+        pOre.setText("" + orePrice);
+        pGames.setText("" + gamesPrice);
+        pFirearms.setText("" + firearmsPrice);
+        pMedicine.setText("" + medicinePrice);
+        pMachines.setText("" + machinesPrice);
+        pNarcotics.setText("" + narcoticsPrice);
+        pRobots.setText("" + robotsPrice);
+        
+        for (Good good : player.getShip().getCargo()) {
+            switch (good) {
+                case Water:
+                    aWater.setText(""
+                            + (Integer.parseInt(aWater.getText()) + 1));
+                    break;
+                case Furs:
+                    aFurs.setText(""
+                            + (Integer.parseInt(aFurs.getText()) + 1));
+                    break;
+                case Food:
+                    aFood.setText(""
+                            + (Integer.parseInt(aFood.getText()) + 1));
+                    break;
+                case Ore:
+                    aOre.setText(""
+                            + (Integer.parseInt(aOre.getText()) + 1));
+                    break;
+                case Games:
+                    aGames.setText(""
+                            + (Integer.parseInt(aGames.getText()) + 1));
+                    break;
+                case Firearms:
+                    aFirearms.setText(""
+                            + (Integer.parseInt(aFirearms.getText()) + 1));
+                    break;
+                case Medicine:
+                    aMedicine.setText(""
+                            + (Integer.parseInt(aMedicine.getText()) + 1));
+                    break;
+                case Machines:
+                    aMachines.setText(""
+                            + (Integer.parseInt(aMachines.getText()) + 1));
+                    break;
+                case Narcotics:
+                    aNarcotics.setText(""
+                            + (Integer.parseInt(aNarcotics.getText()) + 1));
+                    break;
+                case Robots:
+                    aRobots.setText(""
+                            + (Integer.parseInt(aRobots.getText()) + 1));
+                    break;
+            }
+        }
+        
+        aWater.setText("" + wares[0]);
+        aFurs.setText("" + wares[1]);
+        aFood.setText("" + wares[2]);
+        aOre.setText("" + wares[3]);
+        aGames.setText("" + wares[4]);
+        aFirearms.setText("" + wares[5]);
+        aMedicine.setText("" + wares[6]);
+        aMachines.setText("" + wares[7]);
+        aNarcotics.setText("" + wares[8]);
+        aRobots.setText("" + wares[9]);
     }
     
     public void buyItem(ActionEvent e) {

@@ -44,18 +44,15 @@ public class Planet {
         "Warlike",
     };
 
-    public Planet() {
+    public Planet(String planetName) {
+        this.planetName = planetName;
         Random rand = new Random();
         x = rand.nextDouble();
         y = rand.nextDouble();
         size = rand.nextDouble();
         techLevel = rand.nextInt(MAX_TECH_LEVEL + 1);
         resourceType = rand.nextInt(MAX_RESOURCE_TYPE + 1);
-
-        // start out with 0 stock for all items. Maybe we should change this
-        for (int i = 0; i < NUM_ITEMS; i++) {
-            items[i] = 0;
-        }
+        produceWares();
     }
 
     /**
@@ -78,7 +75,7 @@ public class Planet {
             if (techLevel < MTLP[i]) {
                 howMuchToProduce[i] = 0;
             } else {
-                howMuchToProduce[i] = 1 + 2 - Math.abs(TTP[i] - techLevel);
+                howMuchToProduce[i] = 1 + Math.abs(TTP[i] - techLevel);
             }
         }
         return howMuchToProduce;
@@ -119,7 +116,9 @@ public class Planet {
     public String toString() {
         return "<Planet: " + planetName
             + ", Tech: " + techLevelString()
-            + ", Resources: ["+items[0]+", "+items[1]+", "+items[2]+", "+items[3]+", "+items[4]+", "+items[5]+", "+items[6]+", "+items[7]+", "+items[8]+", "+items[9]+"]"
+            + ", Resources: ["+items[0]+", "+items[1]+", "+items[2]+", "
+                +items[3]+", "+items[4]+", "+items[5]+", "+items[6]+", "
+                +items[7]+", "+items[8]+", "+items[9]+"]"
             + ", Loc: (" + x + ", " + y + ")" + ">";
     }
 

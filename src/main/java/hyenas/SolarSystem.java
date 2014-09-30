@@ -10,7 +10,7 @@ public class SolarSystem {
 
     public SolarSystem(String systemName) {
         this.systemName = systemName;
-        this.planets[0] = new Planet();
+        this.planets[0] = new Planet(systemName);
 
         Random rand = new Random();
         this.x = rand.nextDouble();
