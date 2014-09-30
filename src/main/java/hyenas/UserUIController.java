@@ -85,7 +85,7 @@ public class UserUIController implements Initializable {
     }
     
     public void goToMarketplace(ActionEvent e) {
-        Hyenas.getInstance().goToMarketplace();
+        HyenasLoader.getInstance().goToMarketplace();
     }
 
     public void toEarth616(ActionEvent t) {

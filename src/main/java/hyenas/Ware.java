@@ -28,67 +28,6 @@ public class Ware {
     /* Max Price in space trade for good (Random Encounter) */
     private int mth;
     
-    public String getName()    {
-        return name;
-    }
-    
-    public int getMTLP()    {
-        return minimumTechLevelToProduce;
-    }
-    
-    public int getMTLU()    {
-        return minimumTechLevelToUse;
-    }
-    
-    public int getTTP()    {
-        return techLevelProduction;
-    }
-    
-    public int getBasePrice()   {
-        return basePrice;
-    }
-    
-    public int getIPL() {
-        return priceIncreasePerLevel;
-    }
-    
-    public int getVar() {
-        return variance;
-    }
-    
-    public String getIE()   {
-        return ie;
-    }
-    
-    public String getCR()   {
-        return cr;
-    }
-    
-    public String getER()   {
-        return er;
-    }
-    
-    public int getMTL() {
-        return mtl;
-    }
-    
-    public int getMTH() {
-        return mth;
-    }
-    
-    public enum Good {
-        Water,
-        Furs,
-        Food,
-        Ore,
-        Games,
-        Firearms,
-        Medicine,
-        Machines,
-        Narcotics,
-        Robots
-    }
-    
     Good good;
     
     public Ware(Good good) {
@@ -213,4 +152,51 @@ public class Ware {
         }
     }
     
+    public String getName()    {
+        return name;
+    }
+    
+    public int getMTLP()    {
+        return minimumTechLevelToProduce;
+    }
+    
+    public int getMTLU()    {
+        return minimumTechLevelToUse;
+    }
+    
+    public int getTTP()    {
+        return techLevelProduction;
+    }
+    
+    public int getBasePrice()   {
+        return basePrice;
+    }
+    
+    public int getIPL() {
+        return priceIncreasePerLevel;
+    }
+    
+    public int getVar() {
+        return variance;
+    }
+    
+    public String getIE()   {
+        return ie;
+    }
+    
+    public String getCR()   {
+        return cr;
+    }
+    
+    public String getER()   {
+        return er;
+    }
+    
+    public int getMTL() {
+        return mtl;
+    }
+    
+    public int getMTH() {
+        return mth;
+    }
 }

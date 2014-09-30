@@ -27,11 +27,11 @@ public class MainWindowController implements Initializable {
     }
 
     public void onStartGameClicked(ActionEvent e)  {
-        Hyenas.getInstance().goToStartGameScreen();
+        HyenasLoader.getInstance().goToStartGameScreen();
     }
 
     public void onSettingsClicked(ActionEvent e) {
-        Hyenas.getInstance().goToSettingsScreen();
+        HyenasLoader.getInstance().goToSettingsScreen();
     }
 
 }

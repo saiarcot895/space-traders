@@ -164,10 +164,10 @@ public class AllocationController implements Initializable {
         player.setEngineerSkill(eValue);
         player.setInvestorSkill(iValue);
 
-        Hyenas.getInstance().goToMapScreen();
+        HyenasLoader.getInstance().goToMapScreen();
     }
 
     public void goBack(ActionEvent e) {
-        Hyenas.getInstance().goToHomeScreen();
+        HyenasLoader.getInstance().goToHomeScreen();
     }
 }

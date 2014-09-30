@@ -10,6 +10,69 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class MarketController implements Initializable {
+    
+    @FXML
+    private Label pWater;
+    
+    @FXML
+    private Label pFurs;
+
+    @FXML
+    private Label pFood;
+    
+    @FXML
+    private Label pOre;
+    
+    @FXML
+    private Label pGames;
+    
+    @FXML
+    private Label pFirearms;
+    
+    @FXML
+    private Label pMedicine;
+    
+    @FXML
+    private Label pMachines;
+
+    @FXML
+    private Label pNarcotics;
+    
+    @FXML
+    private Label pNarcotics;
+    
+    @FXML
+    private Label pRobots;
+    
+    @FXML
+    private Label nWater;
+    
+    @FXML
+    private Label nFurs;
+
+    @FXML
+    private Label nFood;
+    
+    @FXML
+    private Label nOre;
+    
+    @FXML
+    private Label nGames;
+    
+    @FXML
+    private Label nFirearms;
+    
+    @FXML
+    private Label nMedicine;
+    
+    @FXML
+    private Label nMachines;
+    
+    @FXML
+    private Label nNarcotics;
+    
+    @FXML
+    private Label nRobots;
 
     @FXML
     private Button bWater;
@@ -70,6 +133,69 @@ public class MarketController implements Initializable {
     
     @FXML
     private Button sRobots;
+    
+    @FXML
+    private Label eWater;
+    
+    @FXML
+    private Label eFurs;
+
+    @FXML
+    private Label eFood;
+    
+    @FXML
+    private Label eOre;
+    
+    @FXML
+    private Label eGames;
+    
+    @FXML
+    private Label eFirearms;
+    
+    @FXML
+    private Label eMedicine;
+    
+    @FXML
+    private Label eMachines;
+
+    @FXML
+    private Label eNarcotics;
+    
+    @FXML
+    private Label eRobots;
+    
+    @FXML
+    private Label eRobots;
+    
+    @FXML
+    private Label aWater;
+    
+    @FXML
+    private Label aFurs;
+
+    @FXML
+    private Label aFood;
+    
+    @FXML
+    private Label aOre;
+    
+    @FXML
+    private Label aGames;
+    
+    @FXML
+    private Label aFirearms;
+    
+    @FXML
+    private Label aMedicine;
+    
+    @FXML
+    private Label aMachines;
+
+    @FXML
+    private Label aNarcotics;
+    
+    @FXML
+    private Label aRobots;
     
     @FXML
     private Button cancel;
@@ -179,61 +305,61 @@ public class MarketController implements Initializable {
     
     public void sellItem(ActionEvent e) {
         if (e.getSource() == sWater) {
-            if (player.getShip().getCargo().contains(Ware.Good.Water)) {
+            if (player.getShip().getCargo().contains(Good.Water)) {
                 freeCargo++;
                 wares[0]++;
                 creditCount += waterPrice;
             }
         } else if (e.getSource() == sFurs) {
-            if (player.getShip().getCargo().contains(Ware.Good.Furs)) {
+            if (player.getShip().getCargo().contains(Good.Furs)) {
                 freeCargo++;
                 wares[1]++;
                 creditCount += fursPrice;
             }
         } else if (e.getSource() == sFood) {
-            if (player.getShip().getCargo().contains(Ware.Good.Food)) {
+            if (player.getShip().getCargo().contains(Good.Food)) {
                 freeCargo++;
                 wares[2]++;
                 creditCount += waterPrice;
             }
         } else if (e.getSource() == sOre) {
-            if (player.getShip().getCargo().contains(Ware.Good.Ore)) {
+            if (player.getShip().getCargo().contains(Good.Ore)) {
                 freeCargo++;
                 wares[3]++;
                 creditCount += orePrice;
             }
         } else if (e.getSource() == sGames) {
-            if (player.getShip().getCargo().contains(Ware.Good.Games)) {
+            if (player.getShip().getCargo().contains(Good.Games)) {
                 freeCargo++;
                 wares[4]++;
                 creditCount += gamesPrice;
             }
         } else if (e.getSource() == sFirearms) {
-            if (player.getShip().getCargo().contains(Ware.Good.Firearms)) {
+            if (player.getShip().getCargo().contains(Good.Firearms)) {
                 freeCargo++;
                 wares[5]++;
                 creditCount += firearmsPrice;
             }
         } else if (e.getSource() == sMachines) {
-            if (player.getShip().getCargo().contains(Ware.Good.Machines)) {
+            if (player.getShip().getCargo().contains(Good.Machines)) {
                 freeCargo++;
                 wares[6]++;
                 creditCount += machinesPrice;
             }
         } else if (e.getSource() == sMedicine) {
-            if (player.getShip().getCargo().contains(Ware.Good.Medicine)) {
+            if (player.getShip().getCargo().contains(Good.Medicine)) {
                 freeCargo++;
                 wares[7]++;
                 creditCount += medicinePrice;
             }
         } else if (e.getSource() == sNarcotics) {
-            if (player.getShip().getCargo().contains(Ware.Good.Narcotics)) {
+            if (player.getShip().getCargo().contains(Good.Narcotics)) {
                 freeCargo++;
                 wares[8]++;
                 creditCount += narcoticsPrice;
             }
         } else if (e.getSource() == sRobots) {
-            if (player.getShip().getCargo().contains(Ware.Good.Robots)) {
+            if (player.getShip().getCargo().contains(Good.Robots)) {
                 freeCargo++;
                 wares[9]++;
                 creditCount += robotsPrice;
@@ -246,66 +372,66 @@ public class MarketController implements Initializable {
         
         // Add the Cargo
         for (int i = 0; i < -wares[0]; i++) {
-            player.getShip().addCargo(Ware.Good.Water);
+            player.getShip().addCargo(Good.Water);
         }
         for (int i = 0; i < -wares[1]; i++) {
-            player.getShip().addCargo(Ware.Good.Furs);
+            player.getShip().addCargo(Good.Furs);
         }
         for (int i = 0; i < -wares[2]; i++) {
-            player.getShip().addCargo(Ware.Good.Food);
+            player.getShip().addCargo(Good.Food);
         }
         for (int i = 0; i < -wares[3]; i++) {
-            player.getShip().addCargo(Ware.Good.Ore);
+            player.getShip().addCargo(Good.Ore);
         }
         for (int i = 0; i < -wares[4]; i++) {
-            player.getShip().addCargo(Ware.Good.Games);
+            player.getShip().addCargo(Good.Games);
         }
         for (int i = 0; i < -wares[5]; i++) {
-            player.getShip().addCargo(Ware.Good.Firearms);
+            player.getShip().addCargo(Good.Firearms);
         }
         for (int i = 0; i < -wares[6]; i++) {
-            player.getShip().addCargo(Ware.Good.Machines);
+            player.getShip().addCargo(Good.Machines);
         }
         for (int i = 0; i < -wares[7]; i++) {
-            player.getShip().addCargo(Ware.Good.Medicine);
+            player.getShip().addCargo(Good.Medicine);
         }
         for (int i = 0; i < -wares[8]; i++) {
-            player.getShip().addCargo(Ware.Good.Narcotics);
+            player.getShip().addCargo(Good.Narcotics);
         }
         for (int i = 0; i < -wares[9]; i++) {
-            player.getShip().addCargo(Ware.Good.Robots);
+            player.getShip().addCargo(Good.Robots);
         }
         
         // Remove the Cargo
         for (int i = 0; i < -wares[0]; i++) {
-            player.getShip().removeCargo(Ware.Good.Water);
+            player.getShip().removeCargo(Good.Water);
         }
         for (int i = 0; i < -wares[1]; i++) {
-            player.getShip().removeCargo(Ware.Good.Furs);
+            player.getShip().removeCargo(Good.Furs);
         }
         for (int i = 0; i < -wares[2]; i++) {
-            player.getShip().removeCargo(Ware.Good.Food);
+            player.getShip().removeCargo(Good.Food);
         }
         for (int i = 0; i < -wares[3]; i++) {
-            player.getShip().removeCargo(Ware.Good.Ore);
+            player.getShip().removeCargo(Good.Ore);
         }
         for (int i = 0; i < -wares[4]; i++) {
-            player.getShip().removeCargo(Ware.Good.Games);
+            player.getShip().removeCargo(Good.Games);
         }
         for (int i = 0; i < -wares[5]; i++) {
-            player.getShip().removeCargo(Ware.Good.Firearms);
+            player.getShip().removeCargo(Good.Firearms);
         }
         for (int i = 0; i < -wares[6]; i++) {
-            player.getShip().removeCargo(Ware.Good.Machines);
+            player.getShip().removeCargo(Good.Machines);
         }
         for (int i = 0; i < -wares[7]; i++) {
-            player.getShip().removeCargo(Ware.Good.Medicine);
+            player.getShip().removeCargo(Good.Medicine);
         }
         for (int i = 0; i < -wares[8]; i++) {
-            player.getShip().removeCargo(Ware.Good.Narcotics);
+            player.getShip().removeCargo(Good.Narcotics);
         }
         for (int i = 0; i < -wares[9]; i++) {
-            player.getShip().removeCargo(Ware.Good.Robots);
+            player.getShip().removeCargo(Good.Robots);
         }
     }
     

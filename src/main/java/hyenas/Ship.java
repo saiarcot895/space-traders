@@ -1,6 +1,5 @@
 package hyenas;
 
-import hyenas.Ware.Good;
 import java.util.ArrayList;
 
 /**
