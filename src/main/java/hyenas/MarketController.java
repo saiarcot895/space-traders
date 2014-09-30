@@ -39,9 +39,6 @@ public class MarketController implements Initializable {
     private Label pNarcotics;
     
     @FXML
-    private Label pNarcotics;
-    
-    @FXML
     private Label pRobots;
     
     @FXML
@@ -160,9 +157,6 @@ public class MarketController implements Initializable {
 
     @FXML
     private Label eNarcotics;
-    
-    @FXML
-    private Label eRobots;
     
     @FXML
     private Label eRobots;
