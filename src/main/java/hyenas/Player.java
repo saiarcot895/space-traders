@@ -30,6 +30,7 @@ public class Player {
             instance.ship = new Ship(ShipType.FLEA);
             instance.currentSystem = Galaxy.getInstance().getSolarSystems()[0];
             instance.tradingPlanet = instance.currentSystem.getPlanets()[0];
+            instance.credits = 250;
         }
         return instance;
     }
