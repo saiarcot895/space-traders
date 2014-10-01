@@ -10,14 +10,6 @@
 
 <AnchorPane id="AnchorPane" fx:id="anchor" prefHeight="400.0" prefWidth="600.0" styleClass="default-background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.UserUIController">
     <children>
-      <Button fx:id="Earth616" layoutX="605.0" layoutY="69.0" mnemonicParsing="false" onAction="#jump" styleClass="planet" text="Earth616" />
-      <Button fx:id="tantalos" layoutX="398.0" layoutY="289.0" mnemonicParsing="false" onAction="#jump" styleClass="planet" text="Tantalos" />
-      <Button fx:id="exo" layoutX="159.0" layoutY="494.0" mnemonicParsing="false" onAction="#jump" styleClass="planet" text="Exo" />
-      <Button fx:id="destiny" layoutX="335.0" layoutY="507.0" mnemonicParsing="false" onAction="#jump" styleClass="planet" text="Destiny" />
-      <Button fx:id="utopia" layoutX="254.0" layoutY="117.0" mnemonicParsing="false" onAction="#jump" styleClass="planet" text="Utopia" />
-      <Button fx:id="frolix" layoutX="683.0" layoutY="520.0" mnemonicParsing="false" onAction="#jump" styleClass="planet" text="Frolix" />
-      <Button fx:id="omega" layoutX="89.0" layoutY="264.0" mnemonicParsing="false" onAction="#jump" styleClass="planet" text="Omega" />
-      <Button fx:id="carzon" layoutX="691.0" layoutY="258.0" mnemonicParsing="false" onAction="#jump" styleClass="planet" text="Carzon" />
       <MenuButton fx:id="options" layoutX="18.0" layoutY="38.0" mnemonicParsing="false" text="Options">
         <items>
           <MenuItem mnemonicParsing="false" text="Settings" />
