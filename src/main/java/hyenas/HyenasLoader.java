@@ -109,7 +109,7 @@ public class HyenasLoader extends Application {
         Parent page = FXMLLoader.load(getClass().getResource(pageName));
 
         stage.getScene().setRoot(page);
-        stage.sizeToScene();
+  //      stage.sizeToScene();
     }
 
     public void confirmSelection() {
