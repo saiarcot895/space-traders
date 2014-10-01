@@ -59,6 +59,7 @@ public class HyenasLoader extends Application {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);
         }
+        
     }
 
     public void goToSettingsScreen() {
