@@ -54,6 +54,10 @@ public class HyenasLoader extends Application {
         }
     }
 
+    /*
+     * DO NOT TOUCH!
+     * This generates the systems randomly on start!
+     */
     public void goToMapScreen() {
         try {
             changePage("UserUI.fxml");
@@ -61,12 +65,13 @@ public class HyenasLoader extends Application {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);
         }
-        AnchorPane anchor = (AnchorPane) stage.getScene().lookup("#anchor");     //pray this works
-        for(int i = 0; i <Galaxy.getInstance().getSolarSystems().length; i++)  {
-            Button button = new Button(Galaxy.getInstance().getSolarSystems()[i].getSystemName());
-            button.setLayoutX(Galaxy.getInstance().getSolarSystems()[i].getX());
-            button.setLayoutY(Galaxy.getInstance().getSolarSystems()[i].getY());
-            button.setId(Galaxy.getInstance().getSolarSystems()[i].getSystemName());
+        AnchorPane anchor = (AnchorPane) stage.getScene().lookup("#anchor");
+         //for(int i = 0; i <Galaxy.getInstance().getSolarSystems().length; i++);
+        for (SolarSystem solarSystem : Galaxy.getInstance().getSolarSystems()) {
+            Button button = new Button(solarSystem.getSystemName());
+            button.setLayoutX(solarSystem.getX());
+            button.setLayoutY(solarSystem.getY());
+            button.setId(solarSystem.getSystemName());
             button.setMnemonicParsing(false);
             button.getStyleClass().add("planet");
             anchor.getChildren().addAll(button);
