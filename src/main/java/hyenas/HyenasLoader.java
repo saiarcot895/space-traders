@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 /**
  *
@@ -56,23 +57,22 @@ public class HyenasLoader extends Application {
     }
 
     public void goToMapScreen() {
+        AnchorPane anchor;      //id for anchorpane
         try {
             changePage("UserUI.fxml");
         } catch (IOException ex) {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);
         }
-        for(int i=0; i<Galaxy.getInstance().getSolarSystems().length; i++)	{
-        	Button button = new Button(Galaxy.getInstance().getSolarSystems()[i].getSystemName());
-        	button.setLayoutX(Galaxy.getInstance().getSolarSystems()[i].getX());
-        	button.setLayoutY(Galaxy.getInstance().getSolarSystems()[i].getY());
-        	button.setId(Galaxy.getInstance().getSolarSystems()[i].getSystemName());
-        	button.setMnemonicParsing(false);
-        	button.setOnAction(public void galaxyJump(ActionEvent e)	{
-        		UserUIController.jump(e);
-        	});		//may cause errors, don't know
-        	button.getStyleClass().add("planet");
-        	scene.getChildren().addAll(button);		//pray this works
+        for(int i=0; i<Galaxy.getInstance().getSolarSystems().length; i++)  {
+            Button button = new Button(Galaxy.getInstance().getSolarSystems()[i].getSystemName());
+            button.setLayoutX(Galaxy.getInstance().getSolarSystems()[i].getX());
+            button.setLayoutY(Galaxy.getInstance().getSolarSystems()[i].getY());
+            button.setId(Galaxy.getInstance().getSolarSystems()[i].getSystemName());
+            button.setMnemonicParsing(false);
+            //button.setOnAction(jump());       //may cause errors, don't know
+            button.getStyleClass().add("planet");
+            //anchor.getChildren().add(button);     //pray this works
         }
     }
 
