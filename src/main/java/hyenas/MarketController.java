@@ -237,7 +237,7 @@ public class MarketController implements Initializable {
         wares = planet.getItems();
         tempWare = new int[10];
         
-        tPlanet.setText(planet.getName());
+        //tPlanet.setText(planet.getName());
         tFreeCargo.setText("" + freeCargo);
         
         pWater.setText("" + waterPrice);
