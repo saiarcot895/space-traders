@@ -59,7 +59,9 @@ public class HyenasLoader extends Application {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);
         }
-        
+        for(int i=0; i<Galaxy.getInstance().getSolarSystems().length)	{
+        	//todo
+        }
     }
 
     public void goToSettingsScreen() {
