@@ -34,7 +34,7 @@ public class HyenasLoader extends Application {
     public void start(Stage stage) throws Exception {
         instance = this;
         this.stage = stage;
-
+        stage.setFullScreen(true);
         Parent root = FXMLLoader.load(getClass().getResource(
                     "MainWindow.fxml"));
 
