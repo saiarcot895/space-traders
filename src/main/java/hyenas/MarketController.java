@@ -204,7 +204,7 @@ public class MarketController implements Initializable {
     private Label tTechLevel;
     
     @FXML
-    private Label tFreeCargo;
+    private Label tFree;
         
     private Player player;
     
@@ -238,7 +238,7 @@ public class MarketController implements Initializable {
         tempWare = new int[10];
         
         //tPlanet.setText(planet.getName());
-        tFreeCargo.setText("" + freeCargo);
+        tFree.setText("" + freeCargo);
         
         pWater.setText("" + waterPrice);
         pFurs.setText("" + fursPrice);
@@ -316,42 +316,42 @@ public class MarketController implements Initializable {
         if (e.getSource() == bWater) {
             if (creditCount >= waterPrice && wares[0] > 0) {
                 freeCargo--;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 creditCount -= waterPrice;
                 wares[0]--;
             }
         } else if (e.getSource() == bFurs) {
             if (creditCount >= fursPrice && wares[1] > 0) {
                 freeCargo--;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 creditCount -= fursPrice;
                 wares[1]--;
             }
         } else if (e.getSource() == bFood) {
             if (creditCount >= foodPrice && wares[2] > 0) {
                 freeCargo--;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 creditCount -= foodPrice;
                 wares[2]--;
             }
         } else if (e.getSource() == bOre) {
             if (creditCount >= orePrice && wares[3] > 0) {
                 freeCargo--;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 creditCount -= orePrice;
                 wares[3]--;
             }
         } else if (e.getSource() == bGames) {
             if (creditCount >= gamesPrice && wares[4] > 0) {
                 freeCargo--;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 creditCount -= gamesPrice;
                 wares[4]--;
             }
         } else if (e.getSource() == bFirearms) {
             if (creditCount >= firearmsPrice && wares[5] > 0) {
                 freeCargo--;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 creditCount -= firearmsPrice;
                 wares[5]--;
             }
@@ -364,21 +364,21 @@ public class MarketController implements Initializable {
         } else if (e.getSource() == bMedicine) {
             if (creditCount >= medicinePrice && wares[7] > 0) {
                 freeCargo--;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 creditCount -= medicinePrice;
                 wares[7]--;
             }
         } else if (e.getSource() == bNarcotics) {
             if (creditCount >= narcoticsPrice && wares[8] > 0) {
                 freeCargo--;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 creditCount -= narcoticsPrice;
                 wares[8]--;
             }
         } else if (e.getSource() == bRobots) {
             if (creditCount >= robotsPrice && wares[9] > 0) {
                 freeCargo--;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 creditCount -= robotsPrice;
                 wares[9]--;
             }
@@ -389,70 +389,70 @@ public class MarketController implements Initializable {
         if (e.getSource() == sWater) {
             if (player.getShip().getCargo().contains(Good.Water)) {
                 freeCargo++;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 wares[0]++;
                 creditCount += waterPrice;
             }
         } else if (e.getSource() == sFurs) {
             if (player.getShip().getCargo().contains(Good.Furs)) {
                 freeCargo++;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 wares[1]++;
                 creditCount += fursPrice;
             }
         } else if (e.getSource() == sFood) {
             if (player.getShip().getCargo().contains(Good.Food)) {
                 freeCargo++;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 wares[2]++;
                 creditCount += waterPrice;
             }
         } else if (e.getSource() == sOre) {
             if (player.getShip().getCargo().contains(Good.Ore)) {
                 freeCargo++;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 wares[3]++;
                 creditCount += orePrice;
             }
         } else if (e.getSource() == sGames) {
             if (player.getShip().getCargo().contains(Good.Games)) {
                 freeCargo++;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 wares[4]++;
                 creditCount += gamesPrice;
             }
         } else if (e.getSource() == sFirearms) {
             if (player.getShip().getCargo().contains(Good.Firearms)) {
                 freeCargo++;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 wares[5]++;
                 creditCount += firearmsPrice;
             }
         } else if (e.getSource() == sMachines) {
             if (player.getShip().getCargo().contains(Good.Machines)) {
                 freeCargo++;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 wares[6]++;
                 creditCount += machinesPrice;
             }
         } else if (e.getSource() == sMedicine) {
             if (player.getShip().getCargo().contains(Good.Medicine)) {
                 freeCargo++;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 wares[7]++;
                 creditCount += medicinePrice;
             }
         } else if (e.getSource() == sNarcotics) {
             if (player.getShip().getCargo().contains(Good.Narcotics)) {
                 freeCargo++;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 wares[8]++;
                 creditCount += narcoticsPrice;
             }
         } else if (e.getSource() == sRobots) {
             if (player.getShip().getCargo().contains(Good.Robots)) {
                 freeCargo++;
-                tFreeCargo.setText("" + freeCargo);
+                tFree.setText("" + freeCargo);
                 wares[9]++;
                 creditCount += robotsPrice;
             }
