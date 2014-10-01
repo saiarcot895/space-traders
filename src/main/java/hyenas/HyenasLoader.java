@@ -13,6 +13,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -53,14 +56,22 @@ public class HyenasLoader extends Application {
     }
 
     public void goToMapScreen() {
+    	private AnchorPane myrthe;		//id for anchorpane
         try {
             changePage("UserUI.fxml");
         } catch (IOException ex) {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);
         }
-        for(int i=0; i<Galaxy.getInstance().getSolarSystems().length)	{
-        	//todo
+        for(int i=0; i<Galaxy.getInstance().getSolarSystems().length; i++)	{
+        	Button button = new Button(Galaxy.getInstance().getSolarSystems()[i].getSystemName());
+        	button.setLayoutX(Galaxy.getInstance().getSolarSystems()[i].getX());
+        	button.setLayoutY(Galaxy.getInstance().getSolarSystems()[i].getY());
+        	button.setId(Galaxy.getInstance().getSolarSystems()[i].getSystemName());
+        	button.setMnemonicParsing(false);
+        	button.setOnAction(jump());		//may cause errors, don't know
+        	button.getStyleClass().add("planet");
+        	AnchorPane.getChildren().add(button);		//pray this works
         }
     }
 
