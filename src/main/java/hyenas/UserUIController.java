@@ -11,8 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -44,9 +42,6 @@ public class UserUIController implements Initializable {
 
     @FXML
     private Button exo;
-
-    @FXML
-    private Button random;
 
     @FXML
     private Button menu;
@@ -85,42 +80,11 @@ public class UserUIController implements Initializable {
     }
     
     public void goToMarketplace(ActionEvent e) {
-        HyenasLoader.getInstance().goToMarketplace();
+        Hyenas.getInstance().goToMarketplace();
     }
 
-    public void toEarth616(ActionEvent t) {
-        final Stage popup = new Stage();
-        Button confirm = new Button();
-        confirm.setText("Yes");
-        popup.initModality(Modality.APPLICATION_MODAL);
-
+    public void jump(ActionEvent t) {
+        // TODO: Jump to planet, randomized.
     }
-
-    public void toTantalos(ActionEvent t) {
-
-    }
-
-    public void toCarzon(ActionEvent t) {
-
-    }
-
-    public void toUtopia(ActionEvent t) {
-
-    }
-
-    public void toOmega(ActionEvent t) {
-
-    }
-
-    public void toDestiny(ActionEvent t) {
-
-    }
-
-    public void toFrolix(ActionEvent t) {
-
-    }
-
-    public void toExo(ActionEvent t) {
-
-    }
+    
 }

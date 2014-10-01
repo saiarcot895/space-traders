@@ -6,8 +6,8 @@ package hyenas;
  */
 public class Player {
     private String name;
-    private double locX;
-    private double locY;
+    private int locX;
+    private int locY;
     private int pilotSkill;
     private int fighterSkill;
     private int traderSkill;
@@ -17,10 +17,9 @@ public class Player {
     private Planet tradingPlanet;
     private Ship ship;
     private int credits;
-    
-    private static Player instance;
+    private static Player instance = null;
 
-    private Player() {
+    protected Player() {
         // Exists only to defeat instantiation.
     }
     
@@ -114,4 +113,21 @@ public class Player {
     public void setCredits(int credits) {
         this.credits = credits;
     }
+    
+    public int getLocX() {
+        return locX;
+    }
+    
+    public void setLocX(int locX) {
+        this.locX = locX;
+    }
+    
+    public int getLocY() {
+        return locY;
+    }
+    
+    public void setLocX() {
+        this.locY = locY;
+    }
+    
 }
