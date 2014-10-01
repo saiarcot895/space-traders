@@ -14,8 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -63,8 +61,8 @@ public class HyenasLoader extends Application {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);
         }
-        AnchorPane anchor = stage.getScene().lookup("#anchor");     //pray this works
-        for(int i=0; i<Galaxy.getInstance().getSolarSystems().length; i++)  {
+        AnchorPane anchor = (AnchorPane) stage.getScene().lookup("#anchor");     //pray this works
+        for(int i = 0; i <Galaxy.getInstance().getSolarSystems().length; i++)  {
             Button button = new Button(Galaxy.getInstance().getSolarSystems()[i].getSystemName());
             button.setLayoutX(Galaxy.getInstance().getSolarSystems()[i].getX());
             button.setLayoutY(Galaxy.getInstance().getSolarSystems()[i].getY());
