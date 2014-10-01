@@ -56,7 +56,6 @@ public class HyenasLoader extends Application {
     }
 
     public void goToMapScreen() {
-    	private AnchorPane anchor;		//id for anchorpane
         try {
             changePage("UserUI.fxml");
         } catch (IOException ex) {
@@ -69,9 +68,11 @@ public class HyenasLoader extends Application {
         	button.setLayoutY(Galaxy.getInstance().getSolarSystems()[i].getY());
         	button.setId(Galaxy.getInstance().getSolarSystems()[i].getSystemName());
         	button.setMnemonicParsing(false);
-        	button.setOnAction(jump());		//may cause errors, don't know
+        	button.setOnAction(public void galaxyJump(ActionEvent e)	{
+        		UserUIController.jump(e);
+        	});		//may cause errors, don't know
         	button.getStyleClass().add("planet");
-        	AnchorPane.getChildren().add(button);		//pray this works
+        	scene.getChildren().addAll(button);		//pray this works
         }
     }
 
