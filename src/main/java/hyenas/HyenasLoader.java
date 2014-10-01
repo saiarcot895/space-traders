@@ -63,6 +63,8 @@ public class HyenasLoader extends Application {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);
         }
+        AnchorPane anchor = stage.getScene().lookup("#anchor");     //pray this works
+        anchor.getChildren().addAll(button);
         for(int i=0; i<Galaxy.getInstance().getSolarSystems().length; i++)  {
             Button button = new Button(Galaxy.getInstance().getSolarSystems()[i].getSystemName());
             button.setLayoutX(Galaxy.getInstance().getSolarSystems()[i].getX());
@@ -70,7 +72,6 @@ public class HyenasLoader extends Application {
             button.setId(Galaxy.getInstance().getSolarSystems()[i].getSystemName());
             button.setMnemonicParsing(false);
             button.getStyleClass().add("planet");
-            stage.getScene().lookup("#anchor").getChildren().addAll(button);     //pray this works
         }
     }
 
