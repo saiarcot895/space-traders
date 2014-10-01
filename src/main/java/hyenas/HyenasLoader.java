@@ -64,7 +64,6 @@ public class HyenasLoader extends Application {
                     null, ex);
         }
         AnchorPane anchor = stage.getScene().lookup("#anchor");     //pray this works
-        anchor.getChildren().addAll(button);
         for(int i=0; i<Galaxy.getInstance().getSolarSystems().length; i++)  {
             Button button = new Button(Galaxy.getInstance().getSolarSystems()[i].getSystemName());
             button.setLayoutX(Galaxy.getInstance().getSolarSystems()[i].getX());
@@ -72,6 +71,7 @@ public class HyenasLoader extends Application {
             button.setId(Galaxy.getInstance().getSolarSystems()[i].getSystemName());
             button.setMnemonicParsing(false);
             button.getStyleClass().add("planet");
+            anchor.getChildren().addAll(button);
         }
     }
 
