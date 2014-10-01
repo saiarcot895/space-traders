@@ -3,8 +3,6 @@ package hyenas;
 import java.util.Random;
 
 public class Planet {
-    private static final int MAX_TECH_LEVEL = 7;
-    private static final int MAX_RESOURCE_TYPE = 12;
     private static final int NUM_ITEMS = 10;
     private static final int[] TTP = {2, 0, 1, 3, 6, 5, 6, 5, 5, 7};
     private static final int[] MTLP = {0, 0, 1, 2, 3, 3, 4, 4, 5, 6};
@@ -50,8 +48,8 @@ public class Planet {
         x = rand.nextDouble();
         y = rand.nextDouble();
         size = rand.nextDouble();
-        techLevel = rand.nextInt(MAX_TECH_LEVEL + 1);
-        resourceType = rand.nextInt(MAX_RESOURCE_TYPE + 1);
+        techLevel = rand.nextInt(TECH_LEVELS.length);
+        resourceType = rand.nextInt(RESOURCE_TYPES.length);
         produceWares();
     }
 
