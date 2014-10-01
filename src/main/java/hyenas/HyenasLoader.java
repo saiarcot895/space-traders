@@ -70,7 +70,7 @@ public class HyenasLoader extends Application {
             button.setId(Galaxy.getInstance().getSolarSystems()[i].getSystemName());
             button.setMnemonicParsing(false);
             button.getStyleClass().add("planet");
-            stage.getScene().getRoot().getChildren().addAll(button);     //pray this works
+            stage.getScene().lookup("#anchor").getChildren().addAll(button);     //pray this works
         }
     }
 
