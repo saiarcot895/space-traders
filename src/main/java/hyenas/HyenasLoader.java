@@ -57,22 +57,25 @@ public class HyenasLoader extends Application {
     }
 
     public void goToMapScreen() {
-        AnchorPane anchor;      //id for anchorpane
         try {
             changePage("UserUI.fxml");
         } catch (IOException ex) {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);
         }
+        AnchorPane anchor = new AnchorPane();      //id for anchorpane
+        anchor.setId("anchor");
+        anchor.setPrefSize(600,400);
+        anchor.getStyleClass().add("default-background");
+        
         for(int i=0; i<Galaxy.getInstance().getSolarSystems().length; i++)  {
             Button button = new Button(Galaxy.getInstance().getSolarSystems()[i].getSystemName());
             button.setLayoutX(Galaxy.getInstance().getSolarSystems()[i].getX());
             button.setLayoutY(Galaxy.getInstance().getSolarSystems()[i].getY());
             button.setId(Galaxy.getInstance().getSolarSystems()[i].getSystemName());
             button.setMnemonicParsing(false);
-            //button.setOnAction(jump());       //may cause errors, don't know
             button.getStyleClass().add("planet");
-            //anchor.getChildren().add(button);     //pray this works
+            root.getChildren().addAll(button);     //pray this works
         }
     }
 
