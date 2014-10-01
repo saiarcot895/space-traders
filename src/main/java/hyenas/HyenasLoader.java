@@ -65,7 +65,7 @@ public class HyenasLoader extends Application {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);
         }
-        AnchorPane anchor = (AnchorPane) stage.getScene().lookup("#anchor");
+        AnchorPane anchor = (AnchorPane) stage.getScene().lookup("#AnchorPane");
          //for(int i = 0; i <Galaxy.getInstance().getSolarSystems().length; i++);
         for (SolarSystem solarSystem : Galaxy.getInstance().getSolarSystems()) {
             Button button = new Button(solarSystem.getSystemName());
