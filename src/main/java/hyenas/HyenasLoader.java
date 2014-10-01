@@ -56,7 +56,7 @@ public class HyenasLoader extends Application {
     }
 
     public void goToMapScreen() {
-    	private AnchorPane myrthe;		//id for anchorpane
+    	private AnchorPane anchor;		//id for anchorpane
         try {
             changePage("UserUI.fxml");
         } catch (IOException ex) {
