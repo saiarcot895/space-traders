@@ -9,26 +9,26 @@ public class SolarSystem {
     private int y;
 
     public SolarSystem(String systemName) {
-        this.systemName = systemName;		//CHANGE NAME PROTOCOL TODO
+        this.systemName = systemName;       //CHANGE NAME PROTOCOL TODO
         Random rand = new Random();
         this.x = rand.nextInt(600);
         this.y = rand.nextInt(600);
         int size = rand.nextInt(5)+1;
         planets = new Planet[size];
-        for(int i=0; i<size; i++)	{
-        	planets[i] = new Planet(systemName);
+        for(int i=0; i<size; i++)   {
+            planets[i] = new Planet(systemName);
         }
     }
     
     /**
      * Get x
      */
-    public int getX()	{
-    	return x;
+    public int getX()   {
+        return x;
     }
     
-    public int getY()	{
-    	return y;
+    public int getY()   {
+        return y;
     }
 
     /**
