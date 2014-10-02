@@ -17,7 +17,7 @@ import javafx.scene.control.Button;
  *
  * @author Abhishek
  */
-public class UserUIController implements Initializable {
+public class MapUIController implements Initializable {
 
     @FXML
     private Button utopia;
