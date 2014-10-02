@@ -60,7 +60,7 @@ public class HyenasLoader extends Application {
      */
     public void goToMapScreen() {
         try {
-            changePage("UserUI.fxml");
+            changePage("MapUI.fxml");
         } catch (IOException ex) {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);
