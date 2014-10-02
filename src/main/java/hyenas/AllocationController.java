@@ -164,7 +164,6 @@ public class AllocationController implements Initializable {
         player.setEngineerSkill(eValue);
         player.setInvestorSkill(iValue);
 
-        Galaxy gal = new Galaxy();
         HyenasLoader.getInstance().goToMapScreen();
     }
 
