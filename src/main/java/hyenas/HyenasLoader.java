@@ -36,7 +36,7 @@ public class HyenasLoader extends Application {
     public void start(Stage stage) throws Exception {
         instance = this;
         this.stage = stage;
-//        stage.setFullScreen(true); // TODO: Remove (non-full screen makes development easier)
+        stage.setFullScreen(true); // TODO: Remove (non-full screen makes development easier)
 //        stage.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource(
                     "MainWindow.fxml"));

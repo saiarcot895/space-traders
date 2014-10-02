@@ -65,7 +65,6 @@ public class MapUIController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Dimension screenSize = UIHelper.getScreenSize();
-        System.out.println(screenSize.getWidth() + "," + screenSize.getHeight());
                 
         HashMap<String, SolarSystem> solarSystems = Galaxy.getInstance().getSolarSystems();
         Set<String> solarSystemIDs = solarSystems.keySet();
@@ -147,11 +146,6 @@ public class MapUIController implements Initializable {
     
     public void goToMarketplace(ActionEvent e) {
         HyenasLoader.getInstance().goToMarketplace();
-    }
-
-    public void jump(ActionEvent t) {
-        System.out.println("Jump");
-        // TODO: Jump to planet, randomized.
     }
     
 }
