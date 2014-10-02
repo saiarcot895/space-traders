@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 
 .default-background {
-    -fx-background-image: url('/hyenas/2015-Star-Citizen.jpg');
+    -fx-background-image: url('/hyenas/images/Background.jpg');
     -fx-background-size: cover;
 }
 
@@ -22,17 +22,54 @@ and open the template in the editor.
 }
 
 .planet {
-    -fx-font-size: 14px;
-    -fx-text-fill: orange;
-    -fx-background-radius: 7px;
-    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-background-radius: 5, 5;
+    -fx-background-color: rgba(0, 0, 0, 0);
+    
 }
 
 .planet:hover {
-    -fx-text-fill: lightsalmon;
-    -fx-background-color: rgba(0, 0, 0, 0.8);
+    -fx-border-color: rgba(0, 0, 0, 1);
+    -fx-border-radius: 5;
 }
 
 .planet:pressed {
-    -fx-text-fill: orange
+    -fx-background-color: rgba(200, 200, 200, 1);
+}
+
+.currentPlanet {
+    -fx-border-color: rgba(0, 0, 0, 1);
+    -fx-border-width: 3;
+}
+
+.currentPlanet:hover {
+    -fx-border-color: rgba(0, 0, 0, 1);
+    -fx-border-width: 3;
+}
+
+.infoPane {
+    -fx-background-color: rgba(52, 152, 219, .9);
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.2) , 0,0,4,4 );
+    -fx-border-color: orange;
+    -fx-border-width: 1;
+}
+
+.infoPaneLabel {
+    -fx-font-size: 16;
+    -fx-font-family: "Trebuchet MS";
+}
+
+.infoPaneButton {
+    -fx-background-color: orange;
+    -fx-font-family: "Trebuchet MS";
+}
+
+.infoPaneButton:hover {
+    -fx-background-color: silver;
+    -fx-background-color: rgb(255, 175 , 20);
+    
+    /*-fx-effect: innershadow( gaussian , rgba(255,255,255,0.2) , 0,0,0,4 );*/
+}
+
+.infoPaneButton:pressed {
+    -fx-background-color: rgb(235, 165 , 13);
 }

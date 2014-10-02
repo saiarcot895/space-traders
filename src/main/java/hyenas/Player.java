@@ -27,7 +27,7 @@ public class Player {
         if(instance == null) {
             instance = new Player();
             instance.ship = new Ship(ShipType.FLEA);
-            instance.currentSystem = Galaxy.getInstance().getSolarSystems()[0];
+            instance.currentSystem = Galaxy.getInstance().getSolarSystems().values().iterator().next();
             instance.tradingPlanet = instance.currentSystem.getPlanets()[0];
             instance.credits = 250;
         }

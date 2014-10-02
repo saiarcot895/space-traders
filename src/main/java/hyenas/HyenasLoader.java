@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,7 +36,8 @@ public class HyenasLoader extends Application {
     public void start(Stage stage) throws Exception {
         instance = this;
         this.stage = stage;
-        stage.setFullScreen(true);
+//        stage.setFullScreen(true); // TODO: Remove (non-full screen makes development easier)
+//        stage.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource(
                     "MainWindow.fxml"));
 
@@ -64,17 +67,6 @@ public class HyenasLoader extends Application {
         } catch (IOException ex) {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);
-        }
-        AnchorPane anchor = (AnchorPane) stage.getScene().lookup("#AnchorPane");
-         //for(int i = 0; i <Galaxy.getInstance().getSolarSystems().length; i++);
-        for (SolarSystem solarSystem : Galaxy.getInstance().getSolarSystems()) {
-            Button button = new Button(solarSystem.getSystemName());
-            button.setLayoutX(solarSystem.getX());
-            button.setLayoutY(solarSystem.getY());
-            button.setId(solarSystem.getSystemName());
-            button.setMnemonicParsing(false);
-            button.getStyleClass().add("planet");
-            anchor.getChildren().addAll(button);
         }
     }
 
@@ -122,5 +114,9 @@ public class HyenasLoader extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
+    
+    public Stage getStage() {
+        return stage;
+    }
+    
 }
