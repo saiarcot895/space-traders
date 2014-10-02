@@ -22,29 +22,29 @@
       <Button fx:id="trader" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="211.0" mnemonicParsing="false" text="+" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="206.0" />
       <Button fx:id="engineer" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="235.0" mnemonicParsing="false" text="+" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="235.0" />
       <Button fx:id="investor" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="264.0" mnemonicParsing="false" text="+" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="264.0" />
-      <TextField fx:id="name" alignment="CENTER" layoutX="544.0" layoutY="56.0" />
-      <TextField fx:id="age" alignment="CENTER" layoutX="544.0" layoutY="98.0" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="480.0" layoutY="96.0" text="Age:">
+      <TextField fx:id="name" alignment="CENTER" layoutX="544.0" layoutY="56.0" AnchorPane.rightAnchor="11.0" />
+      <TextField fx:id="age" alignment="CENTER" layoutX="544.0" layoutY="98.0" AnchorPane.rightAnchor="11.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="480.0" layoutY="96.0" text="Age:" AnchorPane.rightAnchor="191.0">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="481.0" layoutY="137.0" text="Sex:">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="481.0" layoutY="137.0" text="Sex:" AnchorPane.rightAnchor="191.0">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="472.0" layoutY="188.0" text="Color:">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="472.0" layoutY="188.0" text="Color:" AnchorPane.rightAnchor="191.0">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="470.0" layoutY="233.0" text="Race:">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="470.0" layoutY="233.0" text="Race:" AnchorPane.rightAnchor="191.0">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="468.0" layoutY="54.0" text="Name:">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="468.0" layoutY="54.0" text="Name:" AnchorPane.rightAnchor="191.0">
          <font>
             <Font size="23.0" />
          </font>
@@ -124,8 +124,8 @@
             <Font size="19.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="sex" layoutX="544.0" layoutY="139.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="color" layoutX="544.0" layoutY="190.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="race" layoutX="544.0" layoutY="235.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="sex" layoutX="544.0" layoutY="139.0" prefWidth="150.0" AnchorPane.rightAnchor="32.0" />
+      <ChoiceBox fx:id="color" layoutX="544.0" layoutY="190.0" prefWidth="150.0" AnchorPane.rightAnchor="32.0" />
+      <ChoiceBox fx:id="race" layoutX="544.0" layoutY="235.0" prefWidth="150.0" AnchorPane.rightAnchor="32.0" />
     </children>
 </AnchorPane>
