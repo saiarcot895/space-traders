@@ -4,17 +4,31 @@ import java.util.Random;
 
 public class SolarSystem {
     private String systemName;
-    private Planet[] planets = new Planet[1];
-    private double x;
-    private double y;
+    private Planet[] planets;
+    private int x;
+    private int y;
 
     public SolarSystem(String systemName) {
-        this.systemName = systemName;
-        this.planets[0] = new Planet(systemName);
-
+        this.systemName = systemName;       //CHANGE NAME PROTOCOL TODO
         Random rand = new Random();
-        this.x = rand.nextDouble();
-        this.y = rand.nextDouble();
+        this.x = rand.nextInt(600);
+        this.y = rand.nextInt(600);
+        int size = rand.nextInt(5)+1;
+        planets = new Planet[size];
+        for(int i=0; i<size; i++)   {
+            planets[i] = new Planet(systemName);
+        }
+    }
+    
+    /**
+     * Get x
+     */
+    public int getX()   {
+        return x;
+    }
+    
+    public int getY()   {
+        return y;
     }
 
     /**

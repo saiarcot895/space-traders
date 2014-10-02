@@ -7,8 +7,8 @@ public class Planet {
     private static final int[] TTP = {2, 0, 1, 3, 6, 5, 6, 5, 5, 7};
     private static final int[] MTLP = {0, 0, 1, 2, 3, 3, 4, 4, 5, 6};
 
-    private double x;
-    private double y;
+    private int x;
+    private int y;
     private double size;
     private int[] items = new int[NUM_ITEMS];
     private int techLevel;
@@ -45,8 +45,8 @@ public class Planet {
     public Planet(String planetName) {
         this.planetName = planetName;
         Random rand = new Random();
-        x = rand.nextDouble();
-        y = rand.nextDouble();
+        x = rand.nextInt(600);
+        y = rand.nextInt(600);
         size = rand.nextDouble();
         techLevel = rand.nextInt(TECH_LEVELS.length);
         resourceType = rand.nextInt(RESOURCE_TYPES.length);
