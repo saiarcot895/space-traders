@@ -53,8 +53,8 @@ public class Planet {
         produceWares();
     }
     
-    public String getPlanetName()	{
-    	return planetName;
+    public String getPlanetName()   {
+        return planetName;
     }
 
     /**
@@ -122,6 +122,18 @@ public class Planet {
                 +items[3]+", "+items[4]+", "+items[5]+", "+items[6]+", "
                 +items[7]+", "+items[8]+", "+items[9]+"]"
             + ", Loc: (" + x + ", " + y + ")" + ">";
+    }
+
+    public void setX(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setY(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public double getSize() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
