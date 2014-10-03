@@ -52,38 +52,35 @@ public class SystemUIController implements Initializable {
     private Button currentPlanetButton;
     
     @Override
-    public void initialize(URL url, ResourceBundle rb)	{
-    	Dimension screenSize = UIHelper.getScreenSize();
-    	
-    	Planet[] planets = Player.getInstance().getCurrentSystem().getPlanets();
-    	Planet currentPlanet = Player.getInstance().getTradingPlanet();
-    	
-    	for(Planet planet:planets)	{
-    		PlanetButton button = new PlanetButton();
-    		button.setupForPlanet(planet);
-    		
-    		if(currentPlanet == planet)	{
-    			button.getStyleClass().add("currentPlanet");
-    			currentPlanetButton = button;
-    		}
-    		
-    		EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-    			@Override
-                public void handle(ActionEvent e) {
-    				Button button = (Button)e.getSource();
-    				String planetId = button.getId();
-    				setCurrentPlanetButton(button);
-    				Player.getInstance().setTradingPlanet(planet);
-    			}
-    		}
-    	}
+    public void initialize(URL url, ResourceBundle rb)  {
+        Dimension screenSize = UIHelper.getScreenSize();
+        
+        Planet[] planets = Player.getInstance().getCurrentSystem().getPlanets();
+        Planet currentPlanet = Player.getInstance().getTradingPlanet();
+        
+        for(Planet planet:planets)  {
+            PlanetButton button = new PlanetButton();
+            button.setupForPlanet(planet);
+            
+            if(currentPlanet == planet) {
+                button.getStyleClass().add("currentPlanet");
+                currentPlanetButton = button;
+            }
+            
+            EventHandler<ActionEvent> event = (ActionEvent e) -> {
+                    Button button1 = (Button)e.getSource();
+                    String planetId = button1.getId();
+                    setCurrentPlanetButton(button1);
+                    Player.getInstance().setTradingPlanet(planet);
+                };
+        }
     }
     
-    private void setCurrentPlanetButton(Button button)	{
-    	currentPlanetButton.getStyleClass().remove("currentPlanet");
-    	button.getStyleClass().add("currentPlanet");
-    	currentPlanetButton = button;
-    	currentPlanet = planet;
+    private void setCurrentPlanetButton(Button button)  {
+        currentPlanetButton.getStyleClass().remove("currentPlanet");
+        button.getStyleClass().add("currentPlanet");
+        currentPlanetButton = button;
+        currentPlanet = planet;
     }
     
     public void goToMarketplace(ActionEvent e) {
