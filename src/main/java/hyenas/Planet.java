@@ -52,6 +52,10 @@ public class Planet {
         resourceType = rand.nextInt(RESOURCE_TYPES.length);
         produceWares();
     }
+    
+    public String getPlanetName()	{
+    	return planetName;
+    }
 
     /**
      * Adds new stock to wares after each round

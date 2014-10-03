@@ -59,6 +59,14 @@ public class SolarSystem {
         return this.planets;
     }
 
+    public Planet getPlanetByName(String name)	{
+    	for(Planet planet: planets)	{
+    		if(planet.getPlanetName().equals(name))	{
+    			return planet
+    		}
+    	}
+    	return null;
+    }
 
     @Override
     public String toString() {

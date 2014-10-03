@@ -5,6 +5,8 @@
  */
 package hyenas;
 
+import hyenas.UI.UIHelper;
+import hyenas.UI.PlanetButton;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -47,10 +49,36 @@ public class SystemUIController implements Initializable {
     private AnchorPane anchor;
     
     @FXML
-    private SolarSystemInfoPane infoPane;
-
-    @FXML
-    private Button currentSolarSystemButton;
+    private Button currentPlanetButton;
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb)	{
+    	Dimension screenSize = UIHelper.getScreenSize();
+    	
+    	Planet[] planets = Player.getInstance().getCurrentSystem().getPlanets();
+    	Planet currentPlanet = Player.getInstance().getTradingPlanet();
+    	
+    	for(Planet planet:planets)	{
+    		PlanetButton button = new PlanetButton();
+    		button.setUpForPlanet(planet);
+    		
+    		if(currentPlanet == planet)	{
+    			button.getStyleClass().add("currentPlanet");
+    			currentPlanetButton = button;
+    		}
+    		
+    		
+    		public void handle(ActionEvent e)	{
+    			Button button = (Button)e.getSource();
+				String planetId = button.getId();
+				currentPlanetButton.getStyleClass().remove("currentPlanet");
+				button.getStyleClass().add("currentPlanet");
+				currentPlanetButton = button;
+				currentPlanet = planet;
+				Player.getInstance().setTradingPlanet(planet);
+    		}
+    	}
+    }
     
     public void goToMarketplace(ActionEvent e) {
         HyenasLoader.getInstance().goToMarketplace();
