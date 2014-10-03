@@ -124,16 +124,28 @@ public class Planet {
             + ", Loc: (" + x + ", " + y + ")" + ">";
     }
 
-    public void setX(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getX() {
+        return x;
     }
 
-    public void setY(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getY(int y) {
+        return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int Y) {
+        this.y = y;
     }
 
     public double getSize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return size;
+    }
+    
+    public void setSize(double size) {
+        this.size = size;
     }
 
 }
