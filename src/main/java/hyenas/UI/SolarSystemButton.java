@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import hyenas.UI.UIHelper;
 
 /**
  *
@@ -53,14 +54,9 @@ public class SolarSystemButton extends Button {
     }
     
     private Point getCoordinates() {
-        Dimension screenSize = UIHelper.getScreenSize();
         Random rand = new Random();
-
-        int screenWidth = (int)screenSize.getWidth();
-        int screenHeight = (int)screenSize.getHeight();
-
-        int x = rand.nextInt(screenWidth);
-        int y = rand.nextInt(screenHeight);
+        int x = rand.nextInt(UIHelper.GALAXY_SIZE);
+        int y = rand.nextInt(UIHelper.GALAXY_SIZE);
 
 //        TODO: make sure coordinates don't overlap
 //        TODO: make sure no planet is half off-screen

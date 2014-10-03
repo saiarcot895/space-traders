@@ -24,6 +24,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -33,7 +35,9 @@ import javafx.scene.layout.Pane;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
@@ -65,7 +69,11 @@ public class MapUIController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Dimension screenSize = UIHelper.getScreenSize();
-                
+        
+        Pane scrollContentPane = new Pane();
+        scrollContentPane.setPrefSize(UIHelper.GALAXY_SIZE, UIHelper.GALAXY_SIZE);
+        scrollContentPane.setStyle("-fx-background-color: transparent;");
+        
         HashMap<String, SolarSystem> solarSystems = Galaxy.getInstance().getSolarSystems();
         Set<String> solarSystemIDs = solarSystems.keySet();
         solarSystemIDs.stream().map((solarSystemID) -> {
@@ -102,11 +110,11 @@ public class MapUIController implements Initializable {
                 // Ensures entire pane stays in view region
                 int x = solarSystem1.getX() + 40;
                 int y = solarSystem1.getY() - (INFO_PANE_SIZE/2);
-                if (x > screenSize.getWidth() - INFO_PANE_SIZE)
-                    x = (int) screenSize.getWidth() - INFO_PANE_SIZE;
+                if (x > UIHelper.GALAXY_SIZE - INFO_PANE_SIZE)
+                    x = (int) UIHelper.GALAXY_SIZE - INFO_PANE_SIZE;
                 if (y < 0) y = 0;
-                if (y > screenSize.getHeight() - INFO_PANE_SIZE)
-                    y = (int)screenSize.getHeight() - INFO_PANE_SIZE;
+                if (y > UIHelper.GALAXY_SIZE - INFO_PANE_SIZE)
+                    y = UIHelper.GALAXY_SIZE - INFO_PANE_SIZE;
                 if (x < solarSystem1.getX()) {
                     x = solarSystem1.getX() - (INFO_PANE_SIZE + 20);
                 }
@@ -116,8 +124,23 @@ public class MapUIController implements Initializable {
             button.setOnAction(event);
             return button;
         }).forEach((button) -> {
-            anchor.getChildren().addAll(button);
+            scrollContentPane.getChildren().addAll(button);
         });
+        
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setPrefSize(screenSize.getWidth(), screenSize.getHeight());
+        scrollPane.setContent(scrollContentPane);
+        scrollPane.getStyleClass().add("scroll-pane");
+        scrollPane.setPannable(true);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        
+        AnchorPane.setTopAnchor(scrollPane, 60.0);
+        AnchorPane.setBottomAnchor(scrollPane, 60.0);
+        AnchorPane.setRightAnchor(scrollPane, 60.0);
+        AnchorPane.setLeftAnchor(scrollPane, 60.0);
+        
+        anchor.getChildren().addAll(scrollPane);
     }
     
     private void travelToSystem(SolarSystem solarSystem, Button solarSystemButton) {
