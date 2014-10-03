@@ -36,10 +36,23 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Abhishek
+ * @author Brian
  */
-public class MapUIController implements Initializable {
+public class SystemUIController implements Initializable {
 
+	@FXML
+    private Button menu;
     
+    @FXML
+    private AnchorPane anchor;
     
+    @FXML
+    private SolarSystemInfoPane infoPane;
+
+    @FXML
+    private Button currentSolarSystemButton;
+    
+    public void goToMarketplace(ActionEvent e) {
+        HyenasLoader.getInstance().goToMarketplace();
+    }
 }

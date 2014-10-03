@@ -16,6 +16,5 @@
           <MenuItem mnemonicParsing="false" text="Quit" />
         </items>
       </MenuButton>
-      <Button fx:id="marketPlace" layoutX="92.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToMarketplace" text="Marketplace" AnchorPane.topAnchor="14.0" />
     </children>
 </AnchorPane>

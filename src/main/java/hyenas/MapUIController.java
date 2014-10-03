@@ -147,8 +147,5 @@ public class MapUIController implements Initializable {
         currentSolarSystemButton = solarSystemButton;
     }
     
-    public void goToMarketplace(ActionEvent e) {
-        HyenasLoader.getInstance().goToMarketplace();
-    }
     
 }
