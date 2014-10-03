@@ -553,8 +553,8 @@ public class MarketController implements Initializable {
     }
     
     public void addFuel(ActionEvent e)	{
-    	if(fuelCount == player.getShip().getMaxFuel() || creditCount < fuelCost)	{
-    		return;
+    	if (fuelCount == player.getShip().getMaxFuel() || creditCount < fuelCost) {
+    		
     		//TODO display message saying that they have hit limit on fuel
     	}
     	fuelCount++;

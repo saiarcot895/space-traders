@@ -51,7 +51,7 @@ public class Ship {
     	this.fuel = fuel;
     }
     
-    public void getMaxFuel()	{
+    public int getMaxFuel()	{
     	return maxFuel;
     }
     

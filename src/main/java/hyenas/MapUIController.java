@@ -163,7 +163,9 @@ public class MapUIController implements Initializable {
     
     public void quitGame() {
         // TODO: Save game before quitting. (M7)
-        Player.getInstance().setCurrentState(false);
+        // Don't write in methods you haven't implemented - or at least comment them out so we can still build
+//        Player.getInstance().setCurrentState(false);
+
         HyenasLoader.getInstance().goToHomeScreen();
     }
     
