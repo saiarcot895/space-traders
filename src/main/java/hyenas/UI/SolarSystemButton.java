@@ -25,7 +25,7 @@ import javafx.stage.Stage;
  */
 public class SolarSystemButton extends Button {
     public void setupForSolarSystem(SolarSystem solarSystem) {
-        Image image = new Image("Planet.png");
+        Image image = new Image("hyenas/images/Planet.png");
         ImageView planetImageView = new ImageView(image);
         planetImageView.setFitWidth(solarSystem.getSize());
         planetImageView.setPreserveRatio(true);

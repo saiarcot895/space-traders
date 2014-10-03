@@ -116,10 +116,13 @@ public class MapUIController implements Initializable {
                     // Ensures entire pane stays in view region
                     int x = solarSystem.getX() + 40;
                     int y = solarSystem.getY() - (INFO_PANE_SIZE/2);
-                    if (x > screenSize.getWidth() - INFO_PANE_SIZE) x = (int) screenSize.getWidth() - INFO_PANE_SIZE;
+                    if (x > screenSize.getWidth() - INFO_PANE_SIZE)
+                        x = (int) screenSize.getWidth() - INFO_PANE_SIZE;
                     if (y < 0) y = 0;
-                    if (y > screenSize.getHeight() - INFO_PANE_SIZE) y = (int)screenSize.getHeight() - INFO_PANE_SIZE;
-                    if (x < solarSystem.getX()) x = solarSystem.getX() - (INFO_PANE_SIZE + 20);
+                    if (y > screenSize.getHeight() - INFO_PANE_SIZE)
+                        y = (int)screenSize.getHeight() - INFO_PANE_SIZE;
+                    if (x < solarSystem.getX())
+                        x = solarSystem.getX() - (INFO_PANE_SIZE + 20);
                     
                     infoPane.setLayoutX(x);
                     infoPane.setLayoutY(y);
