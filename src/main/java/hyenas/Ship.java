@@ -16,6 +16,7 @@ public class Ship {
     private int gadgetSlots[] = new int[2];
 //    private NPC[] crew; TODO: Implement NPC class
     private int fuel;
+    private int maxFuel;
     private int minTechLevel;
     private int price;
     private int bounty;
@@ -44,6 +45,18 @@ public class Ship {
     
     public void addCargo(Good good) {
         goods.add(good);
+    }
+    
+    public void setFuel(int fuel)	{
+    	this.fuel = fuel;
+    }
+    
+    public void getMaxFuel()	{
+    	return maxFuel;
+    }
+    
+    public int getFuel()	{
+    	return fuel;
     }
     
     public boolean removeCargo(Good good) {

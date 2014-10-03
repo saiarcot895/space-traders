@@ -12,8 +12,8 @@
     <children>
       <MenuButton fx:id="options" layoutX="8.0" layoutY="14.0" mnemonicParsing="false" text="Options">
         <items>
-          <MenuItem mnemonicParsing="false" text="Settings" />
-          <MenuItem mnemonicParsing="false" text="Quit" />
+          <MenuItem mnemonicParsing="false" text="Settings" onAction="#goToSettings"  />
+          <MenuItem mnemonicParsing="false" text="Quit" onAction="#quitGame"  />
         </items>
       </MenuButton>
     </children>

@@ -157,5 +157,14 @@ public class MapUIController implements Initializable {
         currentSolarSystemButton = solarSystemButton;
     }
     
+    public void goToSettings() {
+        HyenasLoader.getInstance().goToSettingsScreen();
+    }
+    
+    public void quitGame() {
+        // TODO: Save game before quitting. (M7)
+        Player.getInstance().setCurrentState(false);
+        HyenasLoader.getInstance().goToHomeScreen();
+    }
     
 }

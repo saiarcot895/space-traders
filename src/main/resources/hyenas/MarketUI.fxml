@@ -22,8 +22,8 @@
       <Label fx:id="lMedicine" layoutX="83.0" layoutY="527.0" prefHeight="21.0" prefWidth="81.0" text="Medicine" />
       <Label fx:id="lNarcotics" layoutX="83.0" layoutY="577.0" prefHeight="21.0" prefWidth="81.0" text="Narcotics" />
       <Label fx:id="lRobots" layoutX="83.0" layoutY="627.0" prefHeight="21.0" prefWidth="81.0" text="Robots" />
-      <Label fx:id="lTechLevel" layoutX="142.0" layoutY="93.0" text="Tech Level:" />
-      <Label fx:id="lPlanet" layoutX="170.0" layoutY="72.0" text="Planet:" />
+      <Label fx:id="lTechLevel" layoutX="142.0" layoutY="57.0" text="Tech Level:" />
+      <Label fx:id="lPlanet" layoutX="170.0" layoutY="36.0" text="Planet:" />
       <Label layoutX="83.0" layoutY="125.0" text="Wares">
          <font>
             <Font name="System Bold" size="20.0" />
@@ -39,8 +39,8 @@
       <Label fx:id="pMedicine" layoutX="277.0" layoutY="526.0" text="-1" />
       <Label fx:id="pNarcotics" layoutX="277.0" layoutY="576.0" text="-1" />
       <Label fx:id="pRobots" layoutX="277.0" layoutY="626.0" text="-1" />
-      <Label fx:id="tPlanet" layoutX="238.0" layoutY="72.0" text="NameHere" />
-      <Label fx:id="tTechLevel" layoutX="238.0" layoutY="93.0" text="TechHere" />
+      <Label fx:id="tPlanet" layoutX="238.0" layoutY="36.0" text="NameHere" />
+      <Label fx:id="tTechLevel" layoutX="238.0" layoutY="57.0" text="TechHere" />
       <Label layoutX="263.0" layoutY="125.0" text="Price">
          <font>
             <Font name="System Bold" size="20.0" />
@@ -71,8 +71,8 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lFree" layoutX="570.0" layoutY="83.0" text="Free Cargo Slots:" />
-      <Label fx:id="tFree" layoutX="703.0" layoutY="83.0" text="-1" />
+      <Label fx:id="lFree" layoutX="570.0" layoutY="99.0" text="Free Cargo Slots:" />
+      <Label fx:id="tFree" layoutX="703.0" layoutY="99.0" text="-1" />
       <Button fx:id="bWater" layoutX="327.0" layoutY="171.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
       <Button fx:id="bFurs" layoutX="327.0" layoutY="221.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
       <Button fx:id="bFood" layoutX="327.0" layoutY="271.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
@@ -125,5 +125,19 @@
       <Label fx:id="aFood" layoutX="200.0" layoutY="276.0" text="0" />
       <Label fx:id="aFurs" layoutX="200.0" layoutY="226.0" text="0" />
       <Label fx:id="aWater" layoutX="200.0" layoutY="176.0" text="0" />
+      <Label layoutX="148.0" layoutY="78.0" text="Fuel Price:" />
+      <Label layoutX="185.0" layoutY="99.0" text="Fuel:" />
+      <Label fx:id="fuelPrice" layoutX="252.0" layoutY="78.0" text="-1" />
+      <Label fx:id="fuelLeft" layoutX="235.0" layoutY="99.0" text="-1" />
+      <Button fx:id="fuelAdd" layoutX="264.0" layoutY="98.0" mnemonicParsing="false" onAction="#addFuel" prefHeight="10" prefWidth="10" text="+">
+         <font>
+            <Font size="10.0" />
+         </font></Button>
+      <Button fx:id="fuelSub" layoutX="291.0" layoutY="98.0" mnemonicParsing="false" onAction="#subtractFuel" prefHeight="23.0" prefWidth="21.0" text="-">
+         <font>
+            <Font size="10.0" />
+         </font></Button>
+      <Label layoutX="632.0" layoutY="78.0" text="Credits:" />
+      <Label fx:id="currentCredits" layoutX="703.0" layoutY="78.0" text="-1" />
    </children>
 </AnchorPane>
