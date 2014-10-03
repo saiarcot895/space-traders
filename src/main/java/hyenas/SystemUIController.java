@@ -67,8 +67,7 @@ public class SystemUIController implements Initializable {
     			currentPlanetButton = button;
     		}
     		
-    		
-    		public void handle(ActionEvent e)	{
+    		button.onAction(public void handle(ActionEvent e)	{
     			Button button = (Button)e.getSource();
 				String planetId = button.getId();
 				currentPlanetButton.getStyleClass().remove("currentPlanet");
@@ -76,7 +75,7 @@ public class SystemUIController implements Initializable {
 				currentPlanetButton = button;
 				currentPlanet = planet;
 				Player.getInstance().setTradingPlanet(planet);
-    		}
+    		});
     	}
     }
     
