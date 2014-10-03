@@ -67,16 +67,23 @@ public class SystemUIController implements Initializable {
     			currentPlanetButton = button;
     		}
     		
-    		button.onAction(public void handle(ActionEvent e)	{
-    			Button button = (Button)e.getSource();
-				String planetId = button.getId();
-				currentPlanetButton.getStyleClass().remove("currentPlanet");
-				button.getStyleClass().add("currentPlanet");
-				currentPlanetButton = button;
-				currentPlanet = planet;
-				Player.getInstance().setTradingPlanet(planet);
-    		});
+    		EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+    			@Override
+                public void handle(ActionEvent e) {
+    				Button button = (Button)e.getSource();
+    				String planetId = button.getId();
+    				setCurrentPlanetButton(button);
+    				Player.getInstance().setTradingPlanet(planet);
+    			}
+    		}
     	}
+    }
+    
+    private void setCurrentPlanetButton(Button button)	{
+    	currentPlanetButton.getStyleClass().remove("currentPlanet");
+    	button.getStyleClass().add("currentPlanet");
+    	currentPlanetButton = button;
+    	currentPlanet = planet;
     }
     
     public void goToMarketplace(ActionEvent e) {
