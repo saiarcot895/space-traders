@@ -42,7 +42,7 @@ import javafx.stage.Stage;
  */
 public class SystemUIController implements Initializable {
 
-	@FXML
+    @FXML
     private Button menu;
     
     @FXML
@@ -60,7 +60,7 @@ public class SystemUIController implements Initializable {
     	
     	for(Planet planet:planets)	{
     		PlanetButton button = new PlanetButton();
-    		button.setUpForPlanet(planet);
+    		button.setupForPlanet(planet);
     		
     		if(currentPlanet == planet)	{
     			button.getStyleClass().add("currentPlanet");

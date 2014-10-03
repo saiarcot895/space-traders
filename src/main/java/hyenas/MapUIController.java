@@ -68,69 +68,60 @@ public class MapUIController implements Initializable {
                 
         HashMap<String, SolarSystem> solarSystems = Galaxy.getInstance().getSolarSystems();
         Set<String> solarSystemIDs = solarSystems.keySet();
-        for (String solarSystemID: solarSystemIDs) {
-            SolarSystem solarSystem = solarSystems.get(solarSystemID);
+        solarSystemIDs.stream().map((solarSystemID) -> {
+            return solarSystems.get(solarSystemID);
+        }).map((SolarSystem solarSystem) -> {
             SolarSystemButton button = new SolarSystemButton();
             button.setupForSolarSystem(solarSystem);
-            
             Player player = Player.getInstance();
             SolarSystem currentSystem = player.getCurrentSystem();
             if (currentSystem == solarSystem) {
                 button.getStyleClass().add("currentPlanet");
                 currentSolarSystemButton = button;
             }
-            
-            EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    Button button = (Button)e.getSource();
-                    String solarSystemID = button.getId();
-                    SolarSystem solarSystem = Galaxy.getInstance().getSolarSystemForName(solarSystemID);
-                    
-                    if (infoPane != null) {
-                        anchor.getChildren().remove(infoPane);
-                    }
-                    
-                    SolarSystemInfoPane newPane = new SolarSystemInfoPane();
-                    newPane.setPrefSize(INFO_PANE_SIZE, INFO_PANE_SIZE);
-                    newPane.setupForSolarSystem(solarSystem);
-                    
-                    Button travelButton = new Button("Travel");
-                    travelButton.getStyleClass().add("infoPaneButton");
-                    
-                    EventHandler<ActionEvent> travelEvent = new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent e) {
-                            travelToSystem(solarSystem, button);
-                        }
-                    };
-                    travelButton.setOnAction(travelEvent);
-                    AnchorPane.setBottomAnchor(travelButton, 10.0);
-                    AnchorPane.setRightAnchor(travelButton, 10.0);
-                    AnchorPane.setLeftAnchor(travelButton, 10.0);
-                    newPane.getChildren().add(travelButton);
-                    infoPane = newPane;
-                    
-                    anchor.getChildren().addAll(newPane);
-                    
-                    // Ensures entire pane stays in view region
-                    int x = solarSystem.getX() + 40;
-                    int y = solarSystem.getY() - (INFO_PANE_SIZE/2);
-                    if (x > screenSize.getWidth() - INFO_PANE_SIZE)
-                        x = (int) screenSize.getWidth() - INFO_PANE_SIZE;
-                    if (y < 0) y = 0;
-                    if (y > screenSize.getHeight() - INFO_PANE_SIZE)
-                        y = (int)screenSize.getHeight() - INFO_PANE_SIZE;
-                    if (x < solarSystem.getX())
-                        x = solarSystem.getX() - (INFO_PANE_SIZE + 20);
-                    
-                    infoPane.setLayoutX(x);
-                    infoPane.setLayoutY(y);
+            return button;            
+        }).map((button) -> {
+            EventHandler<ActionEvent> event = (ActionEvent e) -> {
+                Button button1 = (Button)e.getSource();
+                String solarSystemID1 = button1.getId();
+                SolarSystem solarSystem1 = Galaxy.getInstance().getSolarSystemForName(solarSystemID1);
+                if (infoPane != null) {
+                    anchor.getChildren().remove(infoPane);
                 }
+                SolarSystemInfoPane newPane = new SolarSystemInfoPane();
+                newPane.setPrefSize(INFO_PANE_SIZE, INFO_PANE_SIZE);
+                newPane.setupForSolarSystem(solarSystem1);
+                Button travelButton = new Button("Travel");
+                travelButton.getStyleClass().add("infoPaneButton");
+                EventHandler<ActionEvent> travelEvent = (ActionEvent e1) -> {
+                    travelToSystem(solarSystem1, button1);
+                };
+                travelButton.setOnAction(travelEvent);
+                AnchorPane.setBottomAnchor(travelButton, 10.0);
+                AnchorPane.setRightAnchor(travelButton, 10.0);
+                AnchorPane.setLeftAnchor(travelButton, 10.0);
+                newPane.getChildren().add(travelButton);
+                infoPane = newPane;
+                anchor.getChildren().addAll(newPane);
+                // Ensures entire pane stays in view region
+                int x = solarSystem1.getX() + 40;
+                int y = solarSystem1.getY() - (INFO_PANE_SIZE/2);
+                if (x > screenSize.getWidth() - INFO_PANE_SIZE)
+                    x = (int) screenSize.getWidth() - INFO_PANE_SIZE;
+                if (y < 0) y = 0;
+                if (y > screenSize.getHeight() - INFO_PANE_SIZE)
+                    y = (int)screenSize.getHeight() - INFO_PANE_SIZE;
+                if (x < solarSystem1.getX()) {
+                    x = solarSystem1.getX() - (INFO_PANE_SIZE + 20);
+                }
+                infoPane.setLayoutX(x);
+                infoPane.setLayoutY(y);
             };
             button.setOnAction(event);
+            return button;
+        }).forEach((button) -> {
             anchor.getChildren().addAll(button);
-        }
+        });
     }
     
     private void travelToSystem(SolarSystem solarSystem, Button solarSystemButton) {
