@@ -42,18 +42,22 @@ public class SolarSystemInfoPane extends AnchorPane {
         AnchorPane.setRightAnchor(numPlanetsLabel, 10.0);
         AnchorPane.setLeftAnchor(numPlanetsLabel, 10.0);
         
-//        travelButton = new Button("Travel");
-//        travelButton.getStyleClass().add("infoPaneButton");
-//        AnchorPane.setBottomAnchor(travelButton, 10.0);
-//        AnchorPane.setRightAnchor(travelButton, 10.0);
-//        AnchorPane.setLeftAnchor(travelButton, 10.0);
+        travelButton = new Button("Travel");
+        travelButton.getStyleClass().add("infoPaneButton");
+        AnchorPane.setBottomAnchor(travelButton, 10.0);
+        AnchorPane.setRightAnchor(travelButton, 10.0);
+        AnchorPane.setLeftAnchor(travelButton, 10.0);
         
-        getChildren().addAll(systemNameLabel, numPlanetsLabel);
+        getChildren().addAll(travelButton, systemNameLabel, numPlanetsLabel);
         
     }
     
     public void setupForSolarSystem(SolarSystem solarSystem) {
         systemNameLabel.setText("System: " + solarSystem.getSystemName());
         numPlanetsLabel.setText("Planets: " + solarSystem.getPlanets().length);
+    }
+    
+    public Button getTravelButton() {
+        return travelButton;
     }
 }
