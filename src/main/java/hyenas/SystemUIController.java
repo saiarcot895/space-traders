@@ -70,9 +70,9 @@ public class SystemUIController implements Initializable {
             }
             
             EventHandler<ActionEvent> event = (ActionEvent e) -> {
-                    Button button1 = (Button)e.getSource();
-                    setCurrentPlanetButton(button1, planet);
-                    Player.getInstance().setTradingPlanet(planet);
+                Button button1 = (Button)e.getSource();
+                setCurrentPlanetButton(button1, planet);
+                Player.getInstance().setTradingPlanet(planet);
             };
         }
     }
