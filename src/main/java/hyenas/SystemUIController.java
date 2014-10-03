@@ -51,12 +51,14 @@ public class SystemUIController implements Initializable {
     @FXML
     private Button currentPlanetButton;
     
+    private Planet currentPlanet
+    
     @Override
     public void initialize(URL url, ResourceBundle rb)  {
         Dimension screenSize = UIHelper.getScreenSize();
         
         Planet[] planets = Player.getInstance().getCurrentSystem().getPlanets();
-        Planet currentPlanet = Player.getInstance().getTradingPlanet();
+        currentPlanet = Player.getInstance().getTradingPlanet();
         
         for(Planet planet:planets)  {
             PlanetButton button = new PlanetButton();
@@ -72,7 +74,7 @@ public class SystemUIController implements Initializable {
                     String planetId = button1.getId();
                     setCurrentPlanetButton(button1);
                     Player.getInstance().setTradingPlanet(planet);
-                };
+            };
         }
     }
     
