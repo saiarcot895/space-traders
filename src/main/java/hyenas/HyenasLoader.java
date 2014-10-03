@@ -96,6 +96,15 @@ public class HyenasLoader extends Application {
                     null, ex);
         }
     }
+    
+    public void goToSystemScreen()	{
+    	try	{
+    		changePage("InSystemView.fxml");
+    	} catch (IOException ex)	{
+    		Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
+                    null, ex);
+    	}
+    }
 
     private void changePage(String pageName) throws IOException {
         Parent page = FXMLLoader.load(getClass().getResource(pageName));
