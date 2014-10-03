@@ -51,7 +51,7 @@ public class SystemUIController implements Initializable {
     @FXML
     private Button currentPlanetButton;
     
-    private Planet currentPlanet
+    private Planet currentPlanet;
     
     @Override
     public void initialize(URL url, ResourceBundle rb)  {
@@ -60,7 +60,7 @@ public class SystemUIController implements Initializable {
         Planet[] planets = Player.getInstance().getCurrentSystem().getPlanets();
         currentPlanet = Player.getInstance().getTradingPlanet();
         
-        for(Planet planet:planets)  {
+        for(Planet planet : planets)  {
             PlanetButton button = new PlanetButton();
             button.setupForPlanet(planet);
             
@@ -70,15 +70,14 @@ public class SystemUIController implements Initializable {
             }
             
             EventHandler<ActionEvent> event = (ActionEvent e) -> {
-                    Button button1 = (Button)e.getSource();
-                    String planetId = button1.getId();
-                    setCurrentPlanetButton(button1);
-                    Player.getInstance().setTradingPlanet(planet);
+                Button button1 = (Button)e.getSource();
+                setCurrentPlanetButton(button1, planet);
+                Player.getInstance().setTradingPlanet(planet);
             };
         }
     }
     
-    private void setCurrentPlanetButton(Button button)  {
+    private void setCurrentPlanetButton(Button button, Planet planet)  {
         currentPlanetButton.getStyleClass().remove("currentPlanet");
         button.getStyleClass().add("currentPlanet");
         currentPlanetButton = button;

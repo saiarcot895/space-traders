@@ -91,18 +91,14 @@ public class MapUIController implements Initializable {
                 SolarSystemInfoPane newPane = new SolarSystemInfoPane();
                 newPane.setPrefSize(INFO_PANE_SIZE, INFO_PANE_SIZE);
                 newPane.setupForSolarSystem(solarSystem1);
-                Button travelButton = new Button("Travel");
-                travelButton.getStyleClass().add("infoPaneButton");
+                
                 EventHandler<ActionEvent> travelEvent = (ActionEvent e1) -> {
                     travelToSystem(solarSystem1, button1);
                 };
-                travelButton.setOnAction(travelEvent);
-                AnchorPane.setBottomAnchor(travelButton, 10.0);
-                AnchorPane.setRightAnchor(travelButton, 10.0);
-                AnchorPane.setLeftAnchor(travelButton, 10.0);
-                newPane.getChildren().add(travelButton);
+                newPane.getTravelButton().setOnAction(travelEvent);
                 infoPane = newPane;
                 anchor.getChildren().addAll(newPane);
+                
                 // Ensures entire pane stays in view region
                 int x = solarSystem1.getX() + 40;
                 int y = solarSystem1.getY() - (INFO_PANE_SIZE/2);
