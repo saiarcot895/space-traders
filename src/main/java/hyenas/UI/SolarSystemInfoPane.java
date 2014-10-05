@@ -49,7 +49,6 @@ public class SolarSystemInfoPane extends AnchorPane {
         AnchorPane.setLeftAnchor(travelButton, 10.0);
         
         getChildren().addAll(travelButton, systemNameLabel, numPlanetsLabel);
-        
     }
     
     public void setupForSolarSystem(SolarSystem solarSystem) {

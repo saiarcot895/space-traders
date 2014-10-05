@@ -7,6 +7,7 @@ package hyenas;
 
 import hyenas.UI.SolarSystemButton;
 import hyenas.UI.SolarSystemInfoPane;
+import hyenas.UI.SolarSystemScrollPane;
 import hyenas.UI.UIHelper;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -30,9 +31,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-
-
-
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -52,12 +50,12 @@ public class MapUIController implements Initializable {
     
     @FXML
     private AnchorPane anchor;
-    
-    @FXML
-    private SolarSystemInfoPane infoPane;
 
     @FXML
     private Button currentSolarSystemButton;
+    
+    @FXML
+    private SolarSystemScrollPane scrollPane = new SolarSystemScrollPane();
     
     private final int INFO_PANE_SIZE = 200;
 
@@ -68,8 +66,6 @@ public class MapUIController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Dimension screenSize = UIHelper.getScreenSize();
-        
         Pane scrollContentPane = new Pane();
         scrollContentPane.setPrefSize(UIHelper.GALAXY_SIZE, UIHelper.GALAXY_SIZE);
         scrollContentPane.setStyle("-fx-background-color: transparent;");
@@ -93,9 +89,7 @@ public class MapUIController implements Initializable {
                 Button button1 = (Button)e.getSource();
                 String solarSystemID1 = button1.getId();
                 SolarSystem solarSystem1 = Galaxy.getInstance().getSolarSystemForName(solarSystemID1);
-                if (infoPane != null) {
-                    anchor.getChildren().remove(infoPane);
-                }
+                
                 SolarSystemInfoPane newPane = new SolarSystemInfoPane();
                 newPane.setPrefSize(INFO_PANE_SIZE, INFO_PANE_SIZE);
                 newPane.setupForSolarSystem(solarSystem1);
@@ -104,8 +98,6 @@ public class MapUIController implements Initializable {
                     travelToSystem(solarSystem1, button1);
                 };
                 newPane.getTravelButton().setOnAction(travelEvent);
-                infoPane = newPane;
-                anchor.getChildren().addAll(newPane);
                 
                 // Ensures entire pane stays in view region
                 int x = solarSystem1.getX() + 40;
@@ -115,11 +107,13 @@ public class MapUIController implements Initializable {
                 if (y < 0) y = 0;
                 if (y > UIHelper.GALAXY_SIZE - INFO_PANE_SIZE)
                     y = UIHelper.GALAXY_SIZE - INFO_PANE_SIZE;
-                if (x < solarSystem1.getX()) {
+                if (x < solarSystem1.getX())
                     x = solarSystem1.getX() - (INFO_PANE_SIZE + 20);
-                }
-                infoPane.setLayoutX(x);
-                infoPane.setLayoutY(y);
+                
+                scrollPane.setInfoPane(newPane);
+                scrollContentPane.getChildren().addAll(newPane);
+                newPane.setLayoutX(x);
+                newPane.setLayoutY(y);
             };
             button.setOnAction(event);
             return button;
@@ -127,20 +121,16 @@ public class MapUIController implements Initializable {
             scrollContentPane.getChildren().addAll(button);
         });
         
-        ScrollPane scrollPane = new ScrollPane();
+        double x = currentSolarSystemButton.getLayoutX();
+        double y = currentSolarSystemButton.getLayoutY();
+        
+        Dimension screenSize = UIHelper.getScreenSize();
         scrollPane.setPrefSize(screenSize.getWidth(), screenSize.getHeight());
         scrollPane.setContent(scrollContentPane);
-        scrollPane.getStyleClass().add("scroll-pane");
-        scrollPane.setPannable(true);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setHvalue(x / screenSize.getWidth());
+        scrollPane.setVvalue(y / screenSize.getHeight());
         
-        AnchorPane.setTopAnchor(scrollPane, 60.0);
-        AnchorPane.setBottomAnchor(scrollPane, 60.0);
-        AnchorPane.setRightAnchor(scrollPane, 60.0);
-        AnchorPane.setLeftAnchor(scrollPane, 60.0);
-        
-        anchor.getChildren().addAll(scrollPane);
+        anchor.getChildren().add(scrollPane);
     }
     
     private void travelToSystem(SolarSystem solarSystem, Button solarSystemButton) {
