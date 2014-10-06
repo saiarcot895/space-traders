@@ -7,6 +7,7 @@ package hyenas;
 
 import hyenas.UI.UIHelper;
 import hyenas.UI.PlanetButton;
+import hyenas.UI.SolarSystemButton;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -23,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -41,24 +43,36 @@ import javafx.stage.Stage;
  * @author Brian
  */
 public class SystemUIController implements Initializable {
-
-    @FXML
-    private Button menu;
     
     @FXML
     private AnchorPane anchor;
     
     @FXML
-    private Button currentPlanetButton;
+    private AnchorPane systemPane;
+    
+    @FXML
+    private Button marketPlace;
+    
+    @FXML
+    private MenuButton options;
     
     private Planet currentPlanet;
+    
+    private Button currentPlanetButton;
     
     @Override
     public void initialize(URL url, ResourceBundle rb)  {
         Dimension screenSize = UIHelper.getScreenSize();
         
-        Planet[] planets = Player.getInstance().getCurrentSystem().getPlanets();
+        SolarSystem currentSystem = Player.getInstance().getCurrentSystem();
+        Planet[] planets = currentSystem.getPlanets();
         currentPlanet = Player.getInstance().getTradingPlanet();
+        
+        SolarSystemButton currentSystemButton = new SolarSystemButton();
+        currentSystemButton.setupForSystemUI(currentSystem);
+        currentSystemButton.setLayoutX(systemPane.getWidth() / 2);
+        currentSystemButton.setLayoutY(systemPane.getHeight() / 2);
+        systemPane.getChildren().add(currentSystemButton);
         
         for(Planet planet : planets)  {
             PlanetButton button = new PlanetButton();
@@ -74,6 +88,7 @@ public class SystemUIController implements Initializable {
                 setCurrentPlanetButton(button1, planet);
                 Player.getInstance().setTradingPlanet(planet);
             };
+            systemPane.getChildren().add(button);
         }
     }
     

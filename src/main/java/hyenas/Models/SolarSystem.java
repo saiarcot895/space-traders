@@ -8,6 +8,7 @@ public class SolarSystem {
     private int x;
     private int y;
     private int size;
+    private String color;
 
     public SolarSystem(String systemName) {
         this.systemName = systemName;       //CHANGE NAME PROTOCOL TODO
@@ -18,6 +19,7 @@ public class SolarSystem {
         for(int i=0; i < numPlanets; i++)   {
             planets[i] = new Planet(systemName);
         }
+        color = randomColorString();
     }
     
     /**
@@ -65,6 +67,18 @@ public class SolarSystem {
                 return planet;
         }
         return null;
+    }
+    
+    private String randomColorString() {
+        Random rand = new Random();
+        int r = rand.nextInt(255);
+        int g = rand.nextInt(255);
+        int b = rand.nextInt(255);
+        return String.format("rgb(%d, %d, %d, 1)", r, g, b);
+    }
+    
+    public String getColorString()  {
+        return color;
     }
 
     @Override

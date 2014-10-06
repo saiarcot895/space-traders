@@ -39,28 +39,15 @@ public class PlanetButton extends Button {
         setId(planet.getPlanetName());
         setMnemonicParsing(false);
         
-        String styleString = String.format("-fx-effect: innershadow(gaussian, %s, 15, 0, 0, 0)", randomColorString());
+        String styleString = String.format("-fx-effect: innershadow(gaussian, %s, 15, 0, 0, 0)", planet.getColorString());
         setStyle(styleString);
         getStyleClass().add("planet");
     }
     
-    private String randomColorString() {
-        Random rand = new Random();
-        int r = rand.nextInt(255);
-        int g = rand.nextInt(255);
-        int b = rand.nextInt(255);
-        return String.format("rgb(%d, %d, %d, 1)", r, g, b);
-    }
-    
     private Point getCoordinates() {
-        Dimension screenSize = UIHelper.getScreenSize();
         Random rand = new Random();
-
-        int screenWidth = (int)screenSize.getWidth();
-        int screenHeight = (int)screenSize.getHeight();
-
-        int x = rand.nextInt(screenWidth);
-        int y = rand.nextInt(screenHeight);
+        int x = rand.nextInt(UIHelper.SYSTEM_SIZE);
+        int y = rand.nextInt(UIHelper.SYSTEM_SIZE);
 
 //        TODO: make sure coordinates don't overlap
 //        TODO: make sure no planet is half off-screen

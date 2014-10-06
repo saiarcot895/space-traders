@@ -14,6 +14,7 @@ public class Planet {
     private int techLevel;
     private int resourceType;
     private String planetName;
+    private String color;
 
     private static final String[] TECH_LEVELS = new String[] {
         "Pre-Agriculture",
@@ -45,11 +46,10 @@ public class Planet {
     public Planet(String planetName) {
         this.planetName = planetName;
         Random rand = new Random();
-        x = rand.nextInt(600);
-        y = rand.nextInt(600);
-        size = rand.nextDouble();
+        size = 10 + rand.nextInt(10);
         techLevel = rand.nextInt(TECH_LEVELS.length);
         resourceType = rand.nextInt(RESOURCE_TYPES.length);
+        color = randomColorString();
         produceWares();
     }
     
@@ -146,6 +146,18 @@ public class Planet {
     
     public void setSize(double size) {
         this.size = size;
+    }
+    
+    private String randomColorString() {
+        Random rand = new Random();
+        int r = rand.nextInt(255);
+        int g = rand.nextInt(255);
+        int b = rand.nextInt(255);
+        return String.format("rgb(%d, %d, %d, 1)", r, g, b);
+    }
+    
+    public String getColorString()  {
+        return color;
     }
 
 }

@@ -25,13 +25,8 @@ import hyenas.UI.UIHelper;
  * @author Alex
  */
 public class SolarSystemButton extends Button {
-    public void setupForSolarSystem(SolarSystem solarSystem) {
-        Image image = new Image("hyenas/images/Planet.png");
-        ImageView planetImageView = new ImageView(image);
-        planetImageView.setFitWidth(solarSystem.getSize());
-        planetImageView.setPreserveRatio(true);
-        setGraphic(planetImageView);
-
+    public void setupForMapUI(SolarSystem solarSystem) {
+        setUpSystemImage(solarSystem, 1);
         Point coordinates = getCoordinates();
         solarSystem.setX((int)coordinates.getX());
         solarSystem.setY((int)coordinates.getY());
@@ -39,18 +34,24 @@ public class SolarSystemButton extends Button {
         setLayoutY(coordinates.getY());
         setId(solarSystem.getSystemName());
         setMnemonicParsing(false);
-        
-        String styleString = String.format("-fx-effect: innershadow(gaussian, %s, 15, 0, 0, 0)", randomColorString());
-        setStyle(styleString);
         getStyleClass().add("planet");
     }
     
-    private String randomColorString() {
-        Random rand = new Random();
-        int r = rand.nextInt(255);
-        int g = rand.nextInt(255);
-        int b = rand.nextInt(255);
-        return String.format("rgb(%d, %d, %d, 1)", r, g, b);
+    public void setupForSystemUI(SolarSystem solarSystem) {
+        setUpSystemImage(solarSystem, 10);
+        setMnemonicParsing(false);
+        getStyleClass().add("planet");
+    }
+    
+    public void setUpSystemImage(SolarSystem solarSystem, int sizeFactor) {
+        Image image = new Image("hyenas/images/Planet.png");
+        ImageView planetImageView = new ImageView(image);
+        planetImageView.setFitWidth(solarSystem.getSize() * sizeFactor);
+        planetImageView.setPreserveRatio(true);
+        setGraphic(planetImageView);
+        
+        String styleString = String.format("-fx-effect: innershadow(gaussian, %s, 15, 0, 0, 0)", solarSystem.getColorString());
+        setStyle(styleString);
     }
     
     private Point getCoordinates() {

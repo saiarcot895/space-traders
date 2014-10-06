@@ -82,7 +82,7 @@ public class MapUIController implements Initializable {
             return solarSystems.get(solarSystemID);
         }).map((SolarSystem solarSystem) -> {
             SolarSystemButton button = new SolarSystemButton();
-            button.setupForSolarSystem(solarSystem);
+            button.setupForMapUI(solarSystem);
             Player player = Player.getInstance();
             SolarSystem currentSystem = player.getCurrentSystem();
             if (currentSystem == solarSystem) {
@@ -162,50 +162,23 @@ public class MapUIController implements Initializable {
 //        TODO: Animate moving from planet
         player.setCurrentSystem(solarSystem);
         
-        final Rectangle rectBasicTimeline = new Rectangle(100, 50, 100, 50);
-        rectBasicTimeline.setFill(Color.RED);
-        ((Pane)scrollPane.getContent()).getChildren().add(rectBasicTimeline);
-        
-//        scrollPane.setScaleX(5.0);
-//        scrollPane.setScaleY(5.0);
+        /*
         scrollPane.setPannable(false);
-//        scrollPane.setScroll
         Dimension screenSize = UIHelper.getScreenSize();
         
         Pane contentPane = (Pane)scrollPane.getContent();
         
-//        Input:
-//        0 ... (1280/ 2) .... 1280
-//        Output: 
-//       5 ....     1    .... 5 times the X or Y value divided by content size (5000)
-//       .00625x-3
-//               -.00625+5
         System.out.println("System: "+solarSystem.getX() +","+solarSystem.getY());
         double hvalue;
-         if (solarSystem.getX() <= GALAXY_SIZE / 2) {
-            double factor = (((-.004 * solarSystem.getX()) + 5) * solarSystem.getX());
-            System.out.println("X less than: "+factor);
-            hvalue = factor / GALAXY_SIZE;
-         } else {
-            double factor = (((.004 * solarSystem.getX()) - 3) * solarSystem.getX());
-            System.out.println("X greater than: "+factor);
-            hvalue = factor / GALAXY_SIZE;
-         }
-         
-         double vvalue;
-         if (solarSystem.getY() <= GALAXY_SIZE / 2) {
-            double factor = (((-.004 * solarSystem.getY()) + 5) * solarSystem.getY());
-            System.out.println("Y less than: "+factor);
-             vvalue =  factor / GALAXY_SIZE;
-         } else {
-             double factor = (((.004 * solarSystem.getY()) - 3) * solarSystem.getY());
-            System.out.println("Y greater than: "+factor);
-             vvalue =  factor / GALAXY_SIZE;
-         }
-               
-        
-//        double hvalue = solarSystem.getX() / (contentPane.getWidth() / 5.0);
-//        double vvalue = solarSystem.getY() / (contentPane.getHeight() / 5.0);
+        if (solarSystem.getX() <= GALAXY_SIZE / 2) {
+           double factor = (((-.004 * solarSystem.getX()) + 5) * solarSystem.getX());
+           System.out.println("X less than: "+factor);
+           hvalue = factor / GALAXY_SIZE;
+        } else {
+           double factor = (((.004 * solarSystem.getX()) - 3) * solarSystem.getX());
+           System.out.println("X greater than: "+factor);
+           hvalue = factor / GALAXY_SIZE;
+        }
         
         System.out.println("HV: "+hvalue +","+vvalue);
         
@@ -222,11 +195,13 @@ public class MapUIController implements Initializable {
         timeline.getKeyFrames().add(kfScaleY);
         timeline.getKeyFrames().add(kfH);
         timeline.getKeyFrames().add(kfV);
-        timeline.play();
+        timeline.play();*/
         
         currentSolarSystemButton.getStyleClass().remove("currentPlanet");
         solarSystemButton.getStyleClass().add("currentPlanet");
         currentSolarSystemButton = solarSystemButton;
+        
+        HyenasLoader.getInstance().goToSystemScreen();
     }
     
     public void goToSettings() {
