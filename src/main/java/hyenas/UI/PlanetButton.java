@@ -32,8 +32,6 @@ public class PlanetButton extends Button {
         setGraphic(planetImageView);
 
         Point coordinates = getCoordinates();
-        planet.setX((int)coordinates.getX());
-        planet.setY((int)coordinates.getY());
         setLayoutX(coordinates.getX());
         setLayoutY(coordinates.getY());
         setId(planet.getPlanetName());

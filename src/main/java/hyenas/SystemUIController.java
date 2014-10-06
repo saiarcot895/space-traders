@@ -22,12 +22,15 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 
@@ -48,7 +51,7 @@ public class SystemUIController implements Initializable {
     private AnchorPane anchor;
     
     @FXML
-    private AnchorPane systemPane;
+    private BorderPane systemPane;
     
     @FXML
     private Button marketPlace;
@@ -70,9 +73,14 @@ public class SystemUIController implements Initializable {
         
         SolarSystemButton currentSystemButton = new SolarSystemButton();
         currentSystemButton.setupForSystemUI(currentSystem);
-        currentSystemButton.setLayoutX(systemPane.getWidth() / 2);
-        currentSystemButton.setLayoutY(systemPane.getHeight() / 2);
-        systemPane.getChildren().add(currentSystemButton);
+        currentSystemButton.setAlignment(Pos.CENTER);
+//        currentSystemButton.setLayoutX(systemPane.getWidth() / 2);
+//        currentSystemButton.setLayoutY(systemPane.getHeight() / 2);
+//        systemPane.getChildren().add(currentSystemButton);
+        systemPane.setCenter(currentSystemButton);
+//        systemPane.add(currentSystemButton, 3, 3);
+//        systemPane.setHgap(10);
+//        systemPane.setVgap(12);
         
         for(Planet planet : planets)  {
             PlanetButton button = new PlanetButton();
@@ -101,5 +109,9 @@ public class SystemUIController implements Initializable {
     
     public void goToMarketplace(ActionEvent e) {
         HyenasLoader.getInstance().goToMarketplace();
+    }
+    
+    public void goBack(ActionEvent e) {
+        HyenasLoader.getInstance().goToMapScreen();
     }
 }
