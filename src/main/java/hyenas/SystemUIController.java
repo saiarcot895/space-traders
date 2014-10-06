@@ -9,6 +9,7 @@ import hyenas.UI.UIHelper;
 import hyenas.UI.PlanetButton;
 import hyenas.UI.SolarSystemButton;
 import static hyenas.UI.SolarSystemButton.SYSTEM_UI_SIZE_FACTOR;
+import hyenas.UI.SolarSystemImageView;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -38,7 +39,9 @@ import javafx.scene.layout.Pane;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.StrokeType;
 import javafx.stage.Stage;
 
 /**
@@ -72,15 +75,13 @@ public class SystemUIController implements Initializable {
         Planet[] planets = currentSystem.getPlanets();
         currentPlanet = Player.getInstance().getTradingPlanet();
         
-        SolarSystemButton currentSystemButton = new SolarSystemButton();
+        SolarSystemImageView currentSystemButton = new SolarSystemImageView();
         currentSystemButton.setupForSystemUI(currentSystem);
-//        currentSystemButton.setAlignment(Pos.CENTER);
-//        currentSystemButton.setLayoutX(systemPane.getWidth() / 2);
-//        currentSystemButton.setLayoutY(systemPane.getHeight() / 2);
-        double systemCenterX = UIHelper.SYSTEM_WIDTH / 2;
-        double systemCenterY = UIHelper.SYSTEM_HEIGHT / 2;
-        currentSystemButton.setLayoutX(systemCenterX - ((currentSystem.getSize() * SYSTEM_UI_SIZE_FACTOR) / 2));
-        currentSystemButton.setLayoutY(systemCenterY - ((currentSystem.getSize() * SYSTEM_UI_SIZE_FACTOR) / 2));
+        
+        double systemCenterX = UIHelper.SYSTEM_WIDTH / 2.0;
+        double systemCenterY = UIHelper.SYSTEM_HEIGHT / 2.0;
+        currentSystemButton.setLayoutX(systemCenterX - (currentSystemButton.getFitWidth() / 2.0));
+        currentSystemButton.setLayoutY(systemCenterY - (currentSystemButton.getFitHeight() / 2.0));
         
         systemPane.setPrefHeight(UIHelper.SYSTEM_HEIGHT);
         systemPane.setPrefWidth(UIHelper.SYSTEM_WIDTH);
@@ -88,19 +89,21 @@ public class SystemUIController implements Initializable {
         systemPane.setMaxWidth(UIHelper.SYSTEM_WIDTH);
         systemPane.setLayoutX(screenSize.getWidth() / 2);
         systemPane.getChildren().add(currentSystemButton);
-//        systemPane.setCenter(currentSystemButton);
-//        systemPane.add(currentSystemButton, 3, 3);
-//        systemPane.setHgap(10);
-//        systemPane.setVgap(12);
         
         for(Planet planet : planets)  {
             PlanetButton button = new PlanetButton();
             button.setupForPlanet(planet);
-            
-            Circle circle = new Circle();
-            circle.setCenterX(systemCenterX);
-            circle.setCenterY(systemCenterY);
-            circle.setRadius(planet.getOrbitRadius());
+//            button.relocate(systemCenterX + planet.getOrbitRadius() - (button.getPrefWidth() / 2.0), systemCenterY);
+            button.setLayoutX(systemCenterX + planet.getOrbitRadius() - (button.getPrefWidth() / 2.0) - 10);
+            button.setLayoutY(systemCenterY - 10);
+            System.out.println("System: " + systemCenterX + "," + systemCenterY);
+            Circle circle = new Circle(systemCenterX, systemCenterY, planet.getOrbitRadius());
+            circle.setStrokeType(StrokeType.OUTSIDE);
+            circle.setStroke(Color.web("white", 0.5));
+            circle.setStrokeWidth(1);
+            circle.setFill(Color.TRANSPARENT);
+//            circle.setStyle("-fx-stroke-dash-array: 12 2 4 2;"); 
+//            circle.setStyle("-fx-stroke-dash-array: 12 2 4 2; -fx-stroke-width: 5;-fx-stroke: green;"); 
             
             if(currentPlanet == planet) {
                 button.getStyleClass().add("currentPlanet");

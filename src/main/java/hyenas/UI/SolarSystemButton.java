@@ -25,7 +25,7 @@ import hyenas.UI.UIHelper;
  * @author Alex
  */
 public class SolarSystemButton extends Button {
-    public static final int SYSTEM_UI_SIZE_FACTOR = 10;
+    public static final double SYSTEM_UI_SIZE_FACTOR = 10.0;
     
     public void setupForMapUI(SolarSystem solarSystem) {
         setUpSystemImage(solarSystem, 1);
@@ -45,11 +45,13 @@ public class SolarSystemButton extends Button {
         getStyleClass().add("planet");
     }
     
-    public void setUpSystemImage(SolarSystem solarSystem, int sizeFactor) {
+    public void setUpSystemImage(SolarSystem solarSystem, double sizeFactor) {
         Image image = new Image("hyenas/images/Planet.png");
         ImageView planetImageView = new ImageView(image);
         planetImageView.setFitWidth(solarSystem.getSize() * sizeFactor);
         planetImageView.setPreserveRatio(true);
+        setPrefWidth(solarSystem.getSize() * sizeFactor);
+        setPrefHeight(solarSystem.getSize() * sizeFactor);
         setGraphic(planetImageView);
         
         String styleString = String.format("-fx-effect: innershadow(gaussian, %s, 15, 0, 0, 0)", solarSystem.getColorString());

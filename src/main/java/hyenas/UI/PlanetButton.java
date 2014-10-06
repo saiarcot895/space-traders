@@ -7,6 +7,7 @@ package hyenas.UI;
 
 import hyenas.HyenasLoader;
 import hyenas.Planet;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.net.URL;
@@ -24,18 +25,18 @@ import javafx.stage.Stage;
  * @author Brian
  */
 public class PlanetButton extends Button {
+    
     public void setupForPlanet(Planet planet) {
         Image image = new Image("hyenas/images/Planet.png");
         ImageView planetImageView = new ImageView(image);
         planetImageView.setFitWidth(planet.getSize());
+        planetImageView.setFitHeight(planet.getSize());
         planetImageView.setPreserveRatio(true);
         setGraphic(planetImageView);
-
-        Point coordinates = getCoordinates();
-        setLayoutX(coordinates.getX());
-        setLayoutY(coordinates.getY());
         setId(planet.getPlanetName());
         setMnemonicParsing(false);
+        setPrefWidth(planet.getSize());
+        setPrefHeight(planet.getSize());
         
         String styleString = String.format("-fx-effect: innershadow(gaussian, %s, 15, 0, 0, 0)", planet.getColorString());
         setStyle(styleString);
@@ -44,8 +45,8 @@ public class PlanetButton extends Button {
     
     private Point getCoordinates() {
         Random rand = new Random();
-        int x = rand.nextInt(UIHelper.SYSTEM_WIDTH);
-        int y = rand.nextInt(UIHelper.SYSTEM_HEIGHT);
+        int x = rand.nextInt(1160);
+        int y = rand.nextInt(680);
 
 //        TODO: make sure coordinates don't overlap
 //        TODO: make sure no planet is half off-screen

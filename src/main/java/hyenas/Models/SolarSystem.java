@@ -7,13 +7,13 @@ public class SolarSystem {
     private Planet[] planets;
     private int x;
     private int y;
-    private int size;
+    private double size;
     private String color;
 
     public SolarSystem(String systemName) {
         this.systemName = systemName;       //CHANGE NAME PROTOCOL TODO
         Random rand = new Random();
-        size = 10 + rand.nextInt(10);
+        size = 10 + (rand.nextDouble() * 10);
         int numPlanets = rand.nextInt(5)+1;
         planets = new Planet[numPlanets];
         for(int i=0; i < numPlanets; i++)   {
@@ -41,7 +41,7 @@ public class SolarSystem {
         this.y = y;
     }
     
-    public int getSize()   {
+    public double getSize()   {
         return size;
     }
 

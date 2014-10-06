@@ -48,7 +48,7 @@ public class Planet {
         this.planetName = planetName;
         Random rand = new Random();
         size = 10 + rand.nextInt(10);
-        orbitRadius = 20 + rand.nextInt(100);
+        orbitRadius = 110 + rand.nextInt(200);
         techLevel = rand.nextInt(TECH_LEVELS.length);
         resourceType = rand.nextInt(RESOURCE_TYPES.length);
         color = randomColorString();
