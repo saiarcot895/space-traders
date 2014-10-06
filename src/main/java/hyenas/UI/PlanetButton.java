@@ -44,8 +44,8 @@ public class PlanetButton extends Button {
     
     private Point getCoordinates() {
         Random rand = new Random();
-        int x = rand.nextInt(UIHelper.SYSTEM_SIZE);
-        int y = rand.nextInt(UIHelper.SYSTEM_SIZE);
+        int x = rand.nextInt(UIHelper.SYSTEM_WIDTH);
+        int y = rand.nextInt(UIHelper.SYSTEM_HEIGHT);
 
 //        TODO: make sure coordinates don't overlap
 //        TODO: make sure no planet is half off-screen

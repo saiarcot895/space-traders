@@ -161,5 +161,8 @@ public class Planet {
     public String getColorString()  {
         return color;
     }
-
+    
+    public int getOrbitRadius() {
+        return orbitRadius;
+    }
 }

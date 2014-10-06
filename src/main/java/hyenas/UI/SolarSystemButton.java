@@ -25,6 +25,8 @@ import hyenas.UI.UIHelper;
  * @author Alex
  */
 public class SolarSystemButton extends Button {
+    public static final int SYSTEM_UI_SIZE_FACTOR = 10;
+    
     public void setupForMapUI(SolarSystem solarSystem) {
         setUpSystemImage(solarSystem, 1);
         Point coordinates = getCoordinates();
@@ -38,7 +40,7 @@ public class SolarSystemButton extends Button {
     }
     
     public void setupForSystemUI(SolarSystem solarSystem) {
-        setUpSystemImage(solarSystem, 10);
+        setUpSystemImage(solarSystem, SYSTEM_UI_SIZE_FACTOR);
         setMnemonicParsing(false);
         getStyleClass().add("planet");
     }

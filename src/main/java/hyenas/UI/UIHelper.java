@@ -14,7 +14,8 @@ import java.awt.Toolkit;
  */
 public class UIHelper {
     public static final int GALAXY_SIZE = 2000;
-    public static final int SYSTEM_SIZE = 1000;
+    public static final int SYSTEM_WIDTH = 1160;
+    public static final int SYSTEM_HEIGHT = 680;
     
     public static final Dimension getScreenSize() {
         return Toolkit.getDefaultToolkit().getScreenSize();

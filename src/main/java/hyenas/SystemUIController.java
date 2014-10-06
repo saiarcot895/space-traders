@@ -8,6 +8,7 @@ package hyenas;
 import hyenas.UI.UIHelper;
 import hyenas.UI.PlanetButton;
 import hyenas.UI.SolarSystemButton;
+import static hyenas.UI.SolarSystemButton.SYSTEM_UI_SIZE_FACTOR;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -48,10 +49,10 @@ import javafx.stage.Stage;
 public class SystemUIController implements Initializable {
     
     @FXML
-    private AnchorPane anchor;
+    private VBox boxPane;
     
     @FXML
-    private BorderPane systemPane;
+    private Pane systemPane;
     
     @FXML
     private Button marketPlace;
@@ -73,11 +74,21 @@ public class SystemUIController implements Initializable {
         
         SolarSystemButton currentSystemButton = new SolarSystemButton();
         currentSystemButton.setupForSystemUI(currentSystem);
-        currentSystemButton.setAlignment(Pos.CENTER);
+//        currentSystemButton.setAlignment(Pos.CENTER);
 //        currentSystemButton.setLayoutX(systemPane.getWidth() / 2);
 //        currentSystemButton.setLayoutY(systemPane.getHeight() / 2);
-//        systemPane.getChildren().add(currentSystemButton);
-        systemPane.setCenter(currentSystemButton);
+        double systemCenterX = UIHelper.SYSTEM_WIDTH / 2;
+        double systemCenterY = UIHelper.SYSTEM_HEIGHT / 2;
+        currentSystemButton.setLayoutX(systemCenterX - ((currentSystem.getSize() * SYSTEM_UI_SIZE_FACTOR) / 2));
+        currentSystemButton.setLayoutY(systemCenterY - ((currentSystem.getSize() * SYSTEM_UI_SIZE_FACTOR) / 2));
+        
+        systemPane.setPrefHeight(UIHelper.SYSTEM_HEIGHT);
+        systemPane.setPrefWidth(UIHelper.SYSTEM_WIDTH);
+        systemPane.setMaxHeight(UIHelper.SYSTEM_HEIGHT);
+        systemPane.setMaxWidth(UIHelper.SYSTEM_WIDTH);
+        systemPane.setLayoutX(screenSize.getWidth() / 2);
+        systemPane.getChildren().add(currentSystemButton);
+//        systemPane.setCenter(currentSystemButton);
 //        systemPane.add(currentSystemButton, 3, 3);
 //        systemPane.setHgap(10);
 //        systemPane.setVgap(12);
@@ -85,6 +96,11 @@ public class SystemUIController implements Initializable {
         for(Planet planet : planets)  {
             PlanetButton button = new PlanetButton();
             button.setupForPlanet(planet);
+            
+            Circle circle = new Circle();
+            circle.setCenterX(systemCenterX);
+            circle.setCenterY(systemCenterY);
+            circle.setRadius(planet.getOrbitRadius());
             
             if(currentPlanet == planet) {
                 button.getStyleClass().add("currentPlanet");
@@ -96,7 +112,7 @@ public class SystemUIController implements Initializable {
                 setCurrentPlanetButton(button1, planet);
                 Player.getInstance().setTradingPlanet(planet);
             };
-            systemPane.getChildren().add(button);
+            systemPane.getChildren().addAll(circle, button);
         }
     }
     
