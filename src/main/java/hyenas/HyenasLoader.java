@@ -87,7 +87,7 @@ public class HyenasLoader extends Application {
     
     public void goToMarketplace() {
         try {
-            changePage("/MarketUI.fxml");
+            changePage("MarketUI.fxml");
         } catch (IOException ex) {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);
