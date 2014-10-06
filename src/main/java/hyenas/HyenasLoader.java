@@ -12,6 +12,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -32,7 +33,7 @@ public class HyenasLoader extends Application {
     public void start(Stage stage) throws Exception {
         instance = this;
         this.stage = stage;
-        stage.setFullScreen(true); // TODO: Remove (non-full screen makes development easier)
+        stage.setFullScreen(true);
 //        stage.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource(
                     "MainWindow.fxml"));

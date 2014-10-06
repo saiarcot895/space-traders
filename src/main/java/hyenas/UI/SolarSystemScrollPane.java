@@ -19,7 +19,6 @@ import javafx.scene.layout.Pane;
  */
 public class SolarSystemScrollPane extends ScrollPane {
     
-    @FXML
     private SolarSystemInfoPane infoPane;
     
     public SolarSystemScrollPane() {

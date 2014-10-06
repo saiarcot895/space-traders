@@ -13,7 +13,15 @@ and open the template in the editor.
     -fx-background-size: cover;
 }
 
-.label, .check-box {
+.label {
+    -fx-text-fill: orange;
+}
+
+.title-label {
+    -fx-effect: dropshadow( gaussian, rgba(0,0,0,1), 0,0,2,2);
+}
+
+.check-box {
     -fx-text-fill: orange;
 }
 
@@ -24,7 +32,6 @@ and open the template in the editor.
 .planet {
     -fx-background-radius: 5, 5;
     -fx-background-color: rgba(0, 0, 0, 0);
-    
 }
 
 .planet:hover {
@@ -75,14 +82,15 @@ and open the template in the editor.
 }
 
 .scroll-pane {
-    -fx-background: rgba(0,0,0,1);
-    -fx-background-color: rgba(0,0,0,1);
+    -fx-background: url('/hyenas/images/Background.jpg');
+    -fx-background: black;
+    -fx-background-color: black;
     -fx-border-color: orange;
     -fx-border-width: 1;
 }
 
 .scroll-pane .corner {
-    -fx-background-color: rgba(0,0,0,1);
+    -fx-background-color: black;
 }
 
 .scroll-bar:horizontal,
@@ -95,7 +103,6 @@ and open the template in the editor.
     -fx-background-color:transparent;
     -fx-background-radius: 0em;
     -fx-padding:0 0 10 0;
-
 }
 
 .scroll-bar:vertical .increment-button ,

@@ -9,6 +9,7 @@ import hyenas.UI.SolarSystemButton;
 import hyenas.UI.SolarSystemInfoPane;
 import hyenas.UI.SolarSystemScrollPane;
 import hyenas.UI.UIHelper;
+import static hyenas.UI.UIHelper.GALAXY_SIZE;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -18,6 +19,9 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Set;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -29,6 +33,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -37,6 +42,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -127,8 +133,22 @@ public class MapUIController implements Initializable {
         Dimension screenSize = UIHelper.getScreenSize();
         scrollPane.setPrefSize(screenSize.getWidth(), screenSize.getHeight());
         scrollPane.setContent(scrollContentPane);
-        scrollPane.setHvalue(x / screenSize.getWidth());
-        scrollPane.setVvalue(y / screenSize.getHeight());
+        
+//        scrollPane.setOnScroll(
+//            new EventHandler<ScrollEvent>() {
+//                @Override
+//                public void handle(ScrollEvent event) {
+//                    double zoomFactor = 1.05;
+//                    double deltaY = event.getDeltaY();
+//                    if (deltaY < 0) {
+//                        zoomFactor = 2.0 - zoomFactor;
+//                    }
+//                    System.out.println(zoomFactor);
+//                    scrollContentPane.setScaleX(scrollContentPane.getScaleX() * zoomFactor);
+//                    scrollContentPane.setScaleY(scrollContentPane.getScaleY() * zoomFactor);
+//                    event.consume();
+//                }
+//            });
         
         anchor.getChildren().add(scrollPane);
     }
@@ -141,6 +161,68 @@ public class MapUIController implements Initializable {
 //        TODO: Deduct fuel, calculate fuel cost
 //        TODO: Animate moving from planet
         player.setCurrentSystem(solarSystem);
+        
+        final Rectangle rectBasicTimeline = new Rectangle(100, 50, 100, 50);
+        rectBasicTimeline.setFill(Color.RED);
+        ((Pane)scrollPane.getContent()).getChildren().add(rectBasicTimeline);
+        
+//        scrollPane.setScaleX(5.0);
+//        scrollPane.setScaleY(5.0);
+        scrollPane.setPannable(false);
+//        scrollPane.setScroll
+        Dimension screenSize = UIHelper.getScreenSize();
+        
+        Pane contentPane = (Pane)scrollPane.getContent();
+        
+//        Input:
+//        0 ... (1280/ 2) .... 1280
+//        Output: 
+//       5 ....     1    .... 5 times the X or Y value divided by content size (5000)
+//       .00625x-3
+//               -.00625+5
+        System.out.println("System: "+solarSystem.getX() +","+solarSystem.getY());
+        double hvalue;
+         if (solarSystem.getX() <= GALAXY_SIZE / 2) {
+            double factor = (((-.004 * solarSystem.getX()) + 5) * solarSystem.getX());
+            System.out.println("X less than: "+factor);
+            hvalue = factor / GALAXY_SIZE;
+         } else {
+            double factor = (((.004 * solarSystem.getX()) - 3) * solarSystem.getX());
+            System.out.println("X greater than: "+factor);
+            hvalue = factor / GALAXY_SIZE;
+         }
+         
+         double vvalue;
+         if (solarSystem.getY() <= GALAXY_SIZE / 2) {
+            double factor = (((-.004 * solarSystem.getY()) + 5) * solarSystem.getY());
+            System.out.println("Y less than: "+factor);
+             vvalue =  factor / GALAXY_SIZE;
+         } else {
+             double factor = (((.004 * solarSystem.getY()) - 3) * solarSystem.getY());
+            System.out.println("Y greater than: "+factor);
+             vvalue =  factor / GALAXY_SIZE;
+         }
+               
+        
+//        double hvalue = solarSystem.getX() / (contentPane.getWidth() / 5.0);
+//        double vvalue = solarSystem.getY() / (contentPane.getHeight() / 5.0);
+        
+        System.out.println("HV: "+hvalue +","+vvalue);
+        
+        final Timeline timeline = new Timeline();
+        final KeyValue kvScaleX = new KeyValue(contentPane.scaleXProperty(), 5.0);
+        final KeyValue kvScaleY = new KeyValue(contentPane.scaleYProperty(), 5.0);
+        final KeyValue kvH = new KeyValue(scrollPane.hvalueProperty(), hvalue);
+        final KeyValue kvV = new KeyValue(scrollPane.vvalueProperty(), vvalue);
+        final KeyFrame kfScaleX = new KeyFrame(Duration.millis(500), kvScaleX);
+        final KeyFrame kfScaleY = new KeyFrame(Duration.millis(500), kvScaleY);
+        final KeyFrame kfH = new KeyFrame(Duration.millis(500), kvH);
+        final KeyFrame kfV = new KeyFrame(Duration.millis(500), kvV);
+        timeline.getKeyFrames().add(kfScaleX);
+        timeline.getKeyFrames().add(kfScaleY);
+        timeline.getKeyFrames().add(kfH);
+        timeline.getKeyFrames().add(kfV);
+        timeline.play();
         
         currentSolarSystemButton.getStyleClass().remove("currentPlanet");
         solarSystemButton.getStyleClass().add("currentPlanet");
