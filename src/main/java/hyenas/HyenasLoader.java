@@ -96,7 +96,7 @@ public class HyenasLoader extends Application {
     
     public void goToSystemScreen() {
     	try {
-    	    changePage("/hyenas/InSystemView.fxml");
+    	    changePage("InSystemView.fxml");
     	} catch (IOException ex) {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);
