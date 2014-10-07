@@ -213,10 +213,10 @@ public class MarketController implements Initializable {
     private Label fuelPrice;
     
     @FXML
-    private Label fuelAdd;
+    private Button fuelAdd;
     
     @FXML
-    private Label fuelSub;
+    private Button fuelSub;
     
     @FXML
     private Label currentCredits;
@@ -575,7 +575,7 @@ public class MarketController implements Initializable {
     }
     
     public void cancelTrade(ActionEvent e) {
-        
+        HyenasLoader.getInstance().goToSystemScreen();
     }
     
 }
