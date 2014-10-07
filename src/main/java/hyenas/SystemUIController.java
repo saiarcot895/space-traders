@@ -102,6 +102,7 @@ public class SystemUIController implements Initializable {
             circle.setStroke(Color.web("white", 0.5));
             circle.setStrokeWidth(1);
             circle.setFill(Color.TRANSPARENT);
+            circle.setDisable(true);
 //            circle.setStyle("-fx-stroke-dash-array: 12 2 4 2;"); 
 //            circle.setStyle("-fx-stroke-dash-array: 12 2 4 2; -fx-stroke-width: 5;-fx-stroke: green;"); 
             
