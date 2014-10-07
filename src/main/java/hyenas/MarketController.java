@@ -228,7 +228,7 @@ public class MarketController implements Initializable {
      */
         private int freeCargo;
         private int creditCount;
-        private int fuelCount;
+        private double fuelCount;
         private int[] wares;
         private Planet planet;
         private int[] tempWare;

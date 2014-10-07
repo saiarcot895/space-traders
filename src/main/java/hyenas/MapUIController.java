@@ -41,6 +41,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -104,6 +105,7 @@ public class MapUIController implements Initializable {
                     travelToSystem(solarSystem1, button1);
                 };
                 newPane.getTravelButton().setOnAction(travelEvent);
+                newPane.getTravelButton().setDisable(!canTravelToSystem(solarSystem1));
                 
                 // Ensures entire pane stays in view region
                 int x = solarSystem1.getX() + 40;
@@ -124,15 +126,29 @@ public class MapUIController implements Initializable {
             button.setOnAction(event);
             return button;
         }).forEach((button) -> {
-            scrollContentPane.getChildren().addAll(button);
+            scrollContentPane.getChildren().add(button);
         });
         
         double x = currentSolarSystemButton.getLayoutX();
         double y = currentSolarSystemButton.getLayoutY();
         
+        Player player = Player.getInstance();
+        SolarSystem currentSystem = player.getCurrentSystem();
+        Circle travelRange = new Circle(x, y, player.getShip().getFuel());
+//        travelRange.setStrokeType(StrokeType.OUTSIDE);
+//        travelRange.setStroke(Color.web("white", 0.5));
+//        travelRange.setStrokeWidth(1);
+        travelRange.setFill(Color.web("cyan", 0.1));
+        travelRange.setDisable(true);
+        scrollContentPane.getChildren().add(travelRange);
+        
+        
+        
         Dimension screenSize = UIHelper.getScreenSize();
         scrollPane.setPrefSize(screenSize.getWidth(), screenSize.getHeight());
         scrollPane.setContent(scrollContentPane);
+        
+        
         
 //        scrollPane.setOnScroll(
 //            new EventHandler<ScrollEvent>() {
@@ -158,10 +174,12 @@ public class MapUIController implements Initializable {
         SolarSystem currentSystem = player.getCurrentSystem();
         Ship ship = player.getShip();
         
-//        TODO: Deduct fuel, calculate fuel cost
-//        TODO: Animate moving from planet
+        double startingFuel = ship.getFuel();
+        double distance = getDistance(currentSystem, solarSystem);
+        ship.setFuel(startingFuel - distance);
         player.setCurrentSystem(solarSystem);
         
+        // Messing around with animations, save for later
         /*
         scrollPane.setPannable(false);
         Dimension screenSize = UIHelper.getScreenSize();
@@ -206,6 +224,23 @@ public class MapUIController implements Initializable {
     
     public void goToSettings() {
         HyenasLoader.getInstance().goToSettingsScreen();
+    }
+    
+    private boolean canTravelToSystem(SolarSystem solarSystem) {
+        Player player = Player.getInstance();
+        SolarSystem currentSystem = player.getCurrentSystem();
+        double fuel = player.getShip().getFuel();
+        double distance = getDistance(currentSystem, solarSystem);
+        if (currentSystem == solarSystem) return false; // Can't travel to yourself
+        return (fuel > distance);
+    }
+    
+    private double getDistance(SolarSystem system1, SolarSystem system2) {
+        int x1 = system1.getX();
+        int y1 = system1.getY();
+        int x2 = system2.getX();
+        int y2 = system2.getY();
+        return Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
     }
     
     public void quitGame() {
