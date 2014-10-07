@@ -9,11 +9,13 @@ public class Planet {
 
     private int x;
     private int y;
+    private int orbitRadius;
     private double size;
     private int[] items = new int[NUM_ITEMS];
     private int techLevel;
     private int resourceType;
     private String planetName;
+    private String color;
 
     private static final String[] TECH_LEVELS = new String[] {
         "Pre-Agriculture",
@@ -45,12 +47,16 @@ public class Planet {
     public Planet(String planetName) {
         this.planetName = planetName;
         Random rand = new Random();
-        x = rand.nextInt(600);
-        y = rand.nextInt(600);
-        size = rand.nextDouble();
+        size = 10 + rand.nextInt(10);
+        orbitRadius = 110 + rand.nextInt(200);
         techLevel = rand.nextInt(TECH_LEVELS.length);
         resourceType = rand.nextInt(RESOURCE_TYPES.length);
+        color = randomColorString();
         produceWares();
+    }
+    
+    public String getPlanetName()   {
+        return planetName;
     }
 
     /**
@@ -120,4 +126,43 @@ public class Planet {
             + ", Loc: (" + x + ", " + y + ")" + ">";
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY(int y) {
+        return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int Y) {
+        this.y = y;
+    }
+
+    public double getSize() {
+        return size;
+    }
+    
+    public void setSize(double size) {
+        this.size = size;
+    }
+    
+    private String randomColorString() {
+        Random rand = new Random();
+        int r = rand.nextInt(255);
+        int g = rand.nextInt(255);
+        int b = rand.nextInt(255);
+        return String.format("rgb(%d, %d, %d, 1)", r, g, b);
+    }
+    
+    public String getColorString()  {
+        return color;
+    }
+    
+    public int getOrbitRadius() {
+        return orbitRadius;
+    }
 }

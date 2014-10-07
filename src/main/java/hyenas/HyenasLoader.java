@@ -12,9 +12,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 
 /**
  *
@@ -35,6 +34,7 @@ public class HyenasLoader extends Application {
         instance = this;
         this.stage = stage;
         stage.setFullScreen(true);
+//        stage.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource(
                     "MainWindow.fxml"));
 
@@ -60,21 +60,10 @@ public class HyenasLoader extends Application {
      */
     public void goToMapScreen() {
         try {
-            changePage("UserUI.fxml");
+            changePage("MapUI.fxml");
         } catch (IOException ex) {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);
-        }
-        AnchorPane anchor = (AnchorPane) stage.getScene().lookup("#AnchorPane");
-         //for(int i = 0; i <Galaxy.getInstance().getSolarSystems().length; i++);
-        for (SolarSystem solarSystem : Galaxy.getInstance().getSolarSystems()) {
-            Button button = new Button(solarSystem.getSystemName());
-            button.setLayoutX(solarSystem.getX());
-            button.setLayoutY(solarSystem.getY());
-            button.setId(solarSystem.getSystemName());
-            button.setMnemonicParsing(false);
-            button.getStyleClass().add("planet");
-            anchor.getChildren().addAll(button);
         }
     }
 
@@ -98,18 +87,27 @@ public class HyenasLoader extends Application {
     
     public void goToMarketplace() {
         try {
-            changePage("marketUI.fxml");
+            changePage("MarketUI.fxml");
         } catch (IOException ex) {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);
         }
+    }
+    
+    public void goToSystemScreen() {
+    	try {
+    	    changePage("InSystemView.fxml");
+    	} catch (IOException ex) {
+            Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
+                    null, ex);
+    	}
     }
 
     private void changePage(String pageName) throws IOException {
         Parent page = FXMLLoader.load(getClass().getResource(pageName));
 
         stage.getScene().setRoot(page);
-  //      stage.sizeToScene();
+//      stage.sizeToScene();
     }
 
     public void confirmSelection() {
@@ -122,5 +120,9 @@ public class HyenasLoader extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
+    
+    public Stage getStage() {
+        return stage;
+    }
+    
 }

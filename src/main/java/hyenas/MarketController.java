@@ -205,6 +205,21 @@ public class MarketController implements Initializable {
     
     @FXML
     private Label tFree;
+    
+    @FXML
+    private Label fuelLeft;
+    
+    @FXML
+    private Label fuelPrice;
+    
+    @FXML
+    private Button fuelAdd;
+    
+    @FXML
+    private Button fuelSub;
+    
+    @FXML
+    private Label currentCredits;
         
     private Player player;
     
@@ -213,6 +228,7 @@ public class MarketController implements Initializable {
      */
         private int freeCargo;
         private int creditCount;
+        private double fuelCount;
         private int[] wares;
         private Planet planet;
         private int[] tempWare;
@@ -227,6 +243,7 @@ public class MarketController implements Initializable {
         int machinesPrice = 900;
         int narcoticsPrice = 3500;
         int robotsPrice = 5000;
+        int fuelCost;
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -236,6 +253,8 @@ public class MarketController implements Initializable {
         planet = player.getTradingPlanet();
         wares = planet.getItems();
         tempWare = new int[10];
+        fuelCost = 140-planet.getTechLevel()*10;
+        fuelCount = player.getShip().getFuel();
         
         //tPlanet.setText(planet.getName());
         tFree.setText("" + freeCargo);
@@ -250,6 +269,9 @@ public class MarketController implements Initializable {
         pMachines.setText("" + machinesPrice);
         pNarcotics.setText("" + narcoticsPrice);
         pRobots.setText("" + robotsPrice);
+        fuelPrice.setText("" + fuelCost);
+        fuelLeft.setText("" + fuelCount);
+        currentCredits.setText("" + creditCount);
         
         for (Good good : player.getShip().getCargo()) {
             switch (good) {
@@ -383,6 +405,7 @@ public class MarketController implements Initializable {
                 wares[9]--;
             }
         }
+        currentCredits.setText("" + creditCount);
     }
     
     public void sellItem(ActionEvent e) {
@@ -457,11 +480,13 @@ public class MarketController implements Initializable {
                 creditCount += robotsPrice;
             }
         }
+        currentCredits.setText("" + creditCount);
     }
     
     public void confirmTrade(ActionEvent e) {
         planet.changeWares(wares);
-        
+        player.setCredits(creditCount);
+        player.getShip().setFuel(fuelCount);
         // Add the Cargo
         for (int i = 0; i < -wares[0]; i++) {
             player.getShip().addCargo(Good.Water);
@@ -527,8 +552,30 @@ public class MarketController implements Initializable {
         }
     }
     
+    public void addFuel(ActionEvent e)	{
+    	if (fuelCount == player.getShip().getMaxFuel() || creditCount < fuelCost) {
+    		
+    		//TODO display message saying that they have hit limit on fuel
+    	}
+    	fuelCount++;
+    	creditCount-=fuelCost;
+    	fuelLeft.setText(""+fuelCount);
+    	currentCredits.setText("" + creditCount);
+    }
+    
+    public void subtractFuel(ActionEvent e)	{
+    	if(fuelCount == 0)	{
+    		return;
+    		//TODO display message saying that they have hit limit on fuel
+    	}
+    	fuelCount--;
+    	creditCount+=fuelCost;
+    	fuelLeft.setText(""+fuelCount);
+    	currentCredits.setText("" + creditCount);
+    }
+    
     public void cancelTrade(ActionEvent e) {
-        
+        HyenasLoader.getInstance().goToSystemScreen();
     }
     
 }

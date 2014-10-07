@@ -93,48 +93,23 @@ public class AllocationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         pilot.setOnAction((ActionEvent t) -> {
-            if (startingPoints > 0) {
-                pValue++;
-                startingPoints--;
-                pCounter.setText(Integer.toString(pValue));
-                point.setText(Integer.toString(startingPoints));
-            }
+            updatePoints(++pValue, pCounter);
         });
 
         fighter.setOnAction((ActionEvent t) -> {
-            if (startingPoints > 0) {
-                fValue++;
-                startingPoints--;
-                fCounter.setText(Integer.toString(fValue));
-                point.setText(Integer.toString(startingPoints));
-            }
+            updatePoints(++fValue, fCounter);
         });
 
         trader.setOnAction((ActionEvent t) -> {
-            if (startingPoints > 0) {
-                tValue++;
-                startingPoints--;
-                tCounter.setText(Integer.toString(tValue));
-                point.setText(Integer.toString(startingPoints));
-            }
+            updatePoints(++tValue, tCounter);
         });
 
         engineer.setOnAction((ActionEvent t) -> {
-            if (startingPoints > 0) {
-                eValue++;
-                startingPoints--;
-                eCounter.setText(Integer.toString(eValue));
-                point.setText(Integer.toString(startingPoints));
-            }
+            updatePoints(++eValue, eCounter);
         });
 
         investor.setOnAction((ActionEvent t) -> {
-            if (startingPoints > 0) {
-                iValue++;
-                startingPoints--;
-                iCounter.setText(Integer.toString(iValue));
-                point.setText(Integer.toString(startingPoints));
-            }
+            updatePoints(++iValue, iCounter);
         });
 
         reset.setOnAction((ActionEvent t) -> {
@@ -153,6 +128,14 @@ public class AllocationController implements Initializable {
         });
 
         sex.setItems(FXCollections.observableArrayList("Male", "Female"));
+    }
+    
+    private void updatePoints(int points, Label label) {
+        if (startingPoints > 0) {
+            startingPoints--;
+            label.setText(Integer.toString(points));
+            point.setText(Integer.toString(startingPoints));
+        }
     }
 
     public void create(ActionEvent e) {

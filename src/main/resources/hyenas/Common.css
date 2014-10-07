@@ -9,11 +9,26 @@ and open the template in the editor.
 */
 
 .default-background {
-    -fx-background-image: url('/hyenas/2015-Star-Citizen.jpg');
+    -fx-background-image: url('/hyenas/images/Background.jpg');
     -fx-background-size: cover;
 }
 
-.label, .check-box {
+.system-background {
+    -fx-background-image: url('/hyenas/images/SystemBackground.jpg');
+    -fx-background-size: cover;
+    -fx-border-color: orange;
+    -fx-border-width: 1;
+}
+
+.label {
+    -fx-text-fill: orange;
+}
+
+.title-label {
+    -fx-effect: dropshadow( gaussian, rgba(0,0,0,1), 0,0,2,2);
+}
+
+.check-box {
     -fx-text-fill: orange;
 }
 
@@ -22,17 +37,107 @@ and open the template in the editor.
 }
 
 .planet {
-    -fx-font-size: 14px;
-    -fx-text-fill: orange;
-    -fx-background-radius: 7px;
-    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-background-radius: 5, 5;
+    -fx-background-color: transparent;
 }
 
 .planet:hover {
-    -fx-text-fill: lightsalmon;
-    -fx-background-color: rgba(0, 0, 0, 0.8);
+    -fx-border-color: rgba(0, 0, 0, 1);
+    -fx-border-radius: 5;
 }
 
 .planet:pressed {
-    -fx-text-fill: orange
+    -fx-background-color: rgba(200, 200, 200, 1);
+}
+
+.currentPlanet {
+    -fx-border-color: rgba(0, 0, 0, 1);
+    -fx-border-width: 3;
+}
+
+.currentPlanet:hover {
+    -fx-border-color: rgba(0, 0, 0, 1);
+    -fx-border-width: 3;
+}
+
+.infoPane {
+    -fx-background-color: rgba(52, 152, 219, .9);
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.2) , 0,0,4,4 );
+    -fx-border-color: orange;
+    -fx-border-width: 1;
+}
+
+.infoPaneLabel {
+    -fx-font-size: 16;
+    -fx-font-family: "Trebuchet MS";
+}
+
+.infoPaneButton {
+    -fx-background-color: orange;
+    -fx-font-family: "Trebuchet MS";
+}
+
+.infoPaneButton:hover {
+    -fx-background-color: silver;
+    -fx-background-color: rgb(255, 175 , 20);
+    
+    /*-fx-effect: innershadow( gaussian , rgba(255,255,255,0.2) , 0,0,0,4 );*/
+}
+
+.infoPaneButton:pressed {
+    -fx-background-color: rgb(235, 165 , 13);
+}
+
+.scroll-pane {
+    -fx-background: url('/hyenas/images/Background.jpg');
+    -fx-background: black;
+    -fx-background-color: black;
+    -fx-border-color: orange;
+    -fx-border-width: 1;
+}
+
+.scroll-pane .corner {
+    -fx-background-color: black;
+}
+
+.scroll-bar:horizontal,
+.scroll-bar:vertical {
+  -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal .increment-button ,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-padding:0 0 10 0;
+}
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-padding:0 10 0 0;
+
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-shape: " ";	
+    -fx-padding:0;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color:rgba(150,150,150,.9);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(215,215,215,.9);
+}
+.scroll-bar:horizontal .thumb:pressed,
+.scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: rgba(231,231,231,.9);
 }
