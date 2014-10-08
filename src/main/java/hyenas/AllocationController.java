@@ -145,7 +145,7 @@ public class AllocationController implements Initializable {
         player.setTraderSkill(tValue);
         player.setEngineerSkill(eValue);
         player.setInvestorSkill(iValue);
-
+        player.setState(true);
         HyenasLoader.getInstance().goToMapScreen();
     }
 

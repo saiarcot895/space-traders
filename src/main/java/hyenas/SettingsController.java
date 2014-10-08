@@ -6,6 +6,7 @@
 
 package hyenas;
 
+import hyenas.Models.Player;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -27,11 +28,22 @@ public class SettingsController implements Initializable {
     }
 
     public void onCancelClicked(ActionEvent e) {
-        HyenasLoader.getInstance().goToHomeScreen();
+        if (Player.getInstance().getState() == false) {
+            HyenasLoader.getInstance().goToHomeScreen();
+        } else {
+            // TODO: Go back to previous instance of state.
+            HyenasLoader.getInstance().goToMapScreen();
+        }
     }
 
     public void onSaveClicked(ActionEvent e) {
-        HyenasLoader.getInstance().goToHomeScreen();
+        if (Player.getInstance().getState() == false) {
+            HyenasLoader.getInstance().goToHomeScreen();
+        } else {
+            // TODO: Go back to previous instance of state.
+            // TODO: Save any changes made to the settings.
+            HyenasLoader.getInstance().goToMapScreen();
+        }
     }
 
 }

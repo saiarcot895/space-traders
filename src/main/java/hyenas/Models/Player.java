@@ -15,6 +15,7 @@ public class Player {
     private Planet tradingPlanet;
     private Ship ship;
     private int credits;
+    private boolean state;
     private static Player instance;
 
     /**
@@ -27,6 +28,7 @@ public class Player {
         currentSystem = Galaxy.getInstance().getSolarSystems().values().iterator().next();
         tradingPlanet = currentSystem.getPlanets()[0];
         credits = 250;
+        state = false;
     }
 
     /**
@@ -198,5 +200,21 @@ public class Player {
      */
     public void setCredits(int credits) {
         this.credits = credits;
+    }
+    
+    /**
+     * Get player's game state
+     * @return player State
+     */
+    public boolean getState() {
+        return state;
+    }
+    
+    /**
+     * set player's state
+     * @param state 
+     */
+    public void setState(boolean state) {
+        this.state = state;
     }
 }
