@@ -1,4 +1,3 @@
-
 package hyenas;
 
 public class Ware {
