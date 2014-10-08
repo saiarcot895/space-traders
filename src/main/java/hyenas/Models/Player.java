@@ -1,4 +1,4 @@
-package hyenas;
+package hyenas.Models;
 
 /**
  * Represents the player

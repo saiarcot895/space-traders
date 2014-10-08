@@ -1,4 +1,4 @@
-package hyenas;
+package hyenas.Models;
 
 import java.util.HashMap;
 import java.util.Set;

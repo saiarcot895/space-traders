@@ -5,6 +5,9 @@
  */
 package hyenas;
 
+import hyenas.Models.Player;
+import hyenas.Models.Planet;
+import hyenas.Models.SolarSystem;
 import hyenas.UI.UIHelper;
 import hyenas.UI.PlanetButton;
 import hyenas.UI.SolarSystemButton;

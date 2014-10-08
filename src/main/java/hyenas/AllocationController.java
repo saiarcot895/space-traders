@@ -1,5 +1,6 @@
 package hyenas;
 
+import hyenas.Models.Player;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

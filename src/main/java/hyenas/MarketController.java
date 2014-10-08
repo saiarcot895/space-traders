@@ -1,6 +1,9 @@
 
 package hyenas;
 
+import hyenas.Models.Good;
+import hyenas.Models.Planet;
+import hyenas.Models.Player;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;

@@ -6,7 +6,7 @@
 package hyenas.UI;
 
 import hyenas.HyenasLoader;
-import hyenas.SolarSystem;
+import hyenas.Models.SolarSystem;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.net.URL;

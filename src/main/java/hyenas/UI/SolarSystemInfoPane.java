@@ -5,7 +5,7 @@
  */
 package hyenas.UI;
 
-import hyenas.SolarSystem;
+import hyenas.Models.SolarSystem;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

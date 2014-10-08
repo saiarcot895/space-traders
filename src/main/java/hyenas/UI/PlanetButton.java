@@ -6,7 +6,7 @@
 package hyenas.UI;
 
 import hyenas.HyenasLoader;
-import hyenas.Planet;
+import hyenas.Models.Planet;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;

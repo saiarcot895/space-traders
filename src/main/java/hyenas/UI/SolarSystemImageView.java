@@ -5,7 +5,7 @@
  */
 package hyenas.UI;
 
-import hyenas.SolarSystem;
+import hyenas.Models.SolarSystem;
 import static hyenas.UI.SolarSystemButton.SYSTEM_UI_SIZE_FACTOR;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

@@ -1,4 +1,4 @@
-package hyenas;
+package hyenas.Models;
 
 public class Ware {
     

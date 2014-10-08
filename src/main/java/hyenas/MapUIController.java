@@ -5,6 +5,10 @@
  */
 package hyenas;
 
+import hyenas.Models.Galaxy;
+import hyenas.Models.Player;
+import hyenas.Models.Ship;
+import hyenas.Models.SolarSystem;
 import hyenas.UI.SolarSystemButton;
 import hyenas.UI.SolarSystemInfoPane;
 import hyenas.UI.SolarSystemScrollPane;
