@@ -15,7 +15,7 @@ public class Player {
     private Planet tradingPlanet;
     private Ship ship;
     private int credits;
-    private static Player instance = null;
+    private static Player instance;
 
     /**
      * Initializes an instance of Player
@@ -28,13 +28,13 @@ public class Player {
         tradingPlanet = currentSystem.getPlanets()[0];
         credits = 250;
     }
-    
+
     /**
      * Getter for Player singleton
      * @return Player the common player instance
      */
     public static Player getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new Player();
         }
         return instance;
@@ -42,7 +42,7 @@ public class Player {
 
     /**
      * Get player's name
-     * @return String the name of the player
+     * @return the name of the player
      */
     public String getName() {
         return name;
@@ -58,7 +58,7 @@ public class Player {
 
     /**
      * Get player's pilot skill
-     * @return int the pilot skill of the player
+     * @return the pilot skill of the player
      */
     public int getPilotSkill() {
         return pilotSkill;
@@ -74,7 +74,7 @@ public class Player {
 
     /**
      * Get player's fighter skill
-     * @return int the fighter skill of the player
+     * @return the fighter skill of the player
      */
     public int getFighterSkill() {
         return fighterSkill;
@@ -90,7 +90,7 @@ public class Player {
 
     /**
      * Get player's trader skill
-     * @return int the trader skill of the player
+     * @return the trader skill of the player
      */
     public int getTraderSkill() {
         return traderSkill;
@@ -106,7 +106,7 @@ public class Player {
 
     /**
      * Get player's engineer skill
-     * @return int the engineer skill of the player
+     * @return the engineer skill of the player
      */
     public int getEngineerSkill() {
         return engineerSkill;
@@ -122,7 +122,7 @@ public class Player {
 
     /**
      * Get player's investor skill
-     * @return int the investor skill of the player
+     * @return the investor skill of the player
      */
     public int getInvestorSkill() {
         return investorSkill;
@@ -138,7 +138,7 @@ public class Player {
 
     /**
      * Get player's current system
-     * @return SolarSystem the current SolarSystem of the player
+     * @return the current SolarSystem of the player
      */
     public SolarSystem getCurrentSystem() {
         return currentSystem;
@@ -154,7 +154,7 @@ public class Player {
 
     /**
      * Get player's trading planet
-     * @return Planet the trading Planet of the player
+     * @return the trading Planet of the player
      */
     public Planet getTradingPlanet() {
         return tradingPlanet;
@@ -170,7 +170,7 @@ public class Player {
 
     /**
      * Get player's ship
-     * @return Ship the player's ship
+     * @return the player's ship
      */
     public Ship getShip() {
         return ship;
@@ -183,10 +183,10 @@ public class Player {
     public void setShip(Ship ship) {
         this.ship = ship;
     }
-    
+
     /**
      * Get player's credits
-     * @return int the amount of credits
+     * @return the amount of credits
      */
     public int getCredits() {
         return credits;
@@ -194,7 +194,7 @@ public class Player {
 
     /**
      * Set player's credits
-     * @param credits the int amount of credits
+     * @param credits the amount of credits
      */
     public void setCredits(int credits) {
         this.credits = credits;

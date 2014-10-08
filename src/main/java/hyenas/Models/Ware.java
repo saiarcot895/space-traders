@@ -1,20 +1,13 @@
 package hyenas.Models;
 
 public class Ware {
-    
-    /* Name of good */
+
     private String name;
-    /* Minimum Tech Level to Produce */
     private int minimumTechLevelToProduce;
-    /* Minimum Tech Level to Use */
     private int minimumTechLevelToUse;
-    /* Tech Level Production */
     private int techLevelProduction;
-    /* The Cost of the good */
     private int basePrice;
-    /* Price Increase Per Tech Level */
     private int priceIncreasePerLevel;
-    /* Variance of good */
     private int variance;
     /* For Extra Credit TODO! */
     private String ie;
@@ -26,14 +19,14 @@ public class Ware {
     private int mtl;
     /* Max Price in space trade for good (Random Encounter) */
     private int mth;
-    
+
     Good good;
-    
+
     public Ware(Good good) {
         this.good = good;
         setUp();
     }
-    
+
     private void setUp() {
         switch(good) {
             case Water:
@@ -150,51 +143,51 @@ public class Ware {
                 // Do nothing
         }
     }
-    
+
     public String getName()    {
         return name;
     }
-    
+
     public int getMTLP()    {
         return minimumTechLevelToProduce;
     }
-    
+
     public int getMTLU()    {
         return minimumTechLevelToUse;
     }
-    
+
     public int getTTP()    {
         return techLevelProduction;
     }
-    
+
     public int getBasePrice()   {
         return basePrice;
     }
-    
+
     public int getIPL() {
         return priceIncreasePerLevel;
     }
-    
+
     public int getVar() {
         return variance;
     }
-    
+
     public String getIE()   {
         return ie;
     }
-    
+
     public String getCR()   {
         return cr;
     }
-    
+
     public String getER()   {
         return er;
     }
-    
+
     public int getMTL() {
         return mtl;
     }
-    
+
     public int getMTH() {
         return mth;
     }

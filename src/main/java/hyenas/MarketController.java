@@ -13,219 +13,219 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class MarketController implements Initializable {
-    
+
     @FXML
     private Label pWater;
-    
+
     @FXML
     private Label pFurs;
 
     @FXML
     private Label pFood;
-    
+
     @FXML
     private Label pOre;
-    
+
     @FXML
     private Label pGames;
-    
+
     @FXML
     private Label pFirearms;
-    
+
     @FXML
     private Label pMedicine;
-    
+
     @FXML
     private Label pMachines;
 
     @FXML
     private Label pNarcotics;
-    
+
     @FXML
     private Label pRobots;
-    
+
     @FXML
     private Label nWater;
-    
+
     @FXML
     private Label nFurs;
 
     @FXML
     private Label nFood;
-    
+
     @FXML
     private Label nOre;
-    
+
     @FXML
     private Label nGames;
-    
+
     @FXML
     private Label nFirearms;
-    
+
     @FXML
     private Label nMedicine;
-    
+
     @FXML
     private Label nMachines;
-    
+
     @FXML
     private Label nNarcotics;
-    
+
     @FXML
     private Label nRobots;
 
     @FXML
     private Button bWater;
-    
+
     @FXML
     private Button bFurs;
 
     @FXML
     private Button bFood;
-    
+
     @FXML
     private Button bOre;
-    
+
     @FXML
     private Button bGames;
-    
+
     @FXML
     private Button bFirearms;
-    
+
     @FXML
     private Button bMedicine;
-    
+
     @FXML
     private Button bMachines;
 
     @FXML
     private Button bNarcotics;
-    
+
     @FXML
     private Button bRobots;
-    
+
     @FXML
     private Button sWater;
-    
+
     @FXML
     private Button sFurs;
 
     @FXML
     private Button sFood;
-    
+
     @FXML
     private Button sOre;
-    
+
     @FXML
     private Button sGames;
-    
+
     @FXML
     private Button sFirearms;
-    
+
     @FXML
     private Button sMedicine;
-    
+
     @FXML
     private Button sMachines;
 
     @FXML
     private Button sNarcotics;
-    
+
     @FXML
     private Button sRobots;
-    
+
     @FXML
     private Label eWater;
-    
+
     @FXML
     private Label eFurs;
 
     @FXML
     private Label eFood;
-    
+
     @FXML
     private Label eOre;
-    
+
     @FXML
     private Label eGames;
-    
+
     @FXML
     private Label eFirearms;
-    
+
     @FXML
     private Label eMedicine;
-    
+
     @FXML
     private Label eMachines;
 
     @FXML
     private Label eNarcotics;
-    
+
     @FXML
     private Label eRobots;
-    
+
     @FXML
     private Label aWater;
-    
+
     @FXML
     private Label aFurs;
 
     @FXML
     private Label aFood;
-    
+
     @FXML
     private Label aOre;
-    
+
     @FXML
     private Label aGames;
-    
+
     @FXML
     private Label aFirearms;
-    
+
     @FXML
     private Label aMedicine;
-    
+
     @FXML
     private Label aMachines;
 
     @FXML
     private Label aNarcotics;
-    
+
     @FXML
     private Label aRobots;
-    
+
     @FXML
     private Button cancel;
-    
+
     @FXML
     private Button confirm;
-    
+
     @FXML
     private Label tPlanet;
-    
+
     @FXML
     private Label tTechLevel;
-    
+
     @FXML
     private Label tFree;
-    
+
     @FXML
     private Label fuelLeft;
-    
+
     @FXML
     private Label fuelPrice;
-    
+
     @FXML
     private Button fuelAdd;
-    
+
     @FXML
     private Button fuelSub;
-    
+
     @FXML
     private Label currentCredits;
-        
+
     private Player player;
-    
+
     /**
      * These variables are so that the user can make changes without having the ship
      */
@@ -235,7 +235,7 @@ public class MarketController implements Initializable {
         private int[] wares;
         private Planet planet;
         private int[] tempWare;
-        
+
         int waterPrice = 30;
         int fursPrice = 250;
         int foodPrice = 100;
@@ -247,7 +247,7 @@ public class MarketController implements Initializable {
         int narcoticsPrice = 3500;
         int robotsPrice = 5000;
         int fuelCost;
-        
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         player = Player.getInstance();
@@ -258,10 +258,10 @@ public class MarketController implements Initializable {
         tempWare = new int[10];
         fuelCost = 140-planet.getTechLevel()*10;
         fuelCount = player.getShip().getFuel();
-        
+
         //tPlanet.setText(planet.getName());
         tFree.setText("" + freeCargo);
-        
+
         pWater.setText("" + waterPrice);
         pFurs.setText("" + fursPrice);
         pFood.setText("" + foodPrice);
@@ -275,7 +275,7 @@ public class MarketController implements Initializable {
         fuelPrice.setText("" + fuelCost);
         fuelLeft.setText("" + fuelCount);
         currentCredits.setText("" + creditCount);
-        
+
         for (Good good : player.getShip().getCargo()) {
             switch (good) {
                 case Water:
@@ -320,7 +320,7 @@ public class MarketController implements Initializable {
                     break;
             }
         }
-        
+
         aWater.setText("" + wares[0]);
         aFurs.setText("" + wares[1]);
         aFood.setText("" + wares[2]);
@@ -332,12 +332,12 @@ public class MarketController implements Initializable {
         aNarcotics.setText("" + wares[8]);
         aRobots.setText("" + wares[9]);
     }
-    
+
     public void buyItem(ActionEvent e) {
         if (freeCargo <= 0) {
             return;
         }
-        
+
         if (e.getSource() == bWater) {
             if (creditCount >= waterPrice && wares[0] > 0) {
                 freeCargo--;
@@ -410,7 +410,7 @@ public class MarketController implements Initializable {
         }
         currentCredits.setText("" + creditCount);
     }
-    
+
     public void sellItem(ActionEvent e) {
         if (e.getSource() == sWater) {
             if (player.getShip().getCargo().contains(Good.Water)) {
@@ -485,7 +485,7 @@ public class MarketController implements Initializable {
         }
         currentCredits.setText("" + creditCount);
     }
-    
+
     public void confirmTrade(ActionEvent e) {
         planet.changeWares(wares);
         player.setCredits(creditCount);
@@ -521,7 +521,7 @@ public class MarketController implements Initializable {
         for (int i = 0; i < -wares[9]; i++) {
             player.getShip().addCargo(Good.Robots);
         }
-        
+
         // Remove the Cargo
         for (int i = 0; i < -wares[0]; i++) {
             player.getShip().removeCargo(Good.Water);
@@ -554,31 +554,31 @@ public class MarketController implements Initializable {
             player.getShip().removeCargo(Good.Robots);
         }
     }
-    
-    public void addFuel(ActionEvent e)	{
-    	if (fuelCount == player.getShip().getMaxFuel() || creditCount < fuelCost) {
-    		
-    		//TODO display message saying that they have hit limit on fuel
-    	}
-    	fuelCount++;
-    	creditCount-=fuelCost;
-    	fuelLeft.setText(""+fuelCount);
-    	currentCredits.setText("" + creditCount);
+
+    public void addFuel(ActionEvent e) {
+        if (fuelCount == player.getShip().getMaxFuel() || creditCount < fuelCost) {
+
+            //TODO display message saying that they have hit limit on fuel
+        }
+        fuelCount++;
+        creditCount -= fuelCost;
+        fuelLeft.setText("" + fuelCount);
+        currentCredits.setText("" + creditCount);
     }
-    
-    public void subtractFuel(ActionEvent e)	{
-    	if(fuelCount == 0)	{
-    		return;
-    		//TODO display message saying that they have hit limit on fuel
-    	}
-    	fuelCount--;
-    	creditCount+=fuelCost;
-    	fuelLeft.setText(""+fuelCount);
-    	currentCredits.setText("" + creditCount);
+
+    public void subtractFuel(ActionEvent e) {
+        if (fuelCount == 0) {
+            return;
+            //TODO display message saying that they have hit limit on fuel
+        }
+        fuelCount--;
+        creditCount += fuelCost;
+        fuelLeft.setText("" + fuelCount);
+        currentCredits.setText("" + creditCount);
     }
-    
+
     public void cancelTrade(ActionEvent e) {
         HyenasLoader.getInstance().goToSystemScreen();
     }
-    
+
 }

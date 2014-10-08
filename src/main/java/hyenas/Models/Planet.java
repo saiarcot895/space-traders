@@ -54,7 +54,7 @@ public class Planet {
         color = randomColorString();
         produceWares();
     }
-    
+
     public String getPlanetName()   {
         return planetName;
     }
@@ -103,7 +103,7 @@ public class Planet {
     public String techLevelString() {
         return TECH_LEVELS[techLevel];
     }
-    
+
     public int getTechLevel() {
         return techLevel;
     }
@@ -119,11 +119,11 @@ public class Planet {
     @Override
     public String toString() {
         return "<Planet: " + planetName
-            + ", Tech: " + techLevelString()
-            + ", Resources: ["+items[0]+", "+items[1]+", "+items[2]+", "
-                +items[3]+", "+items[4]+", "+items[5]+", "+items[6]+", "
-                +items[7]+", "+items[8]+", "+items[9]+"]"
-            + ", Loc: (" + x + ", " + y + ")" + ">";
+                + ", Tech: " + techLevelString()
+                + ", Resources: [" + items[0] + ", "+items[1] + ", " + items[2] + ", "
+                + items[3] + ", " + items[4] + ", " + items[5] + ", " + items[6] + ", "
+                + items[7] + ", " + items[8] + ", " + items[9] + "]"
+                + ", Loc: (" + x + ", " + y + ")" + ">";
     }
 
     public int getX() {
@@ -138,18 +138,18 @@ public class Planet {
         this.x = x;
     }
 
-    public void setY(int Y) {
+    public void setY(int y) {
         this.y = y;
     }
 
     public double getSize() {
         return size;
     }
-    
+
     public void setSize(double size) {
         this.size = size;
     }
-    
+
     private String randomColorString() {
         Random rand = new Random();
         int r = rand.nextInt(255);
@@ -157,11 +157,11 @@ public class Planet {
         int b = rand.nextInt(255);
         return String.format("rgb(%d, %d, %d, 1)", r, g, b);
     }
-    
+
     public String getColorString()  {
         return color;
     }
-    
+
     public int getOrbitRadius() {
         return orbitRadius;
     }

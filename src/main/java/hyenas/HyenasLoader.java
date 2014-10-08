@@ -12,7 +12,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -84,7 +83,7 @@ public class HyenasLoader extends Application {
                     null, ex);
         }
     }
-    
+
     public void goToMarketplace() {
         try {
             changePage("MarketUI.fxml");
@@ -93,14 +92,14 @@ public class HyenasLoader extends Application {
                     null, ex);
         }
     }
-    
+
     public void goToSystemScreen() {
-    	try {
-    	    changePage("InSystemView.fxml");
-    	} catch (IOException ex) {
+        try {
+            changePage("InSystemView.fxml");
+        } catch (IOException ex) {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);
-    	}
+        }
     }
 
     private void changePage(String pageName) throws IOException {
@@ -120,9 +119,9 @@ public class HyenasLoader extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
     public Stage getStage() {
         return stage;
     }
-    
+
 }

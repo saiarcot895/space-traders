@@ -1,7 +1,6 @@
 package hyenas;
 
 import hyenas.Models.Player;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -11,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 
 /**
@@ -130,7 +128,7 @@ public class AllocationController implements Initializable {
 
         sex.setItems(FXCollections.observableArrayList("Male", "Female"));
     }
-    
+
     private void updatePoints(int points, Label label) {
         if (startingPoints > 0) {
             startingPoints--;

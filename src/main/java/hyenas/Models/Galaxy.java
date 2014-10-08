@@ -1,17 +1,17 @@
 package hyenas.Models;
 
+import java.util.Map;
 import java.util.HashMap;
-import java.util.Set;
 
 public class Galaxy {
-    private HashMap<String, SolarSystem> solarSystems;
-    
+    private Map<String, SolarSystem> solarSystems;
+
     private static Galaxy instance;
 
     private Galaxy() {
         setupSolarSystems();
     }
-    
+
     public static Galaxy getInstance() {
         if (instance == null) {
             instance = new Galaxy();
@@ -165,10 +165,10 @@ public class Galaxy {
      *
      * @return Array of solar systems in the galaxy
      */
-    public HashMap<String, SolarSystem> getSolarSystems() {
+    public Map<String, SolarSystem> getSolarSystems() {
         return solarSystems;
     }
-    
+
     /**
      * Get the solar system for a system name
      *

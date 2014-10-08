@@ -14,33 +14,33 @@ public class SolarSystem {
         this.systemName = systemName;       //CHANGE NAME PROTOCOL TODO
         Random rand = new Random();
         size = 10 + (rand.nextDouble() * 10);
-        int numPlanets = rand.nextInt(5)+1;
+        int numPlanets = rand.nextInt(5) + 1;
         planets = new Planet[numPlanets];
-        for(int i=0; i < numPlanets; i++)   {
+        for (int i = 0; i < numPlanets; i++) {
             planets[i] = new Planet(systemName);
         }
         color = randomColorString();
     }
-    
+
     /**
      * Get x
      */
     public int getX()   {
         return x;
     }
-    
+
     public void setX(int x) {
         this.x = x;
     }
-    
+
     public int getY()   {
         return y;
     }
-    
+
     public void setY(int y) {
         this.y = y;
     }
-    
+
     public double getSize()   {
         return size;
     }
@@ -62,13 +62,14 @@ public class SolarSystem {
     }
 
     public Planet getPlanetByName(String name)  {
-        for(Planet planet: planets) {
-            if(planet.getPlanetName().equals(name))
+        for (Planet planet: planets) {
+            if (planet.getPlanetName().equals(name)) {
                 return planet;
+            }
         }
         return null;
     }
-    
+
     private String randomColorString() {
         Random rand = new Random();
         int r = rand.nextInt(255);
@@ -76,7 +77,7 @@ public class SolarSystem {
         int b = rand.nextInt(255);
         return String.format("rgb(%d, %d, %d, 1)", r, g, b);
     }
-    
+
     public String getColorString()  {
         return color;
     }

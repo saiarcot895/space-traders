@@ -1,5 +1,6 @@
 package hyenas.Models;
 
+import java.util.List;
 import java.util.ArrayList;
 
 /**
@@ -10,7 +11,7 @@ public class Ship {
     private ShipType type;
     private boolean insurance;
     private int upkeep;
-    private ArrayList<Good> goods;
+    private List<Good> goods;
     private int weaponSlots[] = new int[2];
     private int shieldSlots[] = new int[2];
     private int gadgetSlots[] = new int[2];
@@ -29,7 +30,7 @@ public class Ship {
     private int repairCost;
     private int size;
     private int maxCargo;
-    
+
     public Ship(ShipType type) {
         switch (type) {
             case BUTTERFLY: {
@@ -66,7 +67,7 @@ public class Ship {
                 maxCargo = 0;
                 break;
             }
-            case FLEA: 
+            case FLEA:
             default: {
                 maxFuel = 700.0;
                 fuel = maxFuel;
@@ -88,33 +89,33 @@ public class Ship {
         this.type = type;
         this.goods = new ArrayList<Good>();
     }
-    
+
     public int getFreeCargo() {
         return maxCargo - goods.size();
     }
-    
-    public ArrayList<Good> getCargo() {
+
+    public List<Good> getCargo() {
         return goods;
     }
-    
+
     public void addCargo(Good good) {
         goods.add(good);
     }
-    
-    public void setFuel(double fuel)	{
-    	this.fuel = fuel;
+
+    public void setFuel(double fuel) {
+        this.fuel = fuel;
     }
-    
-    public double getMaxFuel()	{
-    	return maxFuel;
+
+    public double getMaxFuel() {
+        return maxFuel;
     }
-    
-    public double getFuel()	{
-    	return fuel;
+
+    public double getFuel() {
+        return fuel;
     }
-    
+
     public boolean removeCargo(Good good) {
         return goods.remove(good);
     }
-    
+
 }
