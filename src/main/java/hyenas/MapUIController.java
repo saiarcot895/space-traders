@@ -5,6 +5,7 @@
  */
 package hyenas;
 
+import hyenas.Models.ABPair;
 import hyenas.Models.Galaxy;
 import hyenas.Models.Player;
 import hyenas.Models.Ship;
@@ -15,7 +16,13 @@ import hyenas.UI.SolarSystemScrollPane;
 import hyenas.UI.UIHelper;
 import java.awt.Dimension;
 import java.net.URL;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Set;
 import javafx.event.ActionEvent;
@@ -112,6 +119,51 @@ public class MapUIController implements Initializable {
             scrollContentPane.getChildren().add(button);
         });
 
+        List<SolarSystem> solarSystemValues = new LinkedList<>(solarSystems.values());
+        Random random = new Random();
+        Map<SolarSystem, List<ABPair<SolarSystem, Double>>> distances =
+                Galaxy.getInstance().getDistances();
+        for (int i = 0; i < solarSystemValues.size(); i++) {
+            SolarSystem solarSystem1 = solarSystemValues.get(i);
+            for (int j = i; j < solarSystemValues.size(); j++) {
+                SolarSystem solarSystem2 = solarSystemValues.get(j);
+
+                double distance = getDistance(solarSystem1, solarSystem2);
+                if (distance >= 300) {
+                    continue;
+                }
+
+                if (random.nextDouble() >= 0.4) {
+                    continue;
+                }
+                double weight = distance + (solarSystem1.getPlanets().length
+                                - solarSystem2.getPlanets().length) * 10;
+                ABPair<SolarSystem, Double> destination = new ABPair<>(solarSystem2,
+                        weight);
+                if (!distances.containsKey(solarSystem1)) {
+                    distances.put(solarSystem1, new LinkedList<>());
+                }
+                distances.get(solarSystem1).add(destination);
+
+                weight = distance + (solarSystem2.getPlanets().length
+                                - solarSystem1.getPlanets().length) * 10;
+                destination = new ABPair<>(solarSystem1, weight);
+                if (!distances.containsKey(solarSystem2)) {
+                    distances.put(solarSystem2, new LinkedList<>());
+                }
+                distances.get(solarSystem2).add(destination);
+            }
+        }
+
+        /*int counter = 0;
+        counter = solarSystemValues.parallelStream()
+                .filter((solarSystem) -> (!distances.containsKey(solarSystem)))
+                .map((solarSystem) -> {
+                    Galaxy.getInstance().getSolarSystems().remove(solarSystem.getSystemName());
+                    return solarSystem;
+                }).map((_item) -> 1).reduce(counter, Integer::sum);
+        System.out.println(counter + " items removed");*/
+
         double x = currentSolarSystemButton.getLayoutX();
         double y = currentSolarSystemButton.getLayoutY();
 
@@ -158,7 +210,10 @@ public class MapUIController implements Initializable {
         Ship ship = player.getShip();
 
         double startingFuel = ship.getFuel();
-        double distance = getDistance(currentSystem, solarSystem);
+        double distance = getDjikstraDistance(currentSystem, solarSystem);
+        if (distance == -1) {
+            throw new RuntimeException("Unconnected node!!!");
+        }
         ship.setFuel(startingFuel - distance);
         player.setCurrentSystem(solarSystem);
 
@@ -213,7 +268,10 @@ public class MapUIController implements Initializable {
         Player player = Player.getInstance();
         SolarSystem currentSystem = player.getCurrentSystem();
         double fuel = player.getShip().getFuel();
-        double distance = getDistance(currentSystem, solarSystem);
+        double distance = getDjikstraDistance(currentSystem, solarSystem);
+        if (distance == -1) {
+            throw new RuntimeException("Unconnected node for " + solarSystem.getSystemName());
+        }
         if (currentSystem == solarSystem) return false; // Can't travel to yourself
         return (fuel > distance);
     }
@@ -224,6 +282,41 @@ public class MapUIController implements Initializable {
         int x2 = system2.getX();
         int y2 = system2.getY();
         return Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+    }
+
+    private double getDjikstraDistance(SolarSystem start, SolarSystem goal) {
+        Queue<ABPair<SolarSystem, Double>> distances = new PriorityQueue<>(
+                (ABPair<SolarSystem, Double> o1, ABPair<SolarSystem, Double> o2)
+                        -> (int) (o1.getB() - o2.getB()));
+        Map<SolarSystem, List<ABPair<SolarSystem, Double>>> adjList = Galaxy
+                .getInstance().getDistances();
+
+        if (!adjList.containsKey(start)) {
+                return -1;
+        }
+        distances.add(new ABPair<>(start, 0.0));
+
+        Set<SolarSystem> visited = new HashSet<>();
+
+        while (!distances.isEmpty()) {
+                ABPair<SolarSystem, Double> node = distances.remove();
+                if (node.getA().equals(goal)) {
+                        return node.getB();
+                }
+
+                if (!visited.contains(node.getA())) {
+                        visited.add(node.getA());
+                        List<ABPair<SolarSystem, Double>> neighbors = adjList.get(node.getA());
+                        if (neighbors != null) {
+                            adjList.get(node.getA()).parallelStream().forEach((neighbor) -> {
+                                double alternateDistance = node.getB() + neighbor.getB();
+                                distances.add(new ABPair<>(neighbor.getA(), alternateDistance));
+                            });
+                        }
+                }
+        }
+
+        return -1;
     }
 
     public void quitGame() {

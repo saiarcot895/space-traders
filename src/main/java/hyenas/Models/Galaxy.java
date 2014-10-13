@@ -2,13 +2,16 @@ package hyenas.Models;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
 
 public class Galaxy {
     private Map<String, SolarSystem> solarSystems;
+    private Map<SolarSystem, List<ABPair<SolarSystem, Double>>> distances;
 
     private static Galaxy instance;
 
     private Galaxy() {
+        distances = new HashMap<>();
         setupSolarSystems();
     }
 
@@ -176,5 +179,9 @@ public class Galaxy {
      */
     public SolarSystem getSolarSystemForName(String solarSystemName) {
         return solarSystems.get(solarSystemName);
+    }
+    
+    public Map<SolarSystem, List<ABPair<SolarSystem, Double>>> getDistances() {
+        return distances;
     }
 }
