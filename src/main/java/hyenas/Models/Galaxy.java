@@ -5,10 +5,12 @@ import java.util.HashMap;
 
 public class Galaxy {
     private Map<String, SolarSystem> solarSystems;
+    private Map<SolarSystem, ABPair<SolarSystem, Double>> distances;
 
     private static Galaxy instance;
 
     private Galaxy() {
+        distances = new HashMap<>();
         setupSolarSystems();
     }
 
@@ -176,5 +178,9 @@ public class Galaxy {
      */
     public SolarSystem getSolarSystemForName(String solarSystemName) {
         return solarSystems.get(solarSystemName);
+    }
+    
+    public Map<SolarSystem, ABPair<SolarSystem, Double>> getDistances() {
+        return distances;
     }
 }

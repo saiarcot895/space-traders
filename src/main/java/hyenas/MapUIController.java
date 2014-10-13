@@ -5,6 +5,7 @@
  */
 package hyenas;
 
+import hyenas.Models.ABPair;
 import hyenas.Models.Galaxy;
 import hyenas.Models.Player;
 import hyenas.Models.Ship;
@@ -15,7 +16,10 @@ import hyenas.UI.SolarSystemScrollPane;
 import hyenas.UI.UIHelper;
 import java.awt.Dimension;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Set;
 import javafx.event.ActionEvent;
@@ -111,6 +115,34 @@ public class MapUIController implements Initializable {
         }).forEach((button) -> {
             scrollContentPane.getChildren().add(button);
         });
+
+        List<SolarSystem> solarSystemValues = new LinkedList<>(solarSystems.values());
+        Random random = new Random();
+        for (int i = 0; i < solarSystemValues.size(); i++) {
+            SolarSystem solarSystem1 = solarSystemValues.get(i);
+            for (int j = i; j < solarSystemValues.size(); j++) {
+                SolarSystem solarSystem2 = solarSystemValues.get(j);
+
+                double distance = getDistance(solarSystem1, solarSystem2);
+                if (distance >= 300) {
+                    continue;
+                }
+
+                if (random.nextDouble() >= 0.4) {
+                    continue;
+                }
+                double weight = distance + (solarSystem1.getPlanets().length
+                                - solarSystem2.getPlanets().length) * 10;
+                ABPair<SolarSystem, Double> destination = new ABPair<>(solarSystem2,
+                        weight);
+                Galaxy.getInstance().getDistances().put(solarSystem1, destination);
+
+                weight = distance + (solarSystem2.getPlanets().length
+                                - solarSystem1.getPlanets().length) * 10;
+                destination = new ABPair<>(solarSystem1, weight);
+                Galaxy.getInstance().getDistances().put(solarSystem2, destination);
+            }
+        }
 
         double x = currentSolarSystemButton.getLayoutX();
         double y = currentSolarSystemButton.getLayoutY();
