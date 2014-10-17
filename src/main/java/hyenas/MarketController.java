@@ -5,6 +5,7 @@ import hyenas.Models.Good;
 import hyenas.Models.Planet;
 import hyenas.Models.Player;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -236,16 +237,16 @@ public class MarketController implements Initializable {
         private Planet planet;
         private int[] tempWare;
 
-        int waterPrice = 30;
-        int fursPrice = 250;
-        int foodPrice = 100;
-        int orePrice = 350;
-        int gamesPrice = 250;
-        int firearmsPrice = 1250;
-        int medicinePrice = 650;
-        int machinesPrice = 900;
-        int narcoticsPrice = 3500;
-        int robotsPrice = 5000;
+        int waterPrice;
+        int fursPrice;
+        int foodPrice;
+        int orePrice;
+        int gamesPrice;
+        int firearmsPrice;
+        int medicinePrice;
+        int machinesPrice;
+        int narcoticsPrice;
+        int robotsPrice;
         int fuelCost;
 
     @Override
@@ -258,6 +259,17 @@ public class MarketController implements Initializable {
         tempWare = new int[10];
         fuelCost = 140-planet.getTechLevel()*10;
         fuelCount = player.getShip().getFuel();
+        Random rand = new Random();
+        waterPrice = 30 + 3*(planet.getTechLevel()-0) + (rand.nextInt(3)-1)*rand.nextInt(5);
+        fursPrice = 250 + 10*(planet.getTechLevel()-0) + (rand.nextInt(3)-1)*rand.nextInt(11);
+        foodPrice = 100 + 5*(planet.getTechLevel()-1) + (rand.nextInt(3)-1)*rand.nextInt(6);
+        orePrice = 350 + 20*(planet.getTechLevel()-2) + (rand.nextInt(3)-1)*rand.nextInt(11);
+        gamesPrice = 250 + -10*(planet.getTechLevel()-3) + (rand.nextInt(3)-1)*rand.nextInt(6);
+        firearmsPrice = 1250 + -75*(planet.getTechLevel()-3) + (rand.nextInt(3)-1)*rand.nextInt(101);
+        medicinePrice = 650 + -20*(planet.getTechLevel()-4) + (rand.nextInt(3)-1)*rand.nextInt(11);
+        machinesPrice = 900 + -30*(planet.getTechLevel()-4) + (rand.nextInt(3)-1)*rand.nextInt(6);
+        narcoticsPrice = 3500 + -125*(planet.getTechLevel()-5) + (rand.nextInt(3)-1)*rand.nextInt(151);
+        robotsPrice = 5000 + -150*(planet.getTechLevel()-6) + (rand.nextInt(3)-1)*rand.nextInt(101);
 
         //tPlanet.setText(planet.getName());
         tFree.setText("" + freeCargo);

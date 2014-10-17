@@ -7,6 +7,7 @@ package hyenas;
 
 import hyenas.Models.ABPair;
 import hyenas.Models.Galaxy;
+import hyenas.Models.Planet;
 import hyenas.Models.Player;
 import hyenas.Models.Ship;
 import hyenas.Models.SolarSystem;
@@ -213,6 +214,27 @@ public class MapUIController implements Initializable {
         double distance = getDjikstraDistance(currentSystem, solarSystem);
         if (distance == -1) {
             throw new RuntimeException("Unconnected node!!!");
+        }
+        Random rand = new Random();
+        for(int i=0; i<distance; i++)   {
+            int roll = rand.nextInt(10);
+            if(roll < 1)    {
+                //TODO trigger pirate event
+            }
+            else if(roll >= 1 && roll < 2) {
+                //TODO trigger trader event
+            }
+            else if(roll >= 2 && roll < 3)    {
+                //TODO trigger police event
+            }
+            if(roll % 5 == 0)   {
+                int randIndex = rand.nextInt(Galaxy.getInstance().getSolarSystems().size());
+                SolarSystem randSys = (SolarSystem)Galaxy.getInstance().getSolarSystems().values().toArray()[randIndex];
+                Planet randPlanet = randSys.getPlanets()[rand.nextInt(randSys.getPlanets().length)];
+                int randWareIndex = rand.nextInt(randPlanet.getWareEvents().length);
+                randPlanet.setWareEvent(randWareIndex, rand.nextInt(3)-1);
+                //TODO create some kind of UI alert
+            }
         }
         ship.setFuel(startingFuel - distance);
         player.setCurrentSystem(solarSystem);

@@ -13,7 +13,7 @@ public class Planet {
     private double size;
     private int[] items = new int[NUM_ITEMS];
     private int techLevel;
-    private int resourceType;
+    private int[] wareEvents = new int[items.length];
     private String planetName;
     private String color;
 
@@ -50,7 +50,7 @@ public class Planet {
         size = 10 + rand.nextInt(10);
         orbitRadius = 110 + rand.nextInt(200);
         techLevel = rand.nextInt(TECH_LEVELS.length);
-        resourceType = rand.nextInt(RESOURCE_TYPES.length);
+        wareEvents[rand.nextInt(RESOURCE_TYPES.length)] = rand.nextInt(3) - 1;    //will be -1, 0, or 1
         color = randomColorString();
         produceWares();
     }
@@ -66,6 +66,21 @@ public class Planet {
         changeWares(howMuchToProduce());
     }
 
+    public void setWareEvent(int typeInt, int value)   {
+        wareEvents[typeInt] = value;
+    }
+    
+    public void setWareEvents(int[] arr)    {
+        wareEvents = arr.clone();
+    }
+    
+    public int getWareEvent(int index)   {
+        return wareEvents[index];
+    }
+    
+    public int[] getWareEvents()    {
+        return wareEvents;
+    }
 
     /**
      * Calculates how much of each product to produce every turn based on
@@ -79,7 +94,7 @@ public class Planet {
             if (techLevel < MTLP[i]) {
                 howMuchToProduce[i] = 0;
             } else {
-                howMuchToProduce[i] = 1 + Math.abs(TTP[i] - techLevel);
+                howMuchToProduce[i] = 1 + Math.abs(TTP[i] - techLevel) + wareEvents[i];
             }
         }
         return howMuchToProduce;
