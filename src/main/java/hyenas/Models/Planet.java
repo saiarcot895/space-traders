@@ -94,7 +94,7 @@ public class Planet {
             if (techLevel < MTLP[i]) {
                 howMuchToProduce[i] = 0;
             } else {
-                howMuchToProduce[i] = 1 + Math.abs(TTP[i] - techLevel) + wareEvents[i];
+                howMuchToProduce[i] = 10 - Math.abs(TTP[i] - techLevel) + wareEvents[i];
             }
         }
         return howMuchToProduce;

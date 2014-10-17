@@ -4,6 +4,7 @@ package hyenas;
 import hyenas.Models.Good;
 import hyenas.Models.Planet;
 import hyenas.Models.Player;
+import hyenas.Models.Ware;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -288,45 +289,45 @@ public class MarketController implements Initializable {
         fuelLeft.setText("" + fuelCount);
         currentCredits.setText("" + creditCount);
 
-        for (Good good : player.getShip().getCargo()) {
-            switch (good) {
-                case Water:
+        for (Ware good : player.getShip().getCargo()) {
+            switch (good.getName()) {
+                case "Water":
                     aWater.setText(""
                             + (Integer.parseInt(aWater.getText()) + 1));
                     break;
-                case Furs:
+                case "Furs":
                     aFurs.setText(""
                             + (Integer.parseInt(aFurs.getText()) + 1));
                     break;
-                case Food:
+                case "Food":
                     aFood.setText(""
                             + (Integer.parseInt(aFood.getText()) + 1));
                     break;
-                case Ore:
+                case "Ore":
                     aOre.setText(""
                             + (Integer.parseInt(aOre.getText()) + 1));
                     break;
-                case Games:
+                case "Games":
                     aGames.setText(""
                             + (Integer.parseInt(aGames.getText()) + 1));
                     break;
-                case Firearms:
+                case "Firearms":
                     aFirearms.setText(""
                             + (Integer.parseInt(aFirearms.getText()) + 1));
                     break;
-                case Medicine:
+                case "Medicine":
                     aMedicine.setText(""
                             + (Integer.parseInt(aMedicine.getText()) + 1));
                     break;
-                case Machines:
+                case "Machines":
                     aMachines.setText(""
                             + (Integer.parseInt(aMachines.getText()) + 1));
                     break;
-                case Narcotics:
+                case "Narcotics":
                     aNarcotics.setText(""
                             + (Integer.parseInt(aNarcotics.getText()) + 1));
                     break;
-                case Robots:
+                case "Robots":
                     aRobots.setText(""
                             + (Integer.parseInt(aRobots.getText()) + 1));
                     break;
@@ -504,66 +505,66 @@ public class MarketController implements Initializable {
         player.getShip().setFuel(fuelCount);
         // Add the Cargo
         for (int i = 0; i < -wares[0]; i++) {
-            player.getShip().addCargo(Good.Water);
+            player.getShip().addCargo(new Ware(Good.Water));
         }
         for (int i = 0; i < -wares[1]; i++) {
-            player.getShip().addCargo(Good.Furs);
+            player.getShip().addCargo(new Ware(Good.Furs));
         }
         for (int i = 0; i < -wares[2]; i++) {
-            player.getShip().addCargo(Good.Food);
+            player.getShip().addCargo(new Ware(Good.Food));
         }
         for (int i = 0; i < -wares[3]; i++) {
-            player.getShip().addCargo(Good.Ore);
+            player.getShip().addCargo(new Ware(Good.Ore));
         }
         for (int i = 0; i < -wares[4]; i++) {
-            player.getShip().addCargo(Good.Games);
+            player.getShip().addCargo(new Ware(Good.Games));
         }
         for (int i = 0; i < -wares[5]; i++) {
-            player.getShip().addCargo(Good.Firearms);
+            player.getShip().addCargo(new Ware(Good.Firearms));
         }
         for (int i = 0; i < -wares[6]; i++) {
-            player.getShip().addCargo(Good.Machines);
+            player.getShip().addCargo(new Ware(Good.Machines));
         }
         for (int i = 0; i < -wares[7]; i++) {
-            player.getShip().addCargo(Good.Medicine);
+            player.getShip().addCargo(new Ware(Good.Medicine));
         }
         for (int i = 0; i < -wares[8]; i++) {
-            player.getShip().addCargo(Good.Narcotics);
+            player.getShip().addCargo(new Ware(Good.Narcotics));
         }
         for (int i = 0; i < -wares[9]; i++) {
-            player.getShip().addCargo(Good.Robots);
+            player.getShip().addCargo(new Ware(Good.Robots));
         }
 
         // Remove the Cargo
         for (int i = 0; i < -wares[0]; i++) {
-            player.getShip().removeCargo(Good.Water);
+            player.getShip().removeCargo(new Ware(Good.Water));
         }
         for (int i = 0; i < -wares[1]; i++) {
-            player.getShip().removeCargo(Good.Furs);
+            player.getShip().removeCargo(new Ware(Good.Furs));
         }
         for (int i = 0; i < -wares[2]; i++) {
-            player.getShip().removeCargo(Good.Food);
+            player.getShip().removeCargo(new Ware(Good.Food));
         }
         for (int i = 0; i < -wares[3]; i++) {
-            player.getShip().removeCargo(Good.Ore);
+            player.getShip().removeCargo(new Ware(Good.Ore));
         }
         for (int i = 0; i < -wares[4]; i++) {
-            player.getShip().removeCargo(Good.Games);
+            player.getShip().removeCargo(new Ware(Good.Games));
         }
         for (int i = 0; i < -wares[5]; i++) {
-            player.getShip().removeCargo(Good.Firearms);
+            player.getShip().removeCargo(new Ware(Good.Firearms));
         }
         for (int i = 0; i < -wares[6]; i++) {
-            player.getShip().removeCargo(Good.Machines);
+            player.getShip().removeCargo(new Ware(Good.Machines));
         }
         for (int i = 0; i < -wares[7]; i++) {
-            player.getShip().removeCargo(Good.Medicine);
+            player.getShip().removeCargo(new Ware(Good.Medicine));
         }
         for (int i = 0; i < -wares[8]; i++) {
-            player.getShip().removeCargo(Good.Narcotics);
+            player.getShip().removeCargo(new Ware(Good.Narcotics));
         }
         for (int i = 0; i < -wares[9]; i++) {
-            player.getShip().removeCargo(Good.Robots);
+            player.getShip().removeCargo(new Ware(Good.Robots));
         }
     }
 

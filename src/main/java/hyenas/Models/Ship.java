@@ -11,7 +11,7 @@ public class Ship {
     private ShipType type;
     private boolean insurance;
     private int upkeep;
-    private List<Good> goods;
+    private List<Ware> goods;
     private int weaponSlots[] = new int[2];
     private int shieldSlots[] = new int[2];
     private int gadgetSlots[] = new int[2];
@@ -87,18 +87,18 @@ public class Ship {
             }
         }
         this.type = type;
-        this.goods = new ArrayList<Good>();
+        this.goods = new ArrayList<Ware>();
     }
 
     public int getFreeCargo() {
         return maxCargo - goods.size();
     }
 
-    public List<Good> getCargo() {
+    public List<Ware> getCargo() {
         return goods;
     }
 
-    public void addCargo(Good good) {
+    public void addCargo(Ware good) {
         goods.add(good);
     }
 
@@ -114,7 +114,7 @@ public class Ship {
         return fuel;
     }
 
-    public boolean removeCargo(Good good) {
+    public boolean removeCargo(Ware good) {
         return goods.remove(good);
     }
 
