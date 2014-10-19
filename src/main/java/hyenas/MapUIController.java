@@ -16,9 +16,11 @@ import hyenas.UI.SolarSystemInfoPane;
 import hyenas.UI.SolarSystemScrollPane;
 import hyenas.UI.UIHelper;
 import hyenas.database.PlanetTable;
+import hyenas.database.PlayerTable;
 import hyenas.database.SolarSystemTable;
 import java.awt.Dimension;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,6 +30,8 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -60,6 +64,8 @@ public class MapUIController implements Initializable {
     private SolarSystemTable ssTable;
     
     private PlanetTable planetTable;
+    
+    private PlayerTable playerTable;
     
     private final int INFO_PANE_SIZE = 200;
 
@@ -154,8 +160,8 @@ public class MapUIController implements Initializable {
                 if (random.nextDouble() >= 0.4) {
                     continue;
                 }
-                double weight = distance + (solarSystem1.getPlanets().length
-                                - solarSystem2.getPlanets().length) * 10;
+                double weight = distance + (solarSystem1.getPlanets().size()
+                                - solarSystem2.getPlanets().size()) * 10;
                 ABPair<SolarSystem, Double> destination = new ABPair<>(solarSystem2,
                         weight);
                 if (!distances.containsKey(solarSystem1)) {
@@ -163,8 +169,8 @@ public class MapUIController implements Initializable {
                 }
                 distances.get(solarSystem1).add(destination);
 
-                weight = distance + (solarSystem2.getPlanets().length
-                                - solarSystem1.getPlanets().length) * 10;
+                weight = distance + (solarSystem2.getPlanets().size()
+                                - solarSystem1.getPlanets().size()) * 10;
                 destination = new ABPair<>(solarSystem1, weight);
                 if (!distances.containsKey(solarSystem2)) {
                     distances.put(solarSystem2, new LinkedList<>());
@@ -275,6 +281,13 @@ public class MapUIController implements Initializable {
         solarSystemButton.getStyleClass().add("currentPlanet");
         currentSolarSystemButton = solarSystemButton;
 
+        playerTable = HyenasLoader.getInstance().getPlayerTable();
+        try {
+            playerTable.updateLocation(solarSystem);
+        } catch (SQLException ex) {
+            Logger.getLogger(MapUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         HyenasLoader.getInstance().goToSystemScreen();
     }
 

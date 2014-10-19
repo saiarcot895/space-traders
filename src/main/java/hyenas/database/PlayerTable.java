@@ -1,5 +1,6 @@
 package hyenas.database;
 
+import hyenas.Models.SolarSystem;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,7 +50,7 @@ public class PlayerTable {
         "POINTS integer NOT NULL, " + "ENGINEER integer NOT NULL, " + 
         "PILOT integer NOT NULL, " + "INVESTOR integer NOT NULL, " + 
         "FIGHTER integer NOT NULL, " + "TRADER integer NOT NULL, " + "CREDITS integer, " + 
-        "ID integer NOT NULL" + "SSID integer NOT NULL, "  + "PRIMARY KEY (ID), " + 
+        "ID integer NOT NULL, " + "SSID integer NOT NULL, "  + "PRIMARY KEY (ID), " + 
         "FOREIGN KEY (SSID) REFERENCES SOLARSYSTEM (ID))";
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
@@ -96,14 +97,16 @@ public class PlayerTable {
     public void populateTable(String name, int points, int ePoints,
             int pPoints, int iPoints, int fPoints, int tPoints, int credits) throws SQLException {
         try (Statement stmt = conn.createStatement()) {
+            final String query = "insert into PLAYERS " + 
+                    "values('" + name + "', " +
+                    points + ", " + ePoints + ", " +
+                    pPoints + ", " + iPoints + ", " +
+                    fPoints + ", " + tPoints + ", " +
+                    credits + ", 1, 0)";
+            System.out.println(query);
             // insert into PLAYERS values('Name', points, ePoints, pPoints,
             //                    iPoints, fPoints, tPoints, credits)
-            stmt.executeUpdate("insert into PLAYERS " + 
-                               "values('" + name + "', " + 
-                               points + ", " + ePoints + ", " + 
-                               pPoints + ", " + iPoints + ", " + 
-                               fPoints + ", " + tPoints + ", " + 
-                               credits + ", 1)"); // <- ID
+            stmt.executeUpdate(query); // <- ID
         } catch (SQLException e) {
             printException(e);
         }
@@ -120,14 +123,8 @@ public class PlayerTable {
     public void updatePoints(int points) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
-        String query = "SELECT POINTS FROM Hyenas.PLAYERS";
-        ResultSet update = stmt.executeQuery(query);
-        // Move cursor to first row
-        update.first();
-        update.updateInt("POINTS", points);
-        update.updateRow();
+        String query = "UPDATE Hyenas.PLAYERS SET POINTS = " + points;
+        stmt.executeQuery(query);
     }
     
     /**
@@ -138,14 +135,8 @@ public class PlayerTable {
     public void updateEPoints(int points) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
-        String query = "SELECT ENGINEER FROM Hyenas.PLAYERS";
-        ResultSet update = stmt.executeQuery(query);
-        // Move cursor to first row
-        update.first();
-        update.updateInt("ENGINEER", points);
-        update.updateRow();
+        String query = "UPDATE Hyenas.PLAYERS SET ENGINEER = " + points;
+        stmt.executeQuery(query);
     }
     
     /**
@@ -156,14 +147,8 @@ public class PlayerTable {
     public void updatePPoints(int points) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
-        String query = "SELECT PILOT FROM Hyenas.PLAYERS";
-        ResultSet update = stmt.executeQuery(query);
-        // Move cursor to first row
-        update.first();
-        update.updateInt("PILOT", points);
-        update.updateRow();
+        String query = "UPDATE Hyenas.PLAYERS SET PILOT = " + points;
+        stmt.executeQuery(query);
     }
     
     /**
@@ -174,14 +159,8 @@ public class PlayerTable {
     public void updateIPoints(int points) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
-        String query = "SELECT INVESTOR FROM Hyenas.PLAYERS";
-        ResultSet update = stmt.executeQuery(query);
-        // Move cursor to first row
-        update.first();
-        update.updateInt("INVESTOR", points);
-        update.updateRow();
+        String query = "UPDATE Hyenas.PLAYERS SET INVESTOR = " + points;
+        stmt.executeQuery(query);
     }
     
     /**
@@ -192,14 +171,8 @@ public class PlayerTable {
     public void updateFPoints(int points) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
-        String query = "SELECT FIGHTER FROM Hyenas.PLAYERS";
-        ResultSet update = stmt.executeQuery(query);
-        // Move cursor to first row
-        update.first();
-        update.updateInt("FIGHTER", points);
-        update.updateRow();
+        String query = "UPDATE Hyenas.PLAYERS SET FIGHTER = " + points;
+        stmt.executeQuery(query);
     }
     
     /**
@@ -210,14 +183,22 @@ public class PlayerTable {
     public void updateTPoints(int points) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+        String query = "UPDATE Hyenas.PLAYERS SET TRADER = " + points;
+        stmt.execute(query);
+    }
+    
+    public void updateLocation(SolarSystem solarSystem) 
+            throws SQLException {
+        Statement stmt = conn.createStatement();
+        stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY,
                 ResultSet.CONCUR_UPDATABLE);
-        String query = "SELECT TRADER FROM Hyenas.PLAYERS";
+        String query = "SELECT ID FROM Hyenas.SOLARSYSTEM WHERE " + 
+                "NAME = '" + solarSystem.getSystemName() + "'";
         ResultSet update = stmt.executeQuery(query);
-        // Move cursor to first row
         update.first();
-        update.updateInt("TRADER", points);
-        update.updateRow();
+        int variable = update.getInt(1);
+        query = "UPDATE PLAYERS SET SSID = " + variable;
+        stmt.execute(query);
     }
     
 }

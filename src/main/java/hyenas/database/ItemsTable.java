@@ -51,9 +51,9 @@ public class ItemsTable {
                                 "MEDICINE integer, " + "MACHINES integer, " + 
                                 "NARCOTICS integer, " + "ROBOTS integer, " +
                                 "IID integer NOT NULL, " + "ID integer NOT NULL, " + 
-                                "PRIMARY KEY (ID), " + "FOREIGN KEY (IID) REFERENCE PLAYERS (ID))";
+                                "PRIMARY KEY (ID), " + "FOREIGN KEY (IID) REFERENCES PLAYERS (ID))";
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeLargeUpdate(create);
+            stmt.executeUpdate(create);
         } catch (SQLException e) {
             printException(e);
         }
@@ -79,14 +79,8 @@ public class ItemsTable {
     public void updateWater(int units) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
-        String query = "SELECT WATER FROM Hyenas.ITEMS";
-        ResultSet update = stmt.executeQuery(query);
-        // Move cursor to first row
-        update.first();
-        update.updateInt("WATER", units);
-        update.updateRow();
+        String query = "UPDATE Hyenas.PLAYERS SET WATER = " + units;
+        stmt.executeQuery(query);
     }
     
     /**
@@ -97,14 +91,8 @@ public class ItemsTable {
     public void updateFurs(int units) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
-        String query = "SELECT FURS FROM Hyenas.ITEMS";
-        ResultSet update = stmt.executeQuery(query);
-        // Move cursor to first row
-        update.first();
-        update.updateInt("FURS", units);
-        update.updateRow();
+        String query = "UPDATE Hyenas.PLAYERS SET FURS = " + units;
+        stmt.executeQuery(query);
     }
     
     /**
@@ -115,14 +103,8 @@ public class ItemsTable {
     public void updateFood(int units) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
-        String query = "SELECT FOOD FROM Hyenas.ITEMS";
-        ResultSet update = stmt.executeQuery(query);
-        // Move cursor to first row
-        update.first();
-        update.updateInt("FOOD", units);
-        update.updateRow();
+        String query = "UPDATE Hyenas.PLAYERS SET FOOD = " + units;
+        stmt.executeQuery(query);
     }
     
     /**
@@ -133,14 +115,8 @@ public class ItemsTable {
     public void updateOre(int units) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
-        String query = "SELECT ORE FROM Hyenas.ITEMS";
-        ResultSet update = stmt.executeQuery(query);
-        // Move cursor to first row
-        update.first();
-        update.updateInt("ORE", units);
-        update.updateRow();
+        String query = "UPDATE Hyenas.PLAYERS SET ORE = " + units;
+        stmt.executeQuery(query);
     }
     
     /**
@@ -151,14 +127,8 @@ public class ItemsTable {
     public void updateGames(int units) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
-        String query = "SELECT GAMES FROM Hyenas.ITEMS";
-        ResultSet update = stmt.executeQuery(query);
-        // Move cursor to first row
-        update.first();
-        update.updateInt("GAMES", units);
-        update.updateRow();
+        String query = "UPDATE Hyenas.PLAYERS SET GAMES = " + units;
+        stmt.executeQuery(query);
     }
     
     /**
@@ -169,14 +139,8 @@ public class ItemsTable {
     public void updateFirearms(int units) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
-        String query = "SELECT FIREARMS FROM Hyenas.ITEMS";
-        ResultSet update = stmt.executeQuery(query);
-        // Move cursor to first row
-        update.first();
-        update.updateInt("FIREARMS", units);
-        update.updateRow();
+        String query = "UPDATE Hyenas.PLAYERS SET FIREARMS = " + units;
+        stmt.executeQuery(query);
     }
     
     /**
@@ -187,14 +151,8 @@ public class ItemsTable {
     public void updateMedicine(int units) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
-        String query = "SELECT MEDICINE FROM Hyenas.ITEMS";
-        ResultSet update = stmt.executeQuery(query);
-        // Move cursor to first row
-        update.first();
-        update.updateInt("MEDICINE", units);
-        update.updateRow();
+        String query = "UPDATE Hyenas.PLAYERS SET MEDICINE = " + units;
+        stmt.executeQuery(query);
     }
     
     /**
@@ -205,14 +163,8 @@ public class ItemsTable {
     public void updateMachines(int units) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
-        String query = "SELECT MACHINES FROM Hyenas.ITEMS";
-        ResultSet update = stmt.executeQuery(query);
-        // Move cursor to first row
-        update.first();
-        update.updateInt("MACHINES", units);
-        update.updateRow();
+        String query = "UPDATE Hyenas.PLAYERS SET MACHINES = " + units;
+        stmt.executeQuery(query);
     }
     
     /**
@@ -223,14 +175,8 @@ public class ItemsTable {
     public void updateNarcotics(int units) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
-        String query = "SELECT NARCOTICS FROM Hyenas.ITEMS";
-        ResultSet update = stmt.executeQuery(query);
-        // Move cursor to first row
-        update.first();
-        update.updateInt("NARCOTICS", units);
-        update.updateRow();
+        String query = "UPDATE Hyenas.PLAYERS SET NARCOTICS = " + units;
+        stmt.executeQuery(query);
     }
     
     /**
@@ -241,14 +187,8 @@ public class ItemsTable {
     public void updateRobots(int units) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
-        String query = "SELECT ROBOTS FROM Hyenas.ITEMS";
-        ResultSet update = stmt.executeQuery(query);
-        // Move cursor to first row
-        update.first();
-        update.updateInt("ROBOTS", units);
-        update.updateRow();
+        String query = "UPDATE Hyenas.PLAYERS SET ROBOTS = " + units;
+        stmt.executeQuery(query);
     }
     
     public void dropTable() {

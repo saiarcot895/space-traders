@@ -52,7 +52,7 @@ public class SolarSystemInfoPane extends AnchorPane {
 
     public void setupForSolarSystem(SolarSystem solarSystem) {
         systemNameLabel.setText("System: " + solarSystem.getSystemName());
-        numPlanetsLabel.setText("Planets: " + solarSystem.getPlanets().length);
+        numPlanetsLabel.setText("Planets: " + solarSystem.getPlanets().size());
     }
 
     public Button getTravelButton() {

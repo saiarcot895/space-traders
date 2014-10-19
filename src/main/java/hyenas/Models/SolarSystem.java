@@ -1,5 +1,7 @@
 package hyenas.Models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -8,7 +10,7 @@ import java.util.Random;
  */
 public class SolarSystem {
     private String systemName;
-    private Planet[] planets;
+    private List<Planet> planets;
     private int x;
     private int y;
     private double size;
@@ -19,9 +21,9 @@ public class SolarSystem {
         Random rand = new Random();
         size = 10 + (rand.nextDouble() * 10);
         int numPlanets = rand.nextInt(5) + 1;
-        planets = new Planet[numPlanets];
+        planets = new ArrayList<>();
         for (int i = 0; i < numPlanets; i++) {
-            planets[i] = new Planet(systemName);
+            planets.add(new Planet(systemName));
         }
         color = randomColorString();
     }
@@ -70,7 +72,7 @@ public class SolarSystem {
      * Get the planets in the solar system.
      * @return planets in the solar system
      */
-    public Planet[] getPlanets() {
+    public List<Planet> getPlanets() {
         return this.planets;
     }
 

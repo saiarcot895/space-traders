@@ -13,6 +13,7 @@ import hyenas.UI.PlanetButton;
 import hyenas.UI.SolarSystemImageView;
 import java.awt.Dimension;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -54,7 +55,7 @@ public class SystemUIController implements Initializable {
         Dimension screenSize = UIHelper.getScreenSize();
 
         SolarSystem currentSystem = Player.getInstance().getCurrentSystem();
-        Planet[] planets = currentSystem.getPlanets();
+         List<Planet> planets = currentSystem.getPlanets();
         currentPlanet = Player.getInstance().getTradingPlanet();
 
         SolarSystemImageView currentSystemButton = new SolarSystemImageView();

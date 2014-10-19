@@ -52,8 +52,8 @@ public class MainWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Font titleFont = Font.loadFont("/hyenas/fonts/GALACTICVANGUARDIANNCV.ttf", 70);
-        Font buttonFont = Font.loadFont("/hyenas/fonts/BlenderPro-Book.otf", 40);
+        Font titleFont = Font.loadFont(HyenasLoader.class.getResource("/hyenas/fonts/GALACTICVANGUARDIANNCV.ttf").toExternalForm(), 70);
+        Font buttonFont = Font.loadFont(HyenasLoader.class.getResource("/hyenas/fonts/BlenderPro-Book.otf").toExternalForm(), 40);
 
         titleLabel.setFont(titleFont);
         titleLabel.setCache(true);

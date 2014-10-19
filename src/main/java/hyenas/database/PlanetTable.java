@@ -55,14 +55,16 @@ public class PlanetTable {
             printException(e);
         }
     }
-    
+    // TODO: fix the x and y for planets!
     public void populateTable(String name, double x, 
             double y, int id, String tech, String rsrc, int ssid) {
-        try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate("insert into PLANET " + 
-                               "values(" + id + ", '" + name + "', " + 
-                               x + ", " + y + ", " + tech + ", " +
-                               rsrc + ", " + ssid + ")");
+        try {
+            Statement stmt = conn.createStatement();
+            final String query = "insert into PLANET " + 
+                    "values(" + id + ", '" + name + "', " +
+                    x + ", " + y + ", '" + tech + "', '" +
+                    rsrc + "', " + ssid + ")";
+            stmt.executeUpdate(query);
             // Id & ssid are generated based on how the System is generated.
         } catch (SQLException e) {
             printException(e);

@@ -27,7 +27,7 @@ public class Player {
         // KEEP PRIVATE - use getInstance instead
         ship = new Ship(ShipType.FLEA);
         currentSystem = Galaxy.getInstance().getSolarSystems().values().toArray(new SolarSystem[0])[0];
-        tradingPlanet = currentSystem.getPlanets()[0];
+        tradingPlanet = currentSystem.getPlanets().get(0);
         credits = 250;
         state = false;
     }

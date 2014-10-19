@@ -70,8 +70,9 @@ public class HyenasLoader extends Application {
         
         // TODO: If connected Yay!
         // Else create new database!
+        Connection connect;
         if (!new File("database.db").exists()) {
-            Connection connect = connectToDB();
+            connect = connectToDB();
             players = new PlayerTable(connect, "Hyenas");
             planets = new PlanetTable(connect, "Hyenas");
             items = new ItemsTable(connect, "Hyenas");
@@ -82,7 +83,11 @@ public class HyenasLoader extends Application {
             players.createTable();
             items.createTable();
         } else {
-            Connection connect = connectToDB();
+            connect = connectToDB();
+            players = new PlayerTable(connect, "Hyenas");
+            planets = new PlanetTable(connect, "Hyenas");
+            items = new ItemsTable(connect, "Hyenas");
+            solarSystem = new SolarSystemTable(connect, "Hyenas");
         }
         
         this.stage = stage;
@@ -178,9 +183,7 @@ public class HyenasLoader extends Application {
      * in SolarSystemView.
      */
     public void continueGame() {
-        // TODO: Go back to SolarSystem view from database.
-        // TODO: Make sure to save state of player.
-        // Get the (x,y) coordinates from SolarSystem table
+        
     }
     
     /**
