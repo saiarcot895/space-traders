@@ -75,6 +75,9 @@ public class SystemUIController implements Initializable {
         for(Planet planet : planets)  {
             PlanetButton button = new PlanetButton();
             button.setupForPlanet(planet);
+            // TODO: Add x,y coordinates in planet table
+            // Link to SolarSystem table with a 1-5 relationship
+            
 //            button.relocate(systemCenterX + planet.getOrbitRadius() - (button.getPrefWidth() / 2.0), systemCenterY);
             button.setLayoutX(systemCenterX + planet.getOrbitRadius() - (button.getPrefWidth() / 2.0) - 10);
             button.setLayoutY(systemCenterY - 10);

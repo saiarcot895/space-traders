@@ -6,6 +6,10 @@
 package hyenas;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -13,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -23,6 +28,11 @@ public class HyenasLoader extends Application {
     private static HyenasLoader instance;
 
     private Stage stage;
+    
+    private Connection conn;
+    private final String username = "Hyenas";
+    private final String password = "Team20";
+    private final String host = "jdbc:derby://localhost:1527/Hyenas";
 
     public static HyenasLoader getInstance() {
         return instance;
@@ -31,6 +41,10 @@ public class HyenasLoader extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         instance = this;
+        
+        // TODO: If connected Yay!
+        // Else create new database!
+        
         this.stage = stage;
         stage.setFullScreen(true);
 //        stage.setResizable(false);
@@ -43,8 +57,19 @@ public class HyenasLoader extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
-    public void goToStartGameScreen() {
+    
+    public void stop(Stage stage) throws Exception {
+        stage.setOnCloseRequest((WindowEvent t) -> {
+            try {
+                stop(stage);
+            } catch (Exception ex) {
+                Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE, null, ex);
+            }            
+        });
+    }
+    
+    public void goToStartGameScreen() throws SQLException {
+        Connection newConn = null;
         try {
             changePage("Allocation.fxml");
         } catch (IOException ex) {
@@ -109,10 +134,93 @@ public class HyenasLoader extends Application {
 //      stage.sizeToScene();
     }
 
+    /**
+     * Restore last point in game
+     * in SolarSystemView.
+     */
+    public void continueGame() {
+        // TODO: Go back to SolarSystem view from database.
+        // TODO: Make sure to save state of player.
+        // Get the (x,y) coordinates from SolarSystem table
+    }
+    
+    /**
+     * Close connection to database if not already closed
+     * Exit application
+     */
+    public void closeGame() {
+        // In the main menu the game should not be connected to the database!
+        closeConnection(conn);
+        try {
+            // close application
+            stop(stage);
+        } catch (Exception ex) {
+            Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    // Wat?
     public void confirmSelection() {
 
     }
 
+/**********************************************************************/
+    
+    private boolean ignoreSQLException(String state) {
+        if (state == null) {
+            System.out.println("State undefined");
+            return false;
+        }
+        return state.equalsIgnoreCase("X0Y32") 
+                || state.equalsIgnoreCase("42Y55");
+    }
+    
+    private void printException(SQLException ex){
+        for (Throwable e : ex){
+            if (e instanceof SQLException){
+                if (ignoreSQLException(((SQLException)e).getSQLState()) == false) {
+                    e.printStackTrace(System.err);
+                    System.err.println("State: " + ((SQLException)e).getSQLState());
+                    System.err.println("Error Code: " + ((SQLException)e).getErrorCode());
+                    System.err.println("Message: " + e.getMessage());
+                    Throwable t = ex.getCause();
+                    while (t != null) {
+                        System.out.println("Cause: " + t);
+                        t = t.getCause();
+                    }
+                }
+            }
+        }
+    }
+    
+    public Connection connectToDB() throws SQLException {
+        Properties connectionProps = new Properties();
+        connectionProps.put("username", username);
+        connectionProps.put("password", password);
+        try {
+            conn = DriverManager.getConnection(host, connectionProps);
+            return conn;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    @SuppressWarnings("UnusedAssignment")
+    public void closeConnection(Connection connArgs){
+        System.out.println("Releasing sources...");
+        try {
+            if (connArgs != null) {
+                connArgs.close();
+                connArgs = null;
+            }
+        } catch (SQLException e) {
+            printException(e);
+        }
+    }
+    
+/**********************************************************************/
+    
     /**
      * @param args the command line arguments
      */

@@ -37,9 +37,18 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private Button settingsButton;
+    
+    @FXML
+    private Button continueButton;
+    
+    @FXML
+    private Button closeButton;
+    
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -62,18 +71,37 @@ public class MainWindowController implements Initializable {
         AnchorPane.setLeftAnchor(startGameButton, buttonPadding);
         AnchorPane.setRightAnchor(startGameButton, buttonPadding);
 
+        continueButton.setFont(buttonFont);
+        AnchorPane.setTopAnchor(continueButton, 350.0);
+        AnchorPane.setLeftAnchor(continueButton, buttonPadding);
+        AnchorPane.setRightAnchor(continueButton, buttonPadding);
+        
         settingsButton.setFont(buttonFont);
-        AnchorPane.setTopAnchor(settingsButton, 350.0);
+        AnchorPane.setTopAnchor(settingsButton, 450.0);
         AnchorPane.setLeftAnchor(settingsButton, buttonPadding);
         AnchorPane.setRightAnchor(settingsButton, buttonPadding);
+        
+        closeButton.setFont(buttonFont);
+        AnchorPane.setTopAnchor(closeButton, 550.0);
+        AnchorPane.setLeftAnchor(closeButton, buttonPadding);
+        AnchorPane.setRightAnchor(closeButton, buttonPadding);
+        
     }
 
     public void onStartGameClicked(Event e)  {
         HyenasLoader.getInstance().goToStartGameScreen();
     }
 
+    public void continueGame(ActionEvent e) {
+        HyenasLoader.getInstance().continueGame();
+    }
+    
     public void onSettingsClicked(ActionEvent e) {
         HyenasLoader.getInstance().goToSettingsScreen();
     }
 
+    public void closeGame(ActionEvent e) {
+        HyenasLoader.getInstance().closeGame();
+    }
+    
 }

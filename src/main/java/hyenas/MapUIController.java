@@ -74,6 +74,8 @@ public class MapUIController implements Initializable {
         }).map((SolarSystem solarSystem) -> {
             SolarSystemButton button = new SolarSystemButton();
             button.setupForMapUI(solarSystem);
+            // TODO: Add x,y coordinates in SolarSystem table
+            
             Player player = Player.getInstance();
             SolarSystem currentSystem = player.getCurrentSystem();
             if (currentSystem == solarSystem) {
