@@ -59,6 +59,10 @@ public class Planet {
         produceWares();
     }
 
+    public int getResourceType() {
+        return resourceType;
+    }
+    
     public String getPlanetName()   {
         return planetName;
     }
@@ -101,6 +105,14 @@ public class Planet {
     }
 
     /**
+     * Get the resource level of the planet
+     * @return resource type of the planet
+     */
+    public String resourceTypeString() {
+        return RESOURCE_TYPES[resourceType];
+    }
+    
+    /**
      * Get the tech level of the planet.
      * @return tech level of the planet
      */
@@ -134,7 +146,7 @@ public class Planet {
         return x;
     }
 
-    public int getY(int y) {
+    public int getY() {
         return y;
     }
 

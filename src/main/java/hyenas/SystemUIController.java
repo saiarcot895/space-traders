@@ -71,14 +71,10 @@ public class SystemUIController implements Initializable {
         systemPane.setMaxWidth(UIHelper.SYSTEM_WIDTH);
         systemPane.setLayoutX(screenSize.getWidth() / 2);
         systemPane.getChildren().add(currentSystemButton);
-
         for(Planet planet : planets)  {
             PlanetButton button = new PlanetButton();
             button.setupForPlanet(planet);
-            // TODO: Add x,y coordinates in planet table
-            // Link to SolarSystem table with a 1-5 relationship
-            
-//            button.relocate(systemCenterX + planet.getOrbitRadius() - (button.getPrefWidth() / 2.0), systemCenterY);
+            // button.relocate(systemCenterX + planet.getOrbitRadius() - (button.getPrefWidth() / 2.0), systemCenterY);
             button.setLayoutX(systemCenterX + planet.getOrbitRadius() - (button.getPrefWidth() / 2.0) - 10);
             button.setLayoutY(systemCenterY - 10);
             System.out.println("System: " + systemCenterX + "," + systemCenterY);
@@ -88,8 +84,8 @@ public class SystemUIController implements Initializable {
             circle.setStrokeWidth(1);
             circle.setFill(Color.TRANSPARENT);
             circle.setDisable(true);
-//            circle.setStyle("-fx-stroke-dash-array: 12 2 4 2;"); 
-//            circle.setStyle("-fx-stroke-dash-array: 12 2 4 2; -fx-stroke-width: 5;-fx-stroke: green;"); 
+            // circle.setStyle("-fx-stroke-dash-array: 12 2 4 2;"); 
+            // circle.setStyle("-fx-stroke-dash-array: 12 2 4 2; -fx-stroke-width: 5;-fx-stroke: green;"); 
 
             if(currentPlanet == planet) {
                 button.getStyleClass().add("currentPlanet");

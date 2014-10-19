@@ -5,6 +5,11 @@
  */
 package hyenas;
 
+import hyenas.database.ItemsTable;
+import hyenas.database.PlanetTable;
+import hyenas.database.PlayerTable;
+import hyenas.database.SolarSystemTable;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -34,16 +39,51 @@ public class HyenasLoader extends Application {
     private Connection conn;
     private final String host = "jdbc:sqlite:database.db";
 
+    private PlayerTable players;
+    private PlanetTable planets;
+    private ItemsTable items;
+    private SolarSystemTable solarSystem;
+    
     public static HyenasLoader getInstance() {
         return instance;
     }
 
+    public SolarSystemTable getSSTable() {
+        return solarSystem;
+    }
+    
+    public PlanetTable getPlanetTable() {
+        return planets;
+    }
+    
+    public PlayerTable getPlayerTable() {
+        return players;
+    }
+    
+    public ItemsTable getItemsTable() {
+        return items;
+    }
+    
     @Override
     public void start(Stage stage) throws Exception {
         instance = this;
         
         // TODO: If connected Yay!
         // Else create new database!
+        if (!new File("database.db").exists()) {
+            Connection connect = connectToDB();
+            players = new PlayerTable(connect, "Hyenas");
+            planets = new PlanetTable(connect, "Hyenas");
+            items = new ItemsTable(connect, "Hyenas");
+            solarSystem = new SolarSystemTable(connect, "Hyenas");
+            // Create the tables
+            solarSystem.createTable();
+            planets.createTable();
+            players.createTable();
+            items.createTable();
+        } else {
+            Connection connect = connectToDB();
+        }
         
         this.stage = stage;
         stage.setFullScreen(true);
@@ -191,7 +231,7 @@ public class HyenasLoader extends Application {
             }
         }
     }
-    
+
     public Connection connectToDB() throws SQLException {
         try {
             conn = DriverManager.getConnection(host);

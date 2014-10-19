@@ -1,7 +1,9 @@
 package hyenas;
 
 import hyenas.Models.Player;
+import hyenas.database.PlayerTable;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -84,6 +86,8 @@ public class AllocationController implements Initializable {
     int eValue = 1;
     int iValue = 1;
 
+    private PlayerTable newPlayers;
+    
     /**
      * Initializes the controller class.
      * @param url
@@ -137,7 +141,7 @@ public class AllocationController implements Initializable {
         }
     }
 
-    public void create(ActionEvent e) {
+    public void create(ActionEvent e) throws SQLException {
         Player player = Player.getInstance();
         player.setName(name.getText());
         player.setPilotSkill(pValue);
@@ -146,6 +150,9 @@ public class AllocationController implements Initializable {
         player.setEngineerSkill(eValue);
         player.setInvestorSkill(iValue);
         player.setState(true);
+        newPlayers = HyenasLoader.getInstance().getPlayerTable();
+        newPlayers.populateTable(name.getText(), startingPoints, 
+                eValue, pValue, iValue, fValue, tValue, player.getCredits());
         HyenasLoader.getInstance().goToMapScreen();
     }
 

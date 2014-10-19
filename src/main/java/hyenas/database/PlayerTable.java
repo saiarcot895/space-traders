@@ -49,9 +49,8 @@ public class PlayerTable {
         "POINTS integer NOT NULL, " + "ENGINEER integer NOT NULL, " + 
         "PILOT integer NOT NULL, " + "INVESTOR integer NOT NULL, " + 
         "FIGHTER integer NOT NULL, " + "TRADER integer NOT NULL, " + "CREDITS integer, " + 
-        "ID integer NOT NULL" + "SSID integer NOT NULL, " + "IID integer NOT NULL, " +
-        "PRIMARY KEY (ID), " + "FOREIGN KEY (SSID) REFERENCES SOLARSYSTEM (ID), " + 
-        "FOREIGN KEY (IID) REFERENCES ITEMS (ID))";
+        "ID integer NOT NULL" + "SSID integer NOT NULL, "  + "PRIMARY KEY (ID), " + 
+        "FOREIGN KEY (SSID) REFERENCES SOLARSYSTEM (ID))";
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
         } catch (SQLException e) {
