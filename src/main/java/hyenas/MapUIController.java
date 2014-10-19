@@ -262,10 +262,18 @@ public class MapUIController implements Initializable {
         HyenasLoader.getInstance().goToSystemScreen();
     }
 
+    /**
+     * Go to the settings screen.
+     */
     public void goToSettings() {
         HyenasLoader.getInstance().goToSettingsScreen();
     }
 
+    /**
+     * Check to see if the player can travel to the solar system.
+     * @param solarSystem system to travel to
+     * @return true if the player can travel there; otherwise, false
+     */
     private boolean canTravelToSystem(SolarSystem solarSystem) {
         Player player = Player.getInstance();
         SolarSystem currentSystem = player.getCurrentSystem();
@@ -278,6 +286,12 @@ public class MapUIController implements Initializable {
         return (fuel > distance);
     }
 
+    /**
+     * Get the linear distance between two systems.
+     * @param system1 starting system
+     * @param system2 ending system
+     * @return distance between the two systems
+     */
     private double getDistance(SolarSystem system1, SolarSystem system2) {
         int x1 = system1.getX();
         int y1 = system1.getY();
@@ -286,6 +300,12 @@ public class MapUIController implements Initializable {
         return Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
     }
 
+    /**
+     * Get the distance between two systems according to Djikstra's algorithm.
+     * @param start starting system
+     * @param goal ending system
+     * @return distance between the two systems on the graph
+     */
     private double getDjikstraDistance(SolarSystem start, SolarSystem goal) {
         Queue<ABPair<SolarSystem, Double>> distances = new PriorityQueue<>(
                 (ABPair<SolarSystem, Double> o1, ABPair<SolarSystem, Double> o2)
@@ -321,6 +341,9 @@ public class MapUIController implements Initializable {
         return -1;
     }
 
+    /**
+     * Exit the game.
+     */
     public void quitGame() {
         // TODO: Save game before quitting. (M7)
         Player.getInstance().setState(false); // They are not playing the game anymore.

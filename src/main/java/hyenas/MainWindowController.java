@@ -11,7 +11,6 @@ import java.awt.Dimension;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -20,7 +19,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 
 /**
- * FXML Controller class
+ * Main window controller. This class handles the display and contains the logic
+ * for the title screen.
  *
  * @author saikrishna
  */
@@ -37,13 +37,13 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private Button settingsButton;
-    
+
     @FXML
     private Button continueButton;
-    
+
     @FXML
     private Button closeButton;
-    
+
 
     /**
      * Initializes the controller class.
@@ -52,8 +52,8 @@ public class MainWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Font titleFont = Font.loadFont(HyenasLoader.class.getResource("/hyenas/fonts/GALACTICVANGUARDIANNCV.ttf").toExternalForm(), 70);
-        Font buttonFont = Font.loadFont(HyenasLoader.class.getResource("/hyenas/fonts/BlenderPro-Book.otf").toExternalForm(), 40);
+        Font titleFont = Font.loadFont("/hyenas/fonts/GALACTICVANGUARDIANNCV.ttf", 70);
+        Font buttonFont = Font.loadFont("/hyenas/fonts/BlenderPro-Book.otf", 40);
 
         titleLabel.setFont(titleFont);
         titleLabel.setCache(true);
@@ -75,33 +75,49 @@ public class MainWindowController implements Initializable {
         AnchorPane.setTopAnchor(continueButton, 350.0);
         AnchorPane.setLeftAnchor(continueButton, buttonPadding);
         AnchorPane.setRightAnchor(continueButton, buttonPadding);
-        
+
         settingsButton.setFont(buttonFont);
         AnchorPane.setTopAnchor(settingsButton, 450.0);
         AnchorPane.setLeftAnchor(settingsButton, buttonPadding);
         AnchorPane.setRightAnchor(settingsButton, buttonPadding);
-        
+
         closeButton.setFont(buttonFont);
         AnchorPane.setTopAnchor(closeButton, 550.0);
         AnchorPane.setLeftAnchor(closeButton, buttonPadding);
         AnchorPane.setRightAnchor(closeButton, buttonPadding);
-        
+
     }
 
-    public void onStartGameClicked(Event e)  {
+    /**
+     * Display the new game screen.
+     * @param e unused
+     */
+    public void onStartGameClicked(ActionEvent e)  {
         HyenasLoader.getInstance().goToStartGameScreen();
     }
 
+    /**
+     * Load a previous game.
+     * @param e unused
+     */
     public void continueGame(ActionEvent e) {
         HyenasLoader.getInstance().continueGame();
     }
-    
+
+    /**
+     * Display the settings screen
+     * @param e unused
+     */
     public void onSettingsClicked(ActionEvent e) {
         HyenasLoader.getInstance().goToSettingsScreen();
     }
 
+    /**
+     * Exit the game.
+     * @param e unused
+     */
     public void closeGame(ActionEvent e) {
         HyenasLoader.getInstance().closeGame();
     }
-    
+
 }

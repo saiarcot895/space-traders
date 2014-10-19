@@ -12,22 +12,30 @@ import java.util.Objects;
  * @author saikrishna
  */
 public class ABPair<A, B> {
-    A a;
-    B b;
-    
+    private final A a;
+    private final B b;
+
     public ABPair(A a, B b) {
         this.a = a;
         this.b = b;
     }
-    
+
+    /**
+     * Get data A of the pair.
+     * @return data A
+     */
     public A getA() {
         return a;
     }
-    
+
+    /**
+     * Get data B of the pair.
+     * @return data B
+     */
     public B getB() {
         return b;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -47,5 +55,5 @@ public class ABPair<A, B> {
         hash = 49 * hash + Objects.hashCode(this.b);
         return hash;
     }
-    
+
 }

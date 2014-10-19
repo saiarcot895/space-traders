@@ -2,6 +2,10 @@ package hyenas.Models;
 
 import java.util.Random;
 
+/**
+ * The {@code SolarSystem} class represents a solar system in the galaxy.
+ * @author saikrishna
+ */
 public class SolarSystem {
     private String systemName;
     private Planet[] planets;
@@ -23,7 +27,8 @@ public class SolarSystem {
     }
 
     /**
-     * Get x
+     * Get the x-coordinate of the solar system.
+     * @return x-coordinate of the system
      */
     public int getX()   {
         return x;
@@ -33,6 +38,10 @@ public class SolarSystem {
         this.x = x;
     }
 
+    /**
+     * Get the y-coordinate of the solar system.
+     * @return y-coordinate of the system
+     */
     public int getY()   {
         return y;
     }
@@ -41,6 +50,10 @@ public class SolarSystem {
         this.y = y;
     }
 
+    /**
+     * Get the size of the solar system.
+     * @return size of the system
+     */
     public double getSize()   {
         return size;
     }
@@ -61,6 +74,12 @@ public class SolarSystem {
         return this.planets;
     }
 
+    /**
+     * Get a planet of the solar system based on its name.
+     * @param name name of the planet
+     * @return planet matching the name passed in. If no such planet exists,
+     * then null
+     */
     public Planet getPlanetByName(String name)  {
         for (Planet planet: planets) {
             if (planet.getPlanetName().equals(name)) {
@@ -70,7 +89,11 @@ public class SolarSystem {
         return null;
     }
 
-    private String randomColorString() {
+    /**
+     * Create a random color to be assigned to the solar system.
+     * @return generated color string
+     */
+    private static String randomColorString() {
         Random rand = new Random();
         int r = rand.nextInt(255);
         int g = rand.nextInt(255);
@@ -78,6 +101,13 @@ public class SolarSystem {
         return String.format("rgb(%d, %d, %d, 1)", r, g, b);
     }
 
+    /**
+     * Get the color of the solar system. The color is returned in the form
+     * "rgb(r, g, b, 1)", where "r" is the red channel (0-255), "g" is the green
+     * channel (0-255), and "b" is the blue channel (0-255). The final 1 is the
+     * transparency (opaque).
+     * @return color of the solar system
+     */
     public String getColorString()  {
         return color;
     }
