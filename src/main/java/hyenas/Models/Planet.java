@@ -2,6 +2,10 @@ package hyenas.Models;
 
 import java.util.Random;
 
+/**
+ * The {@code Planet} class represents a planet in a solar system.
+ * @author saikrishna
+ */
 public class Planet {
     private static final int NUM_ITEMS = 10;
     private static final int[] TTP = {2, 0, 1, 3, 6, 5, 6, 5, 5, 7};
@@ -158,10 +162,21 @@ public class Planet {
         return String.format("rgb(%d, %d, %d, 1)", r, g, b);
     }
 
+    /**
+     * Get the color of the planet. The color is returned in the form
+     * "rgb(r, g, b, 1)", where "r" is the red channel (0-255), "g" is the green
+     * channel (0-255), and "b" is the blue channel (0-255). The final 1 is the
+     * transparency (opaque).
+     * @return color of the solar system
+     */
     public String getColorString()  {
         return color;
     }
 
+    /**
+     * Get the radius of the planet's orbit.
+     * @return radius of the orbit
+     */
     public int getOrbitRadius() {
         return orbitRadius;
     }

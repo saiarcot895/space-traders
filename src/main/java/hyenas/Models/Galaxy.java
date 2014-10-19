@@ -175,12 +175,16 @@ public class Galaxy {
     /**
      * Get the solar system for a system name
      *
-     * @return SolarSystem the system corresponding to the system name
+     * @return the system corresponding to the system name
      */
     public SolarSystem getSolarSystemForName(String solarSystemName) {
         return solarSystems.get(solarSystemName);
     }
-    
+
+    /**
+     * Get the adjacency list of the solar systems.
+     * @return adjacency list of the solar systems
+     */
     public Map<SolarSystem, List<ABPair<SolarSystem, Double>>> getDistances() {
         return distances;
     }
