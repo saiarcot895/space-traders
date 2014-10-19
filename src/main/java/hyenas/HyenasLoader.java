@@ -5,6 +5,10 @@
  */
 package hyenas;
 
+import hyenas.database.ItemsTable;
+import hyenas.database.PlanetTable;
+import hyenas.database.PlayerTable;
+import hyenas.database.SolarSystemTable;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -34,16 +38,50 @@ public class HyenasLoader extends Application {
     private final String password = "Team20";
     private final String host = "jdbc:derby://localhost:1527/Hyenas";
 
+    private PlayerTable players;
+    private PlanetTable planets;
+    private ItemsTable items;
+    private SolarSystemTable solarSystem;
+    
     public static HyenasLoader getInstance() {
         return instance;
     }
 
+    public SolarSystemTable getSSTable() {
+        return solarSystem;
+    }
+    
+    public PlanetTable getPlanetTable() {
+        return planets;
+    }
+    
+    public PlayerTable getPlayerTable() {
+        return players;
+    }
+    
+    public ItemsTable getItemsTable() {
+        return items;
+    }
+    
     @Override
     public void start(Stage stage) throws Exception {
         instance = this;
         
         // TODO: If connected Yay!
         // Else create new database!
+        Connection connect = connectToDB(false);
+        if (connect == null) {
+            connect = connectToDB(true);
+            players = new PlayerTable(connect, "Hyenas");
+            planets = new PlanetTable(connect, "Hyenas");
+            items = new ItemsTable(connect, "Hyenas");
+            solarSystem = new SolarSystemTable(connect, "Hyenas");
+            // Create the tables
+            solarSystem.createTable();
+            planets.createTable();
+            players.createTable();
+            items.createTable();
+        }
         
         this.stage = stage;
         stage.setFullScreen(true);
@@ -68,8 +106,7 @@ public class HyenasLoader extends Application {
         });
     }
     
-    public void goToStartGameScreen() throws SQLException {
-        Connection newConn = null;
+    public void goToStartGameScreen() {
         try {
             changePage("Allocation.fxml");
         } catch (IOException ex) {
@@ -193,12 +230,16 @@ public class HyenasLoader extends Application {
         }
     }
     
-    public Connection connectToDB() throws SQLException {
+    public Connection connectToDB(boolean create) throws SQLException {
         Properties connectionProps = new Properties();
         connectionProps.put("username", username);
         connectionProps.put("password", password);
+        String createParam = "";
+        if (create == true) {
+            createParam = ";create=true";
+        }
         try {
-            conn = DriverManager.getConnection(host, connectionProps);
+            conn = DriverManager.getConnection(host + createParam, connectionProps);
             return conn;
         } catch (SQLException e) {
             System.out.println(e.getMessage());

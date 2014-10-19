@@ -7,6 +7,7 @@ package hyenas;
 
 import hyenas.Models.ABPair;
 import hyenas.Models.Galaxy;
+import hyenas.Models.Planet;
 import hyenas.Models.Player;
 import hyenas.Models.Ship;
 import hyenas.Models.SolarSystem;
@@ -14,6 +15,8 @@ import hyenas.UI.SolarSystemButton;
 import hyenas.UI.SolarSystemInfoPane;
 import hyenas.UI.SolarSystemScrollPane;
 import hyenas.UI.UIHelper;
+import hyenas.database.PlanetTable;
+import hyenas.database.SolarSystemTable;
 import java.awt.Dimension;
 import java.net.URL;
 import java.util.HashSet;
@@ -54,6 +57,10 @@ public class MapUIController implements Initializable {
     @FXML
     private SolarSystemScrollPane scrollPane = new SolarSystemScrollPane();
 
+    private SolarSystemTable ssTable;
+    
+    private PlanetTable planetTable;
+    
     private final int INFO_PANE_SIZE = 200;
 
     /**
@@ -66,7 +73,7 @@ public class MapUIController implements Initializable {
         Pane scrollContentPane = new Pane();
         scrollContentPane.setPrefSize(UIHelper.GALAXY_SIZE, UIHelper.GALAXY_SIZE);
         scrollContentPane.setStyle("-fx-background-color: transparent;");
-
+        ssTable = HyenasLoader.getInstance().getSSTable();
         Map<String, SolarSystem> solarSystems = Galaxy.getInstance().getSolarSystems();
         Set<String> solarSystemIDs = solarSystems.keySet();
         solarSystemIDs.stream().map((solarSystemID) -> {
@@ -74,8 +81,6 @@ public class MapUIController implements Initializable {
         }).map((SolarSystem solarSystem) -> {
             SolarSystemButton button = new SolarSystemButton();
             button.setupForMapUI(solarSystem);
-            // TODO: Add x,y coordinates in SolarSystem table
-            
             Player player = Player.getInstance();
             SolarSystem currentSystem = player.getCurrentSystem();
             if (currentSystem == solarSystem) {
@@ -120,8 +125,19 @@ public class MapUIController implements Initializable {
         }).forEach((button) -> {
             scrollContentPane.getChildren().add(button);
         });
-
+        
         List<SolarSystem> solarSystemValues = new LinkedList<>(solarSystems.values());
+        int counter = 0;
+        for (int i = 0; i < solarSystemValues.size(); i++) {
+            SolarSystem ss = solarSystemValues.get(i);
+            ssTable.populateTable(ss.getSystemName(), ss.getX(), ss.getY(), i);
+            for (Planet planet : ss.getPlanets()) {
+                counter++;
+                planetTable = HyenasLoader.getInstance().getPlanetTable();
+                planetTable.populateTable(planet.getPlanetName(), planet.getX(), 
+                    planet.getY(), counter, planet.techLevelString(), planet.resourceTypeString(), i);
+            }
+        }
         Random random = new Random();
         Map<SolarSystem, List<ABPair<SolarSystem, Double>>> distances =
                 Galaxy.getInstance().getDistances();

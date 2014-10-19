@@ -6,6 +6,7 @@ package hyenas.Models;
  */
 public class Player {
     private String name;
+    private int points;
     private int pilotSkill;
     private int fighterSkill;
     private int traderSkill;
@@ -58,6 +59,22 @@ public class Player {
         this.name = name;
     }
 
+    /**
+     * Get player's total points
+     * @return the player's total points
+     */
+    public int getPoints() {
+        return points;
+    }
+    
+    /**
+     * Set player's total points
+     * @param points the points
+     */
+    public void setPoints(int points) {
+        this.points = points;
+    }
+    
     /**
      * Get player's pilot skill
      * @return the pilot skill of the player
