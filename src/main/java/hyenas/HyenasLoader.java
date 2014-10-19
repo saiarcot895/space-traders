@@ -19,6 +19,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import org.sqlite.JDBC;
+
 /**
  *
  * @author Alex
@@ -30,9 +32,7 @@ public class HyenasLoader extends Application {
     private Stage stage;
     
     private Connection conn;
-    private final String username = "Hyenas";
-    private final String password = "Team20";
-    private final String host = "jdbc:derby://localhost:1527/Hyenas";
+    private final String host = "jdbc:sqlite:database.db";
 
     public static HyenasLoader getInstance() {
         return instance;
@@ -68,8 +68,7 @@ public class HyenasLoader extends Application {
         });
     }
     
-    public void goToStartGameScreen() throws SQLException {
-        Connection newConn = null;
+    public void goToStartGameScreen() {
         try {
             changePage("Allocation.fxml");
         } catch (IOException ex) {
@@ -194,11 +193,8 @@ public class HyenasLoader extends Application {
     }
     
     public Connection connectToDB() throws SQLException {
-        Properties connectionProps = new Properties();
-        connectionProps.put("username", username);
-        connectionProps.put("password", password);
         try {
-            conn = DriverManager.getConnection(host, connectionProps);
+            conn = DriverManager.getConnection(host);
             return conn;
         } catch (SQLException e) {
             System.out.println(e.getMessage());

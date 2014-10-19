@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'lib', include: '*.jar')
-    compile group: 'org.controlsfx', name: 'controlsfx', version: '8.0.6'
+    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.7.2'
 }
 
 task copyFiles(type: Copy) {
