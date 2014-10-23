@@ -30,6 +30,8 @@ public class Ship {
     private int repairCost;
     private int size;
     private int maxCargo;
+    private double health;
+    private double maxHealth;
 
     public Ship(ShipType type) {
         switch (type) {
@@ -48,6 +50,8 @@ public class Ship {
                 repairCost = 0;
                 size = 0;
                 maxCargo = 0;
+                maxHealth = 5000.0;
+                health = maxHealth;
                 break;
             }
             case GNAT: {
@@ -65,6 +69,8 @@ public class Ship {
                 repairCost = 0;
                 size = 0;
                 maxCargo = 0;
+                maxHealth = 2000.0;
+                health = maxHealth;
                 break;
             }
             case FLEA:
@@ -83,6 +89,8 @@ public class Ship {
                 repairCost = 0;
                 size = 0;
                 maxCargo = 0;
+                maxHealth = 1000.0;
+                health = maxHealth;
                 break;
             }
         }
@@ -117,5 +125,18 @@ public class Ship {
     public boolean removeCargo(Ware good) {
         return goods.remove(good);
     }
+    
+    public double getHealth() {
+        return health;
+    }
+    
+    public void setHealth(double health) {
+        this.health = health;
+    }
+    
+    public double getMaxHealth() {
+        return maxHealth;
+    }
+    
 
 }

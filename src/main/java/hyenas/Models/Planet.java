@@ -13,7 +13,7 @@ public class Planet {
     private double size;
     private int[] items = new int[NUM_ITEMS];
     private int techLevel;
-    private int[] wareEvents = new int[items.length];
+    private int[] wareEvents = new int[RESOURCE_TYPES.length];
     private String planetName;
     private String color;
 
