@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -35,7 +34,7 @@ public class HyenasLoader extends Application {
     private static HyenasLoader instance;
 
     private Stage stage;
-    
+
     private Connection conn;
     private final String host = "jdbc:sqlite:database.db";
 
@@ -43,7 +42,7 @@ public class HyenasLoader extends Application {
     private PlanetTable planets;
     private ItemsTable items;
     private SolarSystemTable solarSystem;
-    
+
     public static HyenasLoader getInstance() {
         return instance;
     }
@@ -51,23 +50,23 @@ public class HyenasLoader extends Application {
     public SolarSystemTable getSSTable() {
         return solarSystem;
     }
-    
+
     public PlanetTable getPlanetTable() {
         return planets;
     }
-    
+
     public PlayerTable getPlayerTable() {
         return players;
     }
-    
+
     public ItemsTable getItemsTable() {
         return items;
     }
-    
+
     @Override
     public void start(Stage stage) throws Exception {
         instance = this;
-        
+
         // TODO: If connected Yay!
         // Else create new database!
         Connection connect;
@@ -89,7 +88,7 @@ public class HyenasLoader extends Application {
             items = new ItemsTable(connect, "Hyenas");
             solarSystem = new SolarSystemTable(connect, "Hyenas");
         }
-        
+
         this.stage = stage;
         stage.setFullScreen(true);
 //        stage.setResizable(false);
@@ -102,17 +101,17 @@ public class HyenasLoader extends Application {
         stage.setScene(scene);
         stage.show();
     }
-    
+
     public void stop(Stage stage) throws Exception {
         stage.setOnCloseRequest((WindowEvent t) -> {
             try {
                 stop(stage);
             } catch (Exception ex) {
                 Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE, null, ex);
-            }            
+            }
         });
     }
-    
+
     public void goToStartGameScreen() {
         try {
             changePage("Allocation.fxml");
@@ -183,9 +182,13 @@ public class HyenasLoader extends Application {
      * in SolarSystemView.
      */
     public void continueGame() {
+        solarSystem.loadTable();
+        planets.loadTable();
+        players.loadTable();
         
+        goToMapScreen();
     }
-    
+
     /**
      * Close connection to database if not already closed
      * Exit application
@@ -200,23 +203,23 @@ public class HyenasLoader extends Application {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     // Wat?
     public void confirmSelection() {
 
     }
 
 /**********************************************************************/
-    
+
     private boolean ignoreSQLException(String state) {
         if (state == null) {
             System.out.println("State undefined");
             return false;
         }
-        return state.equalsIgnoreCase("X0Y32") 
+        return state.equalsIgnoreCase("X0Y32")
                 || state.equalsIgnoreCase("42Y55");
     }
-    
+
     private void printException(SQLException ex){
         for (Throwable e : ex){
             if (e instanceof SQLException){
@@ -244,7 +247,7 @@ public class HyenasLoader extends Application {
         }
         return null;
     }
-    
+
     @SuppressWarnings("UnusedAssignment")
     public void closeConnection(Connection connArgs){
         System.out.println("Releasing sources...");
@@ -257,9 +260,9 @@ public class HyenasLoader extends Application {
             printException(e);
         }
     }
-    
+
 /**********************************************************************/
-    
+
     /**
      * @param args the command line arguments
      */

@@ -65,7 +65,20 @@ public class ItemsTable {
         // initially everything is zero    
         // insert into ITEMS values(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1)
             stmt.executeUpdate("insert into ITEMS " + 
-                               "values(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1");
+                               "values(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1)");
+        } catch (SQLException e) {
+            printException(e);
+        }
+    }
+    
+    public void loadTable() {
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet itemsInfo = stmt.executeQuery("SELECT Items.Water,"
+                    + " Items.Furs, Items.Food, Items.Ore, Items.Games,"
+                    + " Items.Firearms, Items.Medicine,  Items.Machines,"
+                    + " Items.Narcotics, Items.Robots FROM Items");
+            
         } catch (SQLException e) {
             printException(e);
         }

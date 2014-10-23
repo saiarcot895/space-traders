@@ -1,6 +1,9 @@
 package hyenas.database;
 
+import hyenas.Models.Galaxy;
+import hyenas.Models.SolarSystem;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -61,6 +64,24 @@ public class SolarSystemTable {
                                "values(" + id + ", '" + name + "', " + 
                                x + ", " + y + ")");
             // Id is generated based on how the System is generated.
+        } catch (SQLException e) {
+            printException(e);
+        }
+    }
+    
+    public void loadTable() {
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet solarSystems = stmt.executeQuery("SELECT * FROM [SOLARSYSTEM]");
+            while (solarSystems.next()) {
+                String systemName = solarSystems.getString(2);
+                SolarSystem solarSystem = Galaxy.getInstance().getSolarSystemForName(systemName);
+                if (solarSystem != null) {
+                    solarSystem.getPlanets().clear();
+                    solarSystem.setX(solarSystems.getInt(3));
+                    solarSystem.setY(solarSystems.getInt(4));
+                }
+            }
         } catch (SQLException e) {
             printException(e);
         }

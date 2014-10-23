@@ -1,5 +1,7 @@
 package hyenas.database;
 
+import hyenas.Models.Galaxy;
+import hyenas.Models.Player;
 import hyenas.Models.SolarSystem;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -112,6 +114,36 @@ public class PlayerTable {
         }
     }
     
+    public void loadTable() {
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet playerInfo = stmt.executeQuery("SELECT Players.Name,"
+                    + " Players.Points, Players.Engineer, Players.Pilot,"
+                    + " Players.Investor, Players.Fighter, Players.Trader,"
+                    + " Players.Credits, SolarSystem.Name FROM Players"
+                    + " INNER JOIN SolarSystem"
+                    + " ON Players.SSID = SolarSystem.ID");
+
+            playerInfo.next();
+            Player player = Player.getInstance();
+            player.setName(playerInfo.getString(1));
+            player.setPoints(playerInfo.getInt(2));
+            player.setEngineerSkill(playerInfo.getInt(3));
+            player.setPilotSkill(playerInfo.getInt(4));
+            player.setInvestorSkill(playerInfo.getInt(5));
+            player.setFighterSkill(playerInfo.getInt(6));
+            player.setTraderSkill(playerInfo.getInt(7));
+            player.setCredits(playerInfo.getInt(8));
+
+            SolarSystem system = Galaxy.getInstance().getSolarSystemForName(
+                    playerInfo.getString(9));
+            player.setCurrentSystem(system);
+            player.setTradingPlanet(system.getPlanets().get(0));
+        } catch (SQLException e) {
+            printException(e);
+        }
+    }
+
     // Important: For now, only allow one character at a time.
     // Therefore there will be only one row per table at a time.
     

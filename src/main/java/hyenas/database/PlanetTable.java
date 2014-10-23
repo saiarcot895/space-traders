@@ -1,6 +1,10 @@
 package hyenas.database;
 
+import hyenas.Models.Galaxy;
+import hyenas.Models.Planet;
+import hyenas.Models.SolarSystem;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -39,6 +43,29 @@ public class PlanetTable {
                     }
                 }
             }
+        }
+    }
+    
+    public void loadTable() {
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet planets = stmt.executeQuery("SELECT Planet.Name,"
+                    + " Planet.XPOINT, Planet.YPOINT, Planet.Tech,"
+                    + " Planet.Resource, SolarSystem.Name"
+                    + " FROM Planet INNER JOIN SolarSystem"
+                    + " ON Planet.SSID = SolarSystem.ID");
+            while (planets.next()) {
+                String solarSystemName = planets.getString(6);
+                SolarSystem solarSystem = Galaxy.getInstance().getSolarSystemForName(solarSystemName);
+                
+                Planet planet = new Planet(planets.getString(1), planets.getInt(4), planets.getInt(5));
+                planet.setX(planets.getInt(2));
+                planet.setY(planets.getInt(3));
+                
+                solarSystem.getPlanets().add(planet);
+            }
+        } catch (SQLException e) {
+            printException(e);
         }
     }
     

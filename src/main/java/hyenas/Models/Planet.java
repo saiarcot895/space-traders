@@ -15,7 +15,7 @@ public class Planet {
     private int y;
     private int orbitRadius;
     private double size;
-    private int[] items = new int[NUM_ITEMS];
+    private int[] items;
     private int techLevel;
     private int resourceType;
     private String planetName;
@@ -53,9 +53,18 @@ public class Planet {
         Random rand = new Random();
         size = 10 + rand.nextInt(10);
         orbitRadius = 110 + rand.nextInt(200);
+        items = new int[NUM_ITEMS];
         techLevel = rand.nextInt(TECH_LEVELS.length);
         resourceType = rand.nextInt(RESOURCE_TYPES.length);
         color = randomColorString();
+        produceWares();
+    }
+    
+    public Planet(String planetName, int techLevel, int resourceType) {
+        this(planetName);
+        items = new int[NUM_ITEMS];
+        this.techLevel = techLevel;
+        this.resourceType = resourceType;
         produceWares();
     }
 
