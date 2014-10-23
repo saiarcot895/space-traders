@@ -185,7 +185,7 @@ public class HyenasLoader extends Application {
         solarSystem.loadTable();
         planets.loadTable();
         players.loadTable();
-        
+        items.loadTable();
         goToMapScreen();
     }
 

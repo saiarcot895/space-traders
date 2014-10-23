@@ -1,5 +1,8 @@
 package hyenas.database;
 
+import hyenas.Models.Good;
+import hyenas.Models.Player;
+import hyenas.Models.Ship;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -79,6 +82,38 @@ public class ItemsTable {
                     + " Items.Firearms, Items.Medicine,  Items.Machines,"
                     + " Items.Narcotics, Items.Robots FROM Items");
             
+            itemsInfo.next();
+            Ship ship = Player.getInstance().getShip();
+            for (int i = 0; i < itemsInfo.getInt(1); i++) {
+                ship.getCargo().add(Good.Water);
+            }
+            for (int i = 0; i < itemsInfo.getInt(2); i++) {
+                ship.getCargo().add(Good.Furs);
+            }
+            for (int i = 0; i < itemsInfo.getInt(3); i++) {
+                ship.getCargo().add(Good.Food);
+            }
+            for (int i = 0; i < itemsInfo.getInt(4); i++) {
+                ship.getCargo().add(Good.Ore);
+            }
+            for (int i = 0; i < itemsInfo.getInt(5); i++) {
+                ship.getCargo().add(Good.Games);
+            }
+            for (int i = 0; i < itemsInfo.getInt(6); i++) {
+                ship.getCargo().add(Good.Firearms);
+            }
+            for (int i = 0; i < itemsInfo.getInt(7); i++) {
+                ship.getCargo().add(Good.Medicine);
+            }
+            for (int i = 0; i < itemsInfo.getInt(8); i++) {
+                ship.getCargo().add(Good.Machines);
+            }
+            for (int i = 0; i < itemsInfo.getInt(9); i++) {
+                ship.getCargo().add(Good.Narcotics);
+            }
+            for (int i = 0; i < itemsInfo.getInt(10); i++) {
+                ship.getCargo().add(Good.Robots);
+            }
         } catch (SQLException e) {
             printException(e);
         }
