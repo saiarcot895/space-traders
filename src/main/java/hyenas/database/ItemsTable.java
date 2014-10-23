@@ -82,7 +82,9 @@ public class ItemsTable {
                     + " Items.Firearms, Items.Medicine,  Items.Machines,"
                     + " Items.Narcotics, Items.Robots FROM Items");
             
-            itemsInfo.next();
+            if (!itemsInfo.next()) {
+                return;
+            }
             Ship ship = Player.getInstance().getShip();
             for (int i = 0; i < itemsInfo.getInt(1); i++) {
                 ship.getCargo().add(Good.Water);
@@ -125,9 +127,8 @@ public class ItemsTable {
      * @throws SQLException 
      */
     public void updateWater(int units) throws SQLException {
-        Statement stmt = null;
-        stmt = conn.createStatement();
-        String query = "UPDATE Hyenas.PLAYERS SET WATER = " + units;
+        Statement stmt = conn.createStatement();
+        String query = "UPDATE ITEMS SET WATER = " + units;
         stmt.executeQuery(query);
     }
     
@@ -137,9 +138,8 @@ public class ItemsTable {
      * @throws SQLException 
      */
     public void updateFurs(int units) throws SQLException {
-        Statement stmt = null;
-        stmt = conn.createStatement();
-        String query = "UPDATE Hyenas.PLAYERS SET FURS = " + units;
+        Statement stmt = conn.createStatement();
+        String query = "UPDATE ITEMS SET FURS = " + units;
         stmt.executeQuery(query);
     }
     
@@ -149,9 +149,8 @@ public class ItemsTable {
      * @throws SQLException 
      */
     public void updateFood(int units) throws SQLException {
-        Statement stmt = null;
-        stmt = conn.createStatement();
-        String query = "UPDATE Hyenas.PLAYERS SET FOOD = " + units;
+        Statement stmt = conn.createStatement();
+        String query = "UPDATE ITEMS SET FOOD = " + units;
         stmt.executeQuery(query);
     }
     
@@ -161,9 +160,8 @@ public class ItemsTable {
      * @throws SQLException 
      */
     public void updateOre(int units) throws SQLException {
-        Statement stmt = null;
-        stmt = conn.createStatement();
-        String query = "UPDATE Hyenas.PLAYERS SET ORE = " + units;
+        Statement stmt = conn.createStatement();
+        String query = "UPDATE ITEMS SET ORE = " + units;
         stmt.executeQuery(query);
     }
     
@@ -173,9 +171,8 @@ public class ItemsTable {
      * @throws SQLException 
      */
     public void updateGames(int units) throws SQLException {
-        Statement stmt = null;
-        stmt = conn.createStatement();
-        String query = "UPDATE Hyenas.PLAYERS SET GAMES = " + units;
+        Statement stmt = conn.createStatement();
+        String query = "UPDATE ITEMS SET GAMES = " + units;
         stmt.executeQuery(query);
     }
     
@@ -185,9 +182,8 @@ public class ItemsTable {
      * @throws SQLException 
      */
     public void updateFirearms(int units) throws SQLException {
-        Statement stmt = null;
-        stmt = conn.createStatement();
-        String query = "UPDATE Hyenas.PLAYERS SET FIREARMS = " + units;
+        Statement stmt = conn.createStatement();
+        String query = "UPDATE ITEMS SET FIREARMS = " + units;
         stmt.executeQuery(query);
     }
     
@@ -197,9 +193,8 @@ public class ItemsTable {
      * @throws SQLException 
      */
     public void updateMedicine(int units) throws SQLException {
-        Statement stmt = null;
-        stmt = conn.createStatement();
-        String query = "UPDATE Hyenas.PLAYERS SET MEDICINE = " + units;
+        Statement stmt = conn.createStatement();
+        String query = "UPDATE ITEMS SET MEDICINE = " + units;
         stmt.executeQuery(query);
     }
     
@@ -209,9 +204,8 @@ public class ItemsTable {
      * @throws SQLException 
      */
     public void updateMachines(int units) throws SQLException {
-        Statement stmt = null;
-        stmt = conn.createStatement();
-        String query = "UPDATE Hyenas.PLAYERS SET MACHINES = " + units;
+        Statement stmt = conn.createStatement();
+        String query = "UPDATE ITEMS SET MACHINES = " + units;
         stmt.executeQuery(query);
     }
     
@@ -221,9 +215,8 @@ public class ItemsTable {
      * @throws SQLException 
      */
     public void updateNarcotics(int units) throws SQLException {
-        Statement stmt = null;
-        stmt = conn.createStatement();
-        String query = "UPDATE Hyenas.PLAYERS SET NARCOTICS = " + units;
+        Statement stmt = conn.createStatement();
+        String query = "UPDATE ITEMS SET NARCOTICS = " + units;
         stmt.executeQuery(query);
     }
     
@@ -233,15 +226,14 @@ public class ItemsTable {
      * @throws SQLException 
      */
     public void updateRobots(int units) throws SQLException {
-        Statement stmt = null;
-        stmt = conn.createStatement();
-        String query = "UPDATE Hyenas.PLAYERS SET ROBOTS = " + units;
+        Statement stmt = conn.createStatement();
+        String query = "UPDATE ITEMS SET ROBOTS = " + units;
         stmt.executeQuery(query);
     }
     
     public void dropTable() {
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate("DROP TABLE PLAYERS");
+            stmt.executeUpdate("DROP TABLE ITEMS");
         } catch (SQLException e) {
             printException(e);
         }

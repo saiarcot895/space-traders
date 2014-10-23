@@ -39,7 +39,7 @@ public class SolarSystemScrollPane extends ScrollPane {
     }
 
     public void setInfoPane(SolarSystemInfoPane infoPane) {
-        ((Pane) getContent()).getChildren().remove(infoPane);
+        ((Pane) getContent()).getChildren().remove(this.infoPane);
         this.infoPane = infoPane;
     }
 

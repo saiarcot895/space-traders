@@ -68,7 +68,7 @@ public class PlayerTable {
      */
     public void viewTable(Connection conn) throws SQLException {
         Statement stmt = null;
-        String query = "SELECT * FROM Hyenas.PLAYERS";
+        String query = "SELECT * FROM PLAYERS";
         try {
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -155,7 +155,7 @@ public class PlayerTable {
     public void updatePoints(int points) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        String query = "UPDATE Hyenas.PLAYERS SET POINTS = " + points;
+        String query = "UPDATE PLAYERS SET POINTS = " + points;
         stmt.executeQuery(query);
     }
     
@@ -167,7 +167,7 @@ public class PlayerTable {
     public void updateEPoints(int points) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        String query = "UPDATE Hyenas.PLAYERS SET ENGINEER = " + points;
+        String query = "UPDATE PLAYERS SET ENGINEER = " + points;
         stmt.executeQuery(query);
     }
     
@@ -179,7 +179,7 @@ public class PlayerTable {
     public void updatePPoints(int points) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        String query = "UPDATE Hyenas.PLAYERS SET PILOT = " + points;
+        String query = "UPDATE PLAYERS SET PILOT = " + points;
         stmt.executeQuery(query);
     }
     
@@ -191,7 +191,7 @@ public class PlayerTable {
     public void updateIPoints(int points) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        String query = "UPDATE Hyenas.PLAYERS SET INVESTOR = " + points;
+        String query = "UPDATE PLAYERS SET INVESTOR = " + points;
         stmt.executeQuery(query);
     }
     
@@ -203,7 +203,7 @@ public class PlayerTable {
     public void updateFPoints(int points) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        String query = "UPDATE Hyenas.PLAYERS SET FIGHTER = " + points;
+        String query = "UPDATE PLAYERS SET FIGHTER = " + points;
         stmt.executeQuery(query);
     }
     
@@ -215,19 +215,17 @@ public class PlayerTable {
     public void updateTPoints(int points) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        String query = "UPDATE Hyenas.PLAYERS SET TRADER = " + points;
+        String query = "UPDATE PLAYERS SET TRADER = " + points;
         stmt.execute(query);
     }
     
     public void updateLocation(SolarSystem solarSystem) 
             throws SQLException {
         Statement stmt = conn.createStatement();
-        stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY,
-                ResultSet.CONCUR_UPDATABLE);
-        String query = "SELECT ID FROM Hyenas.SOLARSYSTEM WHERE " + 
+        String query = "SELECT ID FROM SOLARSYSTEM WHERE " + 
                 "NAME = '" + solarSystem.getSystemName() + "'";
         ResultSet update = stmt.executeQuery(query);
-        update.first();
+        update.next();
         int variable = update.getInt(1);
         query = "UPDATE PLAYERS SET SSID = " + variable;
         stmt.execute(query);
