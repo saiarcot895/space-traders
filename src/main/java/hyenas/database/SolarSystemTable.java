@@ -75,13 +75,15 @@ public class SolarSystemTable {
             ResultSet solarSystems = stmt.executeQuery("SELECT * FROM [SOLARSYSTEM]");
             while (solarSystems.next()) {
                 String systemName = solarSystems.getString(2);
-                SolarSystem solarSystem = Galaxy.getInstance().getSolarSystemForName(systemName);
+                SolarSystem solarSystem = Galaxy.getInstance()
+                        .getSolarSystemForName(systemName);
                 if (solarSystem != null) {
                     solarSystem.getPlanets().clear();
                     solarSystem.setX(solarSystems.getInt(3));
                     solarSystem.setY(solarSystems.getInt(4));
                 }
             }
+            Galaxy.getInstance().setLocationsSet(true);
         } catch (SQLException e) {
             printException(e);
         }

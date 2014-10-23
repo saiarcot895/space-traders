@@ -7,11 +7,13 @@ import java.util.List;
 public class Galaxy {
     private Map<String, SolarSystem> solarSystems;
     private Map<SolarSystem, List<ABPair<SolarSystem, Double>>> distances;
+    private boolean locationsSet;
 
     private static Galaxy instance;
 
     private Galaxy() {
         distances = new HashMap<>();
+        locationsSet = false;
         setupSolarSystems();
     }
 
@@ -187,5 +189,13 @@ public class Galaxy {
      */
     public Map<SolarSystem, List<ABPair<SolarSystem, Double>>> getDistances() {
         return distances;
+    }
+
+    public boolean isLocationsSet() {
+        return locationsSet;
+    }
+
+    public void setLocationsSet(boolean locationsSet) {
+        this.locationsSet = locationsSet;
     }
 }

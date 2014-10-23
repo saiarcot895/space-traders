@@ -5,6 +5,7 @@
  */
 package hyenas.UI;
 
+import hyenas.Models.Galaxy;
 import hyenas.Models.SolarSystem;
 import java.awt.Point;
 import java.util.Random;
@@ -21,11 +22,13 @@ public class SolarSystemButton extends Button {
 
     public void setupForMapUI(SolarSystem solarSystem) {
         setUpSystemImage(solarSystem, 1);
-        Point coordinates = getCoordinates();
-        solarSystem.setX((int) coordinates.getX());
-        solarSystem.setY((int) coordinates.getY());
-        setLayoutX(coordinates.getX());
-        setLayoutY(coordinates.getY());
+        if (!Galaxy.getInstance().isLocationsSet()) {
+            Point coordinates = getCoordinates();
+            solarSystem.setX((int) coordinates.getX());
+            solarSystem.setY((int) coordinates.getY());
+        }
+        setLayoutX(solarSystem.getX());
+        setLayoutY(solarSystem.getY());
         setId(solarSystem.getSystemName());
         setMnemonicParsing(false);
         getStyleClass().add("planet");

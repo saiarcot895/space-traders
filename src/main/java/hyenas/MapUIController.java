@@ -131,19 +131,23 @@ public class MapUIController implements Initializable {
         }).forEach((button) -> {
             scrollContentPane.getChildren().add(button);
         });
-        
+
         List<SolarSystem> solarSystemValues = new LinkedList<>(solarSystems.values());
-        int counter = 0;
-        for (int i = 0; i < solarSystemValues.size(); i++) {
-            SolarSystem ss = solarSystemValues.get(i);
-            ssTable.populateTable(ss.getSystemName(), ss.getX(), ss.getY(), i);
-            for (Planet planet : ss.getPlanets()) {
-                counter++;
-                planetTable = HyenasLoader.getInstance().getPlanetTable();
-                planetTable.populateTable(planet.getPlanetName(), planet.getX(), 
-                    planet.getY(), counter, planet.techLevelString(), planet.resourceTypeString(), i);
+
+        if (!Galaxy.getInstance().isLocationsSet()) {
+            int counter = 0;
+            for (int i = 0; i < solarSystemValues.size(); i++) {
+                SolarSystem ss = solarSystemValues.get(i);
+                ssTable.populateTable(ss.getSystemName(), ss.getX(), ss.getY(), i);
+                for (Planet planet : ss.getPlanets()) {
+                    counter++;
+                    planetTable = HyenasLoader.getInstance().getPlanetTable();
+                    planetTable.populateTable(planet.getPlanetName(), planet.getX(), 
+                        planet.getY(), counter, planet.techLevelString(), planet.resourceTypeString(), i);
+                }
             }
         }
+
         Random random = new Random();
         Map<SolarSystem, List<ABPair<SolarSystem, Double>>> distances =
                 Galaxy.getInstance().getDistances();
@@ -226,6 +230,8 @@ public class MapUIController implements Initializable {
 //            });
 
         anchor.getChildren().add(scrollPane);
+
+        Galaxy.getInstance().setLocationsSet(true);
     }
 
     private void travelToSystem(SolarSystem solarSystem, Button solarSystemButton) {
