@@ -45,6 +45,24 @@ public class SolarSystemTable {
         }
     }
     
+    public void beginTransaction() {
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.execute("BEGIN TRANSACTION");
+        } catch (SQLException e) {
+            printException(e);
+        }
+    }
+    
+    public void commitTransaction() {
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.execute("COMMIT TRANSACTION");
+        } catch (SQLException e) {
+            printException(e);
+        }
+    }
+    
     public void createTable() {
         String create = 
         "create table SOLARSYSTEM " + "(ID integer NOT NULL, " +

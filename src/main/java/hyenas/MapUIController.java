@@ -135,6 +135,8 @@ public class MapUIController implements Initializable {
         List<SolarSystem> solarSystemValues = new LinkedList<>(solarSystems.values());
 
         if (!Galaxy.getInstance().isLocationsSet()) {
+            ssTable.beginTransaction();
+            
             int counter = 0;
             for (int i = 0; i < solarSystemValues.size(); i++) {
                 SolarSystem ss = solarSystemValues.get(i);
@@ -146,6 +148,8 @@ public class MapUIController implements Initializable {
                         planet.getY(), counter, planet.techLevelString(), planet.resourceTypeString(), i);
                 }
             }
+            
+            ssTable.commitTransaction();
         }
 
         Random random = new Random();
