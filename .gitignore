@@ -85,3 +85,5 @@ ehthumbs.db
 # Folder config file
 Desktop.ini
 /Hyenas/nbproject/private/
+
+database.db
