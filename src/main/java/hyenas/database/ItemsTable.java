@@ -3,6 +3,7 @@ package hyenas.database;
 import hyenas.Models.Good;
 import hyenas.Models.Player;
 import hyenas.Models.Ship;
+import hyenas.Models.Ware;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -87,34 +88,34 @@ public class ItemsTable {
             }
             Ship ship = Player.getInstance().getShip();
             for (int i = 0; i < itemsInfo.getInt(1); i++) {
-                ship.getCargo().add(Good.Water);
+                ship.getCargo().add(new Ware(Good.Water));
             }
             for (int i = 0; i < itemsInfo.getInt(2); i++) {
-                ship.getCargo().add(Good.Furs);
+                ship.getCargo().add(new Ware(Good.Furs));
             }
             for (int i = 0; i < itemsInfo.getInt(3); i++) {
-                ship.getCargo().add(Good.Food);
+                ship.getCargo().add(new Ware(Good.Food));
             }
             for (int i = 0; i < itemsInfo.getInt(4); i++) {
-                ship.getCargo().add(Good.Ore);
+                ship.getCargo().add(new Ware(Good.Ore));
             }
             for (int i = 0; i < itemsInfo.getInt(5); i++) {
-                ship.getCargo().add(Good.Games);
+                ship.getCargo().add(new Ware(Good.Games));
             }
             for (int i = 0; i < itemsInfo.getInt(6); i++) {
-                ship.getCargo().add(Good.Firearms);
+                ship.getCargo().add(new Ware(Good.Firearms));
             }
             for (int i = 0; i < itemsInfo.getInt(7); i++) {
-                ship.getCargo().add(Good.Medicine);
+                ship.getCargo().add(new Ware(Good.Medicine));
             }
             for (int i = 0; i < itemsInfo.getInt(8); i++) {
-                ship.getCargo().add(Good.Machines);
+                ship.getCargo().add(new Ware(Good.Machines));
             }
             for (int i = 0; i < itemsInfo.getInt(9); i++) {
-                ship.getCargo().add(Good.Narcotics);
+                ship.getCargo().add(new Ware(Good.Narcotics));
             }
             for (int i = 0; i < itemsInfo.getInt(10); i++) {
-                ship.getCargo().add(Good.Robots);
+                ship.getCargo().add(new Ware(Good.Robots));
             }
         } catch (SQLException e) {
             printException(e);

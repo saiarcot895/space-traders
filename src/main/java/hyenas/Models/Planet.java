@@ -17,7 +17,7 @@ public class Planet {
     private double size;
     private int[] items;
     private int techLevel;
-    private int resourceType;
+    private int[] wareEvents = new int[RESOURCE_TYPES.length];
     private String planetName;
     private String color;
 
@@ -55,7 +55,7 @@ public class Planet {
         orbitRadius = 110 + rand.nextInt(200);
         items = new int[NUM_ITEMS];
         techLevel = rand.nextInt(TECH_LEVELS.length);
-        resourceType = rand.nextInt(RESOURCE_TYPES.length);
+        wareEvents[rand.nextInt(RESOURCE_TYPES.length)] = rand.nextInt(3) - 1;    //will be -1, 0, or 1
         color = randomColorString();
         produceWares();
     }
@@ -64,12 +64,7 @@ public class Planet {
         this(planetName);
         items = new int[NUM_ITEMS];
         this.techLevel = techLevel;
-        this.resourceType = resourceType;
         produceWares();
-    }
-
-    public int getResourceType() {
-        return resourceType;
     }
     
     public String getPlanetName()   {
@@ -83,6 +78,21 @@ public class Planet {
         changeWares(howMuchToProduce());
     }
 
+    public void setWareEvent(int typeInt, int value)   {
+        wareEvents[typeInt] = value;
+    }
+    
+    public void setWareEvents(int[] arr)    {
+        wareEvents = arr.clone();
+    }
+    
+    public int getWareEvent(int index)   {
+        return wareEvents[index];
+    }
+    
+    public int[] getWareEvents()    {
+        return wareEvents;
+    }
 
     /**
      * Calculates how much of each product to produce every turn based on
@@ -96,7 +106,7 @@ public class Planet {
             if (techLevel < MTLP[i]) {
                 howMuchToProduce[i] = 0;
             } else {
-                howMuchToProduce[i] = 1 + Math.abs(TTP[i] - techLevel);
+                howMuchToProduce[i] = 10 - Math.abs(TTP[i] - techLevel) + wareEvents[i];
             }
         }
         return howMuchToProduce;
@@ -111,14 +121,6 @@ public class Planet {
         for (int i = 0; i < items.length; i++) {
             items[i] += differences[i];
         }
-    }
-
-    /**
-     * Get the resource level of the planet
-     * @return resource type of the planet
-     */
-    public String resourceTypeString() {
-        return RESOURCE_TYPES[resourceType];
     }
     
     /**

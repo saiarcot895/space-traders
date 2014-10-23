@@ -7,10 +7,16 @@ package hyenas;
 
 import hyenas.Models.ABPair;
 import hyenas.Models.Galaxy;
+import hyenas.Models.Journey;
 import hyenas.Models.Planet;
 import hyenas.Models.Player;
+import hyenas.Models.RandomEvent;
+import hyenas.Models.RandomEventType;
 import hyenas.Models.Ship;
 import hyenas.Models.SolarSystem;
+import hyenas.UI.PlayerInfoPane;
+import hyenas.UI.RandomEventPane;
+import hyenas.UI.RandomEventResultPane;
 import hyenas.UI.SolarSystemButton;
 import hyenas.UI.SolarSystemInfoPane;
 import hyenas.UI.SolarSystemScrollPane;
@@ -37,6 +43,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -60,6 +67,15 @@ public class MapUIController implements Initializable {
 
     @FXML
     private SolarSystemScrollPane scrollPane = new SolarSystemScrollPane();
+    
+    @FXML
+    private PlayerInfoPane playerInfoPane;
+    
+    @FXML
+    private Journey currentJourney;
+    
+    @FXML
+    private Circle travelRange;
 
     private SolarSystemTable ssTable;
     
@@ -144,8 +160,8 @@ public class MapUIController implements Initializable {
                 for (Planet planet : ss.getPlanets()) {
                     counter++;
                     planetTable = HyenasLoader.getInstance().getPlanetTable();
-                    planetTable.populateTable(planet.getPlanetName(), planet.getX(), 
-                        planet.getY(), counter, planet.techLevelString(), planet.resourceTypeString(), i);
+                    planetTable.populateTable(planet.getPlanetName(), planet.getX(),
+                        planet.getY(), counter, planet.techLevelString(), "", i);
                 }
             }
             
@@ -201,7 +217,7 @@ public class MapUIController implements Initializable {
 
         Player player = Player.getInstance();
         SolarSystem currentSystem = player.getCurrentSystem();
-        Circle travelRange = new Circle(x, y, player.getShip().getFuel());
+        travelRange = new Circle(x, y, player.getShip().getFuel());
 //        travelRange.setStrokeType(StrokeType.OUTSIDE);
 //        travelRange.setStroke(Color.web("white", 0.5));
 //        travelRange.setStrokeWidth(1);
@@ -232,25 +248,212 @@ public class MapUIController implements Initializable {
 //                    event.consume();
 //                }
 //            });
-
-        anchor.getChildren().add(scrollPane);
-
+        playerInfoPane = new PlayerInfoPane();
+        AnchorPane.setBottomAnchor(playerInfoPane, 0.0);
+        AnchorPane.setLeftAnchor(playerInfoPane, 10.0);
+        
+        anchor.getChildren().addAll(scrollPane, playerInfoPane);
+    }
+    
+    private void handleRandomEvent(RandomEventType eventType) {
+        scrollPane.setInfoPane(null); // Remove system info pane
+        RandomEventPane eventPane = new RandomEventPane();
+        RandomEvent event = new RandomEvent(eventType);
+        eventPane.setupForRandomEvent(event);
+        eventPane.setLayoutX((UIHelper.getScreenSize().getWidth() / 2) - (eventPane.getPrefWidth() / 2));
+        eventPane.setLayoutY((UIHelper.getScreenSize().getHeight() / 2) - (eventPane.getPrefHeight() / 2));
+        
+        //
+        // police
+        // action: pay fine
+        // cancel: run away
+        // action result: deduct 5% of credits, continue to planet
+        // cancel result 1: run away successfully, fuel deducted arrive at planet
+        // cancel result 2: run away unnsuccessfully, double fine deducted, half fuel deducted, dont arrive at planet
+        //
+        
+        // pirate
+        // action: fight
+        // cancel: run away
+        // action result 1: successfully fend off pirates, ship slightly damaged fuel deducted, arrive at planet
+        // action result 2: fight unsuccessfully, ship half damaged, half fuel deducted, dont arrive at planet
+        // cancel result 1: run away successfully, fuel deducted arrive at planet
+        // cancel result 2: run away unnsuccessfully, ship half damaged, half fuel deducted, dont arrive at planet
+        
+        // trader
+        // action: trade
+        // cancel: ignore
+        // action result: sell unused parts, credits added, fuel deducted, arrive at planet
+        // cancel result: fuel deducted, arrive at planet
+        
+        EventHandler<ActionEvent> actionEvent = (ActionEvent e1) -> {
+            boolean success = event.performAction();
+            String resultLabelText = event.getActionResultText();
+            switch (eventType) {
+                case Police: break;
+                case Trader: break;
+                case Pirate:
+                    SolarSystem solarSystem = currentJourney.getDestinationSolarSystem();
+                    if (!success) {
+                        Player player = Player.getInstance();
+                        Ship ship = player.getShip();
+                        // Deduct fuel for half the journey
+                        ship.setFuel(ship.getFuel() - (currentJourney.getDistance() / 2));
+                        solarSystem = currentJourney.getStartingSolarSystem();
+                    }
+                    
+                    resultLabelText = resultLabelText + solarSystem.getSystemName() + ".";
+                    break;
+            }
+            RandomEventResultPane resultPane = new RandomEventResultPane();
+            resultPane.setResultLabelText(resultLabelText);
+            resultPane.setLayoutX((UIHelper.getScreenSize().getWidth() / 2) - (resultPane.getPrefWidth() / 2));
+            resultPane.setLayoutY((UIHelper.getScreenSize().getHeight() / 2) - (resultPane.getPrefHeight() / 2));
+            
+            EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
+                switch (eventType) {
+                    case Police:
+                    case Trader:
+                        makeJourney(currentJourney);
+                        break;
+                    case Pirate:
+                        if (success) {
+                            makeJourney(currentJourney);
+                        }
+                        break;
+                }
+                
+                anchor.getChildren().remove(resultPane);
+            };
+            resultPane.getCloseButton().setOnAction(closeAction);
+            playerInfoPane.updateInfo();
+            anchor.getChildren().remove(eventPane);
+            anchor.getChildren().add(resultPane);
+        };
+        eventPane.getActionButton().setOnAction(actionEvent);
+        
+        EventHandler<ActionEvent> cancelEvent = (ActionEvent e1) -> {
+            boolean success = event.performCancel();
+            String resultLabelText = event.getCancelResultText();
+            switch (eventType) {
+                case Police:
+                    if (!success) {
+                        Player player = Player.getInstance();
+                        Ship ship = player.getShip();
+                        // Deduct fuel for half the journey
+                        ship.setFuel(ship.getFuel() - (currentJourney.getDistance() / 2));
+                    }
+                    break;
+                case Trader:
+                    makeJourney(currentJourney);
+                    break;
+                case Pirate:
+                    if (!success) {
+                        Player player = Player.getInstance();
+                        Ship ship = player.getShip();
+                        // Deduct fuel for half the journey
+                        ship.setFuel(ship.getFuel() - (currentJourney.getDistance() / 2));
+                        resultLabelText = resultLabelText + currentJourney.getStartingSolarSystem().getSystemName() + ".";
+                    }
+                    break;
+            }
+            RandomEventResultPane resultPane = new RandomEventResultPane();
+            resultPane.setResultLabelText(resultLabelText);
+            resultPane.setLayoutX((UIHelper.getScreenSize().getWidth() / 2) - (resultPane.getPrefWidth() / 2));
+            resultPane.setLayoutY((UIHelper.getScreenSize().getHeight() / 2) - (resultPane.getPrefHeight() / 2));
+            
+            EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
+                switch (eventType) {
+                    case Police:
+                    case Pirate:
+                        if (success) {
+                            makeJourney(currentJourney);
+                        }
+                        break;
+                    case Trader:
+                        makeJourney(currentJourney);
+                        break;
+                }
+                
+                anchor.getChildren().remove(resultPane);
+            };
+            resultPane.getCloseButton().setOnAction(closeAction);
+            playerInfoPane.updateInfo();
+            anchor.getChildren().remove(eventPane);
+            anchor.getChildren().add(resultPane);
+        };
+        eventPane.getCancelButton().setOnAction(cancelEvent);
+        
+        anchor.getChildren().add(eventPane);
+        
         Galaxy.getInstance().setLocationsSet(true);
     }
 
+    private boolean randomEventOccurred() {
+        Random rand = new Random();
+        int roll = rand.nextInt(10);
+        RandomEventType eventType;
+        
+        handleRandomEvent(RandomEventType.Pirate);
+        return true;
+        
+//        if (roll == 1) {
+//            handleRandomEvent(RandomEventType.Pirate);
+//            return true;
+//        } else if (roll == 2) {
+//            handleRandomEvent(RandomEventType.Trader);
+//            return true;
+//        } else if (roll == 3) {
+//            handleRandomEvent(RandomEventType.Police);
+//            return true;
+//        }
+//        else if (roll % 5 == 0) {
+//            int randIndex = rand.nextInt(Galaxy.getInstance().getSolarSystems().size());
+//            SolarSystem randSys = (SolarSystem) Galaxy.getInstance().getSolarSystems().values().toArray()[randIndex];
+//            Planet randPlanet = randSys.getPlanets()[rand.nextInt(randSys.getPlanets().length)];
+//            int randWareIndex = rand.nextInt(randPlanet.getWareEvents().length);
+//            randPlanet.setWareEvent(randWareIndex, rand.nextInt(3) - 1);
+//            //TODO create some kind of UI alert
+//            
+//            return true;
+//        }
+//        return false;
+    }
+    
+    private void travelToSystemWithRandomEvent(SolarSystem solarSystem, Button solarSystemButton) {
+
+    }
+    
+    private void makeJourney(Journey journey) {
+        Player player = Player.getInstance();
+        Ship ship = player.getShip();
+        
+        double startingFuel = ship.getFuel();
+        ship.setFuel(startingFuel - journey.getDistance());
+        player.setCurrentSystem(journey.getDestinationSolarSystem());
+
+        journey.getStartingSystemButton().getStyleClass().remove("currentPlanet");
+        journey.getDestinationSystemButton().getStyleClass().add("currentPlanet");
+        currentSolarSystemButton = journey.getDestinationSystemButton();
+
+        HyenasLoader.getInstance().goToSystemScreen();
+    }
+    
     private void travelToSystem(SolarSystem solarSystem, Button solarSystemButton) {
         Player player = Player.getInstance();
         SolarSystem currentSystem = player.getCurrentSystem();
-        Ship ship = player.getShip();
-
-        double startingFuel = ship.getFuel();
+        
         double distance = getDjikstraDistance(currentSystem, solarSystem);
         if (distance == -1) {
             throw new RuntimeException("Unconnected node!!!");
         }
-        ship.setFuel(startingFuel - distance);
-        player.setCurrentSystem(solarSystem);
-
+        
+        currentJourney = new Journey(currentSystem, solarSystem, currentSolarSystemButton, solarSystemButton, distance);
+        if (!randomEventOccurred()) {
+            makeJourney(currentJourney);
+        }
+        
+        
         // Messing around with animations, save for later
         /*
         scrollPane.setPannable(false);
@@ -287,18 +490,12 @@ public class MapUIController implements Initializable {
         timeline.getKeyFrames().add(kfV);
         timeline.play();*/
 
-        currentSolarSystemButton.getStyleClass().remove("currentPlanet");
-        solarSystemButton.getStyleClass().add("currentPlanet");
-        currentSolarSystemButton = solarSystemButton;
-
         playerTable = HyenasLoader.getInstance().getPlayerTable();
         try {
             playerTable.updateLocation(solarSystem);
         } catch (SQLException ex) {
             Logger.getLogger(MapUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        HyenasLoader.getInstance().goToSystemScreen();
     }
 
     /**

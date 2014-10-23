@@ -6,7 +6,6 @@
 package hyenas.UI;
 
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;

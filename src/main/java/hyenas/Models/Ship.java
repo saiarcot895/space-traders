@@ -11,7 +11,7 @@ public class Ship {
     private ShipType type;
     private boolean insurance;
     private int upkeep;
-    private List<Good> goods;
+    private List<Ware> goods;
     private int weaponSlots[] = new int[2];
     private int shieldSlots[] = new int[2];
     private int gadgetSlots[] = new int[2];
@@ -30,75 +30,79 @@ public class Ship {
     private int repairCost;
     private int size;
     private int maxCargo;
+    private double health;
+    private double maxHealth;
 
     public Ship(ShipType type) {
         switch (type) {
-            case BUTTERFLY: {
-                maxFuel = 4000.0;
-                fuel = maxFuel;
-                minTechLevel = 0;
-                price = 0;
-                bounty = 0;
-                occurence = 0;
-                hullStrength = 0;
-                currentHull = 0;
-                police = 0;
-                trader = 0;
-                pirate = 0;
-                repairCost = 0;
-                size = 0;
-                maxCargo = 0;
-                break;
-            }
-            case GNAT: {
-                maxFuel = 2500.0;
-                fuel = maxFuel;
-                minTechLevel = 0;
-                price = 0;
-                bounty = 0;
-                occurence = 0;
-                hullStrength = 0;
-                currentHull = 0;
-                police = 0;
-                trader = 0;
-                pirate = 0;
-                repairCost = 0;
-                size = 0;
-                maxCargo = 0;
-                break;
-            }
-            case FLEA:
-            default: {
-                maxFuel = 700.0;
-                fuel = maxFuel;
-                minTechLevel = 0;
-                price = 0;
-                bounty = 0;
-                occurence = 0;
-                hullStrength = 0;
-                currentHull = 0;
-                police = 0;
-                trader = 0;
-                pirate = 0;
-                repairCost = 0;
-                size = 0;
-                maxCargo = 0;
-                break;
-            }
+        case BUTTERFLY:
+            maxFuel = 4000.0;
+            fuel = maxFuel;
+            minTechLevel = 0;
+            price = 0;
+            bounty = 0;
+            occurence = 0;
+            hullStrength = 0;
+            currentHull = 0;
+            police = 0;
+            trader = 0;
+            pirate = 0;
+            repairCost = 0;
+            size = 0;
+            maxCargo = 0;
+            maxHealth = 5000.0;
+            health = maxHealth;
+            break;
+        case GNAT:
+            maxFuel = 2500.0;
+            fuel = maxFuel;
+            minTechLevel = 0;
+            price = 0;
+            bounty = 0;
+            occurence = 0;
+            hullStrength = 0;
+            currentHull = 0;
+            police = 0;
+            trader = 0;
+            pirate = 0;
+            repairCost = 0;
+            size = 0;
+            maxCargo = 0;
+            maxHealth = 2000.0;
+            health = maxHealth;
+            break;
+        case FLEA:
+            maxFuel = 700.0;
+            fuel = maxFuel;
+            minTechLevel = 0;
+            price = 0;
+            bounty = 0;
+            occurence = 0;
+            hullStrength = 0;
+            currentHull = 0;
+            police = 0;
+            trader = 0;
+            pirate = 0;
+            repairCost = 0;
+            size = 0;
+            maxCargo = 0;
+            maxHealth = 5000.0;
+            health = maxHealth;
+            break;
         }
         this.type = type;
-        this.goods = new ArrayList<Good>();
+        this.goods = new ArrayList<>();
     }
 
     public int getFreeCargo() {
         return maxCargo - goods.size();
     }
 
-    public List<Good> getCargo() {
+    public List<Ware> getCargo() {
         return goods;
     }
 
-    public void addCargo(Good good) {
+    public void addCargo(Ware good) {
         goods.add(good);
     }
 
@@ -114,8 +118,20 @@ public class Ship {
         return fuel;
     }
 
-    public boolean removeCargo(Good good) {
+    public boolean removeCargo(Ware good) {
         return goods.remove(good);
+    }
+    
+    public double getHealth() {
+        return health;
+    }
+    
+    public void setHealth(double health) {
+        this.health = health;
+    }
+    
+    public double getMaxHealth() {
+        return maxHealth;
     }
 
 }
