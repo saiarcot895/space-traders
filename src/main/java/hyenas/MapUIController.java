@@ -391,33 +391,41 @@ public class MapUIController implements Initializable {
 
     private boolean randomEventOccurred() {
         Random rand = new Random();
-        int roll = rand.nextInt(10);
+        int roll = rand.nextInt(5);
         RandomEventType eventType;
         
-        handleRandomEvent(RandomEventType.Pirate);
-        return true;
-        
-//        if (roll == 1) {
-//            handleRandomEvent(RandomEventType.Pirate);
-//            return true;
-//        } else if (roll == 2) {
-//            handleRandomEvent(RandomEventType.Trader);
-//            return true;
-//        } else if (roll == 3) {
-//            handleRandomEvent(RandomEventType.Police);
-//            return true;
-//        }
-//        else if (roll % 5 == 0) {
-//            int randIndex = rand.nextInt(Galaxy.getInstance().getSolarSystems().size());
-//            SolarSystem randSys = (SolarSystem) Galaxy.getInstance().getSolarSystems().values().toArray()[randIndex];
-//            Planet randPlanet = randSys.getPlanets()[rand.nextInt(randSys.getPlanets().length)];
-//            int randWareIndex = rand.nextInt(randPlanet.getWareEvents().length);
-//            randPlanet.setWareEvent(randWareIndex, rand.nextInt(3) - 1);
-//            //TODO create some kind of UI alert
-//            
-//            return true;
-//        }
-//        return false;
+        if (roll == 1) {
+            handleRandomEvent(RandomEventType.Pirate);
+            return true;
+        } else if (roll == 2) {
+            handleRandomEvent(RandomEventType.Trader);
+            return true;
+        } else if (roll == 3) {
+            handleRandomEvent(RandomEventType.Police);
+            return true;
+        }
+        else if (roll == 4) {
+            int randSysIndex = rand.nextInt(Galaxy.getInstance().getSolarSystems().size());
+            SolarSystem randSys = (SolarSystem) Galaxy.getInstance().getSolarSystems().values().toArray()[randSysIndex];
+            List<Planet> planets = randSys.getPlanets();
+            int randPlanetIndex = rand.nextInt(planets.size());
+            Planet randPlanet = planets.get(randPlanetIndex);
+            int randWareIndex = rand.nextInt(randPlanet.getWareEvents().length);
+            randPlanet.setWareEvent(randWareIndex, rand.nextInt(3) - 1);
+            
+            
+            RandomEventResultPane resultPane = new RandomEventResultPane();
+            // TODO: How to replace [ware] with the ware that was affected??
+            resultPane.setResultLabelText("The [ware] on planet " + randPlanet.getPlanetName() + 
+                    " in system " + randSys.getSystemName() + " has been affected.");
+            EventHandler<ActionEvent> closeAction = (ActionEvent e1) -> {
+                anchor.getChildren().remove(resultPane);
+            };
+            resultPane.getCloseButton().setOnAction(closeAction);
+            
+            return true;
+        }
+        return false;
     }
     
     private void travelToSystemWithRandomEvent(SolarSystem solarSystem, Button solarSystemButton) {
