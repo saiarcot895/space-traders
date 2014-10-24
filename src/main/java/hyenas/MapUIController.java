@@ -442,10 +442,6 @@ public class MapUIController implements Initializable {
         return false;
     }
     
-    private void travelToSystemWithRandomEvent(SolarSystem solarSystem, Button solarSystemButton) {
-
-    }
-    
     private void makeJourney(Journey journey) {
         Player player = Player.getInstance();
         Ship ship = player.getShip();
