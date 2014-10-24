@@ -418,7 +418,6 @@ public class MapUIController implements Initializable {
             handleRandomEvent(RandomEventType.Police);
             return true;
         }
-<<<<<<< Updated upstream
         else if (roll == 4) {
             int randSysIndex = rand.nextInt(Galaxy.getInstance().getSolarSystems().size());
             SolarSystem randSys = (SolarSystem) Galaxy.getInstance().getSolarSystems().values().toArray()[randSysIndex];
@@ -437,15 +436,6 @@ public class MapUIController implements Initializable {
                 anchor.getChildren().remove(resultPane);
             };
             resultPane.getCloseButton().setOnAction(closeAction);
-=======
-        else if (roll % 5 == 0) {
-            int randIndex = rand.nextInt(Galaxy.getInstance().getSolarSystems().size());
-            SolarSystem randSys = (SolarSystem) Galaxy.getInstance().getSolarSystems().values().toArray()[randIndex];
-            Planet randPlanet = randSys.getPlanets().get(rand.nextInt(randSys.getPlanets().size()));
-            int randWareIndex = rand.nextInt(randPlanet.getWareEvents().length);
-            randPlanet.setWareEvent(randWareIndex, rand.nextInt(3) - 1);
-            //TODO create some kind of UI alert
->>>>>>> Stashed changes
             
             return true;
         }
