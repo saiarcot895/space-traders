@@ -17,7 +17,9 @@ public class Planet {
     private double size;
     private int[] items;
     private int techLevel;
-    private int[] wareEvents = new int[RESOURCE_TYPES.length];
+    private int[] wareEvents = new int[NUM_ITEMS];
+    private int resourceEvent;
+    private int[] resourceEventEffects = new int[NUM_ITEMS];
     private String planetName;
     private String color;
 
@@ -47,6 +49,16 @@ public class Planet {
         "Artistic",
         "Warlike",
     };
+    
+    private static final String[] EVENT_TYPES = new String[] {
+        "Drought",
+        "Cold",
+        "Cropfail",
+        "War",
+        "Boredom",
+        "Plague",
+        "LackOfWorkers"
+    };
 
     public Planet(String planetName) {
         this.planetName = planetName;
@@ -55,8 +67,60 @@ public class Planet {
         orbitRadius = 110 + rand.nextInt(200);
         items = new int[NUM_ITEMS];
         techLevel = rand.nextInt(TECH_LEVELS.length);
-        wareEvents[rand.nextInt(RESOURCE_TYPES.length)] = rand.nextInt(3) - 1;    //will be -1, 0, or 1
+        wareEvents[rand.nextInt(items.length)] = rand.nextInt(3) - 1;    //will be -1, 0, or 1
         color = randomColorString();
+        int randResourceEvent = rand.nextInt(100);
+        if(randResourceEvent < 40)  {
+            resourceEvent = 0;
+        }
+        else if(randResourceEvent >= 40 && randResourceEvent < 45)  {
+            resourceEvent = 1;
+            resourceEventEffects[3] = 1;
+        }
+        else if(randResourceEvent >= 45 && randResourceEvent < 50)  {
+            resourceEvent = 2;
+            resourceEventEffects[3] = -1;
+        }
+        else if(randResourceEvent >= 50 && randResourceEvent < 55)  {
+            resourceEvent = 3;
+            resourceEventEffects[0] = 1;
+        }
+        else if(randResourceEvent >= 55 && randResourceEvent < 60)  {
+            resourceEvent = 4;
+            resourceEventEffects[0] = -1;
+        }
+        else if(randResourceEvent >= 60 && randResourceEvent < 65)  {
+            resourceEvent = 5;
+            resourceEventEffects[2] = -1;
+        }
+        else if(randResourceEvent >= 65 && randResourceEvent < 70)  {
+            resourceEvent = 6;
+            resourceEventEffects[2] = 1;
+        }
+        else if(randResourceEvent >= 70 && randResourceEvent < 75)  {
+            resourceEvent = 7;
+            resourceEventEffects[1] = -1;
+        }
+        else if(randResourceEvent >= 75 && randResourceEvent < 80)  {
+            resourceEvent = 8;
+            resourceEventEffects[1] = 1;
+        }
+        else if(randResourceEvent >= 80 && randResourceEvent < 85)  {
+            resourceEvent = 9;
+            resourceEventEffects[8] = -1;
+        }
+        else if(randResourceEvent >= 85 && randResourceEvent < 90)  {
+            resourceEvent = 10;
+            resourceEventEffects[6] = -1;
+        }
+        else if(randResourceEvent >= 90 && randResourceEvent < 95)  {
+            resourceEvent = 11;
+            resourceEventEffects[4] = -1;
+        }
+        else if(randResourceEvent >= 95 && randResourceEvent < 100)  {
+            resourceEvent = 12;
+            resourceEventEffects[5] = -1;
+        }
         produceWares();
     }
     
@@ -93,6 +157,10 @@ public class Planet {
     public int[] getWareEvents()    {
         return wareEvents;
     }
+    
+    public int[] getResourceTypes()  {
+        return resourceEventEffects;
+    }
 
     /**
      * Calculates how much of each product to produce every turn based on
@@ -106,7 +174,7 @@ public class Planet {
             if (techLevel < MTLP[i]) {
                 howMuchToProduce[i] = 0;
             } else {
-                howMuchToProduce[i] = 10 - Math.abs(TTP[i] - techLevel) + wareEvents[i];
+                howMuchToProduce[i] = 10 - Math.abs(TTP[i] - techLevel) + resourceEventEffects[i];
             }
         }
         return howMuchToProduce;

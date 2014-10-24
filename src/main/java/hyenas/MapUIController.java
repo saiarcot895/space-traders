@@ -424,9 +424,61 @@ public class MapUIController implements Initializable {
             List<Planet> planets = randSys.getPlanets();
             int randPlanetIndex = rand.nextInt(planets.size());
             Planet randPlanet = planets.get(randPlanetIndex);
-            int randWareIndex = rand.nextInt(randPlanet.getWareEvents().length);
-            randPlanet.setWareEvent(randWareIndex, rand.nextInt(3) - 1);
-            
+            int randWareIndex = rand.nextInt(7);
+            if(randWareIndex == 0)   {
+                if(randPlanet.getWareEvent(0) == 0)
+                    randPlanet.setWareEvent(0, 1);
+                else
+                    randPlanet.setWareEvent(0, 0);
+            }
+            else if(randWareIndex == 1) {
+                if(randPlanet.getWareEvent(1) == 0)
+                    randPlanet.setWareEvent(1, 1);
+                else
+                    randPlanet.setWareEvent(1, 0);
+            }
+            else if(randWareIndex == 2) {
+                if(randPlanet.getWareEvent(2) == 0)
+                    randPlanet.setWareEvent(2, 1);
+                else
+                    randPlanet.setWareEvent(2, 0);
+            }
+            else if(randWareIndex == 3) {
+                if(randPlanet.getWareEvent(3) == 0)
+                    randPlanet.setWareEvent(3, 1);
+                else
+                    randPlanet.setWareEvent(3, 0);
+                if(randPlanet.getWareEvent(5) == 0)
+                    randPlanet.setWareEvent(5, 1);
+                else
+                    randPlanet.setWareEvent(5, 0);
+            }
+            else if(randWareIndex == 4) {
+                if(randPlanet.getWareEvent(4) == 0)
+                    randPlanet.setWareEvent(4, 1);
+                else
+                    randPlanet.setWareEvent(4, 0);
+                if(randPlanet.getWareEvent(8) == 0)
+                    randPlanet.setWareEvent(8, 1);
+                else
+                    randPlanet.setWareEvent(8, 0);
+            }
+            else if(randWareIndex == 5) {
+                if(randPlanet.getWareEvent(6) == 0)
+                    randPlanet.setWareEvent(6, 1);
+                else
+                    randPlanet.setWareEvent(6, 0);
+            }
+            else if(randWareIndex == 6) {
+                if(randPlanet.getWareEvent(7) == 0)
+                    randPlanet.setWareEvent(7, 1);
+                else
+                    randPlanet.setWareEvent(7, 0);
+                if(randPlanet.getWareEvent(9) == 0)
+                    randPlanet.setWareEvent(9, 1);
+                else
+                    randPlanet.setWareEvent(9, 0);
+            }            
             
             RandomEventResultPane resultPane = new RandomEventResultPane();
             // TODO: How to replace [ware] with the ware that was affected??
@@ -440,10 +492,6 @@ public class MapUIController implements Initializable {
             return true;
         }
         return false;
-    }
-    
-    private void travelToSystemWithRandomEvent(SolarSystem solarSystem, Button solarSystemButton) {
-
     }
     
     private void makeJourney(Journey journey) {
