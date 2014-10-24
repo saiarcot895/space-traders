@@ -64,7 +64,7 @@ public class SolarSystemTable {
     
     public void createTable() {
         String create = 
-        "create table SOLARSYSTEM " + "(ID integer NOT NULL, " +
+        "create table IF NOT EXISTS SOLARSYSTEM " + "(ID integer NOT NULL, " +
         "Name varchar(20) NOT NULL, " + "XPOINT double NOT NULL, " +
         "YPOINT double NOT NULL, " + "PRIMARY KEY (ID))";
         try (Statement stmt = conn.createStatement()) {
