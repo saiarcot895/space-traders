@@ -15,7 +15,6 @@ public class ItemsTable {
     private final Connection conn;
     
     public ItemsTable(Connection connArgs, String dbNameArgs) {
-        super();
         this.dbName = dbNameArgs;
         this.conn = connArgs;
     }

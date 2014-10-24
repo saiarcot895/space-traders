@@ -14,7 +14,6 @@ public class PlanetTable {
     private final Connection conn;
     
     public PlanetTable(Connection connArgs, String dbNameArgs) {
-        super();
         this.dbName = dbNameArgs;
         this.conn = connArgs;
     }

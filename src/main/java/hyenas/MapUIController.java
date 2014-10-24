@@ -324,6 +324,13 @@ public class MapUIController implements Initializable {
                 }
                 
                 anchor.getChildren().remove(resultPane);
+                
+                playerTable = HyenasLoader.getInstance().getPlayerTable();
+                try {
+                    playerTable.updateLocation(currentJourney.getDestinationSolarSystem());
+                } catch (SQLException ex) {
+                    Logger.getLogger(MapUIController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             };
             resultPane.getCloseButton().setOnAction(closeAction);
             playerInfoPane.updateInfo();
@@ -376,6 +383,13 @@ public class MapUIController implements Initializable {
                 }
                 
                 anchor.getChildren().remove(resultPane);
+                
+                playerTable = HyenasLoader.getInstance().getPlayerTable();
+                try {
+                    playerTable.updateLocation(currentJourney.getDestinationSolarSystem());
+                } catch (SQLException ex) {
+                    Logger.getLogger(MapUIController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             };
             resultPane.getCloseButton().setOnAction(closeAction);
             playerInfoPane.updateInfo();
@@ -393,7 +407,7 @@ public class MapUIController implements Initializable {
         Random rand = new Random();
         int roll = rand.nextInt(5);
         RandomEventType eventType;
-        
+
         if (roll == 1) {
             handleRandomEvent(RandomEventType.Pirate);
             return true;
@@ -404,6 +418,7 @@ public class MapUIController implements Initializable {
             handleRandomEvent(RandomEventType.Police);
             return true;
         }
+<<<<<<< Updated upstream
         else if (roll == 4) {
             int randSysIndex = rand.nextInt(Galaxy.getInstance().getSolarSystems().size());
             SolarSystem randSys = (SolarSystem) Galaxy.getInstance().getSolarSystems().values().toArray()[randSysIndex];
@@ -422,6 +437,15 @@ public class MapUIController implements Initializable {
                 anchor.getChildren().remove(resultPane);
             };
             resultPane.getCloseButton().setOnAction(closeAction);
+=======
+        else if (roll % 5 == 0) {
+            int randIndex = rand.nextInt(Galaxy.getInstance().getSolarSystems().size());
+            SolarSystem randSys = (SolarSystem) Galaxy.getInstance().getSolarSystems().values().toArray()[randIndex];
+            Planet randPlanet = randSys.getPlanets().get(rand.nextInt(randSys.getPlanets().size()));
+            int randWareIndex = rand.nextInt(randPlanet.getWareEvents().length);
+            randPlanet.setWareEvent(randWareIndex, rand.nextInt(3) - 1);
+            //TODO create some kind of UI alert
+>>>>>>> Stashed changes
             
             return true;
         }
@@ -459,6 +483,13 @@ public class MapUIController implements Initializable {
         currentJourney = new Journey(currentSystem, solarSystem, currentSolarSystemButton, solarSystemButton, distance);
         if (!randomEventOccurred()) {
             makeJourney(currentJourney);
+            
+                playerTable = HyenasLoader.getInstance().getPlayerTable();
+            try {
+                playerTable.updateLocation(solarSystem);
+            } catch (SQLException ex) {
+                Logger.getLogger(MapUIController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         
@@ -497,13 +528,6 @@ public class MapUIController implements Initializable {
         timeline.getKeyFrames().add(kfH);
         timeline.getKeyFrames().add(kfV);
         timeline.play();*/
-
-        playerTable = HyenasLoader.getInstance().getPlayerTable();
-        try {
-            playerTable.updateLocation(solarSystem);
-        } catch (SQLException ex) {
-            Logger.getLogger(MapUIController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**

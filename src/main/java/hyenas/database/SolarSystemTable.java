@@ -13,7 +13,6 @@ public class SolarSystemTable {
     private final Connection conn;
     
     public SolarSystemTable(Connection connArgs, String dbNameArgs) {
-        super();
         this.dbName = dbNameArgs;
         this.conn = connArgs;
     }
