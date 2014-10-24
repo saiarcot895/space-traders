@@ -55,7 +55,7 @@ public class Planet {
         orbitRadius = 110 + rand.nextInt(200);
         items = new int[NUM_ITEMS];
         techLevel = rand.nextInt(TECH_LEVELS.length);
-        wareEvents[rand.nextInt(RESOURCE_TYPES.length)] = rand.nextInt(3) - 1;    //will be -1, 0, or 1
+        wareEvents[rand.nextInt(items.length)] = rand.nextInt(3) - 1;    //will be -1, 0, or 1
         color = randomColorString();
         produceWares();
     }
