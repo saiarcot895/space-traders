@@ -17,7 +17,8 @@ public class Planet {
     private double size;
     private int[] items;
     private int techLevel;
-    private int[] wareEvents = new int[RESOURCE_TYPES.length];
+    private int[] wareEvents = new int[NUM_ITEMS];
+    private int[] resourceEvents = new int[NUM_ITEMS];
     private String planetName;
     private String color;
 
@@ -46,6 +47,16 @@ public class Planet {
         "Lots of Herbs",
         "Artistic",
         "Warlike",
+    };
+    
+    private static final String[] EVENT_TYPES = new String[] {
+        "Drought",
+        "Cold",
+        "Cropfail",
+        "War",
+        "Boredom",
+        "Plague",
+        "LackOfWorkers"
     };
 
     public Planet(String planetName) {
@@ -106,7 +117,7 @@ public class Planet {
             if (techLevel < MTLP[i]) {
                 howMuchToProduce[i] = 0;
             } else {
-                howMuchToProduce[i] = 10 - Math.abs(TTP[i] - techLevel) + wareEvents[i];
+                howMuchToProduce[i] = 10 - Math.abs(TTP[i] - techLevel) + resourceEvents[i];
             }
         }
         return howMuchToProduce;
