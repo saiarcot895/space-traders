@@ -4,6 +4,7 @@ import hyenas.Models.Galaxy;
 import hyenas.Models.Planet;
 import hyenas.Models.SolarSystem;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -83,12 +84,16 @@ public class PlanetTable {
     public void populateTable(String name, double x, 
             double y, int id, String tech, String rsrc, int ssid) {
         try {
-            Statement stmt = conn.createStatement();
-            final String query = "INSERT INTO Planet " + 
-                    "VALUES(" + id + ", '" + name + "', " +
-                    x + ", " + y + ", '" + tech + "', '" +
-                    rsrc + "', " + ssid + ")";
-            stmt.executeUpdate(query);
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Planet "
+                    + "(Name, XPoint, YPoint, Tech, Resource, SSID) "
+                    + "VALUES(?, ?, ?, ?, ?, ?)");
+            stmt.setString(1, name);
+            stmt.setDouble(2, x);
+            stmt.setDouble(3, y);
+            stmt.setString(4, tech);
+            stmt.setString(5, rsrc);
+            stmt.setInt(6, ssid);
+            stmt.executeUpdate();
             // Id & ssid are generated based on how the System is generated.
         } catch (SQLException e) {
             printException(e);

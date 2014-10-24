@@ -4,6 +4,7 @@ import hyenas.Models.Galaxy;
 import hyenas.Models.Player;
 import hyenas.Models.SolarSystem;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -78,16 +79,22 @@ public class PlayerTable {
      */
     public void populateTable(String name, int points, int ePoints,
             int pPoints, int iPoints, int fPoints, int tPoints, int credits) throws SQLException {
-        try (Statement stmt = conn.createStatement()) {
-            final String query = "INSERT INTO PLAYERS " +
-                    "VALUES(1, '" + name + "', " +
-                    points + ", " + ePoints + ", " +
-                    pPoints + ", " + iPoints + ", " +
-                    fPoints + ", " + tPoints + ", " +
-                    credits + ", 700, 250, null)";
-            // insert into PLAYERS values('Name', points, ePoints, pPoints,
-            //                    iPoints, fPoints, tPoints, credits)
-            stmt.executeUpdate(query); // <- ID
+        try {
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Players "
+                    + "(Name, Points, Engineer, Pilot, Inventor, Trader, "
+                    + "Credits, Fuel, Health) "
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt.setString(1, name);
+            stmt.setInt(2, points);
+            stmt.setInt(3, ePoints);
+            stmt.setInt(4, pPoints);
+            stmt.setInt(5, iPoints);
+            stmt.setInt(6, fPoints);
+            stmt.setInt(7, tPoints);
+            stmt.setInt(8, credits);
+            stmt.setInt(9, 700);
+            stmt.setInt(10, 250);
+            stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

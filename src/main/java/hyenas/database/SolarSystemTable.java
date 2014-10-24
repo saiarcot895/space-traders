@@ -3,6 +3,7 @@ package hyenas.database;
 import hyenas.Models.Galaxy;
 import hyenas.Models.SolarSystem;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -73,9 +74,14 @@ public class SolarSystemTable {
     }
 
     public void populateTable(String name, double x, double y, int id) {
-        try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate("INSERT INTO SolarSystem "
-                    + "VALUES(" + id + ", '" + name + "', " + x + ", " + y + ")");
+        try {
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO "
+                    + "SolarSystem (Name, XPoint, YPoint) "
+                    + "VALUES(?, ?, ?)");
+            stmt.setString(1, name);
+            stmt.setDouble(2, x);
+            stmt.setDouble(3, y);
+            stmt.executeUpdate();
             // Id is generated based on how the System is generated.
         } catch (SQLException e) {
             printException(e);
