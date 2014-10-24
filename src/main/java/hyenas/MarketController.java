@@ -261,16 +261,16 @@ public class MarketController implements Initializable {
         fuelCost = 140-planet.getTechLevel()*10;
         fuelCount = player.getShip().getFuel();
         Random rand = new Random();
-        waterPrice = 30 + 3*(planet.getTechLevel()-0) + (rand.nextInt(3)-1)*rand.nextInt(5);
-        fursPrice = 250 + 10*(planet.getTechLevel()-0) + (rand.nextInt(3)-1)*rand.nextInt(11);
-        foodPrice = 100 + 5*(planet.getTechLevel()-1) + (rand.nextInt(3)-1)*rand.nextInt(6);
-        orePrice = 350 + 20*(planet.getTechLevel()-2) + (rand.nextInt(3)-1)*rand.nextInt(11);
-        gamesPrice = 250 + -10*(planet.getTechLevel()-3) + (rand.nextInt(3)-1)*rand.nextInt(6);
-        firearmsPrice = 1250 + -75*(planet.getTechLevel()-3) + (rand.nextInt(3)-1)*rand.nextInt(101);
-        medicinePrice = 650 + -20*(planet.getTechLevel()-4) + (rand.nextInt(3)-1)*rand.nextInt(11);
-        machinesPrice = 900 + -30*(planet.getTechLevel()-4) + (rand.nextInt(3)-1)*rand.nextInt(6);
-        narcoticsPrice = 3500 + -125*(planet.getTechLevel()-5) + (rand.nextInt(3)-1)*rand.nextInt(151);
-        robotsPrice = 5000 + -150*(planet.getTechLevel()-6) + (rand.nextInt(3)-1)*rand.nextInt(101);
+        waterPrice = 30 + 3*(planet.getTechLevel()-0) + planet.getWareEvents()[0]*10 + (rand.nextInt(3)-1)*rand.nextInt(5);
+        fursPrice = 250 + 10*(planet.getTechLevel()-0) + planet.getWareEvents()[1]*10 + (rand.nextInt(3)-1)*rand.nextInt(11);
+        foodPrice = 100 + 5*(planet.getTechLevel()-1) + planet.getWareEvents()[2]*10 + (rand.nextInt(3)-1)*rand.nextInt(6);
+        orePrice = 350 + 20*(planet.getTechLevel()-2) + planet.getWareEvents()[3]*10 + (rand.nextInt(3)-1)*rand.nextInt(11);
+        gamesPrice = 250 + -10*(planet.getTechLevel()-3) + planet.getWareEvents()[4]*10 + (rand.nextInt(3)-1)*rand.nextInt(6);
+        firearmsPrice = 1250 + -75*(planet.getTechLevel()-3) + planet.getWareEvents()[5]*10 + (rand.nextInt(3)-1)*rand.nextInt(101);
+        medicinePrice = 650 + -20*(planet.getTechLevel()-4) + planet.getWareEvents()[6]*10 + (rand.nextInt(3)-1)*rand.nextInt(11);
+        machinesPrice = 900 + -30*(planet.getTechLevel()-4) + planet.getWareEvents()[7]*10 + (rand.nextInt(3)-1)*rand.nextInt(6);
+        narcoticsPrice = 3500 + -125*(planet.getTechLevel()-5) + planet.getWareEvents()[8]*10 + (rand.nextInt(3)-1)*rand.nextInt(151);
+        robotsPrice = 5000 + -150*(planet.getTechLevel()-6) + planet.getWareEvents()[9]*10 + (rand.nextInt(3)-1)*rand.nextInt(101);
 
         //tPlanet.setText(planet.getName());
         tFree.setText("" + freeCargo);
@@ -289,6 +289,31 @@ public class MarketController implements Initializable {
         fuelLeft.setText("" + fuelCount);
         currentCredits.setText("" + creditCount);
 
+        if(planet.getWareEvent(0) == 1)    {
+            eWater.setText("Drought");
+        }
+        if(planet.getWareEvent(1) == 1) {
+            eFurs.setText("Cold");
+        }
+        if(planet.getWareEvent(2) == 1) {
+            eFood.setText("Crop Failure");
+        }
+        if(planet.getWareEvent(3) == 1) {
+            eOre.setText("War");
+            eFirearms.setText("War");
+        }
+        if(planet.getWareEvent(4) == 1) {
+            eGames.setText("Boredom");
+            eNarcotics.setText("Boredom");
+        }
+        if(planet.getWareEvent(6) == 1) {
+            eMedicine.setText("Plague");
+        }
+        if(planet.getWareEvent(7) == 1) {
+            eMachines.setText("Lack of Workers");
+            eRobots.setText("Lack of Workers");
+        }
+        
         for (Ware good : player.getShip().getCargo()) {
             switch (good.getName()) {
                 case "Water":

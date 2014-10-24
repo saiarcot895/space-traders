@@ -70,7 +70,7 @@ public class PlanetTable {
     
     public void createTable() {
         String create = 
-        "create table PLANET " + "(ID integer NOT NULL, " +
+        "create table IF NOT EXISTS PLANET " + "(ID integer NOT NULL, " +
         "Name varchar(20) NOT NULL, " + "XPOINT double NOT NULL, " +
         "YPOINT double NOT NULL, " + "TECH varchar NOT NULL, " +
         "RESOURCE varchar NOT NULL, " + "SSID integer NOT NULL, " +

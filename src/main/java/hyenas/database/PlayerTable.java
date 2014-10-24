@@ -9,31 +9,32 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class PlayerTable {
-    
+
     private final String dbName;
     private final Connection conn;
-    
+
     public PlayerTable(Connection connArgs, String dbNameArgs) {
         this.dbName = dbNameArgs;
         this.conn = connArgs;
     }
-    
+
     private boolean ignoreSQLException(String state) {
         if (state == null) {
             System.out.println("State not defined");
             return false;
         }
-        return state.equalsIgnoreCase("X0Y32") 
+        return state.equalsIgnoreCase("X0Y32")
                 || state.equalsIgnoreCase("42Y55");
     }
-    
+
     private void printException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {
-                if (ignoreSQLException(((SQLException)e).getSQLState()) == false) {
+                SQLException exception = (SQLException) e;
+                if (!ignoreSQLException(exception.getSQLState())) {
                     e.printStackTrace(System.err);
-                    System.err.println("State: " + ((SQLException)e).getSQLState());
-                    System.err.println("Error Code: " + ((SQLException)e).getErrorCode());
+                    System.err.println("State: " + exception.getSQLState());
+                    System.err.println("Error Code: " + exception.getErrorCode());
                     System.err.println("Message: " + e.getMessage());
                     Throwable t = ex.getCause();
                     while (t != null) {
@@ -44,30 +45,31 @@ public class PlayerTable {
             }
         }
     }
-    
+
     /**
      * Create the player table.
      */
     public void createTable() {
-        String create = 
-        "create table PLAYERS " + "(NAME varchar(20) NOT NULL, " + 
-        "POINTS integer NOT NULL, " + "ENGINEER integer NOT NULL, " + 
-        "PILOT integer NOT NULL, " + "INVESTOR integer NOT NULL, " + 
-        "FIGHTER integer NOT NULL, " + "TRADER integer NOT NULL, " + "CREDITS integer, " + 
-        "ID integer NOT NULL, " + "fuel INTEGER NOT NULL, health INTEGER NOT NULL, " +
-        "SSID integer NOT NULL, "  + "PRIMARY KEY (ID), " + 
-        "FOREIGN KEY (SSID) REFERENCES SOLARSYSTEM (ID))";
+        String create = "CREATE TABLE IF NOT EXISTS Players " + "(ID INTEGER NOT NULL, "
+                + "Name VARCHAR(20) NOT NULL, "
+                + "Points INTEGER NOT NULL, " + "Engineer INTEGER NOT NULL, "
+                + "Pilot INTEGER NOT NULL, " + "Investor INTEGER NOT NULL, "
+                + "Fighter INTEGER NOT NULL, " + "Trader INTEGER NOT NULL, "
+                + "Credits INTEGER, " 
+                + "Fuel INTEGER NOT NULL, " + "Health INTEGER NOT NULL, "
+                + "SSID INTEGER, "  + "PRIMARY KEY (ID), "
+                + "FOREIGN KEY (SSID) REFERENCES SolarSystem (ID))";
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
         } catch (SQLException e) {
             printException(e);
         }
     }
-    
+
     /**
      * Just a tester method
      * @param conn
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void viewTable(Connection conn) throws SQLException {
         Statement stmt = null;
@@ -75,7 +77,7 @@ public class PlayerTable {
         try {
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            
+
             while (rs.next()) {
                 String name = rs.getString("NAME");
                 int points = rs.getInt("POINTS");
@@ -85,8 +87,8 @@ public class PlayerTable {
                 int fighter = rs.getInt("FIGHTER");
                 int trader = rs.getInt("TRADER");
                 System.out.println(name + ", " + points + ", " +
-                                   engineer + ", " + pilot + ", " + 
-                                   pilot + ", " + investor + ", " + 
+                                   engineer + ", " + pilot + ", " +
+                                   pilot + ", " + investor + ", " +
                                    fighter + ", " + trader + ", ");
             }
         } catch (SQLException e) {
@@ -97,7 +99,7 @@ public class PlayerTable {
             }
         }
     }
-    
+
     /**
      * Add a player entry into the table.
      * @param name Name of the player
@@ -113,18 +115,18 @@ public class PlayerTable {
     public void populateTable(String name, int points, int ePoints,
             int pPoints, int iPoints, int fPoints, int tPoints, int credits) throws SQLException {
         try (Statement stmt = conn.createStatement()) {
-            final String query = "insert into PLAYERS " + 
-                    "values('" + name + "', " +
+            final String query = "INSERT INTO PLAYERS " +
+                    "VALUES(1, '" + name + "', " +
                     points + ", " + ePoints + ", " +
                     pPoints + ", " + iPoints + ", " +
                     fPoints + ", " + tPoints + ", " +
-                    credits + ", 700, 250, 1, 0)";
+                    credits + ", 700, 250, null)";
             System.out.println(query);
             // insert into PLAYERS values('Name', points, ePoints, pPoints,
             //                    iPoints, fPoints, tPoints, credits)
             stmt.executeUpdate(query); // <- ID
         } catch (SQLException e) {
-            printException(e);
+            e.printStackTrace();
         }
     }
 
@@ -153,7 +155,7 @@ public class PlayerTable {
             player.setFighterSkill(playerInfo.getInt(6));
             player.setTraderSkill(playerInfo.getInt(7));
             player.setCredits(playerInfo.getInt(10));
-            
+
             player.getShip().setFuel(playerInfo.getInt(8));
             player.getShip().setHealth(playerInfo.getInt(9));
 
@@ -168,7 +170,7 @@ public class PlayerTable {
 
     // Important: For now, only allow one character at a time.
     // Therefore there will be only one row per table at a time.
-    
+
     /**
      * Update remaining (unused) points of the player.
      * @param points remaining points the player has
@@ -180,7 +182,7 @@ public class PlayerTable {
         String query = "UPDATE PLAYERS SET POINTS = " + points;
         stmt.executeQuery(query);
     }
-    
+
     /**
      * Update Engineer skill points.
      * @param points engineer skill points
@@ -192,7 +194,7 @@ public class PlayerTable {
         String query = "UPDATE PLAYERS SET ENGINEER = " + points;
         stmt.executeQuery(query);
     }
-    
+
     /**
      * Update Pilot Points.
      * @param points pilot skill points
@@ -204,7 +206,7 @@ public class PlayerTable {
         String query = "UPDATE PLAYERS SET PILOT = " + points;
         stmt.executeQuery(query);
     }
-    
+
     /**
      * Update Investor Points.
      * @param points investor skill points
@@ -216,7 +218,7 @@ public class PlayerTable {
         String query = "UPDATE PLAYERS SET INVESTOR = " + points;
         stmt.executeQuery(query);
     }
-    
+
     /**
      * Update Fighter Points.
      * @param points fighter skill points
@@ -228,7 +230,7 @@ public class PlayerTable {
         String query = "UPDATE PLAYERS SET FIGHTER = " + points;
         stmt.executeQuery(query);
     }
-    
+
     /**
      * Update Trader Points.
      * @param points trader skill points
@@ -240,16 +242,16 @@ public class PlayerTable {
         String query = "UPDATE PLAYERS SET TRADER = " + points;
         stmt.execute(query);
     }
-    
+
     /**
      * Update the location of the player.
      * @param solarSystem new solar system the player is in
      * @throws SQLException if a database error occurred
      */
-    public void updateLocation(SolarSystem solarSystem) 
+    public void updateLocation(SolarSystem solarSystem)
             throws SQLException {
         Statement stmt = conn.createStatement();
-        String query = "SELECT ID FROM SOLARSYSTEM WHERE " + 
+        String query = "SELECT ID FROM SOLARSYSTEM WHERE " +
                 "NAME = '" + solarSystem.getSystemName() + "'";
         ResultSet update = stmt.executeQuery(query);
         update.next();
@@ -261,5 +263,5 @@ public class PlayerTable {
                 + ", Credits = " + player.getCredits();
         stmt.execute(query);
     }
-    
+
 }

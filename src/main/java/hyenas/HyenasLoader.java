@@ -69,25 +69,19 @@ public class HyenasLoader extends Application {
 
         // TODO: If connected Yay!
         // Else create new database!
-        Connection connect;
-        if (!new File("database.db").exists()) {
-            connect = connectToDB();
-            players = new PlayerTable(connect, "Hyenas");
-            planets = new PlanetTable(connect, "Hyenas");
-            items = new ItemsTable(connect, "Hyenas");
-            solarSystem = new SolarSystemTable(connect, "Hyenas");
-            // Create the tables
-            solarSystem.createTable();
-            planets.createTable();
-            players.createTable();
-            items.createTable();
-        } else {
-            connect = connectToDB();
-            players = new PlayerTable(connect, "Hyenas");
-            planets = new PlanetTable(connect, "Hyenas");
-            items = new ItemsTable(connect, "Hyenas");
-            solarSystem = new SolarSystemTable(connect, "Hyenas");
-        }
+        Connection connect = connectToDB();
+        
+        players = new PlayerTable(connect, "Hyenas");
+        planets = new PlanetTable(connect, "Hyenas");
+        items = new ItemsTable(connect, "Hyenas");
+        solarSystem = new SolarSystemTable(connect, "Hyenas");
+
+        // Create the tables. If the tables are already created, this will
+        // do nothing.
+        solarSystem.createTable();
+        planets.createTable();
+        players.createTable();
+        items.createTable();
 
         this.stage = stage;
         stage.setFullScreen(true);
@@ -241,6 +235,7 @@ public class HyenasLoader extends Application {
     public Connection connectToDB() throws SQLException {
         try {
             conn = DriverManager.getConnection(host);
+            conn.createStatement().execute("PRAGMA foreign_keys = ON");
             return conn;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
