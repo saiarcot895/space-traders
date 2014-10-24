@@ -14,3 +14,11 @@
 *.png binary
 *.jpg binary
 *.db binary
+*.otf binary
+*.ttf binary
+*.eot binary
+
+*.0 binary
+*.t binary
+*.blob binary
+*.dat binary
