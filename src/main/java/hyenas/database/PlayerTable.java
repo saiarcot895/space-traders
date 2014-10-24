@@ -10,11 +10,9 @@ import java.sql.Statement;
 
 public class PlayerTable {
 
-    private final String dbName;
     private final Connection conn;
 
-    public PlayerTable(Connection connArgs, String dbNameArgs) {
-        this.dbName = dbNameArgs;
+    public PlayerTable(Connection connArgs) {
         this.conn = connArgs;
     }
 
@@ -67,40 +65,6 @@ public class PlayerTable {
     }
 
     /**
-     * Just a tester method
-     * @param conn
-     * @throws SQLException
-     */
-    public void viewTable(Connection conn) throws SQLException {
-        Statement stmt = null;
-        String query = "SELECT * FROM PLAYERS";
-        try {
-            stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                String name = rs.getString("NAME");
-                int points = rs.getInt("POINTS");
-                int engineer = rs.getInt("ENGINEER");
-                int pilot = rs.getInt("PILOT");
-                int investor = rs.getInt("INVESTOR");
-                int fighter = rs.getInt("FIGHTER");
-                int trader = rs.getInt("TRADER");
-                System.out.println(name + ", " + points + ", " +
-                                   engineer + ", " + pilot + ", " +
-                                   pilot + ", " + investor + ", " +
-                                   fighter + ", " + trader + ", ");
-            }
-        } catch (SQLException e) {
-            printException(e);
-        } finally {
-            if (stmt != null) {
-                stmt.close();
-            }
-        }
-    }
-
-    /**
      * Add a player entry into the table.
      * @param name Name of the player
      * @param points Free (unused) skill points the player has
@@ -121,7 +85,6 @@ public class PlayerTable {
                     pPoints + ", " + iPoints + ", " +
                     fPoints + ", " + tPoints + ", " +
                     credits + ", 700, 250, null)";
-            System.out.println(query);
             // insert into PLAYERS values('Name', points, ePoints, pPoints,
             //                    iPoints, fPoints, tPoints, credits)
             stmt.executeUpdate(query); // <- ID

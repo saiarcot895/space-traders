@@ -11,11 +11,9 @@ import java.sql.Statement;
 
 public class ItemsTable {
 
-    private final String dbName;
     private final Connection conn;
 
-    public ItemsTable(Connection connArgs, String dbNameArgs) {
-        this.dbName = dbNameArgs;
+    public ItemsTable(Connection connArgs) {
         this.conn = connArgs;
     }
 

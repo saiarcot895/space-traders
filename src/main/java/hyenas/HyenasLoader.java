@@ -71,10 +71,10 @@ public class HyenasLoader extends Application {
         // Else create new database!
         Connection connect = connectToDB();
         
-        players = new PlayerTable(connect, "Hyenas");
-        planets = new PlanetTable(connect, "Hyenas");
-        items = new ItemsTable(connect, "Hyenas");
-        solarSystem = new SolarSystemTable(connect, "Hyenas");
+        players = new PlayerTable(connect);
+        planets = new PlanetTable(connect);
+        items = new ItemsTable(connect);
+        solarSystem = new SolarSystemTable(connect);
 
         // Create the tables. If the tables are already created, this will
         // do nothing.

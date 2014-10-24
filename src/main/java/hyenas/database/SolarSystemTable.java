@@ -8,12 +8,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SolarSystemTable {
-    
-    private final String dbName;
+
     private final Connection conn;
-    
-    public SolarSystemTable(Connection connArgs, String dbNameArgs) {
-        this.dbName = dbNameArgs;
+
+    public SolarSystemTable(Connection connArgs) {
         this.conn = connArgs;
     }
     
@@ -61,25 +59,23 @@ public class SolarSystemTable {
             printException(e);
         }
     }
-    
+
     public void createTable() {
-        String create = 
-        "create table IF NOT EXISTS SOLARSYSTEM " + "(ID integer NOT NULL, " +
-        "Name varchar(20) NOT NULL, " + "XPOINT double NOT NULL, " +
-        "YPOINT double NOT NULL, " + "PRIMARY KEY (ID))";
+        String create = "CREATE TABLE IF NOT EXISTS SolarSystem "
+                + "(ID INTEGER NOT NULL, " + "Name VARCHAR(20) NOT NULL, "
+                + "XPoint DOUBLE NOT NULL, " + "YPoint DOUBLE NOT NULL, "
+                + "PRIMARY KEY (ID))";
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
         } catch (SQLException e) {
             printException(e);
         }
     }
-    
-    public void populateTable(String name, double x, 
-            double y, int id) {
+
+    public void populateTable(String name, double x, double y, int id) {
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate("insert into SOLARSYSTEM " + 
-                               "values(" + id + ", '" + name + "', " + 
-                               x + ", " + y + ")");
+            stmt.executeUpdate("INSERT INTO SolarSystem "
+                    + "VALUES(" + id + ", '" + name + "', " + x + ", " + y + ")");
             // Id is generated based on how the System is generated.
         } catch (SQLException e) {
             printException(e);
@@ -89,7 +85,7 @@ public class SolarSystemTable {
     public void loadTable() {
         try {
             Statement stmt = conn.createStatement();
-            ResultSet solarSystems = stmt.executeQuery("SELECT * FROM [SOLARSYSTEM]");
+            ResultSet solarSystems = stmt.executeQuery("SELECT * FROM [SolarSystem]");
             while (solarSystems.next()) {
                 String systemName = solarSystems.getString(2);
                 SolarSystem solarSystem = Galaxy.getInstance()
