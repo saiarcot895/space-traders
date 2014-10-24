@@ -102,7 +102,7 @@ public class RandomEvent {
                 boolean success = rand.nextBoolean();
                 Ship ship = player.getShip();
                 if (success) {
-                    actionResultText = "You successfully fend off the pirates. your ship is slightly damaged, but you continue to ";
+                    actionResultText = "You successfully fend off the pirates. Your ship is slightly damaged, but you continue to ";
                     double newhealth = ship.getHealth() * .9;
                     ship.setHealth(newhealth);
                 } else {
