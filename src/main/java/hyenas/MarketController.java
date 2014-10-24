@@ -289,6 +289,31 @@ public class MarketController implements Initializable {
         fuelLeft.setText("" + fuelCount);
         currentCredits.setText("" + creditCount);
 
+        if(planet.getWareEvent(0) == 1)    {
+            eWater.setText("Drought");
+        }
+        if(planet.getWareEvent(1) == 1) {
+            eFurs.setText("Cold");
+        }
+        if(planet.getWareEvent(2) == 1) {
+            eFood.setText("Crop Failure");
+        }
+        if(planet.getWareEvent(3) == 1) {
+            eOre.setText("War");
+            eFirearms.setText("War");
+        }
+        if(planet.getWareEvent(4) == 1) {
+            eGames.setText("Boredom");
+            eNarcotics.setText("Boredom");
+        }
+        if(planet.getWareEvent(6) == 1) {
+            eMedicine.setText("Plague");
+        }
+        if(planet.getWareEvent(7) == 1) {
+            eMachines.setText("Lack of Workers");
+            eRobots.setText("Lack of Workers");
+        }
+        
         for (Ware good : player.getShip().getCargo()) {
             switch (good.getName()) {
                 case "Water":
