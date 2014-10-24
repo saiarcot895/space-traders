@@ -60,31 +60,36 @@ and open the template in the editor.
     -fx-border-width: 3;
 }
 
-.infoPane {
+.alertPaneTitleLabel {
+    -fx-font-size: 16;
+    -fx-font-family: "Trebuchet MS";
+}
+
+.alertPaneMessageLabel {
+    -fx-font-size: 15;
+    -fx-font-family: "Trebuchet MS";
+}
+
+.alertPane {
     -fx-background-color: rgba(52, 152, 219, .9);
     -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.2) , 0,0,4,4 );
     -fx-border-color: orange;
     -fx-border-width: 1;
 }
 
-.infoPaneLabel {
-    -fx-font-size: 16;
-    -fx-font-family: "Trebuchet MS";
-}
-
-.infoPaneButton {
+.alertPaneButton {
     -fx-background-color: orange;
     -fx-font-family: "Trebuchet MS";
 }
 
-.infoPaneButton:hover {
+.alertPaneButton:hover {
     -fx-background-color: silver;
     -fx-background-color: rgb(255, 175 , 20);
     
     /*-fx-effect: innershadow( gaussian , rgba(255,255,255,0.2) , 0,0,0,4 );*/
 }
 
-.infoPaneButton:pressed {
+.alertPaneButton:pressed {
     -fx-background-color: rgb(235, 165 , 13);
 }
 

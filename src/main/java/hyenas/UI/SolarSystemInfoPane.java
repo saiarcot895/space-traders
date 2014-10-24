@@ -27,22 +27,22 @@ public class SolarSystemInfoPane extends AnchorPane {
     private Button travelButton;
 
     public SolarSystemInfoPane() {
-        getStyleClass().add("infoPane");
+        getStyleClass().add("alertPane");
 
         systemNameLabel = new Label("System:");
-        systemNameLabel.getStyleClass().add("infoPaneLabel");
+        systemNameLabel.getStyleClass().add("alertPaneTitleLabel");
         AnchorPane.setTopAnchor(systemNameLabel, 10.0);
         AnchorPane.setRightAnchor(systemNameLabel, 10.0);
         AnchorPane.setLeftAnchor(systemNameLabel, 10.0);
 
         numPlanetsLabel = new Label("Planets:");
-        numPlanetsLabel.getStyleClass().add("infoPaneLabel");
+        numPlanetsLabel.getStyleClass().add("alertPaneTitleLabel");
         AnchorPane.setTopAnchor(numPlanetsLabel, 40.0);
         AnchorPane.setRightAnchor(numPlanetsLabel, 10.0);
         AnchorPane.setLeftAnchor(numPlanetsLabel, 10.0);
 
         travelButton = new Button("Travel");
-        travelButton.getStyleClass().add("infoPaneButton");
+        travelButton.getStyleClass().add("alertPaneButton");
         AnchorPane.setBottomAnchor(travelButton, 10.0);
         AnchorPane.setRightAnchor(travelButton, 10.0);
         AnchorPane.setLeftAnchor(travelButton, 10.0);

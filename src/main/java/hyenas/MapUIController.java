@@ -15,8 +15,8 @@ import hyenas.Models.RandomEventType;
 import hyenas.Models.Ship;
 import hyenas.Models.SolarSystem;
 import hyenas.UI.PlayerInfoPane;
-import hyenas.UI.RandomEventPane;
-import hyenas.UI.RandomEventResultPane;
+import hyenas.UI.AlertPane;
+import hyenas.UI.AlertPaneType;
 import hyenas.UI.SolarSystemButton;
 import hyenas.UI.SolarSystemInfoPane;
 import hyenas.UI.SolarSystemScrollPane;
@@ -257,9 +257,12 @@ public class MapUIController implements Initializable {
     
     private void handleRandomEvent(RandomEventType eventType) {
         scrollPane.setInfoPane(null); // Remove system info pane
-        RandomEventPane eventPane = new RandomEventPane();
+        AlertPane eventPane = new AlertPane(AlertPaneType.TwoButtons);
         RandomEvent event = new RandomEvent(eventType);
-        eventPane.setupForRandomEvent(event);
+        eventPane.setTitleText(event.getDescription());
+        eventPane.setMessageText(event.getQuestion());
+        eventPane.getActionButton().setText(event.getActionButtonText());
+        eventPane.getCloseButton().setText(event.getCancelButtonText());
         eventPane.setLayoutX((UIHelper.getScreenSize().getWidth() / 2) - (eventPane.getPrefWidth() / 2));
         eventPane.setLayoutY((UIHelper.getScreenSize().getHeight() / 2) - (eventPane.getPrefHeight() / 2));
         
@@ -288,7 +291,7 @@ public class MapUIController implements Initializable {
         
         EventHandler<ActionEvent> actionEvent = (ActionEvent e1) -> {
             boolean success = event.performAction();
-            String resultLabelText = event.getActionResultText();
+            String resultText = event.getActionResultText();
             switch (eventType) {
                 case Police: break;
                 case Trader: break;
@@ -302,11 +305,11 @@ public class MapUIController implements Initializable {
                         solarSystem = currentJourney.getStartingSolarSystem();
                     }
                     
-                    resultLabelText = resultLabelText + solarSystem.getSystemName() + ".";
+                    resultText = resultText + solarSystem.getSystemName() + ".";
                     break;
             }
-            RandomEventResultPane resultPane = new RandomEventResultPane();
-            resultPane.setResultLabelText(resultLabelText);
+            AlertPane resultPane = new AlertPane(AlertPaneType.OneButton);
+            resultPane.setMessageText(resultText);
             resultPane.setLayoutX((UIHelper.getScreenSize().getWidth() / 2) - (resultPane.getPrefWidth() / 2));
             resultPane.setLayoutY((UIHelper.getScreenSize().getHeight() / 2) - (resultPane.getPrefHeight() / 2));
             
@@ -341,7 +344,7 @@ public class MapUIController implements Initializable {
         
         EventHandler<ActionEvent> cancelEvent = (ActionEvent e1) -> {
             boolean success = event.performCancel();
-            String resultLabelText = event.getCancelResultText();
+            String resultText = event.getCancelResultText();
             switch (eventType) {
                 case Police:
                     if (!success) {
@@ -360,12 +363,12 @@ public class MapUIController implements Initializable {
                         Ship ship = player.getShip();
                         // Deduct fuel for half the journey
                         ship.setFuel(ship.getFuel() - (currentJourney.getDistance() / 2));
-                        resultLabelText = resultLabelText + currentJourney.getStartingSolarSystem().getSystemName() + ".";
+                        resultText = resultText + currentJourney.getStartingSolarSystem().getSystemName() + ".";
                     }
                     break;
             }
-            RandomEventResultPane resultPane = new RandomEventResultPane();
-            resultPane.setResultLabelText(resultLabelText);
+            AlertPane resultPane = new AlertPane(AlertPaneType.OneButton);
+            resultPane.setMessageText(resultText);
             resultPane.setLayoutX((UIHelper.getScreenSize().getWidth() / 2) - (resultPane.getPrefWidth() / 2));
             resultPane.setLayoutY((UIHelper.getScreenSize().getHeight() / 2) - (resultPane.getPrefHeight() / 2));
             
@@ -396,7 +399,7 @@ public class MapUIController implements Initializable {
             anchor.getChildren().remove(eventPane);
             anchor.getChildren().add(resultPane);
         };
-        eventPane.getCancelButton().setOnAction(cancelEvent);
+        eventPane.getCloseButton().setOnAction(cancelEvent);
         
         anchor.getChildren().add(eventPane);
         
@@ -407,7 +410,7 @@ public class MapUIController implements Initializable {
         Random rand = new Random();
         int roll = rand.nextInt(5);
         RandomEventType eventType;
-
+        
         if (roll == 1) {
             handleRandomEvent(RandomEventType.Pirate);
             return true;
@@ -428,9 +431,9 @@ public class MapUIController implements Initializable {
             randPlanet.setWareEvent(randWareIndex, rand.nextInt(3) - 1);
             
             
-            RandomEventResultPane resultPane = new RandomEventResultPane();
+            AlertPane resultPane = new AlertPane(AlertPaneType.OneButton);
             // TODO: How to replace [ware] with the ware that was affected??
-            resultPane.setResultLabelText("The [ware] on planet " + randPlanet.getPlanetName() + 
+            resultPane.setMessageText("The [ware] on planet " + randPlanet.getPlanetName() + 
                     " in system " + randSys.getSystemName() + " has been affected.");
             EventHandler<ActionEvent> closeAction = (ActionEvent e1) -> {
                 anchor.getChildren().remove(resultPane);
@@ -461,59 +464,63 @@ public class MapUIController implements Initializable {
         Player player = Player.getInstance();
         SolarSystem currentSystem = player.getCurrentSystem();
         
-        double distance = getDjikstraDistance(currentSystem, solarSystem);
-        if (distance == -1) {
-            throw new RuntimeException("Unconnected node!!!");
-        }
-        
-        currentJourney = new Journey(currentSystem, solarSystem, currentSolarSystemButton, solarSystemButton, distance);
-        if (!randomEventOccurred()) {
-            makeJourney(currentJourney);
-            
-                playerTable = HyenasLoader.getInstance().getPlayerTable();
-            try {
-                playerTable.updateLocation(solarSystem);
-            } catch (SQLException ex) {
-                Logger.getLogger(MapUIController.class.getName()).log(Level.SEVERE, null, ex);
+        if (currentSystem == solarSystem) {
+            // If the player wants to 'travel' to their current system, take them to the system view
+            HyenasLoader.getInstance().goToSystemScreen();
+        } else {
+            double distance = getDjikstraDistance(currentSystem, solarSystem);
+            if (distance == -1) {
+                throw new RuntimeException("Unconnected node!!!");
             }
-        }
-        
-        
+
+            currentJourney = new Journey(currentSystem, solarSystem, currentSolarSystemButton, solarSystemButton, distance);
+            if (!randomEventOccurred()) {
+                makeJourney(currentJourney);
+
+                playerTable = HyenasLoader.getInstance().getPlayerTable();
+                try {
+                    playerTable.updateLocation(solarSystem);
+                } catch (SQLException ex) {
+                    Logger.getLogger(MapUIController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
         // Messing around with animations, save for later
         /*
-        scrollPane.setPannable(false);
-        Dimension screenSize = UIHelper.getScreenSize();
+             scrollPane.setPannable(false);
+             Dimension screenSize = UIHelper.getScreenSize();
 
-        Pane contentPane = (Pane)scrollPane.getContent();
+             Pane contentPane = (Pane)scrollPane.getContent();
 
-        System.out.println("System: "+solarSystem.getX() +","+solarSystem.getY());
-        double hvalue;
-        if (solarSystem.getX() <= GALAXY_SIZE / 2) {
-           double factor = (((-.004 * solarSystem.getX()) + 5) * solarSystem.getX());
-           System.out.println("X less than: "+factor);
-           hvalue = factor / GALAXY_SIZE;
-        } else {
-           double factor = (((.004 * solarSystem.getX()) - 3) * solarSystem.getX());
-           System.out.println("X greater than: "+factor);
-           hvalue = factor / GALAXY_SIZE;
+             System.out.println("System: "+solarSystem.getX() +","+solarSystem.getY());
+             double hvalue;
+             if (solarSystem.getX() <= GALAXY_SIZE / 2) {
+             double factor = (((-.004 * solarSystem.getX()) + 5) * solarSystem.getX());
+             System.out.println("X less than: "+factor);
+             hvalue = factor / GALAXY_SIZE;
+             } else {
+             double factor = (((.004 * solarSystem.getX()) - 3) * solarSystem.getX());
+             System.out.println("X greater than: "+factor);
+             hvalue = factor / GALAXY_SIZE;
+             }
+
+             System.out.println("HV: "+hvalue +","+vvalue);
+
+             final Timeline timeline = new Timeline();
+             final KeyValue kvScaleX = new KeyValue(contentPane.scaleXProperty(), 5.0);
+             final KeyValue kvScaleY = new KeyValue(contentPane.scaleYProperty(), 5.0);
+             final KeyValue kvH = new KeyValue(scrollPane.hvalueProperty(), hvalue);
+             final KeyValue kvV = new KeyValue(scrollPane.vvalueProperty(), vvalue);
+             final KeyFrame kfScaleX = new KeyFrame(Duration.millis(500), kvScaleX);
+             final KeyFrame kfScaleY = new KeyFrame(Duration.millis(500), kvScaleY);
+             final KeyFrame kfH = new KeyFrame(Duration.millis(500), kvH);
+             final KeyFrame kfV = new KeyFrame(Duration.millis(500), kvV);
+             timeline.getKeyFrames().add(kfScaleX);
+             timeline.getKeyFrames().add(kfScaleY);
+             timeline.getKeyFrames().add(kfH);
+             timeline.getKeyFrames().add(kfV);
+             timeline.play();*/
         }
-
-        System.out.println("HV: "+hvalue +","+vvalue);
-
-        final Timeline timeline = new Timeline();
-        final KeyValue kvScaleX = new KeyValue(contentPane.scaleXProperty(), 5.0);
-        final KeyValue kvScaleY = new KeyValue(contentPane.scaleYProperty(), 5.0);
-        final KeyValue kvH = new KeyValue(scrollPane.hvalueProperty(), hvalue);
-        final KeyValue kvV = new KeyValue(scrollPane.vvalueProperty(), vvalue);
-        final KeyFrame kfScaleX = new KeyFrame(Duration.millis(500), kvScaleX);
-        final KeyFrame kfScaleY = new KeyFrame(Duration.millis(500), kvScaleY);
-        final KeyFrame kfH = new KeyFrame(Duration.millis(500), kvH);
-        final KeyFrame kfV = new KeyFrame(Duration.millis(500), kvV);
-        timeline.getKeyFrames().add(kfScaleX);
-        timeline.getKeyFrames().add(kfScaleY);
-        timeline.getKeyFrames().add(kfH);
-        timeline.getKeyFrames().add(kfV);
-        timeline.play();*/
     }
 
     /**
@@ -536,7 +543,6 @@ public class MapUIController implements Initializable {
         if (distance == -1) {
             throw new RuntimeException("Unconnected node for " + solarSystem.getSystemName());
         }
-        if (currentSystem == solarSystem) return false; // Can't travel to yourself
         return (fuel > distance);
     }
 
