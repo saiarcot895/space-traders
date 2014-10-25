@@ -72,6 +72,9 @@ public class SystemUIController implements Initializable {
 
         SolarSystem currentSystem = Player.getInstance().getCurrentSystem();
         List<Planet> planets = currentSystem.getPlanets();
+        for (Planet planet: planets) {
+            System.out.println("Approved 2: "+planet);
+        }
         Planet currentPlanet = Player.getInstance().getTradingPlanet();
 
         SolarSystemImageView currentSystemButton = new SolarSystemImageView();
@@ -97,6 +100,7 @@ public class SystemUIController implements Initializable {
             // button.relocate(systemCenterX + planet.getOrbitRadius() - (button.getPrefWidth() / 2.0), systemCenterY);
             button.setLayoutX(systemCenterX + planet.getOrbitRadius() - (button.getPrefWidth() / 2.0) - 10);
             button.setLayoutY(systemCenterY - 10);
+            
             planetMap.put(planet, button);
             
             Circle circle = new Circle(systemCenterX, systemCenterY, planet.getOrbitRadius());
@@ -137,8 +141,8 @@ public class SystemUIController implements Initializable {
             systemPane.getChildren().addAll(circle, button);
         }
         
-        int delay = 1; // no delay
-        int period = 1000; // repeat every sec.
+        int delay = 0; // no delay
+        int period = 100; // repeat every sec.
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -147,11 +151,12 @@ public class SystemUIController implements Initializable {
                 Platform.runLater(new Runnable() {
                     public void run() {
                         for (Planet planet : planetMap.keySet()) {
+                            System.out.println(planet);
                             PlanetButton button = planetMap.get(planet);
                             int radius = planet.getOrbitRadius();
 
-                            double x = button.getLayoutX();
-                            double y = button.getLayoutY();
+                            double x = button.getLayoutX() + (button.getPrefWidth() / 2.0) + 10;
+                            double y = button.getLayoutY() + (button.getPrefHeight() / 2.0) + 10;
                             double sysX = UIHelper.SYSTEM_WIDTH / 2.0;
                             double sysY = UIHelper.SYSTEM_HEIGHT / 2.0;
 
@@ -162,8 +167,14 @@ public class SystemUIController implements Initializable {
 
                             double arcLength = 3;
                             double deltaTheta = 2 * Math.asin(arcLength / (2 * radius));
-
-                            double newTheta = curTheta + deltaTheta;
+                            
+                            double newTheta;
+                            if (planet.getClockWiseOrbit()) {
+                                newTheta = curTheta + deltaTheta;
+                            } else {
+                                newTheta = curTheta - deltaTheta;
+                            }
+                            
                             double newDeltaX = radius*Math.cos(newTheta);
                             double newDeltaY = radius*Math.sin(newTheta);
 
@@ -173,19 +184,19 @@ public class SystemUIController implements Initializable {
 //                            x = sysX + radius*Math.cos(curTheta);
 //                            y = sysY + radius*Math.sin(curTheta);
 
-                            button.setLayoutX(newX);
-                            button.setLayoutY(newY);
+                            button.setLayoutX(newX - (button.getPrefWidth() / 2.0) - 10);
+                            button.setLayoutY(newY - (button.getPrefHeight() / 2.0) - 10);
                             
-                            System.out.println("(sysX,sysY): (" + sysX + "," + sysY + ")");
-                            System.out.println("(x,y): (" + x + "," + y + ")");
-                            System.out.println("(newX,newY): (" + newX + "," + newY + ")");
-                            System.out.println("(deltaX,deltaY): (" + deltaX + "," + deltaY + ")");
-                            System.out.println("(newDeltaX,newDeltaY): (" + newDeltaX + "," + newDeltaY + ")");
-                            System.out.println("curTheta: " + curTheta);
-                            System.out.println("arcLength: " + arcLength);
-                            System.out.println("newTheta: " + newTheta);
-                            System.out.println("radius: " + radius);
-                            System.out.println("-------------------------");
+//                            System.out.println("(sysX,sysY): (" + sysX + "," + sysY + ")");
+//                            System.out.println("(x,y): (" + x + "," + y + ")");
+//                            System.out.println("(newX,newY): (" + newX + "," + newY + ")");
+//                            System.out.println("(deltaX,deltaY): (" + deltaX + "," + deltaY + ")");
+//                            System.out.println("(newDeltaX,newDeltaY): (" + newDeltaX + "," + newDeltaY + ")");
+//                            System.out.println("curTheta: " + curTheta);
+//                            System.out.println("arcLength: " + arcLength);
+//                            System.out.println("newTheta: " + newTheta);
+//                            System.out.println("radius: " + radius);
+//                            System.out.println("-------------------------");
 
 //                    int radius = planet.getOrbitRadius();
 //                    double size = planet.getSize();

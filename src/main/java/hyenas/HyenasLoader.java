@@ -108,7 +108,7 @@ public class HyenasLoader extends Application {
 
     public void goToStartGameScreen() {
         try {
-            changePage("Allocation.fxml");
+            changePage("AllocationUI.fxml");
         } catch (IOException ex) {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);

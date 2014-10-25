@@ -14,6 +14,7 @@ public class Planet {
     private int x;
     private int y;
     private int orbitRadius;
+    private boolean clockwiseOrbit;
     private double size;
     private int[] items;
     private int techLevel;
@@ -63,8 +64,9 @@ public class Planet {
     public Planet(String planetName) {
         this.planetName = planetName;
         Random rand = new Random();
+        clockwiseOrbit = rand.nextBoolean();
         size = 10 + rand.nextInt(10);
-        orbitRadius = 110 + rand.nextInt(200);
+        
         items = new int[NUM_ITEMS];
         techLevel = rand.nextInt(TECH_LEVELS.length);
         wareEvents[rand.nextInt(items.length)] = rand.nextInt(3) - 1;    //will be -1, 0, or 1
@@ -161,6 +163,10 @@ public class Planet {
     public int[] getResourceTypes()  {
         return resourceEventEffects;
     }
+    
+    public boolean getClockWiseOrbit()    {
+        return clockwiseOrbit;
+    }
 
     /**
      * Calculates how much of each product to produce every turn based on
@@ -214,6 +220,7 @@ public class Planet {
     @Override
     public String toString() {
         return "<Planet: " + planetName
+                + ", Radius: " + orbitRadius
                 + ", Tech: " + techLevelString()
                 + ", Resources: [" + items[0] + ", "+items[1] + ", " + items[2] + ", "
                 + items[3] + ", " + items[4] + ", " + items[5] + ", " + items[6] + ", "
@@ -270,5 +277,9 @@ public class Planet {
      */
     public int getOrbitRadius() {
         return orbitRadius;
+    }
+    
+    public void setOrbitRadius(int radius)    {
+        orbitRadius = radius;
     }
 }

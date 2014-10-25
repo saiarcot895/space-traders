@@ -15,6 +15,7 @@ public class SolarSystem {
     private int y;
     private double size;
     private String color;
+    private final int ORBIT_TOLERANCE = 10;
 
     public SolarSystem(String systemName) {
         this.systemName = systemName;
@@ -160,7 +161,7 @@ public class SolarSystem {
             "Stiver"
         };
         
-        planets = new ArrayList<>();
+        this.planets = new ArrayList<>();
         
         Random rand = new Random();
         int numPlanets = rand.nextInt(5) + 1;
@@ -173,13 +174,31 @@ public class SolarSystem {
                 randomPlanetName = planetNames[randomIndex];
             } while (planetNameUsed(randomPlanetName));
             
-            planets.add(new Planet(randomPlanetName));
+            Planet newPlanet = new Planet(randomPlanetName);
+            
+            int orbitRadius;
+            do {
+                // Make sure orbits don't overlap
+                orbitRadius = 110 + rand.nextInt(200);
+            } while (orbitRadiusUsed(orbitRadius));
+            
+            newPlanet.setOrbitRadius(orbitRadius);
+            planets.add(newPlanet);
         }
     }
     
     private boolean planetNameUsed(String name) {
-        for (Planet planet: planets) {
+        for (Planet planet: this.planets) {
             if (planet.getPlanetName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private boolean orbitRadiusUsed(int orbitRadius) {
+        for (Planet planet: this.planets) {
+            if (Math.abs(planet.getOrbitRadius() - orbitRadius) < ORBIT_TOLERANCE) {
                 return true;
             }
         }
