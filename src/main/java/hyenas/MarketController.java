@@ -288,7 +288,7 @@ public class MarketController implements Initializable {
         pNarcotics.setText("" + narcoticsPrice);
         pRobots.setText("" + robotsPrice);
         fuelPrice.setText("" + fuelCost);
-        fuelLeft.setText("" + fuelCount);
+        fuelLeft.setText(String.format("%.0f", fuelCount));
         currentCredits.setText("" + creditCount);
 
         if(planet.getWareEvent(0) == 1)    {
@@ -602,7 +602,7 @@ public class MarketController implements Initializable {
         }
         fuelCount++;
         creditCount -= fuelCost;
-        fuelLeft.setText("" + fuelCount);
+        fuelLeft.setText(String.format("%.0f", fuelCount));
         currentCredits.setText("" + creditCount);
     }
 
@@ -613,7 +613,7 @@ public class MarketController implements Initializable {
         }
         fuelCount--;
         creditCount += fuelCost;
-        fuelLeft.setText("" + fuelCount);
+        fuelLeft.setText(String.format("%.0f", fuelCount));
         currentCredits.setText("" + creditCount);
     }
 

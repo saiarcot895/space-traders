@@ -15,10 +15,12 @@ import javafx.scene.layout.AnchorPane;
 public class HoverPane extends AnchorPane {
     private Label label;
     private final double PADDING = 3.0;
+    private final double WIDTH = 110.0;
+    private final double HEIGHT = 30.0;
     
     public HoverPane() {
         getStyleClass().add("alertPane");
-        setPrefSize(100, 30);
+        setPrefSize(WIDTH, HEIGHT);
         
         label = new Label();
         label.getStyleClass().add("hoverPaneLabel");

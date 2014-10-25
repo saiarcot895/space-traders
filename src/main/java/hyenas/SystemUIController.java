@@ -64,6 +64,8 @@ public class SystemUIController implements Initializable {
     
     private HoverPane planetNamePane;
     
+    private Timer animationTimer;
+    
     private HashMap<Planet, PlanetButton> planetMap = new HashMap<Planet, PlanetButton>();
     
     @Override
@@ -72,9 +74,6 @@ public class SystemUIController implements Initializable {
 
         SolarSystem currentSystem = Player.getInstance().getCurrentSystem();
         List<Planet> planets = currentSystem.getPlanets();
-        for (Planet planet: planets) {
-            System.out.println("Approved 2: "+planet);
-        }
         Planet currentPlanet = Player.getInstance().getTradingPlanet();
 
         SolarSystemImageView currentSystemButton = new SolarSystemImageView();
@@ -109,8 +108,6 @@ public class SystemUIController implements Initializable {
             circle.setStrokeWidth(1);
             circle.setFill(Color.TRANSPARENT);
             circle.setDisable(true);
-            // circle.setStyle("-fx-stroke-dash-array: 12 2 4 2;"); 
-            // circle.setStyle("-fx-stroke-dash-array: 12 2 4 2; -fx-stroke-width: 5;-fx-stroke: green;"); 
 
             if(currentPlanet == planet) {
                 button.getStyleClass().add("currentPlanet");
@@ -141,17 +138,16 @@ public class SystemUIController implements Initializable {
             systemPane.getChildren().addAll(circle, button);
         }
         
-        int delay = 0; // no delay
-        int period = 100; // repeat every sec.
+        int delay = 0;
+        int period = 50;
 
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
+        animationTimer = new Timer();
+        animationTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(new Runnable() {
                     public void run() {
                         for (Planet planet : planetMap.keySet()) {
-                            System.out.println(planet);
                             PlanetButton button = planetMap.get(planet);
                             int radius = planet.getOrbitRadius();
 
@@ -180,32 +176,9 @@ public class SystemUIController implements Initializable {
 
                             double newX = sysX + newDeltaX;
                             double newY = sysY + newDeltaY;
-                            
-//                            x = sysX + radius*Math.cos(curTheta);
-//                            y = sysY + radius*Math.sin(curTheta);
 
                             button.setLayoutX(newX - (button.getPrefWidth() / 2.0) - 10);
                             button.setLayoutY(newY - (button.getPrefHeight() / 2.0) - 10);
-                            
-//                            System.out.println("(sysX,sysY): (" + sysX + "," + sysY + ")");
-//                            System.out.println("(x,y): (" + x + "," + y + ")");
-//                            System.out.println("(newX,newY): (" + newX + "," + newY + ")");
-//                            System.out.println("(deltaX,deltaY): (" + deltaX + "," + deltaY + ")");
-//                            System.out.println("(newDeltaX,newDeltaY): (" + newDeltaX + "," + newDeltaY + ")");
-//                            System.out.println("curTheta: " + curTheta);
-//                            System.out.println("arcLength: " + arcLength);
-//                            System.out.println("newTheta: " + newTheta);
-//                            System.out.println("radius: " + radius);
-//                            System.out.println("-------------------------");
-
-//                    int radius = planet.getOrbitRadius();
-//                    double size = planet.getSize();
-//                    
-//                    
-//                    double theta = 0;
-//                    theta = theta + Math.toRadians(10);
-//                    newX = a + radius * Math.cos(theta);
-//                    newY = b + radius * Math.sin(theta);
                         }
                     }
                 });
@@ -221,9 +194,13 @@ public class SystemUIController implements Initializable {
 
     public void goToMarketplace(ActionEvent e) {
         HyenasLoader.getInstance().goToMarketplace();
+        animationTimer.cancel();
+        animationTimer.purge();
     }
 
     public void goBack(ActionEvent e) {
         HyenasLoader.getInstance().goToMapScreen();
+        animationTimer.cancel();
+        animationTimer.purge();
     }
 }
