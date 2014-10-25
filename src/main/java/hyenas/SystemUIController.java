@@ -10,15 +10,19 @@ import hyenas.Models.Planet;
 import hyenas.Models.SolarSystem;
 import hyenas.UI.UIHelper;
 import hyenas.UI.PlanetButton;
-import hyenas.UI.PlanetNamePane;
+import hyenas.UI.HoverPane;
 import hyenas.UI.PlayerInfoPane;
 import hyenas.UI.SolarSystemImageView;
 import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -58,7 +62,9 @@ public class SystemUIController implements Initializable {
     
     private PlayerInfoPane playerInfoPane;
     
-    private PlanetNamePane planetNamePane;
+    private HoverPane planetNamePane;
+    
+    private HashMap<Planet, PlanetButton> planetMap = new HashMap<Planet, PlanetButton>();
     
     @Override
     public void initialize(URL url, ResourceBundle rb)  {
@@ -83,7 +89,7 @@ public class SystemUIController implements Initializable {
         systemPane.setLayoutX(screenSize.getWidth() / 2);
         systemPane.getChildren().add(currentSystemButton);
         
-        planetNamePane = new PlanetNamePane();
+        planetNamePane = new HoverPane();
         
         for(Planet planet : planets)  {
             PlanetButton button = new PlanetButton();
@@ -91,6 +97,7 @@ public class SystemUIController implements Initializable {
             // button.relocate(systemCenterX + planet.getOrbitRadius() - (button.getPrefWidth() / 2.0), systemCenterY);
             button.setLayoutX(systemCenterX + planet.getOrbitRadius() - (button.getPrefWidth() / 2.0) - 10);
             button.setLayoutY(systemCenterY - 10);
+            planetMap.put(planet, button);
             
             Circle circle = new Circle(systemCenterX, systemCenterY, planet.getOrbitRadius());
             circle.setStrokeType(StrokeType.OUTSIDE);
@@ -106,13 +113,11 @@ public class SystemUIController implements Initializable {
                 currentPlanetButton = button;
             }
             
-            
-            
             button.hoverProperty().addListener(new ChangeListener() {
                 @Override
                 public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                     if (button.isHover()) {
-                        planetNamePane.setPlanetName(planet.getPlanetName());
+                        planetNamePane.setLabelText(planet.getPlanetName());
                         planetNamePane.setLayoutX(button.getLayoutX() + 20);
                         planetNamePane.setLayoutY(button.getLayoutY() + 30);
                         systemPane.getChildren().add(planetNamePane);
@@ -131,6 +136,70 @@ public class SystemUIController implements Initializable {
             button.setOnAction(event);
             systemPane.getChildren().addAll(circle, button);
         }
+        
+        int delay = 1; // no delay
+        int period = 1000; // repeat every sec.
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        for (Planet planet : planetMap.keySet()) {
+                            PlanetButton button = planetMap.get(planet);
+                            int radius = planet.getOrbitRadius();
+
+                            double x = button.getLayoutX();
+                            double y = button.getLayoutY();
+                            double sysX = currentSystemButton.getLayoutX();
+                            double sysY = currentSystemButton.getLayoutY();
+
+                            double deltaX = x - sysX;
+                            double deltaY = y - sysY;
+
+                            double curTheta = Math.atan2(deltaX, deltaY);
+
+                            double arcLength = 3;
+                            double deltaTheta = 2 * Math.asin(arcLength / (2 * radius));
+
+                            double newTheta = curTheta + deltaTheta;
+                            double newDeltaX = radius*Math.cos(newTheta);
+                            double newDeltaY = radius*Math.sin(newTheta);
+
+                            double newX = sysX + newDeltaX;
+                            double newY = sysY + newDeltaY;
+                            
+//                            x = sysX + radius*Math.cos(curTheta);
+//                            y = sysY + radius*Math.sin(curTheta);
+
+                            button.setLayoutX(newX);
+                            button.setLayoutY(newY);
+                            
+                            System.out.println("(sysX,sysY): (" + sysX + "," + sysY + ")");
+                            System.out.println("(x,y): (" + x + "," + y + ")");
+                            System.out.println("(newX,newY): (" + newX + "," + newY + ")");
+                            System.out.println("(deltaX,deltaY): (" + deltaX + "," + deltaY + ")");
+                            System.out.println("(newDeltaX,newDeltaY): (" + newDeltaX + "," + newDeltaY + ")");
+                            System.out.println("curTheta: " + curTheta);
+                            System.out.println("arcLength: " + arcLength);
+                            System.out.println("newTheta: " + newTheta);
+                            System.out.println("radius: " + radius);
+                            System.out.println("-------------------------");
+
+//                    int radius = planet.getOrbitRadius();
+//                    double size = planet.getSize();
+//                    
+//                    
+//                    double theta = 0;
+//                    theta = theta + Math.toRadians(10);
+//                    newX = a + radius * Math.cos(theta);
+//                    newY = b + radius * Math.sin(theta);
+                        }
+                    }
+                });
+            }
+        }, delay, period);
     }
 
     private void setCurrentPlanetButton(Button button, Planet planet)  {

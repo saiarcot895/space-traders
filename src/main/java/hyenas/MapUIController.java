@@ -17,6 +17,7 @@ import hyenas.Models.SolarSystem;
 import hyenas.UI.PlayerInfoPane;
 import hyenas.UI.AlertPane;
 import hyenas.UI.AlertPaneType;
+import hyenas.UI.HoverPane;
 import hyenas.UI.SolarSystemButton;
 import hyenas.UI.SolarSystemInfoPane;
 import hyenas.UI.SolarSystemScrollPane;
@@ -38,6 +39,8 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -83,6 +86,8 @@ public class MapUIController implements Initializable {
     
     private PlayerTable playerTable;
     
+    private HoverPane systemNamePane;
+    
     private final int INFO_PANE_SIZE = 200;
 
     /**
@@ -96,6 +101,7 @@ public class MapUIController implements Initializable {
         scrollContentPane.setPrefSize(UIHelper.GALAXY_SIZE, UIHelper.GALAXY_SIZE);
         scrollContentPane.setStyle("-fx-background-color: transparent;");
         ssTable = HyenasLoader.getInstance().getSSTable();
+        systemNamePane = new HoverPane();
         Map<String, SolarSystem> solarSystems = Galaxy.getInstance().getSolarSystems();
         Set<String> solarSystemIDs = solarSystems.keySet();
         solarSystemIDs.stream().map((solarSystemID) -> {
@@ -109,6 +115,7 @@ public class MapUIController implements Initializable {
                 button.getStyleClass().add("currentPlanet");
                 currentSolarSystemButton = button;
             }
+            
             return button;
         }).map((button) -> {
             EventHandler<ActionEvent> event = (ActionEvent e) -> {

@@ -43,25 +43,26 @@ and open the template in the editor.
 
 .planet:hover {
     -fx-border-color: rgba(0, 0, 0, 1);
-    -fx-border-radius: 5;
+    -fx-border-radius: 5, 5;
+    -fx-background-color: rgba(0, 231, 255, .3);
 }
 
 .planet:pressed {
     -fx-background-color: rgba(200, 200, 200, 1);
 }
 
-.planetNamePaneLabel {
-    -fx-text-fill: rgba(0,231,255, .9);
-}
-
 .currentPlanet {
     -fx-border-color: rgba(0, 0, 0, 1);
     -fx-border-width: 3;
+    -fx-border-radius: 5, 5;
 }
 
 .currentPlanet:hover {
-    -fx-border-color: rgba(0, 0, 0, 1);
-    -fx-border-width: 3;
+    -fx-background-color: rgba(0, 0, 0, .2);
+}
+
+.hoverPaneLabel {
+    -fx-text-fill: rgba(0,231,255, .9);
 }
 
 .alertPaneTitleLabel {
