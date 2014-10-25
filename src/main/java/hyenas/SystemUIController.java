@@ -152,13 +152,13 @@ public class SystemUIController implements Initializable {
 
                             double x = button.getLayoutX();
                             double y = button.getLayoutY();
-                            double sysX = currentSystemButton.getLayoutX();
-                            double sysY = currentSystemButton.getLayoutY();
+                            double sysX = UIHelper.SYSTEM_WIDTH / 2.0;
+                            double sysY = UIHelper.SYSTEM_HEIGHT / 2.0;
 
                             double deltaX = x - sysX;
                             double deltaY = y - sysY;
 
-                            double curTheta = Math.atan2(deltaX, deltaY);
+                            double curTheta = Math.atan2(deltaY, deltaX);
 
                             double arcLength = 3;
                             double deltaTheta = 2 * Math.asin(arcLength / (2 * radius));
