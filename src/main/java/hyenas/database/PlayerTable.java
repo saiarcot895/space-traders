@@ -4,17 +4,16 @@ import hyenas.Models.Galaxy;
 import hyenas.Models.Player;
 import hyenas.Models.SolarSystem;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class PlayerTable {
 
-    private final String dbName;
     private final Connection conn;
 
-    public PlayerTable(Connection connArgs, String dbNameArgs) {
-        this.dbName = dbNameArgs;
+    public PlayerTable(Connection connArgs) {
         this.conn = connArgs;
     }
 
@@ -67,40 +66,6 @@ public class PlayerTable {
     }
 
     /**
-     * Just a tester method
-     * @param conn
-     * @throws SQLException
-     */
-    public void viewTable(Connection conn) throws SQLException {
-        Statement stmt = null;
-        String query = "SELECT * FROM PLAYERS";
-        try {
-            stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                String name = rs.getString("NAME");
-                int points = rs.getInt("POINTS");
-                int engineer = rs.getInt("ENGINEER");
-                int pilot = rs.getInt("PILOT");
-                int investor = rs.getInt("INVESTOR");
-                int fighter = rs.getInt("FIGHTER");
-                int trader = rs.getInt("TRADER");
-                System.out.println(name + ", " + points + ", " +
-                                   engineer + ", " + pilot + ", " +
-                                   pilot + ", " + investor + ", " +
-                                   fighter + ", " + trader + ", ");
-            }
-        } catch (SQLException e) {
-            printException(e);
-        } finally {
-            if (stmt != null) {
-                stmt.close();
-            }
-        }
-    }
-
-    /**
      * Add a player entry into the table.
      * @param name Name of the player
      * @param points Free (unused) skill points the player has
@@ -114,17 +79,22 @@ public class PlayerTable {
      */
     public void populateTable(String name, int points, int ePoints,
             int pPoints, int iPoints, int fPoints, int tPoints, int credits) throws SQLException {
-        try (Statement stmt = conn.createStatement()) {
-            final String query = "INSERT INTO PLAYERS " +
-                    "VALUES(1, '" + name + "', " +
-                    points + ", " + ePoints + ", " +
-                    pPoints + ", " + iPoints + ", " +
-                    fPoints + ", " + tPoints + ", " +
-                    credits + ", 700, 250, null)";
-            System.out.println(query);
-            // insert into PLAYERS values('Name', points, ePoints, pPoints,
-            //                    iPoints, fPoints, tPoints, credits)
-            stmt.executeUpdate(query); // <- ID
+        try {
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Players "
+                    + "(Name, Points, Engineer, Pilot, Inventor, Trader, "
+                    + "Credits, Fuel, Health) "
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt.setString(1, name);
+            stmt.setInt(2, points);
+            stmt.setInt(3, ePoints);
+            stmt.setInt(4, pPoints);
+            stmt.setInt(5, iPoints);
+            stmt.setInt(6, fPoints);
+            stmt.setInt(7, tPoints);
+            stmt.setInt(8, credits);
+            stmt.setInt(9, 700);
+            stmt.setInt(10, 250);
+            stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -165,6 +165,13 @@ public class MapUIController implements Initializable {
                 }
             }
             
+            try {
+                HyenasLoader.getInstance().getPlayerTable().updateLocation(
+                        Player.getInstance().getCurrentSystem());
+            } catch (SQLException ex) {
+                Logger.getLogger(MapUIController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             ssTable.commitTransaction();
         }
 

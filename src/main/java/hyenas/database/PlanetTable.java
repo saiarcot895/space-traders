@@ -4,17 +4,16 @@ import hyenas.Models.Galaxy;
 import hyenas.Models.Planet;
 import hyenas.Models.SolarSystem;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class PlanetTable {
-    
-    private final String dbName;
+
     private final Connection conn;
-    
-    public PlanetTable(Connection connArgs, String dbNameArgs) {
-        this.dbName = dbNameArgs;
+
+    public PlanetTable(Connection connArgs) {
         this.conn = connArgs;
     }
     
@@ -49,32 +48,32 @@ public class PlanetTable {
         try {
             Statement stmt = conn.createStatement();
             ResultSet planets = stmt.executeQuery("SELECT Planet.Name,"
-                    + " Planet.XPOINT, Planet.YPOINT, Planet.Tech,"
+                    + " Planet.XPoint, Planet.YPoint, Planet.Tech,"
                     + " Planet.Resource, SolarSystem.Name"
                     + " FROM Planet INNER JOIN SolarSystem"
                     + " ON Planet.SSID = SolarSystem.ID");
             while (planets.next()) {
                 String solarSystemName = planets.getString(6);
                 SolarSystem solarSystem = Galaxy.getInstance().getSolarSystemForName(solarSystemName);
-                
+
                 Planet planet = new Planet(planets.getString(1), planets.getInt(4), planets.getInt(5));
                 planet.setX(planets.getInt(2));
                 planet.setY(planets.getInt(3));
-                
+
                 solarSystem.getPlanets().add(planet);
             }
         } catch (SQLException e) {
             printException(e);
         }
     }
-    
+
     public void createTable() {
-        String create = 
-        "create table IF NOT EXISTS PLANET " + "(ID integer NOT NULL, " +
-        "Name varchar(20) NOT NULL, " + "XPOINT double NOT NULL, " +
-        "YPOINT double NOT NULL, " + "TECH varchar NOT NULL, " +
-        "RESOURCE varchar NOT NULL, " + "SSID integer NOT NULL, " +
-        "PRIMARY KEY (ID), " + "FOREIGN KEY (SSID) REFERENCES SOLARSYSTEM (ID))";
+        String create = "CREATE TABLE IF NOT EXISTS Planet "
+                + "(ID INTEGER NOT NULL, " + "Name VARCHAR(20) NOT NULL, "
+                + "XPoint DOUBLE NOT NULL, " + "YPoint DOUBLE NOT NULL, "
+                + "Tech VARCHAR NOT NULL, " + "Resource VARCHAR NOT NULL, "
+                + "SSID INTEGER NOT NULL, " + "PRIMARY KEY (ID), "
+                + "FOREIGN KEY (SSID) REFERENCES SolarSystem (ID))";
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
         } catch (SQLException e) {
@@ -85,12 +84,16 @@ public class PlanetTable {
     public void populateTable(String name, double x, 
             double y, int id, String tech, String rsrc, int ssid) {
         try {
-            Statement stmt = conn.createStatement();
-            final String query = "insert into PLANET " + 
-                    "values(" + id + ", '" + name + "', " +
-                    x + ", " + y + ", '" + tech + "', '" +
-                    rsrc + "', " + ssid + ")";
-            stmt.executeUpdate(query);
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Planet "
+                    + "(Name, XPoint, YPoint, Tech, Resource, SSID) "
+                    + "VALUES(?, ?, ?, ?, ?, ?)");
+            stmt.setString(1, name);
+            stmt.setDouble(2, x);
+            stmt.setDouble(3, y);
+            stmt.setString(4, tech);
+            stmt.setString(5, rsrc);
+            stmt.setInt(6, ssid);
+            stmt.executeUpdate();
             // Id & ssid are generated based on how the System is generated.
         } catch (SQLException e) {
             printException(e);
