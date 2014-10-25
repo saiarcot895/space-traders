@@ -263,8 +263,6 @@ public class MapUIController implements Initializable {
         eventPane.setMessageText(event.getQuestion());
         eventPane.getActionButton().setText(event.getActionButtonText());
         eventPane.getCloseButton().setText(event.getCancelButtonText());
-        eventPane.setLayoutX((UIHelper.getScreenSize().getWidth() / 2) - (eventPane.getPrefWidth() / 2));
-        eventPane.setLayoutY((UIHelper.getScreenSize().getHeight() / 2) - (eventPane.getPrefHeight() / 2));
         
         //
         // police
@@ -310,8 +308,6 @@ public class MapUIController implements Initializable {
             }
             AlertPane resultPane = new AlertPane(AlertPaneType.OneButton);
             resultPane.setMessageText(resultText);
-            resultPane.setLayoutX((UIHelper.getScreenSize().getWidth() / 2) - (resultPane.getPrefWidth() / 2));
-            resultPane.setLayoutY((UIHelper.getScreenSize().getHeight() / 2) - (resultPane.getPrefHeight() / 2));
             
             EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
                 switch (eventType) {
@@ -369,8 +365,6 @@ public class MapUIController implements Initializable {
             }
             AlertPane resultPane = new AlertPane(AlertPaneType.OneButton);
             resultPane.setMessageText(resultText);
-            resultPane.setLayoutX((UIHelper.getScreenSize().getWidth() / 2) - (resultPane.getPrefWidth() / 2));
-            resultPane.setLayoutY((UIHelper.getScreenSize().getHeight() / 2) - (resultPane.getPrefHeight() / 2));
             
             EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
                 switch (eventType) {

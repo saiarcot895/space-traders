@@ -1,18 +1,22 @@
 package hyenas;
 
 import hyenas.Models.Player;
+import hyenas.UI.AlertPane;
+import hyenas.UI.AlertPaneType;
 import hyenas.database.PlayerTable;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -21,7 +25,10 @@ import javafx.scene.control.TextField;
  */
 public class AllocationController implements Initializable {
 
-    private int startingPoints = 8;
+    private int pointsRemaining = 8;
+    
+    @FXML
+    private AnchorPane anchor;
 
     @FXML
     private Button goBack;
@@ -49,18 +56,6 @@ public class AllocationController implements Initializable {
 
     @FXML
     private TextField name;
-
-    @FXML
-    private TextField age;
-
-    @FXML
-    private ChoiceBox sex;
-
-    @FXML
-    private ChoiceBox color;
-
-    @FXML
-    private ChoiceBox race;
 
     @FXML
     private Label pCounter;
@@ -114,44 +109,62 @@ public class AllocationController implements Initializable {
         });
 
         reset.setOnAction((ActionEvent t) -> {
-           startingPoints = 8;
+           pointsRemaining = 8;
            pValue = 1;
            fValue = 1;
            tValue = 1;
            eValue = 1;
            iValue = 1;
-           point.setText(Integer.toString(startingPoints));
+           point.setText(Integer.toString(pointsRemaining));
            pCounter.setText(Integer.toString(pValue));
            fCounter.setText(Integer.toString(fValue));
            tCounter.setText(Integer.toString(tValue));
            eCounter.setText(Integer.toString(eValue));
            iCounter.setText(Integer.toString(iValue));
         });
-
-        sex.setItems(FXCollections.observableArrayList("Male", "Female"));
     }
 
     private void updatePoints(int points, Label label) {
-        if (startingPoints > 0) {
-            startingPoints--;
+        if (pointsRemaining > 0) {
+            pointsRemaining--;
             label.setText(Integer.toString(points));
-            point.setText(Integer.toString(startingPoints));
+            point.setText(Integer.toString(pointsRemaining));
         }
     }
 
     public void create(ActionEvent e) throws SQLException {
-        Player player = Player.getInstance();
-        player.setName(name.getText());
-        player.setPilotSkill(pValue);
-        player.setFighterSkill(fValue);
-        player.setTraderSkill(tValue);
-        player.setEngineerSkill(eValue);
-        player.setInvestorSkill(iValue);
-        player.setState(true);
-        PlayerTable newPlayers = HyenasLoader.getInstance().getPlayerTable();
-        newPlayers.populateTable(name.getText(), startingPoints,
-                eValue, pValue, iValue, fValue, tValue, player.getCredits());
-        HyenasLoader.getInstance().goToMapScreen();
+        if (validInput()) {
+            Player player = Player.getInstance();
+            player.setName(name.getText());
+            player.setPilotSkill(pValue);
+            player.setFighterSkill(fValue);
+            player.setTraderSkill(tValue);
+            player.setEngineerSkill(eValue);
+            player.setInvestorSkill(iValue);
+            player.setState(true);
+            PlayerTable newPlayers = HyenasLoader.getInstance().getPlayerTable();
+            newPlayers.populateTable(name.getText(), pointsRemaining,
+                    eValue, pValue, iValue, fValue, tValue, player.getCredits());
+            HyenasLoader.getInstance().goToMapScreen();
+        } else {
+            AlertPane alertPane = new AlertPane(AlertPaneType.OneButton);
+            alertPane.setTitleText("Invalid Setup");
+            alertPane.setMessageText("Please make sure you have set a player name and have allocated all skill points.");
+            EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
+                anchor.getChildren().remove(alertPane);
+            };
+            alertPane.getCloseButton().setOnAction(closeAction);
+            anchor.getChildren().add(alertPane);
+        }
+    }
+    
+    private boolean validInput() {
+        if (name.getText().length() == 0) {
+            return false;
+        } else if (pointsRemaining > 0) {
+            return false;
+        }
+        return true;
     }
 
     public void goBack(ActionEvent e) {

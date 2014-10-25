@@ -63,34 +63,35 @@ and open the template in the editor.
 .alertPaneTitleLabel {
     -fx-font-size: 16;
     -fx-font-family: "Trebuchet MS";
+    -fx-text-fill: rgba(0,231,255, .9);
 }
 
 .alertPaneMessageLabel {
     -fx-font-size: 15;
     -fx-font-family: "Trebuchet MS";
+    -fx-text-fill: rgba(255,255,255, .9);
 }
 
 .alertPane {
-    -fx-background-color: rgba(52, 152, 219, .9);
+    -fx-background-color: rgba(3,31,59, .9);
     -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.2) , 0,0,4,4 );
-    -fx-border-color: orange;
+    -fx-border-color: rgba(0,231,255, .9);
     -fx-border-width: 1;
 }
 
 .alertPaneButton {
-    -fx-background-color: orange;
+    -fx-background-color: rgba(0,231,255, .9);
     -fx-font-family: "Trebuchet MS";
 }
 
 .alertPaneButton:hover {
-    -fx-background-color: silver;
-    -fx-background-color: rgb(255, 175 , 20);
+    -fx-background-color: rgba(0,240,255, .9);
     
     /*-fx-effect: innershadow( gaussian , rgba(255,255,255,0.2) , 0,0,0,4 );*/
 }
 
 .alertPaneButton:pressed {
-    -fx-background-color: rgb(235, 165 , 13);
+    -fx-background-color: rgba(0,211,235, .9);
 }
 
 .scroll-pane {

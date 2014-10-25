@@ -12,7 +12,7 @@
 
 <!--  Allocation Page -->
 
-<AnchorPane id="AnchorPane" prefHeight="404.0" prefWidth="726.0" styleClass="default-background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.AllocationController">
+<AnchorPane fx:id="anchor" id="AnchorPane" prefHeight="404.0" prefWidth="726.0" styleClass="default-background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.AllocationController">
     <children>
       <Button fx:id="goBack" layoutX="14.0" layoutY="415.0" mnemonicParsing="false" onAction="#goBack" text="Return" AnchorPane.bottomAnchor="13.75" AnchorPane.leftAnchor="14.0" />
       <Button fx:id="create" layoutX="642.0" layoutY="415.0" mnemonicParsing="false" onAction="#create" text="Confirm" AnchorPane.bottomAnchor="13.75" AnchorPane.rightAnchor="14.0" />
@@ -23,27 +23,6 @@
       <Button fx:id="engineer" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="235.0" mnemonicParsing="false" text="+" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="235.0" />
       <Button fx:id="investor" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="264.0" mnemonicParsing="false" text="+" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="264.0" />
       <TextField fx:id="name" alignment="CENTER" layoutX="544.0" layoutY="56.0" AnchorPane.rightAnchor="11.0" />
-      <TextField fx:id="age" alignment="CENTER" layoutX="544.0" layoutY="98.0" AnchorPane.rightAnchor="11.0" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="480.0" layoutY="96.0" text="Age:" AnchorPane.rightAnchor="191.0">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="481.0" layoutY="137.0" text="Sex:" AnchorPane.rightAnchor="191.0">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="472.0" layoutY="188.0" text="Color:" AnchorPane.rightAnchor="191.0">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="470.0" layoutY="233.0" text="Race:" AnchorPane.rightAnchor="191.0">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </Label>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="468.0" layoutY="54.0" text="Name:" AnchorPane.rightAnchor="191.0">
          <font>
             <Font size="23.0" />
@@ -124,8 +103,5 @@
             <Font size="19.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="sex" layoutX="544.0" layoutY="139.0" prefWidth="150.0" AnchorPane.rightAnchor="32.0" />
-      <ChoiceBox fx:id="color" layoutX="544.0" layoutY="190.0" prefWidth="150.0" AnchorPane.rightAnchor="32.0" />
-      <ChoiceBox fx:id="race" layoutX="544.0" layoutY="235.0" prefWidth="150.0" AnchorPane.rightAnchor="32.0" />
     </children>
 </AnchorPane>

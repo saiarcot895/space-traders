@@ -77,6 +77,9 @@ public class AlertPane extends AnchorPane {
             AnchorPane.setLeftAnchor(cancelButton, 160.0);
         }
         
+        setLayoutX((UIHelper.getScreenSize().getWidth() / 2) - (getPrefWidth() / 2));
+        setLayoutY((UIHelper.getScreenSize().getHeight() / 2) - (getPrefHeight() / 2));
+        
         getChildren().addAll(titleLabel, messageLabel, cancelButton);
     }
     
