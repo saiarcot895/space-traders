@@ -50,6 +50,10 @@ and open the template in the editor.
     -fx-background-color: rgba(200, 200, 200, 1);
 }
 
+.planetNamePaneLabel {
+    -fx-text-fill: rgba(0,231,255, .9);
+}
+
 .currentPlanet {
     -fx-border-color: rgba(0, 0, 0, 1);
     -fx-border-width: 3;

@@ -1,5 +1,7 @@
 package hyenas.Models;
 
+import java.util.Random;
+
 /**
  * Represents the player
  * @author saikrishna
@@ -26,7 +28,9 @@ public class Player {
     private Player() {
         // KEEP PRIVATE - use getInstance instead
         ship = new Ship(ShipType.FLEA);
-        currentSystem = Galaxy.getInstance().getSolarSystems().values().toArray(new SolarSystem[0])[0];
+        Random rand = new Random();
+        SolarSystem[] solarSystems = Galaxy.getInstance().getSolarSystems().values().toArray(new SolarSystem[0]);
+        currentSystem = solarSystems[rand.nextInt(solarSystems.length)];
         tradingPlanet = currentSystem.getPlanets().get(0);
         credits = 250;
         state = false;
@@ -184,6 +188,7 @@ public class Player {
      * @param tradingPlanet the trading Planet of the player
      */
     public void setTradingPlanet(Planet tradingPlanet) {
+        System.out.println("New planet: "+tradingPlanet);
         this.tradingPlanet = tradingPlanet;
     }
 

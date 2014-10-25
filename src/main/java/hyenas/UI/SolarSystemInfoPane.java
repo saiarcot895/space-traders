@@ -30,13 +30,13 @@ public class SolarSystemInfoPane extends AnchorPane {
         getStyleClass().add("alertPane");
 
         systemNameLabel = new Label("System:");
-        systemNameLabel.getStyleClass().add("alertPaneTitleLabel");
+        systemNameLabel.getStyleClass().add("alertPaneMessageLabel");
         AnchorPane.setTopAnchor(systemNameLabel, 10.0);
         AnchorPane.setRightAnchor(systemNameLabel, 10.0);
         AnchorPane.setLeftAnchor(systemNameLabel, 10.0);
 
         numPlanetsLabel = new Label("Planets:");
-        numPlanetsLabel.getStyleClass().add("alertPaneTitleLabel");
+        numPlanetsLabel.getStyleClass().add("alertPaneMessageLabel");
         AnchorPane.setTopAnchor(numPlanetsLabel, 40.0);
         AnchorPane.setRightAnchor(numPlanetsLabel, 10.0);
         AnchorPane.setLeftAnchor(numPlanetsLabel, 10.0);

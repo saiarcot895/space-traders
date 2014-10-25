@@ -18,7 +18,7 @@
                         <MenuItem mnemonicParsing="false" text="Quit" />
                     </items>
                 </MenuButton>
-                <Button fx:id="marketPlaceButton" layoutX="92.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToMarketplace" text="Marketplace"/>
+                <Button fx:id="marketPlaceButton" layoutX="105.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToMarketplace" text="Marketplace"/>
             </children>
         </AnchorPane>
         <BorderPane>
@@ -27,7 +27,7 @@
             </center>
         </BorderPane>
         
-        <AnchorPane prefHeight="60">
+        <AnchorPane id="AnchorPane" fx:id="anchor" prefHeight="60">
             <children>
                 <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" text="Back" />
             </children>

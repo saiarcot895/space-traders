@@ -17,15 +17,173 @@ public class SolarSystem {
     private String color;
 
     public SolarSystem(String systemName) {
-        this.systemName = systemName;       //CHANGE NAME PROTOCOL TODO
+        this.systemName = systemName;
         Random rand = new Random();
         size = 10 + (rand.nextDouble() * 10);
-        int numPlanets = rand.nextInt(5) + 1;
-        planets = new ArrayList<>();
-        for (int i = 0; i < numPlanets; i++) {
-            planets.add(new Planet(systemName));
-        }
         color = randomColorString();
+        setupPlanets();
+    }
+    
+    private void setupPlanets() {
+        final String[] planetNames = new String[] {
+            "6 Echo",
+            "Cybertron",
+            "Curie 3",
+            "Nzinga",
+            "Lithios",
+            "Reach",
+            "Halo",
+            "Reconciliation",
+            "New Mombasa",
+            "Draconis",
+            "Pegasus",
+            "Zeta",
+            "Hellespont",
+            "Jericho",
+            "Hydra",
+            "Alpha",
+            "Librae",
+            "Legit",
+            "Halcyon",
+            "Ceres",
+            "Gaia",
+            "Cronus",
+            "Metis",
+            "Pandora",
+            "Moonbase Alpha",
+            "Eris",
+            "Demetris",
+            "Threshold",
+            "Harvest",
+            "Arcadia",
+            "Installation 04",
+            "Onyx",
+            "Origin",
+            "Cryptum",
+            "Glasslands",
+            "Escalation",
+            "Cole Protocol",
+            "Midlothian",
+            "Valar",
+            "Arda",
+            "Castleguard",
+            "Midgard",
+            "Earendel",
+            "Middle Earth",
+            "Earth",
+            "Melkor",
+            "Eru",
+            "Silmarillion",
+            "Illuvatar",
+            "Valinor",
+            "Luthien",
+            "Arnor",
+            "Isildur",
+            "Pelennor",
+            "Arwen",
+            "Numenor",
+            "Narsil",
+            "Barahir",
+            "Denethor",
+            "Tinuviel",
+            "Thranduil",
+            "Harad",
+            "Caradhras",
+            "Anduin",
+            "Lothlorien",
+            "Rauros",
+            "Dunharrow",
+            "Telcontar",
+            "Haradrim",
+            "Eldarion",
+            "Easterlings",
+            "Ithilien",
+            "Imrahil",
+            "Orthanc",
+            "Dunadan",
+            "Evinyatar",
+            "Qatar",
+            "Estel",
+            "Cirdan",
+            "Narya",
+            "Aelia",
+            "Aquila",
+            "Atilius",
+            "Aulus",
+            "Avilius",
+            "Avitus",
+            "Cassia",
+            "Celsus",
+            "Drusa",
+            "Ennius",
+            "Felix",
+            "Gallus",
+            "Hadrianus",
+            "Horatia",
+            "Livia",
+            "Nerva",
+            "Nova",
+            "Quintus",
+            "Seneca",
+            "Sergius",
+            "Tacitus",
+            "Tiber",
+            "Valeria",
+            "Valhalla",
+            "Narnia",
+            "Constantine",
+            "Vita",
+            "Mithril",
+            "Istari",
+            "Ichitari",
+            "Erebor",
+            "Don Guldur",
+            "Thrain",
+            "Gladden",
+            "Bree",
+            "Glamdring",
+            "Beorn",
+            "Gwaihir",
+            "Mearas",
+            "Grima",
+            "Shadowfax",
+            "Tirith",
+            "Angmar",
+            "Imrahil",
+            "Rath",
+            "Dinen",
+            "Orodruin",
+            "Undying",
+            "Sotheby",
+            "Dolomite",
+            "Dale",
+            "Stiver"
+        };
+        
+        planets = new ArrayList<>();
+        
+        Random rand = new Random();
+        int numPlanets = rand.nextInt(5) + 1;
+        
+        for (int i = 0; i < numPlanets; i++) {
+            String randomPlanetName;
+            do {
+                // Make sure we don't get a duplicate planet name in the same system
+                int randomIndex = rand.nextInt(planetNames.length);
+                randomPlanetName = planetNames[randomIndex];
+            } while (planetNameUsed(randomPlanetName));
+            
+            planets.add(new Planet(randomPlanetName));
+        }
+    }
+    
+    private boolean planetNameUsed(String name) {
+        for (Planet planet: planets) {
+            if (planet.getPlanetName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

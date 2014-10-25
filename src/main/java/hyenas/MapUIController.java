@@ -504,7 +504,10 @@ public class MapUIController implements Initializable {
         
         double startingFuel = ship.getFuel();
         ship.setFuel(startingFuel - journey.getDistance());
-        player.setCurrentSystem(journey.getDestinationSolarSystem());
+        
+        SolarSystem destination = journey.getDestinationSolarSystem();
+        player.setCurrentSystem(destination);
+        player.setTradingPlanet(destination.getPlanets().get(0));
 
         journey.getStartingSystemButton().getStyleClass().remove("currentPlanet");
         journey.getDestinationSystemButton().getStyleClass().add("currentPlanet");

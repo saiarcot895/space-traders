@@ -260,6 +260,8 @@ public class MarketController implements Initializable {
         tempWare = new int[10];
         fuelCost = 140-planet.getTechLevel()*10;
         fuelCount = player.getShip().getFuel();
+        tPlanet.setText(planet.getPlanetName());
+        tTechLevel.setText(planet.techLevelString());
         Random rand = new Random();
         waterPrice = 30 + 3*(planet.getTechLevel()-0) + planet.getWareEvents()[0]*10 + (rand.nextInt(3)-1)*rand.nextInt(5);
         fursPrice = 250 + 10*(planet.getTechLevel()-0) + planet.getWareEvents()[1]*10 + (rand.nextInt(3)-1)*rand.nextInt(11);
