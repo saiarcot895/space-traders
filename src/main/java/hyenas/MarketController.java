@@ -4,10 +4,12 @@ package hyenas;
 import hyenas.Models.Good;
 import hyenas.Models.Planet;
 import hyenas.Models.Player;
+import hyenas.Models.Ship;
 import hyenas.Models.Ware;
 import hyenas.UI.MarketInfoPane;
 import hyenas.UI.MarketTableColumn;
 import java.net.URL;
+import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -18,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -25,20 +28,46 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.util.Callback;
 
 public class MarketController implements Initializable {
     private int[] wares;
     private int[] tempWare;
-    private TableView table = new TableView();
+    private TableView planetTable = new TableView();
+    private TableView playerTable = new TableView();
+    private MarketInfoPane infoPane;
 
     @FXML
     private BorderPane borderPane;
     
     @FXML
-    private VBox infoPane;
-    
-    @FXML
     private Label titleLabel;
+    
+    private void setSelectedSellWare(Ware ware) {
+        if (ware == null) {
+            Button sellButton = infoPane.getSellButton();
+            sellButton.setDisable(true);
+        } else {
+            Button buyButton = infoPane.getBuyButton();
+            buyButton.setDisable(true);
+            Button sellButton = infoPane.getSellButton();
+            sellButton.setDisable(false);
+            planetTable.getSelectionModel().clearSelection();
+        }
+    }
+    
+    private void setSelectedBuyWare(Ware ware) {
+        if (ware == null) {
+            Button buyButton = infoPane.getBuyButton();
+            buyButton.setDisable(true);
+        } else {
+            Button buyButton = infoPane.getBuyButton();
+            buyButton.setDisable(false);
+            Button sellButton = infoPane.getSellButton();
+            sellButton.setDisable(true);
+            playerTable.getSelectionModel().clearSelection();
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -49,31 +78,72 @@ public class MarketController implements Initializable {
         titleLabel.setFont(titleFont);
         titleLabel.setStyle("-fx-text-fill: rgba(0,231,255, .9); -fx-effect: dropshadow( gaussian, rgba(0,0,0,1), 0,0,2,2);");
         
-        table.setPrefHeight(680.0);
-        table.setPrefWidth(1160.0);
-        table.setEditable(false);
+        BorderPane tablesPane = new BorderPane();
+        planetTable.setPrefHeight(680.0);
+        planetTable.setPrefWidth(350.0);
+        planetTable.setEditable(false);
+        
         TableColumn wareCol = new MarketTableColumn("Ware");
         TableColumn availableCol = new MarketTableColumn("Available");
         TableColumn priceCol = new MarketTableColumn("Price");
         TableColumn contitionsCol = new MarketTableColumn("Conditions");
-        TableColumn cargoCol = new MarketTableColumn("Cargo");
-        
         wareCol.setCellValueFactory(
             new PropertyValueFactory<Ware, String>("name")
         );
-        
-        ObservableList<Ware> data = FXCollections.observableArrayList(
-            new Ware(Good.Firearms), new Ware(Good.Food)
+        availableCol.setCellValueFactory(
+            new PropertyValueFactory<Ware, Integer>("currentQuantity")
+        );
+        priceCol.setCellValueFactory(
+            new PropertyValueFactory<Ware, Integer>("currentPrice")
         );
         
-        table.setItems(data);
-        table.getColumns().addAll(wareCol, availableCol, priceCol, contitionsCol, cargoCol);
-
-        borderPane.setCenter(table);
+        List<Ware> wares = Ware.waresForPlanet(planet);
+        ObservableList<Ware> planetTableData = FXCollections.observableArrayList(wares);
+        planetTable.setItems(planetTableData);
+        planetTable.getColumns().addAll(wareCol, availableCol, priceCol, contitionsCol);
+        planetTable.getSelectionModel().selectedItemProperty().addListener(
+            (observable, oldValue, newValue) -> setSelectedBuyWare((Ware)newValue));
+        
+        playerTable.setPrefHeight(680.0);
+        playerTable.setPrefWidth(202.0);
+        playerTable.setEditable(false);
+        TableColumn playerWareCol = new MarketTableColumn("Ware");
+        TableColumn cargoCol = new MarketTableColumn("Cargo");
+        playerWareCol.setCellValueFactory(
+            new PropertyValueFactory<Ware, String>("name")
+        );
+        cargoCol.setCellValueFactory(
+            new PropertyValueFactory<Ware, Integer>("currentQuantity")
+        );
+        
+        Ship ship = player.getShip();
+        List<Ware> defaultWares = Ware.defaultWares();
+        List<Ware> shipCargo = ship.getCargo();
+        for (Ware ware: defaultWares) {
+            Good good = ware.getGood();
+            int count = 0;
+            for (Ware cargoWare: shipCargo) {
+                Good cargoGood = cargoWare.getGood();
+                if (good == cargoGood) count ++;
+            }
+            ware.setCurrentQuantity(count);
+        }
+        ObservableList<Ware> playerTableData = FXCollections.observableArrayList(defaultWares);
+        playerTable.setItems(playerTableData);
+        playerTable.getColumns().addAll(playerWareCol, cargoCol);
+        playerTable.getSelectionModel().selectedItemProperty().addListener(
+            (observable, oldValue, newValue) -> setSelectedSellWare((Ware)newValue));
+        
+        Pane emptyTablePane = new Pane();
+        emptyTablePane.setPrefWidth(150.0);
+        tablesPane.setLeft(emptyTablePane);
+        tablesPane.setCenter(planetTable);
+        tablesPane.setRight(playerTable);
+        borderPane.setCenter(tablesPane);
         
         
         VBox rightBox = new VBox();
-        MarketInfoPane infoPane = new MarketInfoPane();
+        infoPane = new MarketInfoPane();
         Pane emptyPane = new Pane();
         emptyPane.setPrefWidth(300.0);
         emptyPane.setPrefHeight(300.0);
@@ -82,16 +152,14 @@ public class MarketController implements Initializable {
         
         
         borderPane.setPadding(new Insets(40));
-        borderPane.setMargin(table, new Insets(50));
+        borderPane.setMargin(planetTable, new Insets(50, 50, 50, 20));
+        borderPane.setMargin(playerTable, new Insets(50, 20, 50, 20));
         borderPane.setMargin(rightBox, new Insets(50, 0, 0, 0));
 
         /*
         wares = planet.getItems();
         tempWare = new int[10];
         fuelCost = 140-planet.getTechLevel()*10;
-        fuelCount = player.getShip().getFuel();
-        tPlanet.setText(planet.getPlanetName());
-        tTechLevel.setText(planet.techLevelString());
         Random rand = new Random();
         waterPrice = 30 + 3*(planet.getTechLevel()-0) + planet.getWareEvents()[0]*10 + (rand.nextInt(3)-1)*rand.nextInt(5);
         fursPrice = 250 + 10*(planet.getTechLevel()-0) + planet.getWareEvents()[1]*10 + (rand.nextInt(3)-1)*rand.nextInt(11);

@@ -1,5 +1,6 @@
 package hyenas.Models;
 
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -8,21 +9,16 @@ import java.util.Random;
  */
 public class Planet {
     private static final int NUM_ITEMS = 10;
-    private static final int[] TTP = {2, 0, 1, 3, 6, 5, 6, 5, 5, 7};
-    private static final int[] MTLP = {0, 0, 1, 2, 3, 3, 4, 4, 5, 6};
 
     private int x;
     private int y;
     private int orbitRadius;
     private boolean clockwiseOrbit;
     private double size;
-    private int[] items;
     private int techLevel;
-    private int[] wareEvents = new int[NUM_ITEMS];
-    private int resourceEvent;
-    private int[] resourceEventEffects = new int[NUM_ITEMS];
     private String planetName;
     private String color;
+    private int planetType;
 
     private static final String[] TECH_LEVELS = new String[] {
         "Pre-Agriculture",
@@ -34,31 +30,35 @@ public class Planet {
         "Post-Industrial",
         "Hi-Tech",
     };
+    
+    //planet type name, good, up/down
 
-    private static final String[] RESOURCE_TYPES = new String[] {
-        "No Specialized Resources",
-        "Mineral Rich",
-        "Mineral Poor",
-        "Desert",
-        "Lots of Water",
-        "Rich Soil",
-        "Poor Soil",
-        "Rich Fauna",
-        "Lifeless",
-        "Weird Mushrooms",
-        "Lots of Herbs",
-        "Artistic",
-        "Warlike",
+    private static final String[] PLANET_TYPES = new String[] {
+        // DO NOT CHANGE, unless you also update goodAffectedForPlanetType
+        "No Specialized Resources",     // How resource is affected: 
+        "Mineral Rich",                 // Ore+
+        "Mineral Poor",                 // Ore-
+        "Lots of Water",                // Water+
+        "Desert",                       // Water-
+        "Rich Soil",                    // Food+
+        "Poor Soil",                    // Food-
+        "Rich Fauna",                   // Furs+
+        "Lifeless",                     // Furs-
+        "Weird Mushrooms",              // Narcotics+
+        "Lots of Herbs",                // Medicine+
+        "Artistic",                     // Games+
+        "Warlike",                      // Firearms+
     };
     
+    // Events temporarily affect a planet
     private static final String[] EVENT_TYPES = new String[] {
-        "Drought",
-        "Cold",
-        "Cropfail",
-        "War",
-        "Boredom",
-        "Plague",
-        "LackOfWorkers"
+        "Drought",      // Water
+        "Cold",         // Furs
+        "Cropfail",     // Food
+        "War",          // Ore, Firearms
+        "Boredom",      // Games, Narcotics
+        "Plague",       // Medicine
+        "LackOfWorkers" // Machines, Robots
     };
 
     public Planet(String planetName) {
@@ -67,134 +67,22 @@ public class Planet {
         clockwiseOrbit = rand.nextBoolean();
         size = 10 + rand.nextInt(10);
         
-        items = new int[NUM_ITEMS];
         techLevel = rand.nextInt(TECH_LEVELS.length);
-        wareEvents[rand.nextInt(items.length)] = rand.nextInt(3) - 1;    //will be -1, 0, or 1
         color = randomColorString();
-        int randResourceEvent = rand.nextInt(100);
-        if(randResourceEvent < 40)  {
-            resourceEvent = 0;
-        }
-        else if(randResourceEvent >= 40 && randResourceEvent < 45)  {
-            resourceEvent = 1;
-            resourceEventEffects[3] = 1;
-        }
-        else if(randResourceEvent >= 45 && randResourceEvent < 50)  {
-            resourceEvent = 2;
-            resourceEventEffects[3] = -1;
-        }
-        else if(randResourceEvent >= 50 && randResourceEvent < 55)  {
-            resourceEvent = 3;
-            resourceEventEffects[0] = 1;
-        }
-        else if(randResourceEvent >= 55 && randResourceEvent < 60)  {
-            resourceEvent = 4;
-            resourceEventEffects[0] = -1;
-        }
-        else if(randResourceEvent >= 60 && randResourceEvent < 65)  {
-            resourceEvent = 5;
-            resourceEventEffects[2] = -1;
-        }
-        else if(randResourceEvent >= 65 && randResourceEvent < 70)  {
-            resourceEvent = 6;
-            resourceEventEffects[2] = 1;
-        }
-        else if(randResourceEvent >= 70 && randResourceEvent < 75)  {
-            resourceEvent = 7;
-            resourceEventEffects[1] = -1;
-        }
-        else if(randResourceEvent >= 75 && randResourceEvent < 80)  {
-            resourceEvent = 8;
-            resourceEventEffects[1] = 1;
-        }
-        else if(randResourceEvent >= 80 && randResourceEvent < 85)  {
-            resourceEvent = 9;
-            resourceEventEffects[8] = -1;
-        }
-        else if(randResourceEvent >= 85 && randResourceEvent < 90)  {
-            resourceEvent = 10;
-            resourceEventEffects[6] = -1;
-        }
-        else if(randResourceEvent >= 90 && randResourceEvent < 95)  {
-            resourceEvent = 11;
-            resourceEventEffects[4] = -1;
-        }
-        else if(randResourceEvent >= 95 && randResourceEvent < 100)  {
-            resourceEvent = 12;
-            resourceEventEffects[5] = -1;
-        }
-        produceWares();
+        planetType = rand.nextInt(PLANET_TYPES.length);
     }
     
     public Planet(String planetName, int techLevel, int resourceType) {
         this(planetName);
-        items = new int[NUM_ITEMS];
         this.techLevel = techLevel;
-        produceWares();
     }
     
     public String getPlanetName()   {
         return planetName;
     }
-
-    /**
-     * Adds new stock to wares after each round
-     */
-    public void produceWares() {
-        changeWares(howMuchToProduce());
-    }
-
-    public void setWareEvent(int typeInt, int value)   {
-        wareEvents[typeInt] = value;
-    }
-    
-    public void setWareEvents(int[] arr)    {
-        wareEvents = arr.clone();
-    }
-    
-    public int getWareEvent(int index)   {
-        return wareEvents[index];
-    }
-    
-    public int[] getWareEvents()    {
-        return wareEvents;
-    }
-    
-    public int[] getResourceTypes()  {
-        return resourceEventEffects;
-    }
     
     public boolean getClockWiseOrbit()    {
         return clockwiseOrbit;
-    }
-
-    /**
-     * Calculates how much of each product to produce every turn based on
-     * minimum tech level to produce item and tech level that produces the
-     * highest amount of that item.
-     * @return an array containing how much of each item to produce
-     */
-    private int[] howMuchToProduce() {
-        int[] howMuchToProduce = new int[NUM_ITEMS];
-        for (int i = 0; i < NUM_ITEMS; i++) {
-            if (techLevel < MTLP[i]) {
-                howMuchToProduce[i] = 0;
-            } else {
-                howMuchToProduce[i] = 10 - Math.abs(TTP[i] - techLevel) + resourceEventEffects[i];
-            }
-        }
-        return howMuchToProduce;
-    }
-
-    /**
-     * Changes the amount of each item by the amount passed in. This is for
-     * buying and selling.
-     * @param differences
-     */
-    public void changeWares(int[] differences) {
-        for (int i = 0; i < items.length; i++) {
-            items[i] += differences[i];
-        }
     }
     
     /**
@@ -209,22 +97,11 @@ public class Planet {
         return techLevel;
     }
 
-    /**
-     * Get the resources of the planet.
-     * @return quantity of the resources of the planet
-     */
-    public int[] getItems() {
-        return items;
-    }
-
     @Override
     public String toString() {
         return "<Planet: " + planetName
                 + ", Radius: " + orbitRadius
                 + ", Tech: " + techLevelString()
-                + ", Resources: [" + items[0] + ", "+items[1] + ", " + items[2] + ", "
-                + items[3] + ", " + items[4] + ", " + items[5] + ", " + items[6] + ", "
-                + items[7] + ", " + items[8] + ", " + items[9] + "]"
                 + ", Loc: (" + x + ", " + y + ")" + ">";
     }
 
@@ -281,5 +158,49 @@ public class Planet {
     
     public void setOrbitRadius(int radius)    {
         orbitRadius = radius;
+    }
+    
+    public String getPlanetTypeString() {
+        return PLANET_TYPES[planetType];
+    }
+    
+    /* Returns hashmap of which good is affected (and how it is affected) for a
+     * given planet type.
+     *
+     * @param planettype, the planet type. Example: Mineral rich, mineral poor
+     * @return HashMap of Good and Integer. Good is the good affected, and the
+     * integer is whether the price goes up or down. Returns null if no Good is
+     * affected by the given planet
+     */
+    public HashMap<Good, Integer> goodAffectedForPlanetType(int planetType) {
+        switch (planetType) {
+            case 0: return null; // No good is affected
+            case 1: 
+                return new HashMap<Good, Integer>(Good.Ore.ordinal(), 0); // Mineral Rich
+            case 2: 
+                return new HashMap<Good, Integer>(Good.Ore.ordinal(), 1); // Mineral Poor
+            case 3:
+                return new HashMap<Good, Integer>(Good.Water.ordinal(), 0); // Lots of water
+            case 4:
+                return new HashMap<Good, Integer>(Good.Water.ordinal(), 1); // Desert
+            case 5:
+                return new HashMap<Good, Integer>(Good.Food.ordinal(), 0); // Rich soil
+            case 6:
+                return new HashMap<Good, Integer>(Good.Food.ordinal(), 1); // Poor soil
+            case 7:
+                return new HashMap<Good, Integer>(Good.Furs.ordinal(), 0); // Rich Fauna
+            case 8:
+                return new HashMap<Good, Integer>(Good.Furs.ordinal(), 1); // Lifeless
+            case 9:
+                return new HashMap<Good, Integer>(Good.Narcotics.ordinal(), 0); // Weird Mushrooms
+            case 10:
+                return new HashMap<Good, Integer>(Good.Medicine.ordinal(), 0); // Lots of Herbs
+            case 11:
+                return new HashMap<Good, Integer>(Good.Games.ordinal(), 0); // Artistic
+            case 12:
+                return new HashMap<Good, Integer>(Good.Firearms.ordinal(), 0); // Warlike
+            default: break;
+        }
+        return null;
     }
 }

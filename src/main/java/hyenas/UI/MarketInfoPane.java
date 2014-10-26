@@ -29,9 +29,8 @@ public class MarketInfoPane extends BorderPane {
     private Label creditsLabel;
     private Label fuelLabel;
     private Label freeCargoLabel;
-
-    @FXML
-    private Button travelButton;
+    private Button buyButton;
+    private Button sellButton;
     
     public MarketInfoPane() {
         getStyleClass().add("market-info-pane");
@@ -76,28 +75,30 @@ public class MarketInfoPane extends BorderPane {
         BorderPane bottomBox = new BorderPane();
         bottomBox.setPrefWidth(300.0);
         bottomBox.setPrefHeight(85.0);
-        Button resetButton = new Button("Reset");
-        resetButton.getStyleClass().add("standard-button");
-        resetButton.setPrefHeight(37.0);
-        resetButton.setPrefWidth(143.0);
+        buyButton = new Button("Buy");
+        buyButton.setDisable(true);
+        buyButton.getStyleClass().add("standard-button");
+        buyButton.setPrefHeight(37.0);
+        buyButton.setPrefWidth(143.0);
         EventHandler<ActionEvent> resetAction = (ActionEvent e2) -> {
             // TODO
         };
-        resetButton.setOnAction(resetAction);
+        buyButton.setOnAction(resetAction);
         
-        Button confirmButton = new Button("Confirm");
-        confirmButton.getStyleClass().add("standard-button");
-        confirmButton.setPrefHeight(37.0);
-        confirmButton.setPrefWidth(143.0);
+        sellButton = new Button("Sell");
+        sellButton.setDisable(true);
+        sellButton.getStyleClass().add("standard-button");
+        sellButton.setPrefHeight(37.0);
+        sellButton.setPrefWidth(143.0);
         EventHandler<ActionEvent> confirmAction = (ActionEvent e2) -> {
             // TODO
         };
-        resetButton.setOnAction(confirmAction);
+        buyButton.setOnAction(confirmAction);
         
         BorderPane resetPane = new BorderPane();
-        resetPane.setCenter(resetButton);
+        resetPane.setCenter(buyButton);
         BorderPane confirmPane = new BorderPane();
-        confirmPane.setCenter(confirmButton);
+        confirmPane.setCenter(sellButton);
         bottomBox.setTop(resetPane);
         bottomBox.setBottom(confirmPane);
         
@@ -105,5 +106,13 @@ public class MarketInfoPane extends BorderPane {
         setLeft(leftBox);
         setCenter(rightBox);
         setBottom(bottomBox);
+    }
+    
+    public Button getBuyButton() {
+        return buyButton;
+    }
+    
+    public Button getSellButton() {
+        return sellButton;
     }
 }

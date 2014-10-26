@@ -1,5 +1,8 @@
 package hyenas.Models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Ware {
 
     private String name;
@@ -19,8 +22,11 @@ public class Ware {
     private int mtl;
     /* Max Price in space trade for good (Random Encounter) */
     private int mth;
+    
+    private int currentPrice;
+    private int currentQuantity;
 
-    Good good;
+    private Good good;
 
     public Ware(Good good) {
         this.good = good;
@@ -144,8 +150,12 @@ public class Ware {
         }
     }
 
-    public String getName()    {
+    public String getName() {
         return name;
+    }
+    
+    public Good getGood() {
+        return good;
     }
 
     public int getMTLP()    {
@@ -192,12 +202,33 @@ public class Ware {
         return mth;
     }
     
-    public Ware[] waresForPlanet(Planet planet) {
+    public int getCurrentPrice() {
+        return currentPrice;
+    }
+    
+    public int getCurrentQuantity() {
+        return currentQuantity;
+    }
+    
+    public void setCurrentQuantity(int currentQuantity) {
+        this.currentQuantity = currentQuantity;
+    }
+    
+    public static List<Ware> defaultWares() {
+        ArrayList<Ware> wares = new ArrayList<Ware>(Good.values().length);
+        for (Good good: Good.values()) {
+            Ware ware = new Ware(good);
+            wares.add(ware);
+        }
+        return wares;
+    }
+    
+    public static List<Ware> waresForPlanet(Planet planet) {
         int numGoods = Good.values().length;
-        Ware[] wares = new Ware[numGoods];
+        ArrayList<Ware> wares = new ArrayList<Ware>(numGoods);
         int techLevel = planet.getTechLevel();
         
-        for (int x = 0; x < numGoods; x++) {
+        for (Good good: Good.values()) {
 //            Water,
 //            Furs,
 //            Food,
@@ -208,13 +239,40 @@ public class Ware {
 //            Machines,
 //            Narcotics,
 //            Robots
-            Good good = Good.values()[x];
             Ware ware = new Ware(good);
             
+            ware.currentQuantity = howMuchToProduce(good, planet);
+            // TODO: vaiance is not correct
+            ware.currentPrice = ware.basePrice + (ware.priceIncreasePerLevel * (techLevel - ware.minimumTechLevelToProduce)) + ware.variance;
+//            Name	MTLP	MTLU	TTP	Base Price	IPL	Var	IE	CR              ER	MTL	MTH
+//            Water	0	0	2	30              3       4       DROUGHT	LOTSOFWATER	DESERT	30	50
+            
+            
+//            (the base price) + (the IPL * (Planet Tech Level - MTLP)) + (variance)
+            wares.add(ware);
             //only add if planet is able to produce?
             
         }
         
         return wares;
+    }
+    
+    private static final int[] TTP = {2, 0, 1, 3, 6, 5, 6, 5, 5, 7};
+    private static final int[] MTLP = {0, 0, 1, 2, 3, 3, 4, 4, 5, 6};
+    
+    private static int howMuchToProduce(Good good, Planet planet) {
+        int techLevel = planet.getTechLevel();
+        int index = good.ordinal();
+        if (techLevel < MTLP[index]) {
+            return 0;
+        } else {
+            // TODO include affects caused by events and planet type
+            return 10 - Math.abs(TTP[index] - techLevel);
+        }
+    }
+    
+    @Override
+    public String toString() {
+        return "<Ware: " + name + ", Cost: " + currentPrice + ", Avl: " + currentQuantity + ">";
     }
 }
