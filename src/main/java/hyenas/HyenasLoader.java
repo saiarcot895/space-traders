@@ -172,13 +172,18 @@ public class HyenasLoader extends Application {
      */
     public void closeGame() {
         // In the main menu the game should not be connected to the database!
-        closeConnection(conn);
-        try {
-            // close application
-            stop(stage);
-        } catch (Exception ex) {
-            Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        loadScreen("MarketUI.fxml");
+        
+        
+        
+//        closeConnection(conn);
+//        try {
+//            // close application
+//            stop(stage);
+//        } catch (Exception ex) {
+//            Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     // Wat?

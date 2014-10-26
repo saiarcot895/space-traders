@@ -191,4 +191,30 @@ public class Ware {
     public int getMTH() {
         return mth;
     }
+    
+    public Ware[] waresForPlanet(Planet planet) {
+        int numGoods = Good.values().length;
+        Ware[] wares = new Ware[numGoods];
+        int techLevel = planet.getTechLevel();
+        
+        for (int x = 0; x < numGoods; x++) {
+//            Water,
+//            Furs,
+//            Food,
+//            Ore,
+//            Games,
+//            Firearms,
+//            Medicine,
+//            Machines,
+//            Narcotics,
+//            Robots
+            Good good = Good.values()[x];
+            Ware ware = new Ware(good);
+            
+            //only add if planet is able to produce?
+            
+        }
+        
+        return wares;
+    }
 }

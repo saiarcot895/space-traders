@@ -5,257 +5,87 @@ import hyenas.Models.Good;
 import hyenas.Models.Planet;
 import hyenas.Models.Player;
 import hyenas.Models.Ware;
+import hyenas.UI.MarketInfoPane;
+import hyenas.UI.MarketTableColumn;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 public class MarketController implements Initializable {
+    private int[] wares;
+    private int[] tempWare;
+    private TableView table = new TableView();
 
     @FXML
-    private Label pWater;
-
-    @FXML
-    private Label pFurs;
-
-    @FXML
-    private Label pFood;
-
-    @FXML
-    private Label pOre;
-
-    @FXML
-    private Label pGames;
-
-    @FXML
-    private Label pFirearms;
-
-    @FXML
-    private Label pMedicine;
-
-    @FXML
-    private Label pMachines;
-
-    @FXML
-    private Label pNarcotics;
-
-    @FXML
-    private Label pRobots;
-
-    @FXML
-    private Label nWater;
-
-    @FXML
-    private Label nFurs;
-
-    @FXML
-    private Label nFood;
-
-    @FXML
-    private Label nOre;
-
-    @FXML
-    private Label nGames;
-
-    @FXML
-    private Label nFirearms;
-
-    @FXML
-    private Label nMedicine;
-
-    @FXML
-    private Label nMachines;
-
-    @FXML
-    private Label nNarcotics;
-
-    @FXML
-    private Label nRobots;
-
-    @FXML
-    private Button bWater;
-
-    @FXML
-    private Button bFurs;
-
-    @FXML
-    private Button bFood;
-
-    @FXML
-    private Button bOre;
-
-    @FXML
-    private Button bGames;
-
-    @FXML
-    private Button bFirearms;
-
-    @FXML
-    private Button bMedicine;
-
-    @FXML
-    private Button bMachines;
-
-    @FXML
-    private Button bNarcotics;
-
-    @FXML
-    private Button bRobots;
-
-    @FXML
-    private Button sWater;
-
-    @FXML
-    private Button sFurs;
-
-    @FXML
-    private Button sFood;
-
-    @FXML
-    private Button sOre;
-
-    @FXML
-    private Button sGames;
-
+    private BorderPane borderPane;
+    
     @FXML
-    private Button sFirearms;
-
-    @FXML
-    private Button sMedicine;
-
-    @FXML
-    private Button sMachines;
-
-    @FXML
-    private Button sNarcotics;
-
-    @FXML
-    private Button sRobots;
-
-    @FXML
-    private Label eWater;
-
-    @FXML
-    private Label eFurs;
-
-    @FXML
-    private Label eFood;
-
-    @FXML
-    private Label eOre;
-
-    @FXML
-    private Label eGames;
-
-    @FXML
-    private Label eFirearms;
-
-    @FXML
-    private Label eMedicine;
-
-    @FXML
-    private Label eMachines;
-
-    @FXML
-    private Label eNarcotics;
-
-    @FXML
-    private Label eRobots;
-
-    @FXML
-    private Label aWater;
-
-    @FXML
-    private Label aFurs;
-
-    @FXML
-    private Label aFood;
-
+    private VBox infoPane;
+    
     @FXML
-    private Label aOre;
-
-    @FXML
-    private Label aGames;
-
-    @FXML
-    private Label aFirearms;
-
-    @FXML
-    private Label aMedicine;
-
-    @FXML
-    private Label aMachines;
-
-    @FXML
-    private Label aNarcotics;
-
-    @FXML
-    private Label aRobots;
-
-    @FXML
-    private Button cancel;
-
-    @FXML
-    private Button confirm;
-
-    @FXML
-    private Label tPlanet;
-
-    @FXML
-    private Label tTechLevel;
-
-    @FXML
-    private Label tFree;
-
-    @FXML
-    private Label fuelLeft;
-
-    @FXML
-    private Label fuelPrice;
-
-    @FXML
-    private Button fuelAdd;
-
-    @FXML
-    private Button fuelSub;
-
-    @FXML
-    private Label currentCredits;
-
-    private Player player;
-
-    /**
-     * These variables are so that the user can make changes without having the ship
-     */
-        private int freeCargo;
-        private int creditCount;
-        private double fuelCount;
-        private int[] wares;
-        private Planet planet;
-        private int[] tempWare;
-
-        int waterPrice;
-        int fursPrice;
-        int foodPrice;
-        int orePrice;
-        int gamesPrice;
-        int firearmsPrice;
-        int medicinePrice;
-        int machinesPrice;
-        int narcoticsPrice;
-        int robotsPrice;
-        int fuelCost;
+    private Label titleLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        player = Player.getInstance();
-        freeCargo = player.getShip().getFreeCargo();
-        creditCount = player.getCredits();
-        planet = player.getTradingPlanet();
+        Player player = Player.getInstance();
+        Planet planet = player.getTradingPlanet();
+        
+        Font titleFont = Font.loadFont(HyenasLoader.class.getResource("/hyenas/fonts/BlenderPro-Book.otf").toExternalForm(), 40);
+        titleLabel.setFont(titleFont);
+        titleLabel.setStyle("-fx-text-fill: rgba(0,231,255, .9); -fx-effect: dropshadow( gaussian, rgba(0,0,0,1), 0,0,2,2);");
+        
+        table.setPrefHeight(680.0);
+        table.setPrefWidth(1160.0);
+        table.setEditable(false);
+        TableColumn wareCol = new MarketTableColumn("Ware");
+        TableColumn availableCol = new MarketTableColumn("Available");
+        TableColumn priceCol = new MarketTableColumn("Price");
+        TableColumn contitionsCol = new MarketTableColumn("Conditions");
+        TableColumn cargoCol = new MarketTableColumn("Cargo");
+        
+        wareCol.setCellValueFactory(
+            new PropertyValueFactory<Ware, String>("name")
+        );
+        
+        ObservableList<Ware> data = FXCollections.observableArrayList(
+            new Ware(Good.Firearms), new Ware(Good.Food)
+        );
+        
+        table.setItems(data);
+        table.getColumns().addAll(wareCol, availableCol, priceCol, contitionsCol, cargoCol);
+
+        borderPane.setCenter(table);
+        
+        
+        VBox rightBox = new VBox();
+        MarketInfoPane infoPane = new MarketInfoPane();
+        Pane emptyPane = new Pane();
+        emptyPane.setPrefWidth(300.0);
+        emptyPane.setPrefHeight(300.0);
+        rightBox.getChildren().addAll(infoPane, emptyPane);
+        borderPane.setRight(rightBox);
+        
+        
+        borderPane.setPadding(new Insets(40));
+        borderPane.setMargin(table, new Insets(50));
+        borderPane.setMargin(rightBox, new Insets(50, 0, 0, 0));
+
+        /*
         wares = planet.getItems();
         tempWare = new int[10];
         fuelCost = 140-planet.getTechLevel()*10;
@@ -370,10 +200,11 @@ public class MarketController implements Initializable {
         aMedicine.setText("" + wares[6]);
         aMachines.setText("" + wares[7]);
         aNarcotics.setText("" + wares[8]);
-        aRobots.setText("" + wares[9]);
+        aRobots.setText("" + wares[9]);*/
     }
 
     public void buyItem(ActionEvent e) {
+        /*
         if (freeCargo <= 0) {
             return;
         }
@@ -448,10 +279,11 @@ public class MarketController implements Initializable {
                 wares[9]--;
             }
         }
-        currentCredits.setText("" + creditCount);
+        currentCredits.setText("" + creditCount);*/
     }
 
     public void sellItem(ActionEvent e) {
+        /*
         if (e.getSource() == sWater) {
             if (player.getShip().getCargo().contains(Good.Water)) {
                 freeCargo++;
@@ -523,10 +355,17 @@ public class MarketController implements Initializable {
                 creditCount += robotsPrice;
             }
         }
-        currentCredits.setText("" + creditCount);
+        currentCredits.setText("" + creditCount);*/
     }
+    
+    public void resetTrade(ActionEvent e) {
+        //TODO
+        System.out.println("TODO");
+    }
+    
 
     public void confirmTrade(ActionEvent e) {
+        /*
         planet.changeWares(wares);
         player.setCredits(creditCount);
         player.getShip().setFuel(fuelCount);
@@ -592,32 +431,32 @@ public class MarketController implements Initializable {
         }
         for (int i = 0; i < -wares[9]; i++) {
             player.getShip().removeCargo(new Ware(Good.Robots));
-        }
+        }*/
     }
 
     public void addFuel(ActionEvent e) {
-        if (fuelCount == player.getShip().getMaxFuel() || creditCount < fuelCost) {
+        // if (fuelCount == player.getShip().getMaxFuel() || creditCount < fuelCost) {
 
-            //TODO display message saying that they have hit limit on fuel
-        }
-        fuelCount++;
-        creditCount -= fuelCost;
-        fuelLeft.setText(String.format("%.0f", fuelCount));
-        currentCredits.setText("" + creditCount);
+        //     //TODO display message saying that they have hit limit on fuel
+        // }
+        // fuelCount++;
+        // creditCount -= fuelCost;
+        // fuelLeft.setText(String.format("%.0f", fuelCount));
+        // currentCredits.setText("" + creditCount);
     }
 
     public void subtractFuel(ActionEvent e) {
-        if (fuelCount == 0) {
-            return;
-            //TODO display message saying that they have hit limit on fuel
-        }
-        fuelCount--;
-        creditCount += fuelCost;
-        fuelLeft.setText(String.format("%.0f", fuelCount));
-        currentCredits.setText("" + creditCount);
+        // if (fuelCount == 0) {
+        //     return;
+        //     //TODO display message saying that they have hit limit on fuel
+        // }
+        // fuelCount--;
+        // creditCount += fuelCost;
+        // fuelLeft.setText(String.format("%.0f", fuelCount));
+        // currentCredits.setText("" + creditCount);
     }
 
-    public void cancelTrade(ActionEvent e) {
+    public void goBack(ActionEvent e) {
         HyenasLoader.getInstance().goToSystemScreen();
     }
 

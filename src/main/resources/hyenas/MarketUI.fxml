@@ -5,139 +5,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="723.0" prefWidth="949.0" styleClass="default-background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.MarketController">
-   <children>
-      <Label layoutX="393.0" layoutY="26.0" text="Marketplace">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label fx:id="lWater" layoutX="83.0" layoutY="177.0" prefHeight="21.0" prefWidth="81.0" text="Water" />
-      <Label fx:id="lFurs" layoutX="83.0" layoutY="227.0" prefHeight="21.0" prefWidth="87.0" text="Furs" />
-      <Label fx:id="lFood" layoutX="83.0" layoutY="277.0" prefHeight="21.0" prefWidth="81.0" text="Food" />
-      <Label fx:id="lOre" layoutX="83.0" layoutY="327.0" prefHeight="21.0" prefWidth="81.0" text="Ore" />
-      <Label fx:id="lGames" layoutX="83.0" layoutY="377.0" prefHeight="21.0" prefWidth="81.0" text="Games" />
-      <Label fx:id="lFirearms" layoutX="83.0" layoutY="427.0" prefHeight="21.0" prefWidth="81.0" text="Firearms" />
-      <Label fx:id="lMachines" layoutX="83.0" layoutY="475.0" prefHeight="21.0" prefWidth="81.0" text="Machines" />
-      <Label fx:id="lMedicine" layoutX="83.0" layoutY="527.0" prefHeight="21.0" prefWidth="81.0" text="Medicine" />
-      <Label fx:id="lNarcotics" layoutX="83.0" layoutY="577.0" prefHeight="21.0" prefWidth="81.0" text="Narcotics" />
-      <Label fx:id="lRobots" layoutX="83.0" layoutY="627.0" prefHeight="21.0" prefWidth="81.0" text="Robots" />
-      <Label fx:id="lTechLevel" layoutX="142.0" layoutY="57.0" text="Tech Level:" />
-      <Label fx:id="lPlanet" layoutX="170.0" layoutY="36.0" text="Planet:" />
-      <Label layoutX="83.0" layoutY="125.0" text="Wares">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="pWater" layoutX="277.0" layoutY="176.0" text="-1" />
-      <Label fx:id="pFurs" layoutX="277.0" layoutY="226.0" text="-1" />
-      <Label fx:id="pFood" layoutX="277.0" layoutY="276.0" text="-1" />
-      <Label fx:id="pOre" layoutX="277.0" layoutY="326.0" text="-1" />
-      <Label fx:id="pGames" layoutX="277.0" layoutY="376.0" text="-1" />
-      <Label fx:id="pFirearms" layoutX="277.0" layoutY="426.0" text="-1" />
-      <Label fx:id="pMachines" layoutX="277.0" layoutY="474.0" text="-1" />
-      <Label fx:id="pMedicine" layoutX="277.0" layoutY="526.0" text="-1" />
-      <Label fx:id="pNarcotics" layoutX="277.0" layoutY="576.0" text="-1" />
-      <Label fx:id="pRobots" layoutX="277.0" layoutY="626.0" text="-1" />
-      <Label fx:id="tPlanet" layoutX="238.0" layoutY="36.0" text="NameHere" />
-      <Label fx:id="tTechLevel" layoutX="238.0" layoutY="57.0" text="TechHere" />
-      <Label layoutX="263.0" layoutY="125.0" text="Price">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="nRobots" layoutX="720.0" layoutY="626.0" text="0" />
-      <Label fx:id="nNarcotics" layoutX="720.0" layoutY="576.0" text="0" />
-      <Label fx:id="nMedicine" layoutX="720.0" layoutY="526.0" text="0" />
-      <Label fx:id="nMachines" layoutX="720.0" layoutY="474.0" text="0" />
-      <Label fx:id="nFirearms" layoutX="720.0" layoutY="426.0" text="0" />
-      <Label fx:id="nGames" layoutX="720.0" layoutY="376.0" text="0" />
-      <Label fx:id="nOre" layoutX="720.0" layoutY="326.0" text="0" />
-      <Label fx:id="nFood" layoutX="720.0" layoutY="276.0" text="0" />
-      <Label fx:id="nFurs" layoutX="720.0" layoutY="226.0" text="0" />
-      <Label fx:id="nWater" layoutX="720.0" layoutY="176.0" text="0" />
-      <Label fx:id="cRobots" layoutX="563.0" layoutY="626.0" prefHeight="21.0" prefWidth="81.0" text="Robots" />
-      <Label fx:id="cNarcotics" layoutX="563.0" layoutY="576.0" prefHeight="21.0" prefWidth="81.0" text="Narcotics" />
-      <Label fx:id="cMedicine" layoutX="563.0" layoutY="526.0" prefHeight="21.0" prefWidth="81.0" text="Medicine" />
-      <Label fx:id="cMachines" layoutX="563.0" layoutY="474.0" prefHeight="21.0" prefWidth="81.0" text="Machines" />
-      <Label fx:id="cFirearms" layoutX="563.0" layoutY="426.0" prefHeight="21.0" prefWidth="81.0" text="Firearms" />
-      <Label fx:id="cGames" layoutX="563.0" layoutY="376.0" prefHeight="21.0" prefWidth="81.0" text="Games" />
-      <Label fx:id="cOre" layoutX="563.0" layoutY="326.0" prefHeight="21.0" prefWidth="81.0" text="Ore" />
-      <Label fx:id="cFood" layoutX="563.0" layoutY="276.0" prefHeight="21.0" prefWidth="81.0" text="Food" />
-      <Label fx:id="cFurs" layoutX="563.0" layoutY="226.0" prefHeight="21.0" prefWidth="87.0" text="Furs" />
-      <Label fx:id="cWater" layoutX="563.0" layoutY="176.0" prefHeight="21.0" prefWidth="81.0" text="Water" />
-      <Label layoutX="563.0" layoutY="125.0" text="Cargo">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="lFree" layoutX="570.0" layoutY="99.0" text="Free Cargo Slots:" />
-      <Label fx:id="tFree" layoutX="703.0" layoutY="99.0" text="-1" />
-      <Button fx:id="bWater" layoutX="327.0" layoutY="171.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
-      <Button fx:id="bFurs" layoutX="327.0" layoutY="221.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
-      <Button fx:id="bFood" layoutX="327.0" layoutY="271.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
-      <Button fx:id="bOre" layoutX="327.0" layoutY="321.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
-      <Button fx:id="bGames" layoutX="327.0" layoutY="371.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
-      <Button fx:id="bFirearms" layoutX="327.0" layoutY="421.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
-      <Button fx:id="bMachines" layoutX="327.0" layoutY="469.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
-      <Button fx:id="bMedicine" layoutX="327.0" layoutY="521.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
-      <Button fx:id="bNarcotics" layoutX="327.0" layoutY="571.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
-      <Button fx:id="bRobots" layoutX="327.0" layoutY="621.0" mnemonicParsing="false" onAction="#buyItem" text="BUY" />
-      <Button fx:id="sWater" layoutX="770.0" layoutY="171.0" mnemonicParsing="false" onAction="#buyItem" text="SELL" />
-      <Button fx:id="sFurs" layoutX="770.0" layoutY="221.0" mnemonicParsing="false" onAction="#buyItem" text="SELL" />
-      <Button fx:id="sFood" layoutX="770.0" layoutY="271.0" mnemonicParsing="false" onAction="#sellItem" text="SELL" />
-      <Button fx:id="sOre" layoutX="770.0" layoutY="321.0" mnemonicParsing="false" onAction="#sellItem" text="SELL" />
-      <Button fx:id="sGames" layoutX="770.0" layoutY="371.0" mnemonicParsing="false" onAction="#sellItem" text="SELL" />
-      <Button fx:id="sFirearms" layoutX="770.0" layoutY="421.0" mnemonicParsing="false" onAction="#sellItem" text="SELL" />
-      <Button fx:id="sMachines" layoutX="770.0" layoutY="469.0" mnemonicParsing="false" onAction="#sellItem" text="SELL" />
-      <Button fx:id="sMedicine" layoutX="770.0" layoutY="521.0" mnemonicParsing="false" onAction="#sellItem" text="SELL" />
-      <Button fx:id="sNarcotics" layoutX="770.0" layoutY="571.0" mnemonicParsing="false" onAction="#sellItem" text="SELL" />
-      <Button fx:id="sRobotics" layoutX="770.0" layoutY="621.0" mnemonicParsing="false" onAction="#sellItem" text="SELL" />
-      <Label layoutX="413.0" layoutY="125.0" text="Conditions">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="eWater" layoutX="413.0" layoutY="176.0" prefHeight="21.0" prefWidth="81.0" text="normal" />
-      <Label fx:id="eFurs" layoutX="413.0" layoutY="226.0" prefHeight="21.0" prefWidth="87.0" text="normal" />
-      <Label fx:id="eFood" layoutX="413.0" layoutY="276.0" prefHeight="21.0" prefWidth="81.0" text="normal" />
-      <Label fx:id="eOre" layoutX="413.0" layoutY="326.0" prefHeight="21.0" prefWidth="81.0" text="normal" />
-      <Label fx:id="eGames" layoutX="413.0" layoutY="376.0" prefHeight="21.0" prefWidth="81.0" text="normal" />
-      <Label fx:id="eFirearms" layoutX="413.0" layoutY="426.0" prefHeight="21.0" prefWidth="81.0" text="normal" />
-      <Label fx:id="eMachines" layoutX="413.0" layoutY="474.0" prefHeight="21.0" prefWidth="81.0" text="normal" />
-      <Label fx:id="eMedicine" layoutX="413.0" layoutY="526.0" prefHeight="21.0" prefWidth="81.0" text="normal" />
-      <Label fx:id="eNarcotics" layoutX="413.0" layoutY="576.0" prefHeight="21.0" prefWidth="81.0" text="normal" />
-      <Label fx:id="eRobots" layoutX="413.0" layoutY="626.0" prefHeight="21.0" prefWidth="81.0" text="normal" />
-      <Button fx:id="cancel" layoutX="711.0" layoutY="26.0" mnemonicParsing="false" onAction="#cancelTrade" text="Cancel" />
-      <Button fx:id="confirm" layoutX="795.0" layoutY="26.0" mnemonicParsing="false" onAction="#confirmTrade" text="Confirm" />
-      <Label layoutX="164.0" layoutY="125.0" text="Available">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="aRobots" layoutX="200.0" layoutY="626.0" text="0" />
-      <Label fx:id="aNarcotics" layoutX="200.0" layoutY="576.0" text="0" />
-      <Label fx:id="aMedicine" layoutX="200.0" layoutY="526.0" text="0" />
-      <Label fx:id="aMachines" layoutX="200.0" layoutY="474.0" text="0" />
-      <Label fx:id="aFirearms" layoutX="200.0" layoutY="426.0" text="0" />
-      <Label fx:id="aGames" layoutX="200.0" layoutY="376.0" text="0" />
-      <Label fx:id="aOre" layoutX="200.0" layoutY="326.0" text="0" />
-      <Label fx:id="aFood" layoutX="200.0" layoutY="276.0" text="0" />
-      <Label fx:id="aFurs" layoutX="200.0" layoutY="226.0" text="0" />
-      <Label fx:id="aWater" layoutX="200.0" layoutY="176.0" text="0" />
-      <Label layoutX="148.0" layoutY="78.0" text="Fuel Price:" />
-      <Label layoutX="185.0" layoutY="99.0" text="Fuel:" />
-      <Label fx:id="fuelPrice" layoutX="252.0" layoutY="78.0" text="-1" />
-      <Label fx:id="fuelLeft" layoutX="235.0" layoutY="99.0" text="-1" />
-      <Button fx:id="fuelAdd" layoutX="264.0" layoutY="98.0" mnemonicParsing="false" onAction="#addFuel" prefHeight="10" prefWidth="10" text="+">
-         <font>
-            <Font size="10.0" />
-         </font></Button>
-      <Button fx:id="fuelSub" layoutX="291.0" layoutY="98.0" mnemonicParsing="false" onAction="#subtractFuel" prefHeight="23.0" prefWidth="21.0" text="-">
-         <font>
-            <Font size="10.0" />
-         </font></Button>
-      <Label layoutX="632.0" layoutY="78.0" text="Credits:" />
-      <Label fx:id="currentCredits" layoutX="703.0" layoutY="78.0" text="-1" />
-   </children>
-</AnchorPane>
+<VBox fx:id="boxPane" styleClass="default-background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.MarketController">
+    <children>
+        <BorderPane prefHeight="60">
+            <top>
+                <!--Used as padding so title label appears in center-->
+                <Pane prefHeight="70.0"></Pane>
+            </top>
+            <center>
+                <Label fx:id="titleLabel" text="Marketplace"></Label>
+            </center>
+        </BorderPane>
+       
+        <BorderPane fx:id="borderPane">
+            <!--Added Programatically-->
+        </BorderPane>
+       
+        <AnchorPane id="AnchorPane" fx:id="anchor" prefHeight="60">
+            <children>
+                <Button fx:id="backButton" styleClass="standard-button" prefHeight="37.0" prefWidth="143.0" mnemonicParsing="false" onAction="#goBack" text="Back" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>
