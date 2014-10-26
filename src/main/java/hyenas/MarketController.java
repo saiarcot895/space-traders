@@ -6,6 +6,8 @@ import hyenas.Models.Planet;
 import hyenas.Models.Player;
 import hyenas.Models.Ship;
 import hyenas.Models.Ware;
+import hyenas.UI.AlertPane;
+import hyenas.UI.AlertPaneType;
 import hyenas.UI.MarketInfoPane;
 import hyenas.UI.MarketTableColumn;
 import java.net.URL;
@@ -15,6 +17,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -33,12 +36,17 @@ import javafx.util.Callback;
 public class MarketController implements Initializable {
     private int[] wares;
     private int[] tempWare;
+    private Planet planet;
     private TableView planetTable = new TableView();
     private TableView playerTable = new TableView();
     private MarketInfoPane infoPane;
+    private BorderPane emptyBottomTablePane;
 
     @FXML
     private BorderPane borderPane;
+    
+    @FXML
+    private VBox boxPane;
     
     @FXML
     private Label titleLabel;
@@ -72,14 +80,14 @@ public class MarketController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Player player = Player.getInstance();
-        Planet planet = player.getTradingPlanet();
+        planet = player.getTradingPlanet();
         
         Font titleFont = Font.loadFont(HyenasLoader.class.getResource("/hyenas/fonts/BlenderPro-Book.otf").toExternalForm(), 40);
         titleLabel.setFont(titleFont);
         titleLabel.setStyle("-fx-text-fill: rgba(0,231,255, .9); -fx-effect: dropshadow( gaussian, rgba(0,0,0,1), 0,0,2,2);");
         
         BorderPane tablesPane = new BorderPane();
-        planetTable.setPrefHeight(680.0);
+        planetTable.setPrefHeight(400.0);
         planetTable.setPrefWidth(350.0);
         planetTable.setEditable(false);
         
@@ -97,14 +105,12 @@ public class MarketController implements Initializable {
             new PropertyValueFactory<Ware, Integer>("currentPrice")
         );
         
-        List<Ware> wares = Ware.waresForPlanet(planet);
-        ObservableList<Ware> planetTableData = FXCollections.observableArrayList(wares);
-        planetTable.setItems(planetTableData);
+        updatePlanetTable();
         planetTable.getColumns().addAll(wareCol, availableCol, priceCol, contitionsCol);
         planetTable.getSelectionModel().selectedItemProperty().addListener(
             (observable, oldValue, newValue) -> setSelectedBuyWare((Ware)newValue));
         
-        playerTable.setPrefHeight(680.0);
+        playerTable.setPrefHeight(400.0);
         playerTable.setPrefWidth(202.0);
         playerTable.setEditable(false);
         TableColumn playerWareCol = new MarketTableColumn("Ware");
@@ -116,27 +122,24 @@ public class MarketController implements Initializable {
             new PropertyValueFactory<Ware, Integer>("currentQuantity")
         );
         
-        Ship ship = player.getShip();
-        List<Ware> defaultWares = Ware.defaultWares();
-        List<Ware> shipCargo = ship.getCargo();
-        for (Ware ware: defaultWares) {
-            Good good = ware.getGood();
-            int count = 0;
-            for (Ware cargoWare: shipCargo) {
-                Good cargoGood = cargoWare.getGood();
-                if (good == cargoGood) count ++;
-            }
-            ware.setCurrentQuantity(count);
-        }
-        ObservableList<Ware> playerTableData = FXCollections.observableArrayList(defaultWares);
-        playerTable.setItems(playerTableData);
+        updatePlayerTable();
         playerTable.getColumns().addAll(playerWareCol, cargoCol);
         playerTable.getSelectionModel().selectedItemProperty().addListener(
             (observable, oldValue, newValue) -> setSelectedSellWare((Ware)newValue));
         
-        Pane emptyTablePane = new Pane();
-        emptyTablePane.setPrefWidth(150.0);
-        tablesPane.setLeft(emptyTablePane);
+        Pane emptyLeftTablePane = new Pane();
+        emptyLeftTablePane.setPrefWidth(150.0);
+        tablesPane.setLeft(emptyLeftTablePane);
+        
+        emptyBottomTablePane = new BorderPane();
+        emptyBottomTablePane.setPrefHeight(150.0);
+        Pane emptyBottomBottomPane = new Pane();
+        emptyBottomBottomPane.setPrefHeight(50.0);
+        emptyBottomTablePane.setBottom(emptyBottomBottomPane);
+        tablesPane.setBottom(emptyBottomTablePane);
+        tablesPane.setMargin(emptyBottomTablePane, new Insets(0, 100, 0, 350));
+        
+        
         tablesPane.setCenter(planetTable);
         tablesPane.setRight(playerTable);
         borderPane.setCenter(tablesPane);
@@ -144,10 +147,22 @@ public class MarketController implements Initializable {
         
         VBox rightBox = new VBox();
         infoPane = new MarketInfoPane();
-        Pane emptyPane = new Pane();
-        emptyPane.setPrefWidth(300.0);
-        emptyPane.setPrefHeight(300.0);
-        rightBox.getChildren().addAll(infoPane, emptyPane);
+        Button buyButton = infoPane.getBuyButton();
+        EventHandler<ActionEvent> buyEvent = (ActionEvent e) -> {
+            buyItem(e);
+        };
+        buyButton.setOnAction(buyEvent);
+        Button sellButton = infoPane.getSellButton();
+        EventHandler<ActionEvent> sellEvent = (ActionEvent e) -> {
+            sellItem(e);
+        };
+        sellButton.setOnAction(sellEvent);
+        
+        
+        Pane emptyRightSpacingPane = new Pane();
+        emptyRightSpacingPane.setPrefWidth(300.0);
+        emptyRightSpacingPane.setPrefHeight(300.0);
+        rightBox.getChildren().addAll(infoPane, emptyRightSpacingPane);
         borderPane.setRight(rightBox);
         
         
@@ -155,351 +170,98 @@ public class MarketController implements Initializable {
         borderPane.setMargin(planetTable, new Insets(50, 50, 50, 20));
         borderPane.setMargin(playerTable, new Insets(50, 20, 50, 20));
         borderPane.setMargin(rightBox, new Insets(50, 0, 0, 0));
-
-        /*
-        wares = planet.getItems();
-        tempWare = new int[10];
-        fuelCost = 140-planet.getTechLevel()*10;
-        Random rand = new Random();
-        waterPrice = 30 + 3*(planet.getTechLevel()-0) + planet.getWareEvents()[0]*10 + (rand.nextInt(3)-1)*rand.nextInt(5);
-        fursPrice = 250 + 10*(planet.getTechLevel()-0) + planet.getWareEvents()[1]*10 + (rand.nextInt(3)-1)*rand.nextInt(11);
-        foodPrice = 100 + 5*(planet.getTechLevel()-1) + planet.getWareEvents()[2]*10 + (rand.nextInt(3)-1)*rand.nextInt(6);
-        orePrice = 350 + 20*(planet.getTechLevel()-2) + planet.getWareEvents()[3]*10 + (rand.nextInt(3)-1)*rand.nextInt(11);
-        gamesPrice = 250 + -10*(planet.getTechLevel()-3) + planet.getWareEvents()[4]*10 + (rand.nextInt(3)-1)*rand.nextInt(6);
-        firearmsPrice = 1250 + -75*(planet.getTechLevel()-3) + planet.getWareEvents()[5]*10 + (rand.nextInt(3)-1)*rand.nextInt(101);
-        medicinePrice = 650 + -20*(planet.getTechLevel()-4) + planet.getWareEvents()[6]*10 + (rand.nextInt(3)-1)*rand.nextInt(11);
-        machinesPrice = 900 + -30*(planet.getTechLevel()-4) + planet.getWareEvents()[7]*10 + (rand.nextInt(3)-1)*rand.nextInt(6);
-        narcoticsPrice = 3500 + -125*(planet.getTechLevel()-5) + planet.getWareEvents()[8]*10 + (rand.nextInt(3)-1)*rand.nextInt(151);
-        robotsPrice = 5000 + -150*(planet.getTechLevel()-6) + planet.getWareEvents()[9]*10 + (rand.nextInt(3)-1)*rand.nextInt(101);
-
-        //tPlanet.setText(planet.getName());
-        tFree.setText("" + freeCargo);
-
-        pWater.setText("" + waterPrice);
-        pFurs.setText("" + fursPrice);
-        pFood.setText("" + foodPrice);
-        pOre.setText("" + orePrice);
-        pGames.setText("" + gamesPrice);
-        pFirearms.setText("" + firearmsPrice);
-        pMedicine.setText("" + medicinePrice);
-        pMachines.setText("" + machinesPrice);
-        pNarcotics.setText("" + narcoticsPrice);
-        pRobots.setText("" + robotsPrice);
-        fuelPrice.setText("" + fuelCost);
-        fuelLeft.setText(String.format("%.0f", fuelCount));
-        currentCredits.setText("" + creditCount);
-
-        if(planet.getWareEvent(0) == 1)    {
-            eWater.setText("Drought");
-        }
-        if(planet.getWareEvent(1) == 1) {
-            eFurs.setText("Cold");
-        }
-        if(planet.getWareEvent(2) == 1) {
-            eFood.setText("Crop Failure");
-        }
-        if(planet.getWareEvent(3) == 1) {
-            eOre.setText("War");
-            eFirearms.setText("War");
-        }
-        if(planet.getWareEvent(4) == 1) {
-            eGames.setText("Boredom");
-            eNarcotics.setText("Boredom");
-        }
-        if(planet.getWareEvent(6) == 1) {
-            eMedicine.setText("Plague");
-        }
-        if(planet.getWareEvent(7) == 1) {
-            eMachines.setText("Lack of Workers");
-            eRobots.setText("Lack of Workers");
-        }
+    }
+    
+    private void updatePlayerTable() {
+        ObservableList<Ware> currentItems = playerTable.getItems();
+        currentItems.removeAll(currentItems);
         
-        for (Ware good : player.getShip().getCargo()) {
-            switch (good.getName()) {
-                case "Water":
-                    aWater.setText(""
-                            + (Integer.parseInt(aWater.getText()) + 1));
-                    break;
-                case "Furs":
-                    aFurs.setText(""
-                            + (Integer.parseInt(aFurs.getText()) + 1));
-                    break;
-                case "Food":
-                    aFood.setText(""
-                            + (Integer.parseInt(aFood.getText()) + 1));
-                    break;
-                case "Ore":
-                    aOre.setText(""
-                            + (Integer.parseInt(aOre.getText()) + 1));
-                    break;
-                case "Games":
-                    aGames.setText(""
-                            + (Integer.parseInt(aGames.getText()) + 1));
-                    break;
-                case "Firearms":
-                    aFirearms.setText(""
-                            + (Integer.parseInt(aFirearms.getText()) + 1));
-                    break;
-                case "Medicine":
-                    aMedicine.setText(""
-                            + (Integer.parseInt(aMedicine.getText()) + 1));
-                    break;
-                case "Machines":
-                    aMachines.setText(""
-                            + (Integer.parseInt(aMachines.getText()) + 1));
-                    break;
-                case "Narcotics":
-                    aNarcotics.setText(""
-                            + (Integer.parseInt(aNarcotics.getText()) + 1));
-                    break;
-                case "Robots":
-                    aRobots.setText(""
-                            + (Integer.parseInt(aRobots.getText()) + 1));
-                    break;
-            }
-        }
-
-        aWater.setText("" + wares[0]);
-        aFurs.setText("" + wares[1]);
-        aFood.setText("" + wares[2]);
-        aOre.setText("" + wares[3]);
-        aGames.setText("" + wares[4]);
-        aFirearms.setText("" + wares[5]);
-        aMedicine.setText("" + wares[6]);
-        aMachines.setText("" + wares[7]);
-        aNarcotics.setText("" + wares[8]);
-        aRobots.setText("" + wares[9]);*/
+        Player player = Player.getInstance();
+        Ship ship = player.getShip();
+        List<Ware> playerWares = ship.getWares();
+        ObservableList<Ware> playerTableData = FXCollections.observableArrayList(playerWares);
+        playerTable.setItems(playerTableData);
+    }
+    
+    private void updatePlanetTable() {
+        ObservableList<Ware> currentItems = planetTable.getItems();
+        currentItems.removeAll(currentItems);
+        
+        List<Ware> wares = planet.getWares();
+        ObservableList<Ware> planetTableData = FXCollections.observableArrayList(wares);
+        planetTable.setItems(planetTableData);
     }
 
     public void buyItem(ActionEvent e) {
-        /*
-        if (freeCargo <= 0) {
-            return;
+        emptyBottomTablePane.setCenter(null);
+        Ware ware = (Ware) planetTable.getSelectionModel().getSelectedItem();
+        int price = ware.getCurrentPrice();
+        Player player = Player.getInstance();
+        int credits = player.getCredits();
+        if (price < credits) {
+            int currentQuantity = ware.getCurrentQuantity();
+            if (currentQuantity > 0) {
+                Ship ship = player.getShip();
+                boolean success = ship.addCargo(ware);
+                if (success) {
+                    int newCredits = credits - price;
+                    player.setCredits(newCredits);
+                    ware.setCurrentQuantity(--currentQuantity);
+                    
+                    infoPane.updateInfo();
+                    updatePlanetTable();
+                    updatePlayerTable();
+                } else {
+                    displayAlert("Ship Cargo Full", "There is no room on your ship for more items.");
+                }
+            } else {
+                displayAlert("No Items Remaining", "The planet has run out of this item.");
+            }
+        } else {
+            displayAlert("Insufficient Credits", "You don't have enough credits to purchase this item.");
         }
-
-        if (e.getSource() == bWater) {
-            if (creditCount >= waterPrice && wares[0] > 0) {
-                freeCargo--;
-                tFree.setText("" + freeCargo);
-                creditCount -= waterPrice;
-                wares[0]--;
-            }
-        } else if (e.getSource() == bFurs) {
-            if (creditCount >= fursPrice && wares[1] > 0) {
-                freeCargo--;
-                tFree.setText("" + freeCargo);
-                creditCount -= fursPrice;
-                wares[1]--;
-            }
-        } else if (e.getSource() == bFood) {
-            if (creditCount >= foodPrice && wares[2] > 0) {
-                freeCargo--;
-                tFree.setText("" + freeCargo);
-                creditCount -= foodPrice;
-                wares[2]--;
-            }
-        } else if (e.getSource() == bOre) {
-            if (creditCount >= orePrice && wares[3] > 0) {
-                freeCargo--;
-                tFree.setText("" + freeCargo);
-                creditCount -= orePrice;
-                wares[3]--;
-            }
-        } else if (e.getSource() == bGames) {
-            if (creditCount >= gamesPrice && wares[4] > 0) {
-                freeCargo--;
-                tFree.setText("" + freeCargo);
-                creditCount -= gamesPrice;
-                wares[4]--;
-            }
-        } else if (e.getSource() == bFirearms) {
-            if (creditCount >= firearmsPrice && wares[5] > 0) {
-                freeCargo--;
-                tFree.setText("" + freeCargo);
-                creditCount -= firearmsPrice;
-                wares[5]--;
-            }
-        } else if (e.getSource() == bMachines) {
-            if (creditCount >= machinesPrice && wares[6] > 0) {
-                freeCargo--;
-                creditCount -= machinesPrice;
-                wares[6]--;
-            }
-        } else if (e.getSource() == bMedicine) {
-            if (creditCount >= medicinePrice && wares[7] > 0) {
-                freeCargo--;
-                tFree.setText("" + freeCargo);
-                creditCount -= medicinePrice;
-                wares[7]--;
-            }
-        } else if (e.getSource() == bNarcotics) {
-            if (creditCount >= narcoticsPrice && wares[8] > 0) {
-                freeCargo--;
-                tFree.setText("" + freeCargo);
-                creditCount -= narcoticsPrice;
-                wares[8]--;
-            }
-        } else if (e.getSource() == bRobots) {
-            if (creditCount >= robotsPrice && wares[9] > 0) {
-                freeCargo--;
-                tFree.setText("" + freeCargo);
-                creditCount -= robotsPrice;
-                wares[9]--;
-            }
-        }
-        currentCredits.setText("" + creditCount);*/
+    }
+    
+    private void displayAlert(String title, String message) {
+        AlertPane alertPane = new AlertPane(AlertPaneType.OneButton);
+        alertPane.setTitleText(title);
+        alertPane.setMessageText(message);
+        EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
+            emptyBottomTablePane.setCenter(null);
+        };
+        alertPane.getCloseButton().setOnAction(closeAction);
+        emptyBottomTablePane.setCenter(alertPane);
     }
 
     public void sellItem(ActionEvent e) {
-        /*
-        if (e.getSource() == sWater) {
-            if (player.getShip().getCargo().contains(Good.Water)) {
-                freeCargo++;
-                tFree.setText("" + freeCargo);
-                wares[0]++;
-                creditCount += waterPrice;
-            }
-        } else if (e.getSource() == sFurs) {
-            if (player.getShip().getCargo().contains(Good.Furs)) {
-                freeCargo++;
-                tFree.setText("" + freeCargo);
-                wares[1]++;
-                creditCount += fursPrice;
-            }
-        } else if (e.getSource() == sFood) {
-            if (player.getShip().getCargo().contains(Good.Food)) {
-                freeCargo++;
-                tFree.setText("" + freeCargo);
-                wares[2]++;
-                creditCount += waterPrice;
-            }
-        } else if (e.getSource() == sOre) {
-            if (player.getShip().getCargo().contains(Good.Ore)) {
-                freeCargo++;
-                tFree.setText("" + freeCargo);
-                wares[3]++;
-                creditCount += orePrice;
-            }
-        } else if (e.getSource() == sGames) {
-            if (player.getShip().getCargo().contains(Good.Games)) {
-                freeCargo++;
-                tFree.setText("" + freeCargo);
-                wares[4]++;
-                creditCount += gamesPrice;
-            }
-        } else if (e.getSource() == sFirearms) {
-            if (player.getShip().getCargo().contains(Good.Firearms)) {
-                freeCargo++;
-                tFree.setText("" + freeCargo);
-                wares[5]++;
-                creditCount += firearmsPrice;
-            }
-        } else if (e.getSource() == sMachines) {
-            if (player.getShip().getCargo().contains(Good.Machines)) {
-                freeCargo++;
-                tFree.setText("" + freeCargo);
-                wares[6]++;
-                creditCount += machinesPrice;
-            }
-        } else if (e.getSource() == sMedicine) {
-            if (player.getShip().getCargo().contains(Good.Medicine)) {
-                freeCargo++;
-                tFree.setText("" + freeCargo);
-                wares[7]++;
-                creditCount += medicinePrice;
-            }
-        } else if (e.getSource() == sNarcotics) {
-            if (player.getShip().getCargo().contains(Good.Narcotics)) {
-                freeCargo++;
-                tFree.setText("" + freeCargo);
-                wares[8]++;
-                creditCount += narcoticsPrice;
-            }
-        } else if (e.getSource() == sRobots) {
-            if (player.getShip().getCargo().contains(Good.Robots)) {
-                freeCargo++;
-                tFree.setText("" + freeCargo);
-                wares[9]++;
-                creditCount += robotsPrice;
-            }
-        }
-        currentCredits.setText("" + creditCount);*/
-    }
-    
-    public void resetTrade(ActionEvent e) {
-        //TODO
-        System.out.println("TODO");
-    }
-    
+        emptyBottomTablePane.setCenter(null);
+        Ware ware = (Ware) playerTable.getSelectionModel().getSelectedItem();
+        Player player = Player.getInstance();
+        
+        int quantity = ware.getCurrentQuantity();
+        if (quantity > 0) {
+            int techLevel = planet.getTechLevel();
+            int minTechLevelToUse = ware.getMTLU();
+            if (minTechLevelToUse <= techLevel) {
+                Ship ship = player.getShip();
+                ship.removeCargo(ware);
+                planet.addWare(ware);
 
-    public void confirmTrade(ActionEvent e) {
-        /*
-        planet.changeWares(wares);
-        player.setCredits(creditCount);
-        player.getShip().setFuel(fuelCount);
-        // Add the Cargo
-        for (int i = 0; i < -wares[0]; i++) {
-            player.getShip().addCargo(new Ware(Good.Water));
-        }
-        for (int i = 0; i < -wares[1]; i++) {
-            player.getShip().addCargo(new Ware(Good.Furs));
-        }
-        for (int i = 0; i < -wares[2]; i++) {
-            player.getShip().addCargo(new Ware(Good.Food));
-        }
-        for (int i = 0; i < -wares[3]; i++) {
-            player.getShip().addCargo(new Ware(Good.Ore));
-        }
-        for (int i = 0; i < -wares[4]; i++) {
-            player.getShip().addCargo(new Ware(Good.Games));
-        }
-        for (int i = 0; i < -wares[5]; i++) {
-            player.getShip().addCargo(new Ware(Good.Firearms));
-        }
-        for (int i = 0; i < -wares[6]; i++) {
-            player.getShip().addCargo(new Ware(Good.Machines));
-        }
-        for (int i = 0; i < -wares[7]; i++) {
-            player.getShip().addCargo(new Ware(Good.Medicine));
-        }
-        for (int i = 0; i < -wares[8]; i++) {
-            player.getShip().addCargo(new Ware(Good.Narcotics));
-        }
-        for (int i = 0; i < -wares[9]; i++) {
-            player.getShip().addCargo(new Ware(Good.Robots));
-        }
+                int sellValue = (int) (ware.getBasePrice() * .8);
+                int credits = player.getCredits();
+                player.setCredits(credits + sellValue);
 
-        // Remove the Cargo
-        for (int i = 0; i < -wares[0]; i++) {
-            player.getShip().removeCargo(new Ware(Good.Water));
+                infoPane.updateInfo();
+                updatePlanetTable();
+                updatePlayerTable();
+            } else {
+                displayAlert("Insufficient Tech Level", "The planet doesn't want to buy an item it can't use yet.");
+            }
+        } else {
+            displayAlert("No Items", "You don't have any of this item to sell.");
         }
-        for (int i = 0; i < -wares[1]; i++) {
-            player.getShip().removeCargo(new Ware(Good.Furs));
-        }
-        for (int i = 0; i < -wares[2]; i++) {
-            player.getShip().removeCargo(new Ware(Good.Food));
-        }
-        for (int i = 0; i < -wares[3]; i++) {
-            player.getShip().removeCargo(new Ware(Good.Ore));
-        }
-        for (int i = 0; i < -wares[4]; i++) {
-            player.getShip().removeCargo(new Ware(Good.Games));
-        }
-        for (int i = 0; i < -wares[5]; i++) {
-            player.getShip().removeCargo(new Ware(Good.Firearms));
-        }
-        for (int i = 0; i < -wares[6]; i++) {
-            player.getShip().removeCargo(new Ware(Good.Machines));
-        }
-        for (int i = 0; i < -wares[7]; i++) {
-            player.getShip().removeCargo(new Ware(Good.Medicine));
-        }
-        for (int i = 0; i < -wares[8]; i++) {
-            player.getShip().removeCargo(new Ware(Good.Narcotics));
-        }
-        for (int i = 0; i < -wares[9]; i++) {
-            player.getShip().removeCargo(new Ware(Good.Robots));
-        }*/
+        
+        
     }
 
     public void addFuel(ActionEvent e) {
@@ -527,5 +289,4 @@ public class MarketController implements Initializable {
     public void goBack(ActionEvent e) {
         HyenasLoader.getInstance().goToSystemScreen();
     }
-
 }

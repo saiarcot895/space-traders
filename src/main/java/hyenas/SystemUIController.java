@@ -94,6 +94,7 @@ public class SystemUIController implements Initializable {
             button.setLayoutX(systemCenterX + planet.getOrbitRadius() - (button.getPrefWidth() / 2.0) - 10);
             button.setLayoutY(systemCenterY - 10);
             
+            
             planetMap.put(planet, button);
             
             Circle circle = new Circle(systemCenterX, systemCenterY, planet.getOrbitRadius());

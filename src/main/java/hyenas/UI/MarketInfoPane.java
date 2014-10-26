@@ -25,6 +25,7 @@ import javafx.scene.layout.VBox;
 public class MarketInfoPane extends BorderPane {
     
     private Label planetNameLabel;
+    private Label planetTypeLabel;
     private Label techLevelLabel;
     private Label creditsLabel;
     private Label fuelLabel;
@@ -41,6 +42,8 @@ public class MarketInfoPane extends BorderPane {
         VBox leftBox = new VBox();
         Label planetName = new Label("Planet:");
         planetName.getStyleClass().add("alertPaneTitleLabel");
+        Label planetType = new Label("Type:");
+        planetType.getStyleClass().add("alertPaneTitleLabel");
         Label techLevel = new Label("Tech Level:");
         techLevel.getStyleClass().add("alertPaneTitleLabel");
         Label credits = new Label("Credits:");
@@ -50,27 +53,27 @@ public class MarketInfoPane extends BorderPane {
         Label freeCargo = new Label("Free Cargo:");
         freeCargo.getStyleClass().add("alertPaneTitleLabel");
         
-        leftBox.getChildren().addAll(planetName, techLevel, credits, fuel, freeCargo);
+        leftBox.getChildren().addAll(planetName, planetType, techLevel,
+                credits, fuel, freeCargo);
         
-        
-        Player player = Player.getInstance();
-        Planet planet = player.getTradingPlanet();
-        Ship ship = player.getShip();
         
         VBox rightBox = new VBox();
-        planetNameLabel = new Label(planet.getPlanetName());
+        planetNameLabel = new Label("[Name]");
         planetNameLabel.getStyleClass().add("alertPaneMessageLabel");
-        techLevelLabel = new Label("" + planet.getTechLevel());
+        planetTypeLabel = new Label("[Type]");
+        planetTypeLabel.getStyleClass().add("alertPaneMessageLabel");
+        techLevelLabel = new Label("[Tech Level]");
         techLevelLabel.getStyleClass().add("alertPaneMessageLabel");
-        creditsLabel = new Label("" + player.getCredits());
+        creditsLabel = new Label("-1");
         creditsLabel.getStyleClass().add("alertPaneMessageLabel");
-        fuelLabel = new Label(String.format("%.0f", ship.getFuel()));
+        fuelLabel = new Label("-1");
         fuelLabel.getStyleClass().add("alertPaneMessageLabel");
-        freeCargoLabel = new Label("" + ship.getFreeCargo());
+        freeCargoLabel = new Label("-1");
         freeCargoLabel.getStyleClass().add("alertPaneMessageLabel");
-        rightBox.getChildren().addAll(planetNameLabel, techLevelLabel, creditsLabel, fuelLabel, freeCargoLabel);
+        rightBox.getChildren().addAll(planetNameLabel, planetTypeLabel, 
+                techLevelLabel, creditsLabel, fuelLabel, freeCargoLabel);
         BorderPane.setMargin(rightBox, new Insets(0,0,0,20));
-        
+        updateInfo();
         
         BorderPane bottomBox = new BorderPane();
         bottomBox.setPrefWidth(300.0);
@@ -106,6 +109,7 @@ public class MarketInfoPane extends BorderPane {
         setLeft(leftBox);
         setCenter(rightBox);
         setBottom(bottomBox);
+        
     }
     
     public Button getBuyButton() {
@@ -114,5 +118,19 @@ public class MarketInfoPane extends BorderPane {
     
     public Button getSellButton() {
         return sellButton;
+    }
+    
+    public void updateInfo() {
+        Player player = Player.getInstance();
+        Planet planet = player.getTradingPlanet();
+        Ship ship = player.getShip();
+        
+        planetNameLabel.setText(planet.getPlanetName());
+        planetTypeLabel.setText(planet.getPlanetTypeString());
+        techLevelLabel.setText("" + planet.techLevelString() + " (" + 
+                planet.getTechLevel() + ")");
+        creditsLabel.setText("" + player.getCredits());
+        fuelLabel.setText(String.format("%.0f", ship.getFuel()));
+        freeCargoLabel.setText("" + ship.getFreeCargo());
     }
 }

@@ -206,6 +206,10 @@ public class Ware {
         return currentPrice;
     }
     
+    public void setCurrentPrice(int currentPrice) {
+        this.currentPrice = currentPrice;
+    }
+    
     public int getCurrentQuantity() {
         return currentQuantity;
     }
@@ -221,54 +225,6 @@ public class Ware {
             wares.add(ware);
         }
         return wares;
-    }
-    
-    public static List<Ware> waresForPlanet(Planet planet) {
-        int numGoods = Good.values().length;
-        ArrayList<Ware> wares = new ArrayList<Ware>(numGoods);
-        int techLevel = planet.getTechLevel();
-        
-        for (Good good: Good.values()) {
-//            Water,
-//            Furs,
-//            Food,
-//            Ore,
-//            Games,
-//            Firearms,
-//            Medicine,
-//            Machines,
-//            Narcotics,
-//            Robots
-            Ware ware = new Ware(good);
-            
-            ware.currentQuantity = howMuchToProduce(good, planet);
-            // TODO: vaiance is not correct
-            ware.currentPrice = ware.basePrice + (ware.priceIncreasePerLevel * (techLevel - ware.minimumTechLevelToProduce)) + ware.variance;
-//            Name	MTLP	MTLU	TTP	Base Price	IPL	Var	IE	CR              ER	MTL	MTH
-//            Water	0	0	2	30              3       4       DROUGHT	LOTSOFWATER	DESERT	30	50
-            
-            
-//            (the base price) + (the IPL * (Planet Tech Level - MTLP)) + (variance)
-            wares.add(ware);
-            //only add if planet is able to produce?
-            
-        }
-        
-        return wares;
-    }
-    
-    private static final int[] TTP = {2, 0, 1, 3, 6, 5, 6, 5, 5, 7};
-    private static final int[] MTLP = {0, 0, 1, 2, 3, 3, 4, 4, 5, 6};
-    
-    private static int howMuchToProduce(Good good, Planet planet) {
-        int techLevel = planet.getTechLevel();
-        int index = good.ordinal();
-        if (techLevel < MTLP[index]) {
-            return 0;
-        } else {
-            // TODO include affects caused by events and planet type
-            return 10 - Math.abs(TTP[index] - techLevel);
-        }
     }
     
     @Override

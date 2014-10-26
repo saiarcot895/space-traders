@@ -49,7 +49,7 @@ public class Ship {
             pirate = 0;
             repairCost = 0;
             size = 0;
-            maxCargo = 0;
+            maxCargo = 30;
             maxHealth = 5000.0;
             health = maxHealth;
             break;
@@ -67,7 +67,7 @@ public class Ship {
             pirate = 0;
             repairCost = 0;
             size = 0;
-            maxCargo = 0;
+            maxCargo = 15;
             maxHealth = 2000.0;
             health = maxHealth;
             break;
@@ -85,7 +85,7 @@ public class Ship {
             pirate = 0;
             repairCost = 0;
             size = 0;
-            maxCargo = 0;
+            maxCargo = 10;
             maxHealth = 5000.0;
             health = maxHealth;
             break;
@@ -101,9 +101,41 @@ public class Ship {
     public List<Ware> getCargo() {
         return goods;
     }
+    
+    public List<Ware> getWares() {
+        // Returns a list of the wares stored in the ships cargo, along with
+        // each wares respective queantity
+        List<Ware> defaultWares = Ware.defaultWares();
+        List<Ware> shipCargo = getCargo();
+        for (Ware ware: defaultWares) {
+            Good good = ware.getGood();
+            int count = 0;
+            for (Ware cargoWare: shipCargo) {
+                Good cargoGood = cargoWare.getGood();
+                if (good == cargoGood) count ++;
+            }
+            ware.setCurrentQuantity(count);
+        }
+        return defaultWares;
+    }
 
-    public void addCargo(Ware good) {
-        goods.add(good);
+    public boolean addCargo(Ware ware) {
+        // Only allow cargo to be added if there is space
+        int numGoods = goods.size();
+        if (++numGoods > maxCargo) {
+            return false;
+        }
+        goods.add(ware);
+        return true;
+    }
+    
+    public boolean removeCargo(Ware toRemove) {
+        for (Ware ware: goods) {
+            if (ware.getGood() == toRemove.getGood()) {
+                return goods.remove(ware);
+            }
+        }
+        return false;
     }
 
     public void setFuel(double fuel) {
@@ -116,10 +148,6 @@ public class Ship {
 
     public double getFuel() {
         return fuel;
-    }
-
-    public boolean removeCargo(Ware good) {
-        return goods.remove(good);
     }
     
     public double getHealth() {
