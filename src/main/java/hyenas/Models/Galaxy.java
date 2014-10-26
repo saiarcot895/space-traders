@@ -11,12 +11,20 @@ public class Galaxy {
 
     private static Galaxy instance;
 
+    /**
+     * Initializes an instance of Galaxy
+     * Sets initial values
+     */
     private Galaxy() {
         distances = new HashMap<>();
         locationsSet = false;
         setupSolarSystems();
     }
 
+    /**
+     * Getter for Galaxy singleton
+     * @return Galaxy the common galaxy instance
+     */
     public static Galaxy getInstance() {
         if (instance == null) {
             instance = new Galaxy();
@@ -24,6 +32,9 @@ public class Galaxy {
         return instance;
     }
 
+    /**
+     * Sets up the galaxy's solar systems
+     */
     private void setupSolarSystems() {
         final String[] systemNames = new String[] {
             "Earth616",
@@ -167,7 +178,6 @@ public class Galaxy {
 
     /**
      * Get the solar systems in the galaxy.
-     *
      * @return Array of solar systems in the galaxy
      */
     public Map<String, SolarSystem> getSolarSystems() {
@@ -191,10 +201,18 @@ public class Galaxy {
         return distances;
     }
 
+    /**
+     * Get whether the galaxy's location is set
+     * @return whether the galaxy's location is set
+     */
     public boolean isLocationsSet() {
         return locationsSet;
     }
 
+    /**
+     * Set whether the galaxy's location is set
+     * @param locationSet, whether the galaxy's location is set
+     */
     public void setLocationsSet(boolean locationsSet) {
         this.locationsSet = locationsSet;
     }

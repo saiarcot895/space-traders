@@ -1,17 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hyenas.Models;
 
 /**
- *
+ * A PlanetType, used to distinguish which resource is abundant/scare on a
+ * planet
+ * 
  * @author Alex
  */
-
 public enum PlanetType {
-    None,           // How resource is affected: 
+    None,           // How resource is affected (+/-): 
     MineralRich,    // Ore+
     MineralPoor,    // Ore-
     LotsOfWater,    // Water+

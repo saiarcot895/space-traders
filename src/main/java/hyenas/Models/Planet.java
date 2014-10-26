@@ -65,23 +65,26 @@ public class Planet {
     }
     
     /**
-     * Get the tech level of the planet.
-     * @return tech level of the planet
+     * Get the string tech level of the planet.
+     * @return string, tech level of the planet
      */
     public String techLevelString() {
         return TECH_LEVELS[techLevel];
     }
 
+    /**
+     * Get the tech level of the planet.
+     * @return int, the tech level of the planet
+     */
     public int getTechLevel() {
         return techLevel;
     }
 
     @Override
     public String toString() {
-        return "<Planet: " + planetName
-                + ", Radius: " + orbitRadius
-                + ", Tech: " + techLevelString()
-                + ", Loc: (" + x + ", " + y + ")" + ">";
+        return "<Planet: " + planetName + ", Radius: " + orbitRadius +
+                ", Tech: " + techLevelString() + ", Loc: (" + x + ", " + y +
+                ")" + ">";
     }
 
     public int getX() {

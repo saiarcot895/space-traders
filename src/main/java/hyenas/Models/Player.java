@@ -233,7 +233,7 @@ public class Player {
     }
     
     /**
-     * set player's state
+     * Set player's state
      * @param state 
      */
     public void setState(boolean state) {
