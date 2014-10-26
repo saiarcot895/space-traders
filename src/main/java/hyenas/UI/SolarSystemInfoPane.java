@@ -42,7 +42,7 @@ public class SolarSystemInfoPane extends AnchorPane {
         AnchorPane.setLeftAnchor(numPlanetsLabel, 10.0);
 
         travelButton = new Button("Travel");
-        travelButton.getStyleClass().add("alertPaneButton");
+        travelButton.getStyleClass().add("standard-button");
         AnchorPane.setBottomAnchor(travelButton, 10.0);
         AnchorPane.setRightAnchor(travelButton, 10.0);
         AnchorPane.setLeftAnchor(travelButton, 10.0);

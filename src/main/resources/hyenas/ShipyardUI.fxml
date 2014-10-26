@@ -12,6 +12,6 @@
 
 <AnchorPane fx:id="anchor" id="AnchorPane" prefHeight="404.0" prefWidth="726.0" styleClass="default-background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.ShipyardController">
     <children>
-      
+        <Button fx:id="backButton" styleClass="standard-button" prefHeight="37.0" prefWidth="143.0" mnemonicParsing="false" onAction="#goBack" text="Back" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />
     </children>
 </AnchorPane>

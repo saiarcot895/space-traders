@@ -10,13 +10,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
 /**
  *
  * @author Alex
  */
-public class AlertPane extends AnchorPane {
+public class AlertPane extends BorderPane {
     
     @FXML
     private Label titleLabel;
@@ -33,7 +36,9 @@ public class AlertPane extends AnchorPane {
     private AlertPaneType type;
     
     private final int ALERT_PANE_WIDTH = 300;
-    private final int ALERT_PANE_HEIGHT = 130;
+    private final int ALERT_PANE_HEIGHT = 135;
+    private final double ALERT_PANE_BUTTON_WIDTH = 104.0;
+    private final double ALERT_PANE_BUTTON_HEIGHT = 27.0;
     
     private final double PADDING = 10.0;
     
@@ -45,42 +50,49 @@ public class AlertPane extends AnchorPane {
         titleLabel = new Label();
         titleLabel.setWrapText(true);
         titleLabel.getStyleClass().add("alertPaneTitleLabel");
-        AnchorPane.setTopAnchor(titleLabel, PADDING);
-        AnchorPane.setRightAnchor(titleLabel, PADDING);
-        AnchorPane.setLeftAnchor(titleLabel, PADDING);
+        titleLabel.setStyle("-fx-padding: 5 0 0 0;");
+        BorderPane titlePane = new BorderPane();
+        titlePane.setCenter(titleLabel);
+        titlePane.setPrefHeight(10.0);
+        setTop(titlePane);
         
         messageLabel = new Label();
         messageLabel.setWrapText(true);
         messageLabel.getStyleClass().add("alertPaneMessageLabel");
-        AnchorPane.setTopAnchor(messageLabel, PADDING);
-        AnchorPane.setRightAnchor(messageLabel, PADDING);
-        AnchorPane.setLeftAnchor(messageLabel, PADDING);
+        messageLabel.setPrefHeight(88.0);
+        messageLabel.setStyle("-fx-padding: 0 10 0 10;");
+        setCenter(messageLabel);
         
         if (type == AlertPaneType.OneButton) {
             cancelButton = new Button("Close");
-            cancelButton.getStyleClass().add("alertPaneButton");
-            AnchorPane.setBottomAnchor(cancelButton, PADDING);
-            AnchorPane.setRightAnchor(cancelButton, PADDING);
-            AnchorPane.setLeftAnchor(cancelButton, PADDING);
+            cancelButton.getStyleClass().add("standard-button");
+            cancelButton.setPrefSize(ALERT_PANE_BUTTON_WIDTH, ALERT_PANE_BUTTON_HEIGHT);
+            
+            BorderPane buttonPane = new BorderPane();
+            buttonPane.setCenter(cancelButton);
+            buttonPane.setPrefHeight(35.0);
+            setBottom(buttonPane);
         } else if (type == AlertPaneType.TwoButtons) {
-            actionButton = new Button();
-            actionButton.getStyleClass().add("alertPaneButton");
-            AnchorPane.setBottomAnchor(actionButton, PADDING);
-            AnchorPane.setRightAnchor(actionButton, 160.0);
-            AnchorPane.setLeftAnchor(actionButton, PADDING);
-            getChildren().add(actionButton);
+            actionButton = new Button("Action");
+            actionButton.getStyleClass().add("standard-button");
+            actionButton.setPrefSize(ALERT_PANE_BUTTON_WIDTH, ALERT_PANE_BUTTON_HEIGHT);
+            AnchorPane.setBottomAnchor(actionButton, 5.0);
+            AnchorPane.setLeftAnchor(actionButton, 41.0);
             
             cancelButton = new Button("Close");
-            cancelButton.getStyleClass().add("alertPaneButton");
-            AnchorPane.setBottomAnchor(cancelButton, PADDING);
-            AnchorPane.setRightAnchor(cancelButton, PADDING);
-            AnchorPane.setLeftAnchor(cancelButton, 160.0);
+            cancelButton.getStyleClass().add("standard-button");
+            cancelButton.setPrefSize(ALERT_PANE_BUTTON_WIDTH, ALERT_PANE_BUTTON_HEIGHT);
+            AnchorPane.setBottomAnchor(cancelButton, 5.0);
+            AnchorPane.setRightAnchor(cancelButton, 41.0);
+            
+            AnchorPane buttonPane = new AnchorPane();
+            buttonPane.setPrefHeight(35.0);
+            buttonPane.getChildren().addAll(actionButton, cancelButton);
+            setBottom(buttonPane);
         }
         
         setLayoutX((UIHelper.getScreenSize().getWidth() / 2) - (getPrefWidth() / 2));
         setLayoutY((UIHelper.getScreenSize().getHeight() / 2) - (getPrefHeight() / 2));
-        
-        getChildren().addAll(titleLabel, messageLabel, cancelButton);
     }
     
     public void setTitleText(String text) {

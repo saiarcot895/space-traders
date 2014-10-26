@@ -107,12 +107,7 @@ public class HyenasLoader extends Application {
     }
 
     public void goToStartGameScreen() {
-        try {
-            changePage("AllocationUI.fxml");
-        } catch (IOException ex) {
-            Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
-                    null, ex);
-        }
+        loadScreen("AllocationUI.fxml");
     }
 
     /*
@@ -120,44 +115,32 @@ public class HyenasLoader extends Application {
      * This generates the systems randomly on start!
      */
     public void goToMapScreen() {
-        try {
-            changePage("MapUI.fxml");
-        } catch (IOException ex) {
-            Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
-                    null, ex);
-        }
+        loadScreen("MapUI.fxml");
     }
 
     public void goToSettingsScreen() {
-        try {
-            changePage("Settings.fxml");
-        } catch (IOException ex) {
-            Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
-                    null, ex);
-        }
+        loadScreen("Settings.fxml");
     }
 
     public void goToHomeScreen() {
-        try {
-            changePage("MainWindow.fxml");
-        } catch (IOException ex) {
-            Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
-                    null, ex);
-        }
+        loadScreen("MainWindow.fxml");
     }
 
     public void goToMarketplace() {
-        try {
-            changePage("MarketUI.fxml");
-        } catch (IOException ex) {
-            Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
-                    null, ex);
-        }
+        loadScreen("MarketUI.fxml");
     }
 
     public void goToSystemScreen() {
+        loadScreen("SystemUI.fxml");
+    }
+    
+    public void goToShipyard() {
+        loadScreen("ShipyardUI.fxml");
+    }
+    
+    private void loadScreen(String screen) {
         try {
-            changePage("SystemUI.fxml");
+            changePage(screen);
         } catch (IOException ex) {
             Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
                     null, ex);

@@ -52,12 +52,6 @@ public class SystemUIController implements Initializable {
     @FXML
     private Pane systemPane;
     
-    @FXML
-    private Button marketPlace;
-    
-    @FXML
-    private MenuButton options;
-    
     private Button currentPlanetButton;
     
     private PlayerInfoPane playerInfoPane;
@@ -200,6 +194,18 @@ public class SystemUIController implements Initializable {
 
     public void goBack(ActionEvent e) {
         HyenasLoader.getInstance().goToMapScreen();
+        animationTimer.cancel();
+        animationTimer.purge();
+    }
+    
+    public void goToSettings(ActionEvent e) {
+        HyenasLoader.getInstance().goToSettingsScreen();
+        animationTimer.cancel();
+        animationTimer.purge();
+    }
+    
+    public void goToShipyard(ActionEvent e) {
+        HyenasLoader.getInstance().goToShipyard();
         animationTimer.cancel();
         animationTimer.purge();
     }

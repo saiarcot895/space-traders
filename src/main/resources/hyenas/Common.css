@@ -84,21 +84,6 @@ and open the template in the editor.
     -fx-border-width: 1;
 }
 
-.alertPaneButton {
-    -fx-background-color: rgba(0,231,255, .9);
-    -fx-font-family: "Trebuchet MS";
-}
-
-.alertPaneButton:hover {
-    -fx-background-color: rgba(0,240,255, .9);
-    
-    /*-fx-effect: innershadow( gaussian , rgba(255,255,255,0.2) , 0,0,0,4 );*/
-}
-
-.alertPaneButton:pressed {
-    -fx-background-color: rgba(0,211,235, .9);
-}
-
 .scroll-pane {
     -fx-background: url('/hyenas/images/Background.jpg');
     -fx-background: black;
@@ -151,4 +136,28 @@ and open the template in the editor.
 .scroll-bar:horizontal .thumb:pressed,
 .scroll-bar:vertical .thumb:pressed {
     -fx-background-color: rgba(231,231,231,.9);
+}
+
+.standard-button {
+    -fx-background-image: url('/hyenas/images/Button.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(0,231,255, .9);
+}
+
+.standard-button:hover {
+    -fx-background-image: url('/hyenas/images/Button-Highlighted.png');
+}
+
+.standard-button:pressed {
+    -fx-background-image: url('/hyenas/images/Button-Pressed.png');
+}
+
+.standard-button:disabled {
+    -fx-background-image: url('/hyenas/images/Button.png');
+}
+
+.alertPane .button {
+    -fx-background-size: 104, 27;
 }

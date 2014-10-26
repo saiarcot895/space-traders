@@ -14,14 +14,14 @@
 
 <AnchorPane fx:id="anchor" id="AnchorPane" prefHeight="404.0" prefWidth="726.0" styleClass="default-background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.AllocationController">
     <children>
-      <Button fx:id="goBack" layoutX="14.0" layoutY="415.0" mnemonicParsing="false" onAction="#goBack" text="Return" AnchorPane.bottomAnchor="13.75" AnchorPane.leftAnchor="14.0" />
-      <Button fx:id="create" layoutX="642.0" layoutY="415.0" mnemonicParsing="false" onAction="#create" text="Confirm" AnchorPane.bottomAnchor="13.75" AnchorPane.rightAnchor="14.0" />
-      <Button fx:id="reset" layoutX="317.0" layoutY="415.0" mnemonicParsing="false" text="Reset Skills" AnchorPane.bottomAnchor="13.75" />
-      <Button fx:id="pilot" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="148.0" mnemonicParsing="false" text="+" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="148.0" />
-      <Button fx:id="fighter" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="179.0" mnemonicParsing="false" text="+" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="177.0" />
-      <Button fx:id="trader" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="211.0" mnemonicParsing="false" text="+" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="206.0" />
-      <Button fx:id="engineer" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="235.0" mnemonicParsing="false" text="+" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="235.0" />
-      <Button fx:id="investor" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="264.0" mnemonicParsing="false" text="+" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="264.0" />
+      <Button fx:id="goBack" styleClass="standard-button" prefHeight="37.0" prefWidth="143.0" mnemonicParsing="false" onAction="#goBack" text="Back" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />
+      <Button fx:id="create" styleClass="standard-button" prefHeight="37.0" prefWidth="143.0" mnemonicParsing="false" onAction="#create" text="Confirm" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+      <Button fx:id="reset" styleClass="standard-button" prefHeight="37.0" prefWidth="143.0" mnemonicParsing="false" text="Reset" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="305.0"/>
+      <Button fx:id="pilot" styleClass="standard-button" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="148.0" mnemonicParsing="false" text="+" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="148.0" />
+      <Button fx:id="fighter" styleClass="standard-button" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="179.0" mnemonicParsing="false" text="+" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="177.0" />
+      <Button fx:id="trader" styleClass="standard-button" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="211.0" mnemonicParsing="false" text="+" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="206.0" />
+      <Button fx:id="engineer" styleClass="standard-button" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="235.0" mnemonicParsing="false" text="+" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="235.0" />
+      <Button fx:id="investor" styleClass="standard-button" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="264.0" mnemonicParsing="false" text="+" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="264.0" />
       <TextField fx:id="name" alignment="CENTER" layoutX="544.0" layoutY="56.0" AnchorPane.rightAnchor="11.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="468.0" layoutY="54.0" text="Name:" AnchorPane.rightAnchor="191.0">
          <font>
