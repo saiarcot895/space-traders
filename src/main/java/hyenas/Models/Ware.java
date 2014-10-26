@@ -19,9 +19,9 @@ public class Ware {
     /* For Extra Credit TODO! */
     private String er;
     /* Min Price in space trade for good (Random Encounter) */
-    private int mtl;
+    private int spaceTradeMinPrice;
     /* Max Price in space trade for good (Random Encounter) */
-    private int mth;
+    private int spaceTradeMaxPrice;
     
     private int currentPrice;
     private int currentQuantity;
@@ -44,8 +44,8 @@ public class Ware {
                 basePrice = 30;
                 priceIncreasePerLevel = 3;
                 variance = 4;
-                mtl = 30;
-                mth = 50;
+                spaceTradeMinPrice = 30;
+                spaceTradeMaxPrice = 50;
                 break;
             case Furs:
                 name = "Furs";
@@ -55,8 +55,8 @@ public class Ware {
                 basePrice = 250;
                 priceIncreasePerLevel = 10;
                 variance = 10;
-                mtl = 230;
-                mth = 280;
+                spaceTradeMinPrice = 230;
+                spaceTradeMaxPrice = 280;
                 break;
             case Food:
                 name = "Food";
@@ -66,8 +66,8 @@ public class Ware {
                 basePrice = 100;
                 priceIncreasePerLevel = 5;
                 variance = 5;
-                mtl = 90;
-                mth = 160;
+                spaceTradeMinPrice = 90;
+                spaceTradeMaxPrice = 160;
                 break;
             case Ore:
                 name = "Ore";
@@ -77,8 +77,8 @@ public class Ware {
                 basePrice = 350;
                 priceIncreasePerLevel = 20;
                 variance = 10;
-                mtl = 350;
-                mth = 420;
+                spaceTradeMinPrice = 350;
+                spaceTradeMaxPrice = 420;
                 break;
             case Games:
                 name = "Games";
@@ -88,8 +88,8 @@ public class Ware {
                 basePrice = 250;
                 priceIncreasePerLevel = -10;
                 variance = 5;
-                mtl = 160;
-                mth = 270;
+                spaceTradeMinPrice = 160;
+                spaceTradeMaxPrice = 270;
                 break;
             case Firearms:
                 name = "Firearms";
@@ -99,8 +99,8 @@ public class Ware {
                 basePrice = 1250;
                 priceIncreasePerLevel = -75;
                 variance = 100;
-                mtl = 600;
-                mth = 1100;
+                spaceTradeMinPrice = 600;
+                spaceTradeMaxPrice = 1100;
                 break;
             case Medicine:
                 name = "Medicine";
@@ -110,8 +110,8 @@ public class Ware {
                 basePrice = 650;
                 priceIncreasePerLevel = -20;
                 variance = 10;
-                mtl = 400;
-                mth = 700;
+                spaceTradeMinPrice = 400;
+                spaceTradeMaxPrice = 700;
                 break;
             case Machines:
                 name = "Machines";
@@ -121,8 +121,8 @@ public class Ware {
                 basePrice = 900;
                 priceIncreasePerLevel = -30;
                 variance = 5;
-                mtl = 600;
-                mth = 800;
+                spaceTradeMinPrice = 600;
+                spaceTradeMaxPrice = 800;
                 break;
             case Narcotics:
                 name = "Narcotics";
@@ -132,8 +132,8 @@ public class Ware {
                 basePrice = 3500;
                 priceIncreasePerLevel = -125;
                 variance = 150;
-                mtl = 2000;
-                mth = 3000;
+                spaceTradeMinPrice = 2000;
+                spaceTradeMaxPrice = 3000;
                 break;
             case Robots:
                 name = "Robots";
@@ -143,8 +143,8 @@ public class Ware {
                 basePrice = 5000;
                 priceIncreasePerLevel = -150;
                 variance = 100;
-                mtl = 3500;
-                mth = 5000;
+                spaceTradeMinPrice = 3500;
+                spaceTradeMaxPrice = 5000;
                 break;
             default:
                 // Do nothing
@@ -159,15 +159,15 @@ public class Ware {
         return good;
     }
 
-    public int getMTLP()    {
+    public int getMinimumTechLevelToProduce()    {
         return minimumTechLevelToProduce;
     }
 
-    public int getMTLU()    {
+    public int getMinimumTechLevelToUse()    {
         return minimumTechLevelToUse;
     }
 
-    public int getTTP()    {
+    public int getTechLevelProduction()    {
         return techLevelProduction;
     }
 
@@ -175,11 +175,11 @@ public class Ware {
         return basePrice;
     }
 
-    public int getIPL() {
+    public int getPriceIncreasePerLevel() {
         return priceIncreasePerLevel;
     }
 
-    public int getVar() {
+    public int getVariance() {
         return variance;
     }
 
@@ -196,11 +196,11 @@ public class Ware {
     }
 
     public int getMTL() {
-        return mtl;
+        return spaceTradeMinPrice;
     }
 
     public int getMTH() {
-        return mth;
+        return spaceTradeMaxPrice;
     }
     
     public int getCurrentPrice() {
