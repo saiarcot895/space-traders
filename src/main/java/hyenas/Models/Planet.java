@@ -1,7 +1,6 @@
 package hyenas.Models;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -196,7 +195,7 @@ public class Planet {
     
     public void produceWares() {
         int numGoods = Good.values().length;
-        ArrayList<Ware> wares = new ArrayList<Ware>(numGoods);
+        List<Ware> wares = new ArrayList<Ware>(numGoods);
         AffectedGood affectedGoodForPlanetType = affectedGoodForPlanetType();
         List<AffectedGood> affectedGoodsForPlanetEvent = affectedGoodsForPlanetEvent();
         
@@ -236,7 +235,7 @@ public class Planet {
                 }
             }
             
-            int price = basePrice + (ware.getIPL() * (techLevel - ware.getMTLP())) + variance;
+            int price = basePrice + (ware.getPriceIncreasePerLevel() * (techLevel - ware.getMinimumTechLevelToProduce())) + variance;
             ware.setCurrentPrice(price);
             ware.setCurrentQuantity(quantity);
             wares.add(ware);
@@ -244,17 +243,14 @@ public class Planet {
         
         this.wares = wares;
     }
-    
-    private static final int[] TTP = {2, 0, 1, 3, 6, 5, 6, 5, 5, 7};
-    private static final int[] MTLP = {0, 0, 1, 2, 3, 3, 4, 4, 5, 6};
-    
+
     private int howMuchToProduce(Good good) {
-        int index = good.ordinal();
-        if (techLevel < MTLP[index]) {
+        Ware item = new Ware(good);
+        if (techLevel < item.getMinimumTechLevelToProduce()) {
             return 0;
         } else {
             // TODO include affects caused by events and planet type
-            return 10 - Math.abs(TTP[index] - techLevel);
+            return 10 - Math.abs(item.getTechLevelProduction() - techLevel);
         }
     }
     

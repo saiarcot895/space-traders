@@ -206,7 +206,7 @@ public class MarketController implements Initializable {
         int quantity = ware.getCurrentQuantity();
         if (quantity > 0) {
             int techLevel = planet.getTechLevel();
-            int minTechLevelToUse = ware.getMTLU();
+            int minTechLevelToUse = ware.getMinimumTechLevelToUse();
             if (minTechLevelToUse <= techLevel) {
                 Ship ship = player.getShip();
                 ship.removeCargo(ware);
