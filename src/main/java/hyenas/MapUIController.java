@@ -39,14 +39,11 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -81,8 +78,6 @@ public class MapUIController implements Initializable {
     private Circle travelRange;
 
     private SolarSystemTable ssTable;
-    
-    private PlanetTable planetTable;
     
     private PlayerTable playerTable;
     
@@ -159,17 +154,15 @@ public class MapUIController implements Initializable {
 
         if (!Galaxy.getInstance().isLocationsSet()) {
             ssTable.beginTransaction();
-            
-            int counter = 0;
+
+            PlanetTable planetTable = HyenasLoader.getInstance().getPlanetTable();
+
             for (int i = 0; i < solarSystemValues.size(); i++) {
                 SolarSystem ss = solarSystemValues.get(i);
                 ssTable.populateTable(ss.getSystemName(), ss.getX(), ss.getY(), i);
-                for (Planet planet : ss.getPlanets()) {
-                    counter++;
-                    planetTable = HyenasLoader.getInstance().getPlanetTable();
-                    planetTable.populateTable(planet.getPlanetName(), planet.getX(),
-                        planet.getY(), counter, planet.techLevelString(), "", i);
-                }
+                ss.getPlanets().stream().forEach((planet) -> {
+                    planetTable.populateTable(planet, ss);
+                });
             }
             
             try {

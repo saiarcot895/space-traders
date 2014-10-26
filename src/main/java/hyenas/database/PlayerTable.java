@@ -52,7 +52,7 @@ public class PlayerTable {
         String create = "CREATE TABLE IF NOT EXISTS Players " + "(ID INTEGER NOT NULL, "
                 + "Name VARCHAR(20) NOT NULL, "
                 + "Points INTEGER NOT NULL, " + "Engineer INTEGER NOT NULL, "
-                + "Pilot INTEGER NOT NULL, " + "Investor INTEGER NOT NULL, "
+                + "Pilot INTEGER NOT NULL, " + "Inventor INTEGER NOT NULL, "
                 + "Fighter INTEGER NOT NULL, " + "Trader INTEGER NOT NULL, "
                 + "Credits INTEGER, " 
                 + "Fuel INTEGER NOT NULL, " + "Health INTEGER NOT NULL, "
@@ -81,8 +81,8 @@ public class PlayerTable {
             int pPoints, int iPoints, int fPoints, int tPoints, int credits) throws SQLException {
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Players "
-                    + "(Name, Points, Engineer, Pilot, Inventor, Trader, "
-                    + "Credits, Fuel, Health) "
+                    + "(Name, Points, Engineer, Pilot, Fighter, Inventor, "
+                    + "Trader, Credits, Fuel, Health) "
                     + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, name);
             stmt.setInt(2, points);
@@ -109,7 +109,7 @@ public class PlayerTable {
             Statement stmt = conn.createStatement();
             ResultSet playerInfo = stmt.executeQuery("SELECT Players.Name,"
                     + " Players.Points, Players.Engineer, Players.Pilot,"
-                    + " Players.Investor, Players.Fighter, Players.Trader,"
+                    + " Players.Inventor, Players.Fighter, Players.Trader,"
                     + " Players.Fuel, Players.Health, Players.Credits,"
                     + " SolarSystem.Name FROM Players"
                     + " INNER JOIN SolarSystem"
@@ -185,7 +185,7 @@ public class PlayerTable {
     public void updateInvestorPoints(int points) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        String query = "UPDATE PLAYERS SET INVESTOR = " + points;
+        String query = "UPDATE PLAYERS SET Inventor = " + points;
         stmt.executeQuery(query);
     }
 
