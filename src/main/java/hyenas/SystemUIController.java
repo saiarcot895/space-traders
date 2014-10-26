@@ -159,7 +159,7 @@ public class SystemUIController implements Initializable {
                             double deltaTheta = 2 * Math.asin(arcLength / (2 * radius));
                             
                             double newTheta;
-                            if (planet.getClockWiseOrbit()) {
+                            if (planet.isClockwiseOrbit()) {
                                 newTheta = curTheta + deltaTheta;
                             } else {
                                 newTheta = curTheta - deltaTheta;

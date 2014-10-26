@@ -72,16 +72,19 @@ public class Planet {
         planetType = rand.nextInt(PLANET_TYPES.length);
     }
     
-    public Planet(String planetName, int techLevel, int resourceType) {
+    public Planet(String planetName, boolean clockwiseOrbit, int techLevel,
+            int planetType) {
         this(planetName);
+        this.clockwiseOrbit = clockwiseOrbit;
         this.techLevel = techLevel;
+        this.planetType = planetType;
     }
     
     public String getPlanetName()   {
         return planetName;
     }
     
-    public boolean getClockWiseOrbit()    {
+    public boolean isClockwiseOrbit()    {
         return clockwiseOrbit;
     }
     
@@ -160,14 +163,19 @@ public class Planet {
         orbitRadius = radius;
     }
     
+    public int getPlanetType() {
+        return planetType;
+    }
+    
     public String getPlanetTypeString() {
         return PLANET_TYPES[planetType];
     }
     
-    /* Returns hashmap of which good is affected (and how it is affected) for a
+    /**
+     * Returns hashmap of which good is affected (and how it is affected) for a
      * given planet type.
      *
-     * @param planettype, the planet type. Example: Mineral rich, mineral poor
+     * @param planetType the planet type. Example: Mineral rich, mineral poor
      * @return HashMap of Good and Integer. Good is the good affected, and the
      * integer is whether the price goes up or down. Returns null if no Good is
      * affected by the given planet
@@ -176,29 +184,29 @@ public class Planet {
         switch (planetType) {
             case 0: return null; // No good is affected
             case 1: 
-                return new HashMap<Good, Integer>(Good.Ore.ordinal(), 0); // Mineral Rich
+                return new HashMap<>(Good.Ore.ordinal(), 0); // Mineral Rich
             case 2: 
-                return new HashMap<Good, Integer>(Good.Ore.ordinal(), 1); // Mineral Poor
+                return new HashMap<>(Good.Ore.ordinal(), 1); // Mineral Poor
             case 3:
-                return new HashMap<Good, Integer>(Good.Water.ordinal(), 0); // Lots of water
+                return new HashMap<>(Good.Water.ordinal(), 0); // Lots of water
             case 4:
-                return new HashMap<Good, Integer>(Good.Water.ordinal(), 1); // Desert
+                return new HashMap<>(Good.Water.ordinal(), 1); // Desert
             case 5:
-                return new HashMap<Good, Integer>(Good.Food.ordinal(), 0); // Rich soil
+                return new HashMap<>(Good.Food.ordinal(), 0); // Rich soil
             case 6:
-                return new HashMap<Good, Integer>(Good.Food.ordinal(), 1); // Poor soil
+                return new HashMap<>(Good.Food.ordinal(), 1); // Poor soil
             case 7:
-                return new HashMap<Good, Integer>(Good.Furs.ordinal(), 0); // Rich Fauna
+                return new HashMap<>(Good.Furs.ordinal(), 0); // Rich Fauna
             case 8:
-                return new HashMap<Good, Integer>(Good.Furs.ordinal(), 1); // Lifeless
+                return new HashMap<>(Good.Furs.ordinal(), 1); // Lifeless
             case 9:
-                return new HashMap<Good, Integer>(Good.Narcotics.ordinal(), 0); // Weird Mushrooms
+                return new HashMap<>(Good.Narcotics.ordinal(), 0); // Weird Mushrooms
             case 10:
-                return new HashMap<Good, Integer>(Good.Medicine.ordinal(), 0); // Lots of Herbs
+                return new HashMap<>(Good.Medicine.ordinal(), 0); // Lots of Herbs
             case 11:
-                return new HashMap<Good, Integer>(Good.Games.ordinal(), 0); // Artistic
+                return new HashMap<>(Good.Games.ordinal(), 0); // Artistic
             case 12:
-                return new HashMap<Good, Integer>(Good.Firearms.ordinal(), 0); // Warlike
+                return new HashMap<>(Good.Firearms.ordinal(), 0); // Warlike
             default: break;
         }
         return null;
