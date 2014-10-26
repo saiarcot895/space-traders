@@ -25,6 +25,7 @@ public class Ware {
     
     private int currentPrice;
     private int currentQuantity;
+    private String currentCondition;
 
     private Good good;
 
@@ -216,6 +217,14 @@ public class Ware {
     
     public void setCurrentQuantity(int currentQuantity) {
         this.currentQuantity = currentQuantity;
+    }
+    
+    public String getCurrentCondition() {
+        return currentCondition;
+    }
+    
+    public void setCurrentCondition(String currentCondition) {
+        this.currentCondition = currentCondition;
     }
     
     public static List<Ware> defaultWares() {

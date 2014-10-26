@@ -50,32 +50,6 @@ public class MarketController implements Initializable {
     
     @FXML
     private Label titleLabel;
-    
-    private void setSelectedSellWare(Ware ware) {
-        if (ware == null) {
-            Button sellButton = infoPane.getSellButton();
-            sellButton.setDisable(true);
-        } else {
-            Button buyButton = infoPane.getBuyButton();
-            buyButton.setDisable(true);
-            Button sellButton = infoPane.getSellButton();
-            sellButton.setDisable(false);
-            planetTable.getSelectionModel().clearSelection();
-        }
-    }
-    
-    private void setSelectedBuyWare(Ware ware) {
-        if (ware == null) {
-            Button buyButton = infoPane.getBuyButton();
-            buyButton.setDisable(true);
-        } else {
-            Button buyButton = infoPane.getBuyButton();
-            buyButton.setDisable(false);
-            Button sellButton = infoPane.getSellButton();
-            sellButton.setDisable(true);
-            playerTable.getSelectionModel().clearSelection();
-        }
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -103,6 +77,9 @@ public class MarketController implements Initializable {
         );
         priceCol.setCellValueFactory(
             new PropertyValueFactory<Ware, Integer>("currentPrice")
+        );
+        contitionsCol.setCellValueFactory(
+            new PropertyValueFactory<Ware, String>("currentCondition")
         );
         
         updatePlanetTable();
@@ -158,10 +135,9 @@ public class MarketController implements Initializable {
         };
         sellButton.setOnAction(sellEvent);
         
-        
         Pane emptyRightSpacingPane = new Pane();
         emptyRightSpacingPane.setPrefWidth(300.0);
-        emptyRightSpacingPane.setPrefHeight(300.0);
+        emptyRightSpacingPane.setPrefHeight(250.0);
         rightBox.getChildren().addAll(infoPane, emptyRightSpacingPane);
         borderPane.setRight(rightBox);
         
@@ -221,17 +197,6 @@ public class MarketController implements Initializable {
             displayAlert("Insufficient Credits", "You don't have enough credits to purchase this item.");
         }
     }
-    
-    private void displayAlert(String title, String message) {
-        AlertPane alertPane = new AlertPane(AlertPaneType.OneButton);
-        alertPane.setTitleText(title);
-        alertPane.setMessageText(message);
-        EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
-            emptyBottomTablePane.setCenter(null);
-        };
-        alertPane.getCloseButton().setOnAction(closeAction);
-        emptyBottomTablePane.setCenter(alertPane);
-    }
 
     public void sellItem(ActionEvent e) {
         emptyBottomTablePane.setCenter(null);
@@ -260,8 +225,43 @@ public class MarketController implements Initializable {
         } else {
             displayAlert("No Items", "You don't have any of this item to sell.");
         }
-        
-        
+    }
+    
+    private void displayAlert(String title, String message) {
+        AlertPane alertPane = new AlertPane(AlertPaneType.OneButton);
+        alertPane.setTitleText(title);
+        alertPane.setMessageText(message);
+        EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
+            emptyBottomTablePane.setCenter(null);
+        };
+        alertPane.getCloseButton().setOnAction(closeAction);
+        emptyBottomTablePane.setCenter(alertPane);
+    }
+    
+    private void setSelectedSellWare(Ware ware) {
+        if (ware == null) {
+            Button sellButton = infoPane.getSellButton();
+            sellButton.setDisable(true);
+        } else {
+            Button buyButton = infoPane.getBuyButton();
+            buyButton.setDisable(true);
+            Button sellButton = infoPane.getSellButton();
+            sellButton.setDisable(false);
+            planetTable.getSelectionModel().clearSelection();
+        }
+    }
+    
+    private void setSelectedBuyWare(Ware ware) {
+        if (ware == null) {
+            Button buyButton = infoPane.getBuyButton();
+            buyButton.setDisable(true);
+        } else {
+            Button buyButton = infoPane.getBuyButton();
+            buyButton.setDisable(false);
+            Button sellButton = infoPane.getSellButton();
+            sellButton.setDisable(true);
+            playerTable.getSelectionModel().clearSelection();
+        }
     }
 
     public void addFuel(ActionEvent e) {

@@ -11,7 +11,7 @@ public class Ship {
     private ShipType type;
     private boolean insurance;
     private int upkeep;
-    private List<Ware> goods;
+    private List<Ware> cargo = new ArrayList<>();
     private int weaponSlots[] = new int[2];
     private int shieldSlots[] = new int[2];
     private int gadgetSlots[] = new int[2];
@@ -91,20 +91,19 @@ public class Ship {
             break;
         }
         this.type = type;
-        this.goods = new ArrayList<>();
     }
 
     public int getFreeCargo() {
-        return maxCargo - goods.size();
+        return maxCargo - cargo.size();
     }
 
     public List<Ware> getCargo() {
-        return goods;
+        return cargo;
     }
     
     public List<Ware> getWares() {
         // Returns a list of the wares stored in the ships cargo, along with
-        // each wares respective queantity
+        // each wares respective quantity
         List<Ware> defaultWares = Ware.defaultWares();
         List<Ware> shipCargo = getCargo();
         for (Ware ware: defaultWares) {
@@ -121,18 +120,18 @@ public class Ship {
 
     public boolean addCargo(Ware ware) {
         // Only allow cargo to be added if there is space
-        int numGoods = goods.size();
+        int numGoods = cargo.size();
         if (++numGoods > maxCargo) {
             return false;
         }
-        goods.add(ware);
+        cargo.add(ware);
         return true;
     }
     
     public boolean removeCargo(Ware toRemove) {
-        for (Ware ware: goods) {
+        for (Ware ware: cargo) {
             if (ware.getGood() == toRemove.getGood()) {
-                return goods.remove(ware);
+                return cargo.remove(ware);
             }
         }
         return false;

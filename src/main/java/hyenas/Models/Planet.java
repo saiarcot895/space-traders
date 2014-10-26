@@ -20,15 +20,9 @@ public class Planet {
     private int techLevel;
     private String planetName;
     private String color;
-    private int planetType;
+    private PlanetType planetType;
+    private PlanetEvent planetEvent;
     private List<Ware> wares;
-    
-//    private enum TechLevel {
-//        PreAgriculture,
-//        Agriculture,
-//        Medieval,
-//        
-//    }
 
     private static final String[] TECH_LEVELS = new String[] {
         "Pre-Agriculture",
@@ -40,35 +34,7 @@ public class Planet {
         "Post-Industrial",
         "Hi-Tech",
     };
-
-    private static final String[] PLANET_TYPES = new String[] {
-        // DO NOT CHANGE, unless you also update goodAffectedForPlanetType
-        "No Specialized Resources",     // How resource is affected: 
-        "Mineral Rich",                 // Ore+
-        "Mineral Poor",                 // Ore-
-        "Lots of Water",                // Water+
-        "Desert",                       // Water-
-        "Rich Soil",                    // Food+
-        "Poor Soil",                    // Food-
-        "Rich Fauna",                   // Furs+
-        "Lifeless",                     // Furs-
-        "Weird Mushrooms",              // Narcotics+
-        "Lots of Herbs",                // Medicine+
-        "Artistic",                     // Games+
-        "Warlike",                      // Firearms+
-    };
     
-    // Events temporarily and aversely affect a planet's resources
-    private static final String[] EVENT_TYPES = new String[] {
-        "Drought",      // Water
-        "Cold",         // Furs
-        "Cropfail",     // Food
-        "War",          // Ore, Firearms
-        "Boredom",      // Games, Narcotics
-        "Plague",       // Medicine
-        "LackOfWorkers" // Machines, Robots
-    };
-
     public Planet(String planetName) {
         this.planetName = planetName;
         Random rand = new Random();
@@ -77,7 +43,9 @@ public class Planet {
         
         techLevel = rand.nextInt(TECH_LEVELS.length);
         color = randomColorString();
-        planetType = rand.nextInt(PLANET_TYPES.length);
+        int randPlanetType = rand.nextInt(PlanetType.values().length);
+        planetType = PlanetType.values()[randPlanetType];
+        planetEvent = PlanetEvent.None;
     }
     
     public Planet(String planetName, boolean clockwiseOrbit, int techLevel,
@@ -85,7 +53,7 @@ public class Planet {
         this(planetName);
         this.clockwiseOrbit = clockwiseOrbit;
         this.techLevel = techLevel;
-        this.planetType = planetType;
+        this.planetType = PlanetType.values()[planetType];
     }
     
     public String getPlanetName()   {
@@ -171,12 +139,41 @@ public class Planet {
         orbitRadius = radius;
     }
     
-    public int getPlanetType() {
+    public PlanetType getPlanetType() {
         return planetType;
     }
     
     public String getPlanetTypeString() {
-        return PLANET_TYPES[planetType];
+        switch (planetType) {
+            case None: return "No Specialized Resources";
+            case MineralRich: return "Mineral Rich";
+            case MineralPoor: return "Mineral Poor";
+            case LotsOfWater: return "Lots of Water";
+            case Desert: return "Desert";
+            case RichSoil: return "Rich Soil";
+            case PoorSoil: return "Poor Soil";
+            case RichFauna: return "Rich Fauna";
+            case Lifeless: return "Lifeless";
+            case WeirdMushrooms: return "Weird Mushrooms";
+            case LotsOfHerbs: return "Lots of Herbs";
+            case Artistic: return "Artistic";
+            case Warlike: return "Warlike";
+            default: return "No Specialized Resources";
+        }
+    }
+    
+    public String getPlanetEventString() {
+        switch (planetEvent) {
+            case None: return "None";
+            case Drought: return "Drought";
+            case Cold: return "Cold";
+            case Cropfail: return "Cropfail";
+            case War: return "War";
+            case Boredom: return "Boredom";
+            case Plague: return "Plague";
+            case LackOfWorkers: return "LackOfWorkers";
+            default: return "None";
+        }
     }
     
     public List<Ware> getWares() {
@@ -200,36 +197,49 @@ public class Planet {
     public void produceWares() {
         int numGoods = Good.values().length;
         ArrayList<Ware> wares = new ArrayList<Ware>(numGoods);
+        AffectedGood affectedGoodForPlanetType = affectedGoodForPlanetType();
+        List<AffectedGood> affectedGoodsForPlanetEvent = affectedGoodsForPlanetEvent();
         
         for (Good good: Good.values()) {
-//            Water,
-//            Furs,
-//            Food,
-//            Ore,
-//            Games,
-//            Firearms,
-//            Medicine,
-//            Machines,
-//            Narcotics,
-//            Robots
             Ware ware = new Ware(good);
-            ware.setCurrentQuantity(howMuchToProduce(good));
-            
-            // TODO: vaiance is not correct
-            // TODO: take into account planet type
-            // TODO: take into account whether planet is experiencing event
+            ware.setCurrentCondition("");
+            int quantity = howMuchToProduce(good);
+            int basePrice = ware.getBasePrice();
             int variance = 0;
-            int price = ware.getBasePrice() + (ware.getIPL() * (techLevel - ware.getMTLP())) + variance;
+            
+            if (good == affectedGoodForPlanetType.getGood()) {
+                // Add or deduct 10% of good's base price based on planet's type
+                // Also triple or reduce by 60% the available quantity
+                boolean priceIncreased = affectedGoodForPlanetType.isIncreasedPrice();
+                int affectedAmount = (int) (basePrice * .1);
+                
+                if (priceIncreased) {
+                    quantity = (int) (quantity * .4);
+                    variance = variance + affectedAmount;
+                    ware.setCurrentCondition("Scarce");
+                } else {
+                    quantity = quantity * 3;
+                    variance = variance - affectedAmount;
+                    if (quantity > 0) {
+                        ware.setCurrentCondition("Abundant");
+                    }
+                }
+            }
+            
+            for (AffectedGood affectedGood: affectedGoodsForPlanetEvent) {
+                // Double the base price for goods being affected by the event affecting the planet
+                // Also, reduce available quantity by 70%
+                if (good == affectedGood.getGood()) {
+                    basePrice = 2 * basePrice;
+                    quantity = (int) (quantity * .3);
+                    ware.setCurrentCondition("Scarce");
+                }
+            }
+            
+            int price = basePrice + (ware.getIPL() * (techLevel - ware.getMTLP())) + variance;
             ware.setCurrentPrice(price);
-            
-//            Name	MTLP	MTLU	TTP	Base Price	IPL	Var	IE	CR              ER	MTL	MTH
-//            Water	0	0	2	30              3       4       DROUGHT	LOTSOFWATER	DESERT	30	50
-            
-            
-//            (the base price) + (the IPL * (Planet Tech Level - MTLP)) + (variance)
+            ware.setCurrentQuantity(quantity);
             wares.add(ware);
-            //only add if planet is able to produce?
-            
         }
         
         this.wares = wares;
@@ -248,44 +258,90 @@ public class Planet {
         }
     }
     
+    private class AffectedGood {
+        private Good good;
+        private boolean increasedPrice;
+        
+        public AffectedGood(Good good, boolean increasedPrice) {
+            this.good = good;
+            this.increasedPrice = increasedPrice;
+        }
+        
+        public Good getGood() {
+            return good;
+        }
+        
+        public boolean isIncreasedPrice() {
+            return increasedPrice;
+        }
+    }
+    
     /**
-     * Returns hashmap of which good is affected (and how it is affected) for a
-     * given planet type.
-     *
-     * @param planetType the planet type. Example: Mineral rich, mineral poor
-     * @return HashMap of Good and Integer. Good is the good affected, and the
-     * integer is whether the price goes up or down. Returns null if no Good is
-     * affected by the given planet
+     * Returns AffectedGood of which good is affected due to the planet's type
+     * as well as how the price of the good is affected
+     * 
+     * @return AffectedGood with the good affected, and a boolean of whether
+     * the price is increased or not
      */
-    public HashMap<Good, Integer> goodAffectedForPlanetType(int planetType) {
+    public AffectedGood affectedGoodForPlanetType() {
         switch (planetType) {
-            case 0: return null; // No good is affected
-            case 1: 
-                return new HashMap<>(Good.Ore.ordinal(), 0); // Mineral Rich
-            case 2: 
-                return new HashMap<>(Good.Ore.ordinal(), 1); // Mineral Poor
-            case 3:
-                return new HashMap<>(Good.Water.ordinal(), 0); // Lots of water
-            case 4:
-                return new HashMap<>(Good.Water.ordinal(), 1); // Desert
-            case 5:
-                return new HashMap<>(Good.Food.ordinal(), 0); // Rich soil
-            case 6:
-                return new HashMap<>(Good.Food.ordinal(), 1); // Poor soil
-            case 7:
-                return new HashMap<>(Good.Furs.ordinal(), 0); // Rich Fauna
-            case 8:
-                return new HashMap<>(Good.Furs.ordinal(), 1); // Lifeless
-            case 9:
-                return new HashMap<>(Good.Narcotics.ordinal(), 0); // Weird Mushrooms
-            case 10:
-                return new HashMap<>(Good.Medicine.ordinal(), 0); // Lots of Herbs
-            case 11:
-                return new HashMap<>(Good.Games.ordinal(), 0); // Artistic
-            case 12:
-                return new HashMap<>(Good.Firearms.ordinal(), 0); // Warlike
+            case None: return null;
+            case MineralRich: return new AffectedGood(Good.Ore, false);
+            case MineralPoor: return new AffectedGood(Good.Ore, true);
+            case LotsOfWater: return new AffectedGood(Good.Water, false);
+            case Desert: return new AffectedGood(Good.Water, true);
+            case RichSoil: return new AffectedGood(Good.Food, false);
+            case PoorSoil: return new AffectedGood(Good.Food, true);
+            case RichFauna: return new AffectedGood(Good.Furs, false);
+            case Lifeless: return new AffectedGood(Good.Furs, true);
+            case WeirdMushrooms: return new AffectedGood(Good.Narcotics, false);
+            case LotsOfHerbs: return new AffectedGood(Good.Medicine, false);
+            case Artistic: return new AffectedGood(Good.Games, false);
+            case Warlike: return new AffectedGood(Good.Firearms, false);
+            default: return null;
+        }
+    }
+    
+    public List<AffectedGood> affectedGoodsForPlanetEvent() {
+        ArrayList<AffectedGood> affectedGoods = new ArrayList<AffectedGood>();
+        switch (planetEvent) {
+            case None: break;
+            case Drought: 
+                AffectedGood water = new AffectedGood(Good.Water, true);
+                affectedGoods.add(water);
+                break;
+            case Cold: 
+                AffectedGood furs = new AffectedGood(Good.Furs, true);
+                affectedGoods.add(furs);
+                break;
+            case Cropfail:
+                AffectedGood food = new AffectedGood(Good.Food, true);
+                affectedGoods.add(food);
+                break;
+            case War:
+                AffectedGood ore = new AffectedGood(Good.Ore, true);
+                AffectedGood firearms = new AffectedGood(Good.Firearms, true);
+                affectedGoods.add(ore);
+                affectedGoods.add(firearms);
+                break;
+            case Boredom:
+                AffectedGood games = new AffectedGood(Good.Games, true);
+                AffectedGood narcotics = new AffectedGood(Good.Narcotics, true);
+                affectedGoods.add(games);
+                affectedGoods.add(narcotics);
+                break;
+            case Plague:
+                AffectedGood medicine = new AffectedGood(Good.Medicine, true);
+                affectedGoods.add(medicine);
+                break;
+            case LackOfWorkers:
+                AffectedGood machines = new AffectedGood(Good.Machines, true);
+                AffectedGood robots = new AffectedGood(Good.Robots, true);
+                affectedGoods.add(machines);
+                affectedGoods.add(robots);
+                break;
             default: break;
         }
-        return null;
+        return affectedGoods;
     }
 }

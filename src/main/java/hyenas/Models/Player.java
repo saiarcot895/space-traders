@@ -32,7 +32,7 @@ public class Player {
         SolarSystem[] solarSystems = Galaxy.getInstance().getSolarSystems().values().toArray(new SolarSystem[0]);
         currentSystem = solarSystems[rand.nextInt(solarSystems.length)];
         tradingPlanet = currentSystem.getPlanets().get(0);
-        credits = 250;
+        credits = 750;
         state = false;
     }
 

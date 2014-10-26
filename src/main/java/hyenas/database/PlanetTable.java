@@ -101,7 +101,7 @@ public class PlanetTable {
             stmt.setBoolean(5, planet.isClockwiseOrbit());
             stmt.setDouble(6, planet.getSize());
             stmt.setInt(7, planet.getTechLevel());
-            stmt.setInt(8, planet.getPlanetType());
+            stmt.setInt(8, planet.getPlanetType().ordinal());
 
             PreparedStatement systemStatement = conn.prepareStatement(
                     "SELECT ID FROM SolarSystem WHERE Name = ?");
