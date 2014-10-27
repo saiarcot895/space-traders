@@ -209,10 +209,12 @@ public class MapUIController implements Initializable {
                 }
                 distances.get(solarSystem2).add(destination);
                 
-                Line connection = new Line(solarSystem1.getX(),
-                        solarSystem1.getY(), solarSystem2.getX(),
-                        solarSystem2.getY());
-                connection.setStroke(Color.web("green", 1));
+                double system1Size = solarSystem1.getSize();
+                double system2Size = solarSystem2.getSize();
+                Line connection = new Line(solarSystem1.getX() + system1Size,
+                        solarSystem1.getY() + system1Size, solarSystem2.getX() + system2Size,
+                        solarSystem2.getY() + system2Size);
+                connection.setStroke(Color.web("cyan", 1));
                 scrollContentPane.getChildren().add(0, connection);
             }
         }
