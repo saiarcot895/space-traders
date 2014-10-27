@@ -89,7 +89,7 @@ public class PlanetTable {
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Planet "
                     + "(Name, Radius, ClockwiseOrbit, Size, "
-                    + "Tech, Type, SSID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    + "Tech, Type, SSID) VALUES(?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, planet.getPlanetName());
             stmt.setInt(2, planet.getOrbitRadius());
             stmt.setBoolean(3, planet.isClockwiseOrbit());
