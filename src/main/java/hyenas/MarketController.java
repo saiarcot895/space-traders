@@ -27,6 +27,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -40,13 +41,15 @@ public class MarketController implements Initializable {
     private TableView planetTable = new TableView();
     private TableView playerTable = new TableView();
     private MarketInfoPane infoPane;
-    private BorderPane emptyBottomTablePane;
 
     @FXML
     private BorderPane borderPane;
     
     @FXML
     private VBox boxPane;
+    
+    @FXML
+    private AnchorPane anchorPane;
     
     @FXML
     private Label titleLabel;
@@ -108,13 +111,13 @@ public class MarketController implements Initializable {
         emptyLeftTablePane.setPrefWidth(150.0);
         tablesPane.setLeft(emptyLeftTablePane);
         
-        emptyBottomTablePane = new BorderPane();
+        Pane emptyBottomTablePane = new Pane();
         emptyBottomTablePane.setPrefHeight(150.0);
-        Pane emptyBottomBottomPane = new Pane();
-        emptyBottomBottomPane.setPrefHeight(50.0);
-        emptyBottomTablePane.setBottom(emptyBottomBottomPane);
+//        Pane emptyBottomBottomPane = new Pane();
+//        emptyBottomBottomPane.setPrefHeight(50.0);
+//        emptyBottomTablePane.setBottom(emptyBottomBottomPane);
         tablesPane.setBottom(emptyBottomTablePane);
-        BorderPane.setMargin(emptyBottomTablePane, new Insets(0, 100, 0, 350));
+//        BorderPane.setMargin(emptyBottomTablePane, new Insets(0, 100, 0, 350));
         
         
         tablesPane.setCenter(planetTable);
@@ -169,7 +172,7 @@ public class MarketController implements Initializable {
     }
 
     public void buyItem(ActionEvent e) {
-        emptyBottomTablePane.setCenter(null);
+        removeAlert();
         Ware ware = (Ware) planetTable.getSelectionModel().getSelectedItem();
         int price = ware.getCurrentPrice();
         Player player = Player.getInstance();
@@ -201,7 +204,7 @@ public class MarketController implements Initializable {
     }
 
     public void sellItem(ActionEvent e) {
-        emptyBottomTablePane.setCenter(null);
+        removeAlert();
         Ware ware = (Ware) playerTable.getSelectionModel().getSelectedItem();
         Player player = Player.getInstance();
         
@@ -234,10 +237,17 @@ public class MarketController implements Initializable {
         alertPane.setTitleText(title);
         alertPane.setMessageText(message);
         EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
-            emptyBottomTablePane.setCenter(null);
+            anchorPane.getChildren().remove(alertPane);
         };
         alertPane.getCloseButton().setOnAction(closeAction);
-        emptyBottomTablePane.setCenter(alertPane);
+        anchorPane.getChildren().add(alertPane);
+    }
+    
+    private void removeAlert() {
+        List children = anchorPane.getChildren();
+        if (children.size() > 1) {
+            children.remove(children.get(1));
+        }
     }
     
     private void setSelectedSellWare(Ware ware) {

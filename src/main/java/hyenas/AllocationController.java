@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -26,7 +27,7 @@ public class AllocationController implements Initializable {
     private int pointsRemaining = 8;
     
     @FXML
-    private VBox vbox;
+    private AnchorPane anchorPane;
 
     @FXML
     private Button goBack;
@@ -151,10 +152,10 @@ public class AllocationController implements Initializable {
             alertPane.setTitleText("Invalid Setup");
             alertPane.setMessageText("Please make sure you have set a player name and have allocated all skill points.");
             EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
-                vbox.getChildren().remove(alertPane);
+                anchorPane.getChildren().remove(alertPane);
             };
             alertPane.getCloseButton().setOnAction(closeAction);
-            vbox.getChildren().add(alertPane);
+            anchorPane.getChildren().add(alertPane);
         }
     }
     
