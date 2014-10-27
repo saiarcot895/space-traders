@@ -552,7 +552,7 @@ public class MapUIController implements Initializable {
         double fuel = player.getShip().getFuel();
         double distance = getDjikstraDistance(currentSystem, solarSystem);
         if (distance == -1) {
-            throw new RuntimeException("Unconnected node for " + solarSystem.getSystemName());
+            return false;
         }
         return (fuel > distance);
     }
