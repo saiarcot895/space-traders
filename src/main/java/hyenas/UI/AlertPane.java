@@ -96,12 +96,6 @@ public class AlertPane extends BorderPane {
      */
     public void setTitleText(String text) {
         titleLabel.setText(text);
-        // Move the message label down to make room for title
-        if (text.length() > 0) {
-            AnchorPane.setTopAnchor(messageLabel, 40.0);
-        } else {
-            AnchorPane.setTopAnchor(messageLabel, PADDING);
-        }
     }
     
     /**
@@ -110,6 +104,12 @@ public class AlertPane extends BorderPane {
      */
     public void setMessageText(String text) {
         messageLabel.setText(text);
+        
+        // Move the message label down to make room for title
+        if (titleLabel.getText().length() == 0) {
+            setCenter(null);
+            setTop(messageLabel);
+        }
     }
     
     /**

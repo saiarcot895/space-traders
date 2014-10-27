@@ -545,8 +545,8 @@ public class MapUIController implements Initializable {
     /**
      * Go to the settings screen.
      */
-    public void goToSettings() {
-        HyenasLoader.getInstance().goToSettingsScreen();
+    public void goToHome() {
+        HyenasLoader.getInstance().goToHomeScreen();
     }
 
     /**
