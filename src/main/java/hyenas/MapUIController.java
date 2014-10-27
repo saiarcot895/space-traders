@@ -185,11 +185,11 @@ public class MapUIController implements Initializable {
                 SolarSystem solarSystem2 = solarSystemValues.get(j);
 
                 double distance = getDistance(solarSystem1, solarSystem2);
-                if (distance >= 300) {
+                if (distance >= 400) {
                     continue;
                 }
 
-                if (random.nextDouble() >= 0.4) {
+                if (random.nextDouble() >= 0.35) {
                     continue;
                 }
                 double weight = distance + (solarSystem1.getPlanets().size()
@@ -552,7 +552,7 @@ public class MapUIController implements Initializable {
         double fuel = player.getShip().getFuel();
         double distance = getDjikstraDistance(currentSystem, solarSystem);
         if (distance == -1) {
-            throw new RuntimeException("Unconnected node for " + solarSystem.getSystemName());
+            return false;
         }
         return (fuel > distance);
     }
