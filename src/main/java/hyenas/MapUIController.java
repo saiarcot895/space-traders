@@ -179,19 +179,28 @@ public class MapUIController implements Initializable {
         Random random = new Random();
         Map<SolarSystem, List<ABPair<SolarSystem, Double>>> distances =
                 Galaxy.getInstance().getDistances();
+        Player player = Player.getInstance();
         for (int i = 0; i < solarSystemValues.size(); i++) {
             SolarSystem solarSystem1 = solarSystemValues.get(i);
             for (int j = i; j < solarSystemValues.size(); j++) {
                 SolarSystem solarSystem2 = solarSystemValues.get(j);
 
                 double distance = getDistance(solarSystem1, solarSystem2);
-                if (distance >= 400) {
-                    continue;
+                if (solarSystem1 != player.getCurrentSystem()
+                        && solarSystem2 != player.getCurrentSystem()){
+                    if (distance >= 400) {
+                        continue;
+                    }
+                    
+                    if (random.nextDouble() >= 0.35) {
+                        continue;
+                    }
+                } else {
+                    if (random.nextDouble() >= 0.15) {
+                        continue;
+                    }
                 }
-
-                if (random.nextDouble() >= 0.35) {
-                    continue;
-                }
+                
                 double weight = distance + (solarSystem1.getPlanets().size()
                                 - solarSystem2.getPlanets().size()) * 10;
                 ABPair<SolarSystem, Double> destination = new ABPair<>(solarSystem2,
@@ -231,7 +240,6 @@ public class MapUIController implements Initializable {
         double x = currentSolarSystemButton.getLayoutX();
         double y = currentSolarSystemButton.getLayoutY();
 
-        Player player = Player.getInstance();
         SolarSystem currentSystem = player.getCurrentSystem();
         travelRange = new Circle(x, y, player.getShip().getFuel());
 //        travelRange.setStrokeType(StrokeType.OUTSIDE);
