@@ -7,16 +7,14 @@ import hyenas.database.PlayerTable;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -28,7 +26,7 @@ public class AllocationController implements Initializable {
     private int pointsRemaining = 8;
     
     @FXML
-    private AnchorPane anchor;
+    private VBox vbox;
 
     @FXML
     private Button goBack;
@@ -88,6 +86,8 @@ public class AllocationController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        point.setText(Integer.toString(pointsRemaining) + " point(s) remaining");
+        
         pilot.setOnAction((ActionEvent t) -> {
             updatePoints(++pValue, pCounter);
         });
@@ -115,7 +115,7 @@ public class AllocationController implements Initializable {
            tValue = 1;
            eValue = 1;
            iValue = 1;
-           point.setText(Integer.toString(pointsRemaining));
+           point.setText(Integer.toString(pointsRemaining) + " point(s) remaining");
            pCounter.setText(Integer.toString(pValue));
            fCounter.setText(Integer.toString(fValue));
            tCounter.setText(Integer.toString(tValue));
@@ -128,7 +128,7 @@ public class AllocationController implements Initializable {
         if (pointsRemaining > 0) {
             pointsRemaining--;
             label.setText(Integer.toString(points));
-            point.setText(Integer.toString(pointsRemaining));
+            point.setText(Integer.toString(pointsRemaining) + " point(s) remaining");
         }
     }
 
@@ -151,10 +151,10 @@ public class AllocationController implements Initializable {
             alertPane.setTitleText("Invalid Setup");
             alertPane.setMessageText("Please make sure you have set a player name and have allocated all skill points.");
             EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
-                anchor.getChildren().remove(alertPane);
+                vbox.getChildren().remove(alertPane);
             };
             alertPane.getCloseButton().setOnAction(closeAction);
-            anchor.getChildren().add(alertPane);
+            vbox.getChildren().add(alertPane);
         }
     }
     

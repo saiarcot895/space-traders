@@ -174,16 +174,18 @@ public class MarketController implements Initializable {
         int price = ware.getCurrentPrice();
         Player player = Player.getInstance();
         int credits = player.getCredits();
-        if (price < credits) {
-            int currentQuantity = ware.getCurrentQuantity();
-            if (currentQuantity > 0) {
+        
+        
+        int currentQuantity = ware.getCurrentQuantity();
+        if (currentQuantity > 0) {
+            if (price <= credits) {
                 Ship ship = player.getShip();
                 boolean success = ship.addCargo(ware);
                 if (success) {
                     int newCredits = credits - price;
                     player.setCredits(newCredits);
                     ware.setCurrentQuantity(--currentQuantity);
-                    
+
                     infoPane.updateInfo();
                     updatePlanetTable();
                     updatePlayerTable();
@@ -191,10 +193,10 @@ public class MarketController implements Initializable {
                     displayAlert("Ship Cargo Full", "There is no room on your ship for more items.");
                 }
             } else {
-                displayAlert("No Items Remaining", "The planet has run out of this item.");
+                displayAlert("Insufficient Credits", "You don't have enough credits to purchase this item.");
             }
         } else {
-            displayAlert("Insufficient Credits", "You don't have enough credits to purchase this item.");
+            displayAlert("No Items Remaining", "The planet has run out of this item.");
         }
     }
 
@@ -271,17 +273,6 @@ public class MarketController implements Initializable {
         // }
         // fuelCount++;
         // creditCount -= fuelCost;
-        // fuelLeft.setText(String.format("%.0f", fuelCount));
-        // currentCredits.setText("" + creditCount);
-    }
-
-    public void subtractFuel(ActionEvent e) {
-        // if (fuelCount == 0) {
-        //     return;
-        //     //TODO display message saying that they have hit limit on fuel
-        // }
-        // fuelCount--;
-        // creditCount += fuelCost;
         // fuelLeft.setText(String.format("%.0f", fuelCount));
         // currentCredits.setText("" + creditCount);
     }

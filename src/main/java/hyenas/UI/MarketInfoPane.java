@@ -47,17 +47,17 @@ public class MarketInfoPane extends BorderPane {
         planetType.getStyleClass().add("alertPaneTitleLabel");
         Label techLevel = new Label("Tech Level:");
         techLevel.getStyleClass().add("alertPaneTitleLabel");
+        Label planetEvent = new Label("Event:");
+        planetEvent.getStyleClass().add("alertPaneTitleLabel");
         Label credits = new Label("Credits:");
         credits.getStyleClass().add("alertPaneTitleLabel");
         Label fuel = new Label("Fuel:");
         fuel.getStyleClass().add("alertPaneTitleLabel");
         Label freeCargo = new Label("Free Cargo:");
         freeCargo.getStyleClass().add("alertPaneTitleLabel");
-        Label planetEvent = new Label("Event:");
-        planetEvent.getStyleClass().add("alertPaneTitleLabel");
         
         leftBox.getChildren().addAll(planetName, planetType, techLevel,
-                credits, fuel, freeCargo, planetEvent);
+                planetEvent, credits, fuel, freeCargo);
         
         
         VBox rightBox = new VBox();
@@ -67,16 +67,17 @@ public class MarketInfoPane extends BorderPane {
         planetTypeLabel.getStyleClass().add("alertPaneMessageLabel");
         techLevelLabel = new Label("[Tech Level]");
         techLevelLabel.getStyleClass().add("alertPaneMessageLabel");
+        planetEventLabel = new Label("[Event]");
+        planetEventLabel.getStyleClass().add("alertPaneMessageLabel");
         creditsLabel = new Label("-1");
         creditsLabel.getStyleClass().add("alertPaneMessageLabel");
         fuelLabel = new Label("-1");
         fuelLabel.getStyleClass().add("alertPaneMessageLabel");
         freeCargoLabel = new Label("-1");
         freeCargoLabel.getStyleClass().add("alertPaneMessageLabel");
-        planetEventLabel = new Label("[Event]");
-        planetEventLabel.getStyleClass().add("alertPaneMessageLabel");
         rightBox.getChildren().addAll(planetNameLabel, planetTypeLabel, 
-                techLevelLabel, creditsLabel, fuelLabel, freeCargoLabel, planetEventLabel);
+                techLevelLabel, planetEventLabel, creditsLabel, fuelLabel,
+                freeCargoLabel);
         BorderPane.setMargin(rightBox, new Insets(0,0,0,20));
         updateInfo();
         
@@ -134,9 +135,10 @@ public class MarketInfoPane extends BorderPane {
         planetTypeLabel.setText(planet.getPlanetTypeString());
         techLevelLabel.setText("" + planet.techLevelString() + " (" + 
                 planet.getTechLevel() + ")");
-        creditsLabel.setText("" + player.getCredits());
-        fuelLabel.setText(String.format("%.0f", ship.getFuel()));
-        freeCargoLabel.setText("" + ship.getFreeCargo());
         planetEventLabel.setText(planet.getPlanetEventString());
+        creditsLabel.setText("" + player.getCredits());
+        fuelLabel.setText(String.format("%.0f", ship.getFuel()) + "/" +
+                String.format("%.0f", ship.getMaxFuel()));
+        freeCargoLabel.setText("" + ship.getFreeCargo());
     }
 }
