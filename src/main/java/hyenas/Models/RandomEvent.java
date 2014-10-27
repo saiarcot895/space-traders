@@ -11,7 +11,7 @@ import javafx.event.EventHandler;
 
 
 /**
- *
+ * Represents a Random Event
  * @author Alex
  */
 public class RandomEvent {
@@ -25,12 +25,19 @@ public class RandomEvent {
     private String actionResultText;
     private String cancelResultText;
     
-    
+    /**
+     * Initialized RandomEvent based on the RandomEventType
+     * @param eventType, the type of random event
+     */
     public RandomEvent(RandomEventType eventType) {
         this.eventType = eventType;
         setUp();
     }
     
+    /**
+     * Sets up the default random event values based on the RandomEvent's
+     * eventType
+     */
     private void setUp() {
         switch(eventType) {
             case Police:
@@ -58,34 +65,68 @@ public class RandomEvent {
         }
     }
     
+    /**
+     * Get the random event's name
+     * @return name, the name of the random event
+     */
     public String getName() {
         return name;
     }
     
+    /**
+     * Get the random event's description
+     * @return description, the description of the random event
+     */
     public String getDescription() {
         return description;
     }
     
+    /**
+     * Get the random event's question
+     * @return question, the question of the random event
+     */
     public String getQuestion() {
         return question;
     }
     
+    /**
+     * Get the random event's actionButtonText
+     * @return actionButtonText, the actionButtonText of the random event
+     */
     public String getActionButtonText() {
         return actionButtonText;
     }
     
+    /**
+     * Get the random event's cancel button text
+     * @return cancelButtonText, the cancel button text of the random event
+     */
     public String getCancelButtonText() {
         return cancelButtonText;
     }
     
+    /**
+     * Get the random event's action result text
+     * @return actionResultText, the action result text of the random event
+     */
     public String getActionResultText() {
         return actionResultText;
     }
     
+    /**
+     * Get the random event's cancel result text
+     * @return cancelResultText, the cancel result text of the random event
+     */
     public String getCancelResultText() {
         return cancelResultText;
     }
     
+    /**
+     * Performs the standard action for the given random event type. Informs
+     * whether the player's action succeeded or failed.
+     * 
+     * @return success, whether the action was successful or failed
+     */
     public boolean performAction() {
         Player player = Player.getInstance();
         switch(eventType) {
@@ -116,6 +157,12 @@ public class RandomEvent {
         return true;
     }
     
+    /**
+     * Performs the standard cancel for the given random event type. Informs
+     * whether the player's action succeeded or failed.
+     * 
+     * @return success, whether the action was successful or failed
+     */
     public boolean performCancel() {
         Player player = Player.getInstance();
         switch(eventType) {

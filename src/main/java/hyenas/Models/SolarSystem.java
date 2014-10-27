@@ -1,5 +1,6 @@
 package hyenas.Models;
 
+import hyenas.UI.UIHelper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -17,14 +18,21 @@ public class SolarSystem {
     private String color;
     private final int ORBIT_TOLERANCE = 10;
 
+    /**
+     * Initializes an instance of SolarSyem and sets initial values
+     * @param systemName, the name of the system
+     */
     public SolarSystem(String systemName) {
         this.systemName = systemName;
         Random rand = new Random();
         size = 10 + (rand.nextDouble() * 10);
-        color = randomColorString();
+        color = UIHelper.randomColorString();
         setupPlanets();
     }
     
+    /**
+     * Sets up a random number (1-5) of planets for the solar system.
+     */
     private void setupPlanets() {
         final String[] planetNames = new String[] {
             "6 Echo",
@@ -187,6 +195,11 @@ public class SolarSystem {
         }
     }
     
+    /**
+     * Returns whether a given name has already been used for a planet
+     * @param name, the name to check
+     * @return boolean, whether the planet's name has been used
+     */
     private boolean planetNameUsed(String name) {
         for (Planet planet: this.planets) {
             if (planet.getPlanetName().equals(name)) {
@@ -196,6 +209,12 @@ public class SolarSystem {
         return false;
     }
     
+    /**
+     * Returns whether a given orbit radius has been used (within a tolerance)
+     * to prevent planet orbits from overlapping
+     * @param orbitRadius, the orbit radius to check
+     * @return boolean, whether the planet's orbit radius overlaps another's
+     */
     private boolean orbitRadiusUsed(int orbitRadius) {
         for (Planet planet: this.planets) {
             if (Math.abs(planet.getOrbitRadius() - orbitRadius) < ORBIT_TOLERANCE) {
@@ -206,25 +225,33 @@ public class SolarSystem {
     }
 
     /**
-     * Get the x-coordinate of the solar system.
-     * @return x-coordinate of the system
+     * Get the x-coordinate of the solar system
+     * @return x, the x-coordinate of the system
      */
     public int getX()   {
         return x;
     }
-
+    
+    /**
+     * Set the x-coordinate of the solar system
+     * @param x, x-coordinate of the system
+     */
     public void setX(int x) {
         this.x = x;
     }
 
     /**
-     * Get the y-coordinate of the solar system.
-     * @return y-coordinate of the system
+     * Get the y-coordinate of the solar system
+     * @return y, the y-coordinate of the system
      */
     public int getY()   {
         return y;
     }
-
+    
+    /**
+     * Set the y-coordinate of the solar system
+     * @param y, y-coordinate of the system
+     */
     public void setY(int y) {
         this.y = y;
     }
@@ -269,18 +296,6 @@ public class SolarSystem {
     }
 
     /**
-     * Create a random color to be assigned to the solar system.
-     * @return generated color string
-     */
-    private static String randomColorString() {
-        Random rand = new Random();
-        int r = rand.nextInt(255);
-        int g = rand.nextInt(255);
-        int b = rand.nextInt(255);
-        return String.format("rgb(%d, %d, %d, 1)", r, g, b);
-    }
-
-    /**
      * Get the color of the solar system. The color is returned in the form
      * "rgb(r, g, b, 1)", where "r" is the red channel (0-255), "g" is the green
      * channel (0-255), and "b" is the blue channel (0-255). The final 1 is the
@@ -293,7 +308,7 @@ public class SolarSystem {
 
     @Override
     public String toString() {
-        return "<System: " + this.systemName
-            + ", Loc: (" + x + ", " + y + ")" + ">";
+        return "<System: " + this.systemName + ", Loc: (" + x + ", " + y + ")"
+                + ">";
     }
 }

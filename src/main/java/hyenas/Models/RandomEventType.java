@@ -1,10 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hyenas.Models;
 
+/**
+ * A RandomEventType, used to distinguish between random events
+ * @author Alex
+ */
 public enum RandomEventType {
     Police,
     Trader,

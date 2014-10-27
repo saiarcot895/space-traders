@@ -3,37 +3,37 @@ package hyenas.Models;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a Ware object, for use when buying/selling Goods
+ */
 public class Ware {
-
     private String name;
+    private Good good;
     private int minimumTechLevelToProduce;
     private int minimumTechLevelToUse;
     private int techLevelProduction;
     private int basePrice;
     private int priceIncreasePerLevel;
     private int variance;
-    /* For Extra Credit TODO! */
-    private String ie;
-    /* For Extra Credit TODO! */
-    private String cr;
-    /* For Extra Credit TODO! */
-    private String er;
-    /* Min Price in space trade for good (Random Encounter) */
     private int spaceTradeMinPrice;
-    /* Max Price in space trade for good (Random Encounter) */
     private int spaceTradeMaxPrice;
     
     private int currentPrice;
     private int currentQuantity;
     private String currentCondition;
 
-    private Good good;
-
+    /**
+     * Initializes a Ware and sets its initial values based on a given Good
+     * @param good, the ware's good
+     */
     public Ware(Good good) {
         this.good = good;
         setUp();
     }
-
+    
+    /**
+     * Sets the initial default values for a Ware
+     */
     private void setUp() {
         switch(good) {
             case Water:
@@ -151,82 +151,138 @@ public class Ware {
         }
     }
 
+    /**
+     * Get the name of the ware
+     * @return name, the name of the ware
+     */
     public String getName() {
         return name;
     }
     
+    /**
+     * Get the good
+     * @return good, the good of the ware
+     */
     public Good getGood() {
         return good;
     }
 
-    public int getMinimumTechLevelToProduce()    {
+    /**
+     * Get the minimum tech level to produce
+     * @return minimumTechLevelToProduce, the min tech level to produce
+     */
+    public int getMinimumTechLevelToProduce() {
         return minimumTechLevelToProduce;
     }
 
-    public int getMinimumTechLevelToUse()    {
+    /**
+     * Get the minimum tech level to use
+     * @return minimumTechLevelToUse, the min tech level to use
+     */
+    public int getMinimumTechLevelToUse() {
         return minimumTechLevelToUse;
     }
 
-    public int getTechLevelProduction()    {
+    /**
+     * Get the tech level production
+     * @return techLevelProduction, the tech level production
+     */
+    public int getTechLevelProduction() {
         return techLevelProduction;
     }
 
+    /**
+     * Get the base price
+     * @return basePrice, the base price
+     */
     public int getBasePrice()   {
         return basePrice;
     }
 
+    /**
+     * Get the price increase per tech level
+     * @return priceIncreasePerLevel, the price increase per tech level
+     */
     public int getPriceIncreasePerLevel() {
         return priceIncreasePerLevel;
     }
 
+    /**
+     * Get the price increase per tech level
+     * @return variance, the price increase per tech level
+     */
     public int getVariance() {
         return variance;
     }
-
-    public String getIE()   {
-        return ie;
-    }
-
-    public String getCR()   {
-        return cr;
-    }
-
-    public String getER()   {
-        return er;
-    }
-
-    public int getMTL() {
+    
+    /**
+     * Get the space trade minimum price
+     * @return spaceTradeMinPrice, the space trade min price
+     */
+    public int getSpaceTradeMinPrice() {
         return spaceTradeMinPrice;
     }
 
-    public int getMTH() {
+    /**
+     * Get the space trade maximum price
+     * @return spaceTradeMaxPrice, the space trade max price
+     */
+    public int getSpaceTradeMaxPrice() {
         return spaceTradeMaxPrice;
     }
     
+    /**
+     * Get the current price of the ware
+     * @return currentPrice, the current price
+     */
     public int getCurrentPrice() {
         return currentPrice;
     }
     
+    /**
+     * Set the current price of the ware
+     * @param currentPrice, the current price
+     */
     public void setCurrentPrice(int currentPrice) {
         this.currentPrice = currentPrice;
     }
     
+    /**
+     * Get the current quantity of the ware
+     * @return currentQuantity, the current quantity
+     */
     public int getCurrentQuantity() {
         return currentQuantity;
     }
     
+    /**
+     * Set the current quantity of the ware
+     * @param currentQuantity, the current quantity
+     */
     public void setCurrentQuantity(int currentQuantity) {
         this.currentQuantity = currentQuantity;
     }
     
+    /**
+     * Get the current condition of the ware
+     * @return currentCondition, the current condition
+     */
     public String getCurrentCondition() {
         return currentCondition;
     }
     
+    /**
+     * Set the current condition of the ware
+     * @param currentCondition, the current condition
+     */
     public void setCurrentCondition(String currentCondition) {
         this.currentCondition = currentCondition;
     }
     
+    /**
+     * Get the list of the default wares
+     * @return wares, the list of the default wares
+     */
     public static List<Ware> defaultWares() {
         ArrayList<Ware> wares = new ArrayList<Ware>(Good.values().length);
         for (Good good: Good.values()) {
@@ -238,6 +294,7 @@ public class Ware {
     
     @Override
     public String toString() {
-        return "<Ware: " + name + ", Cost: " + currentPrice + ", Avl: " + currentQuantity + ">";
+        return "<Ware: " + name + ", Cost: " + currentPrice + ", Avl: " +
+                currentQuantity + ">";
     }
 }

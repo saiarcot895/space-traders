@@ -1,5 +1,6 @@
 package hyenas.Models;
 
+import hyenas.UI.UIHelper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -9,10 +10,6 @@ import java.util.Random;
  * @author saikrishna
  */
 public class Planet {
-    private static final int NUM_ITEMS = 10;
-
-    private int x;
-    private int y;
     private int orbitRadius;
     private boolean clockwiseOrbit;
     private double size;
@@ -34,6 +31,10 @@ public class Planet {
         "Hi-Tech",
     };
     
+    /**
+     * Standard constructor for initializing planet.
+     * @param planetName, the name of the planet
+     */
     public Planet(String planetName) {
         this.planetName = planetName;
         Random rand = new Random();
@@ -41,12 +42,21 @@ public class Planet {
         size = 10 + rand.nextInt(10);
         
         techLevel = rand.nextInt(TECH_LEVELS.length);
-        color = randomColorString();
+        color = UIHelper.randomColorString();
         int randPlanetType = rand.nextInt(PlanetType.values().length);
         planetType = PlanetType.values()[randPlanetType];
         planetEvent = PlanetEvent.None;
     }
     
+    /**
+     * Constructor for Planet when loading from database. Overrides values set
+     * at random in original constructor with values stored in table.
+     * 
+     * @param planetName, the name of the planet
+     * @param clockwiseOrbit, whether the planet's orbit is clockwise
+     * @param techLevel, the tech level of the planet
+     * @param planetType, the type of the planet
+     */
     public Planet(String planetName, boolean clockwiseOrbit, int techLevel,
             int planetType) {
         this(planetName);
@@ -55,17 +65,41 @@ public class Planet {
         this.planetType = PlanetType.values()[planetType];
     }
     
+    /**
+     * Get the planet's name
+     * @return planetName, the name of the planet
+     */
     public String getPlanetName()   {
         return planetName;
     }
     
+    /**
+     * Get the planet's size
+     * @return size, the size of the planet
+     */
+    public double getSize() {
+        return size;
+    }
+    
+    /**
+     * Set the planet's size
+     * @param size, the size of the planet
+     */
+    public void setSize(double size) {
+        this.size = size;
+    }
+    
+    /**
+     * Get whether the planet's orbit is clockwise
+     * @return clockwiseOrbit, whether the planet's orbit is clockwise
+     */
     public boolean isClockwiseOrbit()    {
         return clockwiseOrbit;
     }
     
     /**
-     * Get the string tech level of the planet.
-     * @return string, tech level of the planet
+     * Get the name of the planet's tech level
+     * @return string, the name of the tech level of the planet
      */
     public String techLevelString() {
         return TECH_LEVELS[techLevel];
@@ -73,7 +107,7 @@ public class Planet {
 
     /**
      * Get the tech level of the planet.
-     * @return int, the tech level of the planet
+     * @return techLevel, the tech level of the planet
      */
     public int getTechLevel() {
         return techLevel;
@@ -82,40 +116,7 @@ public class Planet {
     @Override
     public String toString() {
         return "<Planet: " + planetName + ", Radius: " + orbitRadius +
-                ", Tech: " + techLevelString() + ", Loc: (" + x + ", " + y +
-                ")" + ">";
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public double getSize() {
-        return size;
-    }
-
-    public void setSize(double size) {
-        this.size = size;
-    }
-
-    private String randomColorString() {
-        Random rand = new Random();
-        int r = rand.nextInt(255);
-        int g = rand.nextInt(255);
-        int b = rand.nextInt(255);
-        return String.format("rgb(%d, %d, %d, 1)", r, g, b);
+                ", Tech: " + techLevelString() + ">";
     }
 
     /**
@@ -130,21 +131,33 @@ public class Planet {
     }
 
     /**
-     * Get the radius of the planet's orbit.
-     * @return radius of the orbit
+     * Get the planet's orbit radius
+     * @return orbitRadius, the orbit radius of the planet
      */
     public int getOrbitRadius() {
         return orbitRadius;
     }
     
-    public void setOrbitRadius(int radius)    {
-        orbitRadius = radius;
+    /**
+     * Set the planet's orbit radius
+     * @param orbitRadius, the orbitRadius of the planet
+     */
+    public void setOrbitRadius(int orbitRadius)    {
+        this.orbitRadius = orbitRadius;
     }
     
+    /**
+     * Get the planet's type
+     * @return planetType, the planet's type
+     */
     public PlanetType getPlanetType() {
         return planetType;
     }
     
+    /**
+     * Get a string representation of the planet's type
+     * @return string, the string representation of the planet's type
+     */
     public String getPlanetTypeString() {
         switch (planetType) {
             case None: return "No Specialized Resources";
@@ -164,6 +177,10 @@ public class Planet {
         }
     }
     
+    /**
+     * Get a string representation of the planet's event
+     * @return string, the string representation of the planet's event
+     */
     public String getPlanetEventString() {
         switch (planetEvent) {
             case None: return "None";
@@ -178,6 +195,10 @@ public class Planet {
         }
     }
     
+    /**
+     * Get the planet's wares
+     * @return wares, the planet's wares
+     */
     public List<Ware> getWares() {
         if (wares == null) {
             produceWares();
@@ -185,6 +206,10 @@ public class Planet {
         return wares;
     }
     
+    /**
+     * Add a ware to the planet's wares
+     * @param newWare, the ware to add
+     */
     public void addWare(Ware newWare) {
         Good good = newWare.getGood();
         List<Ware> wares = getWares();
@@ -196,9 +221,14 @@ public class Planet {
         }
     }
     
+    /**
+     * Produces the appropriate amount of wares for a planet based on the
+     * properties of the planet (planetEvent, planetType). Also sets matching
+     * price values for each ware. For use with marketplace.
+     */
     public void produceWares() {
         int numGoods = Good.values().length;
-        List<Ware> wares = new ArrayList<Ware>(numGoods);
+        List<Ware> wares = new ArrayList<>(numGoods);
         AffectedGood affectedGoodForPlanetType = affectedGoodForPlanetType();
         List<AffectedGood> affectedGoodsForPlanetEvent = affectedGoodsForPlanetEvent();
         
@@ -229,8 +259,8 @@ public class Planet {
             }
             
             for (AffectedGood affectedGood: affectedGoodsForPlanetEvent) {
-                // Double the base price for goods being affected by the event affecting the planet
-                // Also, reduce available quantity by 70%
+                // Double the base price for goods being affected by the event
+                // affecting the planet. Also, reduce available quantity by 70%
                 if (good == affectedGood.getGood()) {
                     basePrice = 2 * basePrice;
                     quantity = (int) (quantity * .3);
@@ -247,29 +277,51 @@ public class Planet {
         this.wares = wares;
     }
 
+    /**
+     * Returns the appropriate amount of a given good to produce based on the
+     * planet's tech level and properties of the good.
+     * 
+     * @param good, the good
+     * @return int, the number to produce
+     */
     private int howMuchToProduce(Good good) {
         Ware item = new Ware(good);
         if (techLevel < item.getMinimumTechLevelToProduce()) {
             return 0;
         } else {
-            // TODO include affects caused by events and planet type
             return 10 - Math.abs(item.getTechLevelProduction() - techLevel);
         }
     }
     
+    /**
+     * Represents a good affected by either the Planet's Type, or a PlanetEvent
+     */
     private class AffectedGood {
         private Good good;
         private boolean increasedPrice;
         
+        /**
+         * Initializes AffectedGood instance
+         * @param good, the Good type
+         * @param increasedPrice, whether the affected good's price increases
+         */
         public AffectedGood(Good good, boolean increasedPrice) {
             this.good = good;
             this.increasedPrice = increasedPrice;
         }
         
+        /**
+         * Getter for the good
+         * @return good, the Good type
+         */
         public Good getGood() {
             return good;
         }
         
+        /**
+         * Getter for whether the price is increased
+         * @return increasedPrice, whether the price is increased
+         */
         public boolean isIncreasedPrice() {
             return increasedPrice;
         }
@@ -301,6 +353,13 @@ public class Planet {
         }
     }
     
+    /**
+     * Returns a list of AffectedGoods that are affected by the Planet's
+     * PlanetEvent. Each affected good contains a boolean of whether the good's
+     * price should be increased or not.
+     * 
+     * @return affectedGoods, the goods affected by the given planet event
+     */
     public List<AffectedGood> affectedGoodsForPlanetEvent() {
         ArrayList<AffectedGood> affectedGoods = new ArrayList<AffectedGood>();
         switch (planetEvent) {

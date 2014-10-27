@@ -35,6 +35,7 @@ public class Ship {
     /**
      * Initializes an instance of Ship
      * Sets default values based on the ship type
+     * @param type, the type of ship
      */
     public Ship(ShipType type) {
         switch (type) {
