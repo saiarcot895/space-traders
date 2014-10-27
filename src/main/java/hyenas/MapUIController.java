@@ -549,6 +549,9 @@ public class MapUIController implements Initializable {
     private boolean canTravelToSystem(SolarSystem solarSystem) {
         Player player = Player.getInstance();
         SolarSystem currentSystem = player.getCurrentSystem();
+        if (currentSystem == solarSystem) {
+            return true;
+        }
         double fuel = player.getShip().getFuel();
         double distance = getDjikstraDistance(currentSystem, solarSystem);
         if (distance == -1) {
