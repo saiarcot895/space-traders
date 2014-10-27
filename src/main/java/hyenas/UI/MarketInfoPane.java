@@ -10,11 +10,9 @@ import hyenas.Models.Player;
 import hyenas.Models.Ship;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
@@ -133,8 +131,7 @@ public class MarketInfoPane extends BorderPane {
         
         planetNameLabel.setText(planet.getPlanetName());
         planetTypeLabel.setText(planet.getPlanetTypeString());
-        techLevelLabel.setText("" + planet.techLevelString() + " (" + 
-                planet.getTechLevel() + ")");
+        techLevelLabel.setText("" + planet.techLevelString());
         planetEventLabel.setText(planet.getPlanetEventString());
         creditsLabel.setText("" + player.getCredits());
         fuelLabel.setText(String.format("%.0f", ship.getFuel()) + "/" +

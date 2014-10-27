@@ -29,6 +29,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -53,6 +54,44 @@ public class MarketController implements Initializable {
     
     @FXML
     private Label titleLabel;
+    
+    /**
+     * Fuel Pane class for viewing the price of fuel and buying fuel
+     */
+    private class FuelPane extends BorderPane {
+        private Button fuelButton;
+        private Label fuelCostLabel;
+        /*
+         * Initializes an instance of FuelPane and sets up labels and buttons
+         */
+        public FuelPane() {
+            getStyleClass().add("alertPane");
+            
+            int fuelCost = planet.getFuelCost();
+            boolean canSellFuel = planet.canSellFuel();
+            
+            if (canSellFuel) {
+                fuelCostLabel = new Label("Fuel Cost: " + fuelCost);
+            } else {
+                fuelCostLabel = new Label("Fuel Cost: N/A");
+            }
+            fuelCostLabel.getStyleClass().add("alertPaneTitleLabel");
+            fuelCostLabel.setPadding(new Insets(10));
+            setLeft(fuelCostLabel);
+
+            BorderPane fuelButtonPane = new BorderPane();
+            fuelButton = new Button("Buy");
+            fuelButton.setPrefWidth(120.0);
+            fuelButton.getStyleClass().add("standard-button");
+            EventHandler<ActionEvent> buyFuelEvent = (ActionEvent e) -> {
+                buyFuel(e);
+            };
+            fuelButton.setOnAction(buyFuelEvent);
+            fuelButton.setDisable(!canSellFuel);
+            fuelButtonPane.setCenter(fuelButton);
+            setRight(fuelButtonPane);
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -113,11 +152,7 @@ public class MarketController implements Initializable {
         
         Pane emptyBottomTablePane = new Pane();
         emptyBottomTablePane.setPrefHeight(150.0);
-//        Pane emptyBottomBottomPane = new Pane();
-//        emptyBottomBottomPane.setPrefHeight(50.0);
-//        emptyBottomTablePane.setBottom(emptyBottomBottomPane);
         tablesPane.setBottom(emptyBottomTablePane);
-//        BorderPane.setMargin(emptyBottomTablePane, new Insets(0, 100, 0, 350));
         
         
         tablesPane.setCenter(planetTable);
@@ -126,6 +161,7 @@ public class MarketController implements Initializable {
         
         
         VBox rightBox = new VBox();
+        rightBox.setSpacing(10.0);
         infoPane = new MarketInfoPane();
         Button buyButton = infoPane.getBuyButton();
         EventHandler<ActionEvent> buyEvent = (ActionEvent e) -> {
@@ -138,10 +174,9 @@ public class MarketController implements Initializable {
         };
         sellButton.setOnAction(sellEvent);
         
-        Pane emptyRightSpacingPane = new Pane();
-        emptyRightSpacingPane.setPrefWidth(300.0);
-        emptyRightSpacingPane.setPrefHeight(250.0);
-        rightBox.getChildren().addAll(infoPane, emptyRightSpacingPane);
+        
+        FuelPane fuelPane = new FuelPane();
+        rightBox.getChildren().addAll(infoPane, fuelPane);
         borderPane.setRight(rightBox);
         
         
@@ -210,7 +245,7 @@ public class MarketController implements Initializable {
         
         int quantity = ware.getCurrentQuantity();
         if (quantity > 0) {
-            int techLevel = planet.getTechLevel();
+            int techLevel = planet.getTechLevel().ordinal();
             int minTechLevelToUse = ware.getMinimumTechLevelToUse();
             if (minTechLevelToUse <= techLevel) {
                 Ship ship = player.getShip();
@@ -275,8 +310,42 @@ public class MarketController implements Initializable {
             playerTable.getSelectionModel().clearSelection();
         }
     }
+    
+    private final double FUEL_INCREMENT = 10.0;
+    
+    public void buyFuel(ActionEvent e) {
+        Player player = Player.getInstance();
+        Ship ship = player.getShip();
+        int fuelCost = planet.getFuelCost();
+        
+        int credits = player.getCredits();
+        
+        double fuel = ship.getFuel();
+        double maxFuel = ship.getMaxFuel();
+        double fuelNeeded = maxFuel - fuel;
 
-    public void addFuel(ActionEvent e) {
+        if (fuelNeeded > 0) {
+            int totalFuelCost = (int) (fuelCost * FUEL_INCREMENT);
+            int newFuel = (int) (fuel + FUEL_INCREMENT);
+
+            if (fuelNeeded < FUEL_INCREMENT) {
+                totalFuelCost = (int) (fuelCost * fuelNeeded);
+                newFuel = (int) (fuel + fuelNeeded);
+            }
+
+            if (credits >= totalFuelCost) {
+                player.setCredits(credits - totalFuelCost);
+                ship.setFuel(newFuel);
+            } else {
+                displayAlert("Insufficient Credits", "You don't have enough credits to purchase this item.");
+            }
+        } else {
+            displayAlert("Ship Full", "Your ship can't carry any more fuel.");
+        }
+        
+        infoPane.updateInfo();
+        
+        
         // if (fuelCount == player.getShip().getMaxFuel() || creditCount < fuelCost) {
 
         //     //TODO display message saying that they have hit limit on fuel

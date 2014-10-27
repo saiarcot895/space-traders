@@ -13,23 +13,12 @@ public class Planet {
     private int orbitRadius;
     private boolean clockwiseOrbit;
     private double size;
-    private int techLevel;
     private String planetName;
     private String color;
-    private PlanetType planetType;
-    private PlanetEvent planetEvent;
+    private PlanetTechLevel techLevel;
+    private PlanetType type;
+    private PlanetEvent event;
     private List<Ware> wares;
-
-    private static final String[] TECH_LEVELS = new String[] {
-        "Pre-Agriculture",
-        "Agriculture",
-        "Medieval",
-        "Renaissance",
-        "Early Industrial",
-        "Industrial",
-        "Post-Industrial",
-        "Hi-Tech",
-    };
     
     /**
      * Standard constructor for initializing planet.
@@ -41,11 +30,12 @@ public class Planet {
         clockwiseOrbit = rand.nextBoolean();
         size = 10 + rand.nextInt(10);
         
-        techLevel = rand.nextInt(TECH_LEVELS.length);
+        int randPlanetTech = rand.nextInt(PlanetTechLevel.values().length);
+        techLevel = PlanetTechLevel.values()[randPlanetTech];
         color = UIHelper.randomColorString();
         int randPlanetType = rand.nextInt(PlanetType.values().length);
-        planetType = PlanetType.values()[randPlanetType];
-        planetEvent = PlanetEvent.None;
+        type = PlanetType.values()[randPlanetType];
+        event = PlanetEvent.None;
     }
     
     /**
@@ -61,8 +51,8 @@ public class Planet {
             int planetType) {
         this(planetName);
         this.clockwiseOrbit = clockwiseOrbit;
-        this.techLevel = techLevel;
-        this.planetType = PlanetType.values()[planetType];
+        this.techLevel = PlanetTechLevel.values()[techLevel];
+        this.type = PlanetType.values()[planetType];
     }
     
     /**
@@ -102,14 +92,24 @@ public class Planet {
      * @return string, the name of the tech level of the planet
      */
     public String techLevelString() {
-        return TECH_LEVELS[techLevel];
+        switch (techLevel) {
+            case PreAgriculture: return "Pre-Agriculture";
+            case Agriculture: return "Agriculture";
+            case Medieval: return "Medieval";
+            case Renaissance: return "Renaissance";
+            case EarlyIndustrial: return "Early Industrial";
+            case Industrial: return "Industrial";
+            case PostIndustrial: return "Post-Industrial";
+            case HiTech: return "Hi-Tech";
+            default: return "Error";
+        }
     }
 
     /**
      * Get the tech level of the planet.
      * @return techLevel, the tech level of the planet
      */
-    public int getTechLevel() {
+    public PlanetTechLevel getTechLevel() {
         return techLevel;
     }
 
@@ -148,10 +148,10 @@ public class Planet {
     
     /**
      * Get the planet's type
-     * @return planetType, the planet's type
+     * @return type, the planet's type
      */
     public PlanetType getPlanetType() {
-        return planetType;
+        return type;
     }
     
     /**
@@ -159,7 +159,7 @@ public class Planet {
      * @return string, the string representation of the planet's type
      */
     public String getPlanetTypeString() {
-        switch (planetType) {
+        switch (type) {
             case None: return "Normal";
             case MineralRich: return "Mineral Rich";
             case MineralPoor: return "Mineral Poor";
@@ -182,7 +182,7 @@ public class Planet {
      * @return string, the string representation of the planet's event
      */
     public String getPlanetEventString() {
-        switch (planetEvent) {
+        switch (event) {
             case None: return "None";
             case Drought: return "Drought";
             case Cold: return "Cold";
@@ -269,7 +269,7 @@ public class Planet {
                 }
             }
             
-            int price = basePrice + (ware.getPriceIncreasePerLevel() * (techLevel - ware.getMinimumTechLevelToProduce())) + variance;
+            int price = basePrice + (ware.getPriceIncreasePerLevel() * (techLevel.ordinal() - ware.getMinimumTechLevelToProduce())) + variance;
             ware.setCurrentPrice(price);
             ware.setCurrentQuantity(quantity);
             wares.add(ware);
@@ -287,10 +287,10 @@ public class Planet {
      */
     private int howMuchToProduce(Good good) {
         Ware item = new Ware(good);
-        if (techLevel < item.getMinimumTechLevelToProduce()) {
+        if (techLevel.ordinal() < item.getMinimumTechLevelToProduce()) {
             return 0;
         } else {
-            return 10 - Math.abs(item.getTechLevelProduction() - techLevel);
+            return 10 - Math.abs(item.getTechLevelProduction() - techLevel.ordinal());
         }
     }
     
@@ -336,7 +336,7 @@ public class Planet {
      * the price is increased or not
      */
     public AffectedGood affectedGoodForPlanetType() {
-        switch (planetType) {
+        switch (type) {
             case None: return null;
             case MineralRich: return new AffectedGood(Good.Ore, false);
             case MineralPoor: return new AffectedGood(Good.Ore, true);
@@ -363,7 +363,7 @@ public class Planet {
      */
     public List<AffectedGood> affectedGoodsForPlanetEvent() {
         ArrayList<AffectedGood> affectedGoods = new ArrayList<AffectedGood>();
-        switch (planetEvent) {
+        switch (event) {
             case None: break;
             case Drought: 
                 AffectedGood water = new AffectedGood(Good.Water, true);
@@ -402,5 +402,23 @@ public class Planet {
             default: break;
         }
         return affectedGoods;
+    }
+    
+    public boolean canSellFuel() {
+        return techLevel.ordinal() >= PlanetTechLevel.Medieval.ordinal();
+    }
+    
+    private final int BASE_FUEL_COST = 5;
+    
+    public int getFuelCost() {
+        int startingFuelTechLevel = PlanetTechLevel.Medieval.ordinal();
+        int currentTechLevel = techLevel.ordinal();
+        int difference = currentTechLevel - startingFuelTechLevel;
+        int fuelCost = BASE_FUEL_COST - difference;
+        if (fuelCost < 1) {
+            return 1;
+        } else {
+            return fuelCost;
+        }
     }
 }

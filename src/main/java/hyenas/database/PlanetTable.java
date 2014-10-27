@@ -94,7 +94,7 @@ public class PlanetTable {
             stmt.setInt(2, planet.getOrbitRadius());
             stmt.setBoolean(3, planet.isClockwiseOrbit());
             stmt.setDouble(4, planet.getSize());
-            stmt.setInt(5, planet.getTechLevel());
+            stmt.setInt(5, planet.getTechLevel().ordinal());
             stmt.setInt(6, planet.getPlanetType().ordinal());
 
             PreparedStatement systemStatement = conn.prepareStatement(
