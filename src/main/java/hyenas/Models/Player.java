@@ -188,7 +188,6 @@ public class Player {
      * @param tradingPlanet the trading Planet of the player
      */
     public void setTradingPlanet(Planet tradingPlanet) {
-        System.out.println("New planet: "+tradingPlanet);
         this.tradingPlanet = tradingPlanet;
     }
 

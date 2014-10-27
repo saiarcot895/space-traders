@@ -16,7 +16,7 @@ public class SolarSystem {
     private int y;
     private double size;
     private String color;
-    private final int ORBIT_TOLERANCE = 15;
+    private final int ORBIT_TOLERANCE = 10;
 
     /**
      * Initializes an instance of SolarSyem and sets initial values
