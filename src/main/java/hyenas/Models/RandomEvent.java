@@ -6,9 +6,6 @@
 package hyenas.Models;
 
 import java.util.Random;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-
 
 /**
  * Represents a Random Event

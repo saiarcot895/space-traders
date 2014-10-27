@@ -114,7 +114,7 @@ public class MarketController implements Initializable {
         emptyBottomBottomPane.setPrefHeight(50.0);
         emptyBottomTablePane.setBottom(emptyBottomBottomPane);
         tablesPane.setBottom(emptyBottomTablePane);
-        tablesPane.setMargin(emptyBottomTablePane, new Insets(0, 100, 0, 350));
+        BorderPane.setMargin(emptyBottomTablePane, new Insets(0, 100, 0, 350));
         
         
         tablesPane.setCenter(planetTable);
@@ -143,9 +143,9 @@ public class MarketController implements Initializable {
         
         
         borderPane.setPadding(new Insets(40));
-        borderPane.setMargin(planetTable, new Insets(50, 50, 50, 20));
-        borderPane.setMargin(playerTable, new Insets(50, 20, 50, 20));
-        borderPane.setMargin(rightBox, new Insets(50, 0, 0, 0));
+        BorderPane.setMargin(planetTable, new Insets(50, 50, 50, 20));
+        BorderPane.setMargin(playerTable, new Insets(50, 20, 50, 20));
+        BorderPane.setMargin(rightBox, new Insets(50, 0, 0, 0));
     }
     
     private void updatePlayerTable() {

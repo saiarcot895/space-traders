@@ -1,22 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hyenas.UI;
 
-import hyenas.Models.RandomEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 
 /**
- *
+ * Alert Panes, for use when displaying alerts/messages to user
  * @author Alex
  */
 public class AlertPane extends BorderPane {

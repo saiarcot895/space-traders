@@ -8,7 +8,7 @@ package hyenas.Models;
 import java.util.Objects;
 
 /**
- *
+ * Represents pair for use with Dijkstra's algorithm
  * @author saikrishna
  */
 public class ABPair<A, B> {

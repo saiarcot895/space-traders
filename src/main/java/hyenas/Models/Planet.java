@@ -160,7 +160,7 @@ public class Planet {
      */
     public String getPlanetTypeString() {
         switch (planetType) {
-            case None: return "No Specialized Resources";
+            case None: return "Normal";
             case MineralRich: return "Mineral Rich";
             case MineralPoor: return "Mineral Poor";
             case LotsOfWater: return "Lots of Water";
@@ -173,7 +173,7 @@ public class Planet {
             case LotsOfHerbs: return "Lots of Herbs";
             case Artistic: return "Artistic";
             case Warlike: return "Warlike";
-            default: return "No Specialized Resources";
+            default: return "Normal";
         }
     }
     
@@ -190,7 +190,7 @@ public class Planet {
             case War: return "War";
             case Boredom: return "Boredom";
             case Plague: return "Plague";
-            case LackOfWorkers: return "LackOfWorkers";
+            case LackOfWorkers: return "Lack of Workers";
             default: return "None";
         }
     }
@@ -239,7 +239,8 @@ public class Planet {
             int basePrice = ware.getBasePrice();
             int variance = 0;
             
-            if (good == affectedGoodForPlanetType.getGood()) {
+            if (affectedGoodForPlanetType != null &&
+                    good == affectedGoodForPlanetType.getGood()) {
                 // Add or deduct 10% of good's base price based on planet's type
                 // Also triple or reduce by 60% the available quantity
                 boolean priceIncreased = affectedGoodForPlanetType.isIncreasedPrice();
