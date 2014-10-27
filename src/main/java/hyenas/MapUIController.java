@@ -48,6 +48,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 
 /**
  * FXML Controller class
@@ -207,6 +208,12 @@ public class MapUIController implements Initializable {
                     distances.put(solarSystem2, new LinkedList<>());
                 }
                 distances.get(solarSystem2).add(destination);
+                
+                Line connection = new Line(solarSystem1.getX(),
+                        solarSystem1.getY(), solarSystem2.getX(),
+                        solarSystem2.getY());
+                connection.setStroke(Color.web("green", 1));
+                scrollContentPane.getChildren().add(0, connection);
             }
         }
 
