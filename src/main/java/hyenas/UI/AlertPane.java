@@ -22,7 +22,7 @@ public class AlertPane extends BorderPane {
     private Button actionButton;
     
     @FXML
-    private Button cancelButton;
+    private Button closeButton;
     
     private AlertPaneType type;
     
@@ -33,6 +33,10 @@ public class AlertPane extends BorderPane {
     
     private final double PADDING = 10.0;
     
+    /**
+     * Initializes an AlertPane and creates required label/button elements
+     * @param type, the alert pane type
+     */
     public AlertPane(AlertPaneType type) {
         this.type = type;
         setPrefSize(ALERT_PANE_WIDTH, ALERT_PANE_HEIGHT);
@@ -55,12 +59,12 @@ public class AlertPane extends BorderPane {
         setCenter(messageLabel);
         
         if (type == AlertPaneType.OneButton) {
-            cancelButton = new Button("Close");
-            cancelButton.getStyleClass().add("standard-button");
-            cancelButton.setPrefSize(ALERT_PANE_BUTTON_WIDTH, ALERT_PANE_BUTTON_HEIGHT);
+            closeButton = new Button("Close");
+            closeButton.getStyleClass().add("standard-button");
+            closeButton.setPrefSize(ALERT_PANE_BUTTON_WIDTH, ALERT_PANE_BUTTON_HEIGHT);
             
             BorderPane buttonPane = new BorderPane();
-            buttonPane.setCenter(cancelButton);
+            buttonPane.setCenter(closeButton);
             buttonPane.setPrefHeight(35.0);
             setBottom(buttonPane);
         } else if (type == AlertPaneType.TwoButtons) {
@@ -70,15 +74,15 @@ public class AlertPane extends BorderPane {
             AnchorPane.setBottomAnchor(actionButton, 5.0);
             AnchorPane.setLeftAnchor(actionButton, 41.0);
             
-            cancelButton = new Button("Close");
-            cancelButton.getStyleClass().add("standard-button");
-            cancelButton.setPrefSize(ALERT_PANE_BUTTON_WIDTH, ALERT_PANE_BUTTON_HEIGHT);
-            AnchorPane.setBottomAnchor(cancelButton, 5.0);
-            AnchorPane.setRightAnchor(cancelButton, 41.0);
+            closeButton = new Button("Close");
+            closeButton.getStyleClass().add("standard-button");
+            closeButton.setPrefSize(ALERT_PANE_BUTTON_WIDTH, ALERT_PANE_BUTTON_HEIGHT);
+            AnchorPane.setBottomAnchor(closeButton, 5.0);
+            AnchorPane.setRightAnchor(closeButton, 41.0);
             
             AnchorPane buttonPane = new AnchorPane();
             buttonPane.setPrefHeight(35.0);
-            buttonPane.getChildren().addAll(actionButton, cancelButton);
+            buttonPane.getChildren().addAll(actionButton, closeButton);
             setBottom(buttonPane);
         }
         
@@ -86,6 +90,10 @@ public class AlertPane extends BorderPane {
         setLayoutY((UIHelper.getScreenSize().getHeight() / 2) - (getPrefHeight() / 2));
     }
     
+    /**
+     * Set the alert pane's title text
+     * @param text, the title text
+     */
     public void setTitleText(String text) {
         titleLabel.setText(text);
         // Move the message label down to make room for title
@@ -96,15 +104,27 @@ public class AlertPane extends BorderPane {
         }
     }
     
+    /**
+     * Set the alert pane's message text
+     * @param text, the message text
+     */
     public void setMessageText(String text) {
         messageLabel.setText(text);
     }
     
+    /**
+     * Get the alert pane's action button
+     * @param actionButton, the action button
+     */
     public Button getActionButton() {
         return actionButton;
     }
     
+    /**
+     * Get the alert pane's close button
+     * @param closeButton, the close button
+     */
     public Button getCloseButton() {
-        return cancelButton;
+        return closeButton;
     }
 }

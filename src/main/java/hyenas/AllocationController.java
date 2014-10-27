@@ -162,8 +162,6 @@ public class AllocationController implements Initializable {
     private boolean validInput() {
         if (name.getText().length() == 0) {
             return false;
-        } else if (pointsRemaining > 0) {
-            return false;
         }
         return true;
     }
