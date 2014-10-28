@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class PlanetTable {
+public class PlanetTable implements Table {
 
     private final Connection conn;
 
@@ -44,6 +44,7 @@ public class PlanetTable {
         }
     }
     
+    @Override
     public void loadTable() {
         try {
             Statement stmt = conn.createStatement();
@@ -70,6 +71,7 @@ public class PlanetTable {
         }
     }
 
+    @Override
     public void createTable() {
         String create = "CREATE TABLE IF NOT EXISTS Planet "
                 + "(ID INTEGER NOT NULL, " + "Name VARCHAR(20) NOT NULL, "
@@ -108,6 +110,15 @@ public class PlanetTable {
             stmt.setInt(7, systemIDResultSet.getInt(1));
             stmt.executeUpdate();
             // Id & ssid are generated based on how the System is generated.
+        } catch (SQLException e) {
+            printException(e);
+        }
+    }
+
+    @Override
+    public void dropTable() {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("DROP TABLE Planet");
         } catch (SQLException e) {
             printException(e);
         }
