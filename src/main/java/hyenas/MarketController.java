@@ -1,7 +1,6 @@
 
 package hyenas;
 
-import hyenas.Models.Good;
 import hyenas.Models.Planet;
 import hyenas.Models.Player;
 import hyenas.Models.Ship;

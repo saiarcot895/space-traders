@@ -1,5 +1,6 @@
 package hyenas.Models;
 
+import hyenas.Models.Ware.Good;
 import hyenas.UI.UIHelper;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,54 @@ public class Planet {
     private PlanetType type;
     private PlanetEvent event;
     private List<Ware> wares;
+    
+    /**
+     * A PlanetTechType, used to distinguish between the types of planets
+     */
+    public enum PlanetType {
+        None,
+        MineralRich,
+        MineralPoor,
+        LotsOfWater,
+        Desert,
+        RichSoil,
+        PoorSoil,
+        RichFauna,
+        Lifeless,
+        WeirdMushrooms,
+        LotsOfHerbs,
+        Artistic,
+        Warlike,
+    }
+    
+    /**
+     * A PlanetTechLevel, used to distinguish between Planet tech levels
+     */
+    public enum PlanetTechLevel {
+        PreAgriculture,
+        Agriculture,
+        Medieval,
+        Renaissance,
+        EarlyIndustrial,
+        Industrial,
+        PostIndustrial,
+        HiTech,
+    }
+    
+    /**
+     * A PlanetEvent, used to distinguish between events that can affect a
+     * Planet
+     */
+    public enum PlanetEvent {
+        None,
+        Drought,
+        Cold,
+        Cropfail,
+        War,
+        Boredom,
+        Plague,
+        LackOfWorkers,
+    }
     
     /**
      * Standard constructor for initializing planet.

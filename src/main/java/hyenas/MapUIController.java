@@ -11,7 +11,7 @@ import hyenas.Models.Journey;
 import hyenas.Models.Planet;
 import hyenas.Models.Player;
 import hyenas.Models.RandomEvent;
-import hyenas.Models.RandomEventType;
+import hyenas.Models.RandomEvent.RandomEventType;
 import hyenas.Models.Ship;
 import hyenas.Models.SolarSystem;
 import hyenas.UI.PlayerInfoPane;

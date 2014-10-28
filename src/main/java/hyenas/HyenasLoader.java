@@ -85,7 +85,6 @@ public class HyenasLoader extends Application {
 
         this.stage = stage;
         stage.setFullScreen(true);
-//        stage.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource(
                     "MainWindow.fxml"));
 
@@ -110,10 +109,6 @@ public class HyenasLoader extends Application {
         loadScreen("AllocationUI.fxml");
     }
 
-    /*
-     * DO NOT TOUCH!
-     * This generates the systems randomly on start!
-     */
     public void goToMapScreen() {
         loadScreen("MapUI.fxml");
     }
@@ -172,10 +167,7 @@ public class HyenasLoader extends Application {
      */
     public void closeGame() {
         // In the main menu the game should not be connected to the database!
-        
-        loadScreen("MarketUI.fxml");
-        
-        
+        goToShipyard();
         
 //        closeConnection(conn);
 //        try {
@@ -184,11 +176,6 @@ public class HyenasLoader extends Application {
 //        } catch (Exception ex) {
 //            Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-    }
-
-    // Wat?
-    public void confirmSelection() {
-
     }
 
 /**********************************************************************/

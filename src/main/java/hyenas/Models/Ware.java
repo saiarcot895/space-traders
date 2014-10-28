@@ -21,6 +21,19 @@ public class Ware {
     private int currentPrice;
     private int currentQuantity;
     private String currentCondition;
+    
+    public enum Good {
+        Water,
+        Furs,
+        Food,
+        Ore,
+        Games,
+        Firearms,
+        Medicine,
+        Machines,
+        Narcotics,
+        Robots
+    }
 
     /**
      * Initializes a Ware and sets its initial values based on a given Good

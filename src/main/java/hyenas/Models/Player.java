@@ -1,5 +1,6 @@
 package hyenas.Models;
 
+import hyenas.Models.Ship.ShipType;
 import java.util.Random;
 
 /**

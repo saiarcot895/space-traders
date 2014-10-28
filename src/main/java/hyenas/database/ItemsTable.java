@@ -1,9 +1,9 @@
 package hyenas.database;
 
-import hyenas.Models.Good;
 import hyenas.Models.Player;
 import hyenas.Models.Ship;
 import hyenas.Models.Ware;
+import hyenas.Models.Ware.Good;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

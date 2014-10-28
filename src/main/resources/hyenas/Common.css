@@ -211,3 +211,42 @@ and open the template in the editor.
 .market-info-pane .label {
     -fx-font-size: 16;
 }
+
+
+
+
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:100px;
+}
+
+.tab {
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+.tab-pane .tab
+{
+    -fx-background-color: rgb(60, 60, 60);
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: rgb(45, 45, 45);
+}
+
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: rgba(0,231,255, .5);
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: rgba(0,231,255, 1);
+}

@@ -23,6 +23,15 @@ public class RandomEvent {
     private String cancelResultText;
     
     /**
+     * A RandomEventType, used to distinguish between random events
+     */
+    public enum RandomEventType {
+        Police,
+        Trader,
+        Pirate,
+    }
+
+    /**
      * Initialized RandomEvent based on the RandomEventType
      * @param eventType, the type of random event
      */
