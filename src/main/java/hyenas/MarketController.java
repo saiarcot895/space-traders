@@ -11,7 +11,6 @@ import hyenas.UI.MarketInfoPane;
 import hyenas.UI.MarketTableColumn;
 import java.net.URL;
 import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,17 +21,14 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.util.Callback;
 
 public class MarketController implements Initializable {
     private int[] wares;
@@ -111,16 +107,16 @@ public class MarketController implements Initializable {
         TableColumn priceCol = new MarketTableColumn("Price");
         TableColumn contitionsCol = new MarketTableColumn("Conditions");
         wareCol.setCellValueFactory(
-            new PropertyValueFactory<Ware, String>("name")
+            new PropertyValueFactory<>("name")
         );
         availableCol.setCellValueFactory(
-            new PropertyValueFactory<Ware, Integer>("currentQuantity")
+            new PropertyValueFactory<>("currentQuantity")
         );
         priceCol.setCellValueFactory(
-            new PropertyValueFactory<Ware, Integer>("currentPrice")
+            new PropertyValueFactory<>("currentPrice")
         );
         contitionsCol.setCellValueFactory(
-            new PropertyValueFactory<Ware, String>("currentCondition")
+            new PropertyValueFactory<>("currentCondition")
         );
         
         updatePlanetTable();
