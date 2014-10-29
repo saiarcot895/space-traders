@@ -52,7 +52,7 @@ public class PlayerTable {
         String create = "CREATE TABLE IF NOT EXISTS Players " + "(ID INTEGER NOT NULL, "
                 + "Name VARCHAR(20) NOT NULL, "
                 + "Points INTEGER NOT NULL, " + "Engineer INTEGER NOT NULL, "
-                + "Pilot INTEGER NOT NULL, " + "Inventor INTEGER NOT NULL, "
+                + "Pilot INTEGER NOT NULL, " + "Investor INTEGER NOT NULL, "
                 + "Fighter INTEGER NOT NULL, " + "Trader INTEGER NOT NULL, "
                 + "Credits INTEGER, " 
                 + "Fuel INTEGER NOT NULL, " + "Health INTEGER NOT NULL, "
