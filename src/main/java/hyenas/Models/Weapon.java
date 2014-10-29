@@ -10,6 +10,7 @@ import java.util.List;
 public class Weapon {
     private WeaponType type;
     private String name;
+    private int price;
     
     // TODO: setup ivars, weapon enum types
     
@@ -23,12 +24,15 @@ public class Weapon {
         switch (type) {
             case PULSE:
                 name = "Pulse";
+                price = 100;
                 break;
             case BEAM:
                 name = "Beam";
+                price = 200;
                 break;
             case MILITARY:
                 name = "Military";
+                price = 300;
                 break;
             default: break;
         }
@@ -43,6 +47,13 @@ public class Weapon {
         return name;
     }
     
+    /**
+     * Get the price of the weapon
+     * @return price, the price of the weapon
+     */
+    public int getPrice()    {
+        return price;
+    }
     
     /**
      * Get the list of default buyable weapons

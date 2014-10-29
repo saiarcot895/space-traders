@@ -226,9 +226,62 @@ public class ShipyardController implements Initializable {
     
     public void buyItem(ActionEvent e) {
         removeAlert();
-        // Note: object type shouldn't necessarily be Object
-        Object item = currentTableView.getSelectionModel().getSelectedItem();
-        
+        if(currentTableView == weaponsTable)    {
+            Weapon item = (Weapon)currentTableView.getSelectionModel().getSelectedItem();
+            if(ship.getWeaponSlots() > ship.getWeapons().size())    {
+                if(Player.getInstance().getCredits() >= item.getPrice())    {
+                    ship.getWeapons().add(item);
+                    Player.getInstance().setCredits(Player.getInstance().getCredits()-item.getPrice());
+                }
+                else    {
+                    displayAlert("Not Enough Credits", "You don't have enough credits to afford that.");
+                }
+            }
+            else    {
+                displayAlert("No Weapon Slot", "There are no more slots for weapons on your ship");
+            }
+        }
+        else if(currentTableView == shieldsTable)   {
+            Shield item = (Shield)currentTableView.getSelectionModel().getSelectedItem();
+            if(ship.getShieldSlots() > ship.getShields().size())    {
+                if(Player.getInstance().getCredits() >= item.getPrice())    {
+                    ship.getShields().add(item);
+                    Player.getInstance().setCredits(Player.getInstance().getCredits()-item.getPrice());
+                }
+                else    {
+                    displayAlert("Not Enough Credits", "You don't have enough credits to afford that.");
+                }
+            }
+            else    {
+                displayAlert("No Shield Slot", "There are no more slots for shields on your ship");
+            }
+        }
+        else if(currentTableView == gadgetsTable)   {
+            Gadget item = (Gadget)currentTableView.getSelectionModel().getSelectedItem();
+            if(ship.getGadgetSlots() > ship.getGadgets().size())    {
+                if(Player.getInstance().getCredits() >= item.getPrice())    {
+                    ship.getGadgets().add(item);
+                    Player.getInstance().setCredits(Player.getInstance().getCredits()-item.getPrice());
+                }
+                else    {
+                    displayAlert("Not Enough Credits", "You don't have enough credits to afford that.");
+                }
+            }
+            else    {
+                displayAlert("No Gadget Slot", "There are no more slots for gadgets on your ship");
+            }
+        }
+        else if(currentTableView == shipsTable) {
+            Ship item = (Ship)currentTableView.getSelectionModel().getSelectedItem();
+            if(Player.getInstance().getCredits() >= item.getPrice())    {
+                Player.getInstance().setShip(item);
+                Player.getInstance().setCredits(Player.getInstance().getCredits()-item.getPrice());
+            }
+            else    {
+                displayAlert("Not Enough Credits", "You don't have enough credits to afford that.");
+           }
+            
+        }
         // TODO:
         // Buying a ship has addition consequences (See wiki), so it needs to be
         // handled more carefully
@@ -246,7 +299,36 @@ public class ShipyardController implements Initializable {
         removeAlert();
         
         // Note: object type shouldn't necessarily be Object
-        Object item = playerShipTable.getSelectionModel().getSelectedItem();
+        if(currentTableView == weaponsTable)    {
+            Weapon item = (Weapon)currentTableView.getSelectionModel().getSelectedItem();
+            if(ship.getWeapons().contains(item))    {
+                ship.getWeapons().remove(item);
+                Player.getInstance().setCredits(Player.getInstance().getCredits()+item.getPrice());
+            }
+            else    {
+                displayAlert("No Weapon", "You do not have a weapon of this type on your ship.");
+            }
+        }
+        else if(currentTableView == shieldsTable)   {
+            Shield item = (Shield)currentTableView.getSelectionModel().getSelectedItem();
+            if(ship.getShields().contains(item))    {
+                ship.getShields().remove(item);
+                Player.getInstance().setCredits(Player.getInstance().getCredits()+item.getPrice());
+            }
+            else    {
+                displayAlert("No Shield", "You do not have a shield of this type on your ship.");
+            }
+        }
+        else if(currentTableView == gadgetsTable)   {
+            Gadget item = (Gadget)currentTableView.getSelectionModel().getSelectedItem();
+            if(ship.getGadgets().contains(item))    {
+                ship.getGadgets().remove(item);
+                Player.getInstance().setCredits(Player.getInstance().getCredits()+item.getPrice());
+            }
+            else    {
+                displayAlert("No Gadget", "You do not have a gadget of this type on your ship.");
+            }
+        }
         
         // TODO:
         // Handle edge cases - for example, a player must have a ship (cant sell
