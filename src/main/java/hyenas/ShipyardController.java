@@ -282,6 +282,7 @@ public class ShipyardController implements Initializable {
            }
             
         }
+        infoPane.updateInfo();
         // TODO:
         // Buying a ship has addition consequences (See wiki), so it needs to be
         // handled more carefully
@@ -329,6 +330,7 @@ public class ShipyardController implements Initializable {
                 displayAlert("No Gadget", "You do not have a gadget of this type on your ship.");
             }
         }
+        infoPane.updateInfo();
         
         // TODO:
         // Handle edge cases - for example, a player must have a ship (cant sell
