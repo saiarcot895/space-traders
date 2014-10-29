@@ -17,7 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 /**
- *
+ * For use with Marketplace. Displays planet and player info
  * @author Alex
  */
 public class MarketInfoPane extends BorderPane {
@@ -87,27 +87,19 @@ public class MarketInfoPane extends BorderPane {
         buyButton.getStyleClass().add("standard-button");
         buyButton.setPrefHeight(37.0);
         buyButton.setPrefWidth(143.0);
-        EventHandler<ActionEvent> resetAction = (ActionEvent e2) -> {
-            // TODO
-        };
-        buyButton.setOnAction(resetAction);
         
         sellButton = new Button("Sell");
         sellButton.setDisable(true);
         sellButton.getStyleClass().add("standard-button");
         sellButton.setPrefHeight(37.0);
         sellButton.setPrefWidth(143.0);
-        EventHandler<ActionEvent> confirmAction = (ActionEvent e2) -> {
-            // TODO
-        };
-        buyButton.setOnAction(confirmAction);
         
-        BorderPane resetPane = new BorderPane();
-        resetPane.setCenter(buyButton);
-        BorderPane confirmPane = new BorderPane();
-        confirmPane.setCenter(sellButton);
-        bottomBox.setTop(resetPane);
-        bottomBox.setBottom(confirmPane);
+        BorderPane buyPane = new BorderPane();
+        buyPane.setCenter(buyButton);
+        BorderPane sellPane = new BorderPane();
+        sellPane.setCenter(sellButton);
+        bottomBox.setTop(buyPane);
+        bottomBox.setBottom(sellPane);
         
         
         setLeft(leftBox);

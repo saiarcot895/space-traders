@@ -36,8 +36,8 @@ public class Weapon {
     }
     
     /**
-     * Get the list of default buyable weapons
-     * @return weapons, the list of weapons
+     * Get the name of the weapon
+     * @return name, the name of the weapon
      */
     public String getName() {
         return name;

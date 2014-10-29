@@ -12,8 +12,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * For use with shipyard. Displays ships you can buy
  * @author Alex
  */
-public class ShipTypeTable extends TableView {
-    public ShipTypeTable() {
+public class ShipTypeTableView extends TableView {
+    public ShipTypeTableView() {
         setEditable(false);
         
         TableColumn nameCol = new MarketTableColumn("Name");

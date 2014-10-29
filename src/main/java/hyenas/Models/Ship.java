@@ -21,7 +21,7 @@ public class Ship {
     private List<Weapon> weapons = new ArrayList<>();
     private List<Shield> shields = new ArrayList<>();
     private List<Gadget> gadgets = new ArrayList<>();
-    private List<Gadget> crew = new ArrayList<>();
+    private List<Mercenary> crew = new ArrayList<>();
     private List<Ware> cargo = new ArrayList<>();
     private double fuel;
     private double maxFuel;
@@ -58,7 +58,7 @@ public class Ship {
                 maxFuel = 700.0;
                 fuel = maxFuel;
                 minTechLevel = 0;
-                price = 0;
+                price = 100;
                 bounty = 0;
                 occurence = 0;
                 hullStrength = 0;
@@ -81,7 +81,7 @@ public class Ship {
                 maxFuel = 2500.0;
                 fuel = maxFuel;
                 minTechLevel = 0;
-                price = 0;
+                price = 500;
                 bounty = 0;
                 occurence = 0;
                 hullStrength = 0;
@@ -104,7 +104,7 @@ public class Ship {
                 maxFuel = 4000.0;
                 fuel = maxFuel;
                 minTechLevel = 0;
-                price = 0;
+                price = 1000;
                 bounty = 0;
                 occurence = 0;
                 hullStrength = 0;
@@ -190,6 +190,38 @@ public class Ship {
      */
     public List<Ware> getCargo() {
         return cargo;
+    }
+    
+    /**
+     * Get the ship's weapons
+     * @return the ship's weapons
+     */
+    public List<Weapon> getWeapons() {
+        return weapons;
+    }
+    
+    /**
+     * Get the ship's shields
+     * @return the ship's shields
+     */
+    public List<Shield> getShields() {
+        return shields;
+    }
+    
+    /**
+     * Get the ship's gadgets
+     * @return the ship's gadgets
+     */
+    public List<Gadget> getGadgets() {
+        return gadgets;
+    }
+    
+    /**
+     * Get the ship's crew
+     * @return the ship's crew
+     */
+    public List<Mercenary> getCrew() {
+        return crew;
     }
     
     /**
@@ -291,6 +323,14 @@ public class Ship {
      */
     public double getMaxHealth() {
         return maxHealth;
+    }
+    
+    /**
+     * Get the ship's price
+     * @return the ship's price
+     */
+    public int getPrice() {
+        return price;
     }
     
     /**

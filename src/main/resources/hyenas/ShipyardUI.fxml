@@ -24,10 +24,8 @@
                     </center>
                 </BorderPane>
                 
-                <BorderPane>
-                    <right><Pane prefWidth="200.0"></Pane></right>
-                    <left><Pane prefWidth="200.0"></Pane></left>
-                    <center><BorderPane fx:id="centerPane"></BorderPane></center>
+                <BorderPane fx:id="centerPane">
+                    <center><BorderPane fx:id="tablePane"></BorderPane></center>
                 </BorderPane>
                 
                 

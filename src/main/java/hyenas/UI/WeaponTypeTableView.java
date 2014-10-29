@@ -13,8 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * For use with shipyard. Displays weapons you can buy
  * @author Alex
  */
-public class WeaponTypeTable extends TableView {
-    public WeaponTypeTable() {
+public class WeaponTypeTableView extends TableView {
+    public WeaponTypeTableView() {
         setEditable(false);
         
         TableColumn nameCol = new MarketTableColumn("Name");
