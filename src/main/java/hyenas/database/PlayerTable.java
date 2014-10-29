@@ -81,7 +81,7 @@ public class PlayerTable {
             int pPoints, int iPoints, int fPoints, int tPoints, int credits) throws SQLException {
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Players "
-                    + "(Name, Points, Engineer, Pilot, Fighter, Inventor, "
+                    + "(Name, Points, Engineer, Pilot, Fighter, Investor, "
                     + "Trader, Credits, Fuel, Health) "
                     + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, name);
@@ -109,7 +109,7 @@ public class PlayerTable {
             Statement stmt = conn.createStatement();
             ResultSet playerInfo = stmt.executeQuery("SELECT Players.Name,"
                     + " Players.Points, Players.Engineer, Players.Pilot,"
-                    + " Players.Inventor, Players.Fighter, Players.Trader,"
+                    + " Players.Investor, Players.Fighter, Players.Trader,"
                     + " Players.Fuel, Players.Health, Players.Credits,"
                     + " SolarSystem.Name FROM Players"
                     + " INNER JOIN SolarSystem"
@@ -185,7 +185,7 @@ public class PlayerTable {
     public void updateInvestorPoints(int points) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        String query = "UPDATE PLAYERS SET Inventor = " + points;
+        String query = "UPDATE PLAYERS SET Investor = " + points;
         stmt.executeQuery(query);
     }
 
