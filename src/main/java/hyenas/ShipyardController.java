@@ -226,6 +226,8 @@ public class ShipyardController implements Initializable {
     
     public void buyItem(ActionEvent e) {
         removeAlert();
+        Player player = Player.getInstance();
+        ship = player.getShip();
         if(currentTableView == weaponsTable)    {
             Weapon item = (Weapon)currentTableView.getSelectionModel().getSelectedItem();
             if(ship.getWeaponSlots() > ship.getWeapons().size())    {
