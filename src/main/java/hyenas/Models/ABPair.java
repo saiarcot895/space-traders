@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hyenas.Models;
 
 import java.util.Objects;
@@ -15,6 +10,11 @@ public class ABPair<A, B> {
     private final A a;
     private final B b;
 
+    /**
+     * Initializes an ABPair
+     * @param a, the first item
+     * @param b, the second item
+     */
     public ABPair(A a, B b) {
         this.a = a;
         this.b = b;

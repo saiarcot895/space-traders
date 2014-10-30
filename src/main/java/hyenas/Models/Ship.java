@@ -39,13 +39,16 @@ public class Ship {
     private double health;
     private double maxHealth;
     
+    /**
+     * A ShipType, used to distinguish between the types of ships
+     */
     public enum ShipType {
         FLEA,
         GNAT,
         FIREFLY,
         MOSQUITO,
         BUMBLEBEE,
-    // TODO: add all ship types
+        // TODO: add all ship types
     }
 
     /**

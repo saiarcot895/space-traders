@@ -18,12 +18,12 @@ class Mercenary {
     private String name;
     
     /**
-     * constructor for mercenary
-     * randomly assigns mercenary's skills and name then generates cost accordingly
+     * Constructor for mercenary
+     * Randomly assigns mercenary's skills and name then generates cost accordingly
      */
     public Mercenary()  {
         Random rand = new Random();
-        String[] names = new String[] {
+        final String[] names = new String[] {
             "Hoban Washburne", "Inara Serra", "Malcolm Reynolds", "Jayne Cobb",
             "Zoe Washburne", "Kaylee Frye", "Simon Tam", "River Tam", "Derrial Book"
         };
@@ -37,8 +37,8 @@ class Mercenary {
     }
     
     /**
-     * constructor for mercenary
-     * takes in generated mercenary's skills and name
+     * Constructor for mercenary
+     * Takes in generated mercenary's skills and name
      * @param name, new mercenary's name
      * @param pilot, new mercenary's pilot skill
      * @param fighter, new mercenary's fighter skill
@@ -57,56 +57,56 @@ class Mercenary {
     }
     
     /**
-     * return the mercenary's pilot skill
-     * @return the mercenary's pilot skill
+     * Get the mercenary's pilot skill
+     * @return pilotSkill, the mercenary's pilot skill
      */
     public int getPilotSkill()  {
         return pilotSkill;
     }
     
     /**
-     * return the mercenary's fighter skill
-     * @return the mercenary's fighter skill
+     * Get the mercenary's fighter skill
+     * @return fighterSkill, the mercenary's fighter skill
      */
     public int getFighterSkill()  {
         return fighterSkill;
     }
     
     /**
-     * return the mercenary's trader skill
-     * @return the mercenary's trader skill
+     * Get the mercenary's trader skill
+     * @return traderSkill, the mercenary's trader skill
      */
     public int getTraderSkill()  {
         return traderSkill;
     }
     
     /**
-     * return the mercenary's engineer skill
-     * @return the mercenary's engineer skill
+     * Get the mercenary's engineer skill
+     * @return engineerSkill, the mercenary's engineer skill
      */
     public int getEngineerSkill()  {
         return engineerSkill;
     }
     
     /**
-     * return the mercenary's investor skill
-     * @return the mercenary's investor skill
+     * Get the mercenary's investor skill
+     * @return investorSkill, the mercenary's investor skill
      */
     public int getInvestorSkill()  {
         return investorSkill;
     }
     
     /**
-     * return the mercenary's price
-     * @return the mercenary's price
+     * Get the mercenary's price
+     * @return price, the mercenary's price
      */
     public int getPrice()   {
         return price;
     }
     
     /**
-     * return the mercenary's name
-     * @return the mercenary's name
+     * Get the mercenary's name
+     * @return name, the mercenary's name
      */
     public String getName() {
         return name;

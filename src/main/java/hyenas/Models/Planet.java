@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * The {@code Planet} class represents a planet in a solar system.
+ * The Planet class represents a planet in a solar system.
  * @author saikrishna
  */
 public class Planet {
@@ -453,12 +453,20 @@ public class Planet {
         return affectedGoods;
     }
     
+    /**
+     * Gets whether a planet has a high enough tech level to sell fuel
+     * @return boolean whether the planet can sell fuel
+     */
     public boolean canSellFuel() {
         return techLevel.ordinal() >= PlanetTechLevel.Medieval.ordinal();
     }
     
     private final int BASE_FUEL_COST = 5;
     
+    /**
+     * Gets the cost of fuel on the planet
+     * @return fuelCost, the cost of fuel
+     */
     public int getFuelCost() {
         int startingFuelTechLevel = PlanetTechLevel.Medieval.ordinal();
         int currentTechLevel = techLevel.ordinal();

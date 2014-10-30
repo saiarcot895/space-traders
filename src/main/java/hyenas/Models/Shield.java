@@ -2,17 +2,20 @@ package hyenas.Models;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * A shield that can be added to a ship
  * @author Alex
  */
 public class Shield {
-    // TODO: setup ivars, shield enum types
     private ShieldType type;
     private String name;
     private int price;
     private int strength;
     
+    /**
+     * A ShieldType, used to distinguish between the types of shields
+     */
     public enum ShieldType {
         CIVILIAN_ENERGY,
         MILITIA_ENERGY,
@@ -22,6 +25,11 @@ public class Shield {
         MILITARY_REFLECTIVE
     }
     
+    /**
+     * Initializes an instance of Shield
+     * Sets default values based on the shield type
+     * @param type, the type of shield
+     */
     public Shield(ShieldType type) {
         switch (type) {
             case CIVILIAN_ENERGY:

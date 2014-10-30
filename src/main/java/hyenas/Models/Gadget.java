@@ -2,6 +2,7 @@ package hyenas.Models;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * A gadget that can be added to a ship
  * @author Alex
@@ -11,6 +12,9 @@ public class Gadget {
     private String name;
     private int price;
     
+    /**
+     * A GadgetType, used to distinguish between the types of gadget
+     */
     public enum GadgetType {
         EXTRA_CARGO,
         NAVIGATION_SYSTEM,
@@ -20,6 +24,11 @@ public class Gadget {
         ESCAPE_POD
     }
     
+    /**
+     * Initializes an instance of Gadget
+     * Sets default values based on the gadget type
+     * @param type, the type of gadget
+     */
     public Gadget(GadgetType type) {
         switch (type) {
             case EXTRA_CARGO:

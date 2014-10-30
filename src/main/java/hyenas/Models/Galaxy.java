@@ -4,6 +4,10 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * A Galaxy that contains solar systems
+ * @author Alex
+ */
 public class Galaxy {
     private Map<String, SolarSystem> solarSystems;
     private Map<SolarSystem, List<ABPair<SolarSystem, Double>>> distances;
@@ -186,7 +190,6 @@ public class Galaxy {
 
     /**
      * Get the solar system for a system name
-     *
      * @return the system corresponding to the system name
      */
     public SolarSystem getSolarSystemForName(String solarSystemName) {

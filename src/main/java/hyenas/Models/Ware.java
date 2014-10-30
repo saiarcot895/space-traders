@@ -22,6 +22,9 @@ public class Ware {
     private int currentQuantity;
     private String currentCondition;
     
+    /**
+     * A Good, used to distinguish between the types of goods
+     */
     public enum Good {
         Water,
         Furs,
@@ -297,7 +300,7 @@ public class Ware {
      * @return wares, the list of the default wares
      */
     public static List<Ware> defaultWares() {
-        ArrayList<Ware> wares = new ArrayList<Ware>(Good.values().length);
+        ArrayList<Ware> wares = new ArrayList<>(Good.values().length);
         for (Good good: Good.values()) {
             Ware ware = new Ware(good);
             wares.add(ware);
