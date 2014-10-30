@@ -454,10 +454,10 @@ public class Planet {
     }
     
     /**
-     * Gets whether a planet has a high enough tech level to sell fuel
-     * @return boolean whether the planet can sell fuel
+     * Gets whether a planet has a high enough tech level or a shipyard
+     * @return boolean whether the planet has a shipyard
      */
-    public boolean canSellFuel() {
+    public boolean hasShipyard() {
         return techLevel.ordinal() >= PlanetTechLevel.Medieval.ordinal();
     }
     
