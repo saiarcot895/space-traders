@@ -250,3 +250,8 @@ and open the template in the editor.
     -fx-alignment: CENTER;
     -fx-text-fill: rgba(0,231,255, 1);
 }
+
+.progress-bar > .track {
+  -fx-text-box-border: rgba(0,231,255, 1);
+  -fx-control-inner-background: black;
+}

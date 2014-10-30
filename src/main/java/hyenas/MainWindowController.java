@@ -33,7 +33,7 @@ public class MainWindowController implements Initializable {
     private Label titleLabel;
 
     @FXML
-    private Button startGameButton;
+    private Button newGameButton;
 
     @FXML
     private Button settingsButton;
@@ -66,10 +66,10 @@ public class MainWindowController implements Initializable {
         AnchorPane.setLeftAnchor(titleLabel, titleLabelPadding);
         AnchorPane.setRightAnchor(titleLabel, titleLabelPadding);
 
-        startGameButton.setFont(buttonFont);
-        AnchorPane.setTopAnchor(startGameButton, 250.0);
-        AnchorPane.setLeftAnchor(startGameButton, buttonPadding);
-        AnchorPane.setRightAnchor(startGameButton, buttonPadding);
+        newGameButton.setFont(buttonFont);
+        AnchorPane.setTopAnchor(newGameButton, 250.0);
+        AnchorPane.setLeftAnchor(newGameButton, buttonPadding);
+        AnchorPane.setRightAnchor(newGameButton, buttonPadding);
 
         continueButton.setFont(buttonFont);
         AnchorPane.setTopAnchor(continueButton, 350.0);
@@ -92,8 +92,8 @@ public class MainWindowController implements Initializable {
      * Display the new game screen.
      * @param e unused
      */
-    public void onStartGameClicked(ActionEvent e)  {
-        HyenasLoader.getInstance().goToStartGameScreen();
+    public void onNewGameClicked(ActionEvent e)  {
+        HyenasLoader.getInstance().goToAllocationScreen();
     }
 
     /**

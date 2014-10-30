@@ -2,7 +2,7 @@ package hyenas;
 
 import hyenas.Models.Player;
 import hyenas.UI.AlertPane;
-import hyenas.UI.AlertPaneType;
+import hyenas.UI.AlertPane.AlertPaneType;
 import hyenas.database.PlayerTable;
 import java.net.URL;
 import java.sql.SQLException;
@@ -15,7 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -146,6 +145,12 @@ public class AllocationController implements Initializable {
             PlayerTable newPlayers = HyenasLoader.getInstance().getPlayerTable();
             newPlayers.populateTable(name.getText(), pointsRemaining,
                     eValue, pValue, iValue, fValue, tValue, player.getCredits());
+            
+//            Problem with getting this to actually appear:
+//            AlertPane alertPane = new AlertPane(AlertPaneType.Loading);
+//            alertPane.setTitleText("Loading");
+//            alertPane.setMessageText("This may take a few seconds...");
+//            anchorPane.getChildren().add(alertPane);
             HyenasLoader.getInstance().goToMapScreen();
         } else {
             AlertPane alertPane = new AlertPane(AlertPaneType.OneButton);
@@ -156,6 +161,7 @@ public class AllocationController implements Initializable {
             };
             alertPane.getCloseButton().setOnAction(closeAction);
             anchorPane.getChildren().add(alertPane);
+            
         }
     }
     

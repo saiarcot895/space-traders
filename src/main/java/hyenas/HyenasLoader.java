@@ -105,7 +105,7 @@ public class HyenasLoader extends Application {
         });
     }
 
-    public void goToStartGameScreen() {
+    public void goToAllocationScreen() {
         items.clearTable();
         players.clearTable();
         planets.clearTable();

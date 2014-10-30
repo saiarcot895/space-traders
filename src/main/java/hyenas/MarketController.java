@@ -6,7 +6,7 @@ import hyenas.Models.Player;
 import hyenas.Models.Ship;
 import hyenas.Models.Ware;
 import hyenas.UI.AlertPane;
-import hyenas.UI.AlertPaneType;
+import hyenas.UI.AlertPane.AlertPaneType;
 import hyenas.UI.MarketInfoPane;
 import hyenas.UI.MarketTableColumn;
 import java.net.URL;

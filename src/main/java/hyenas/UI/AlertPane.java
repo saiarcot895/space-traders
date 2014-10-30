@@ -3,6 +3,8 @@ package hyenas.UI;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -32,6 +34,17 @@ public class AlertPane extends BorderPane {
     private final double ALERT_PANE_BUTTON_HEIGHT = 27.0;
     
     private final double PADDING = 10.0;
+    
+    /**
+     * A AlertPaneType, used to distinguish between alert pane types
+     *
+     * @author Alex
+     */
+    public enum AlertPaneType {
+        OneButton,
+        TwoButtons,
+        Loading
+    }
     
     /**
      * Initializes an AlertPane and creates required label/button elements
@@ -84,6 +97,14 @@ public class AlertPane extends BorderPane {
             buttonPane.setPrefHeight(35.0);
             buttonPane.getChildren().addAll(actionButton, closeButton);
             setBottom(buttonPane);
+        } else if (type == AlertPaneType.Loading) {
+            BorderPane progressPane = new BorderPane();
+            progressPane.setPrefHeight(50.0);
+            ProgressBar progressBar = new ProgressBar();
+            progressBar.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
+            progressBar.setPrefWidth(150.0);
+            progressPane.setCenter(progressBar);
+            setBottom(progressPane);
         }
         
         setLayoutX((UIHelper.getScreenSize().getWidth() / 2) - (getPrefWidth() / 2));
