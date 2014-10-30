@@ -43,6 +43,8 @@ public class Ship {
         FLEA,
         GNAT,
         FIREFLY,
+        MOSQUITO,
+        BUMBLEBEE,
     // TODO: add all ship types
     }
 
@@ -61,8 +63,8 @@ public class Ship {
                 price = 100;
                 bounty = 0;
                 occurence = 0;
-                hullStrength = 0;
-                currentHull = 0;
+                hullStrength = 25;
+                currentHull = hullStrength;
                 police = 0;
                 trader = 0;
                 pirate = 0;
@@ -82,10 +84,10 @@ public class Ship {
                 fuel = maxFuel;
                 minTechLevel = 0;
                 price = 500;
-                bounty = 0;
+                bounty = 50;
                 occurence = 0;
-                hullStrength = 0;
-                currentHull = 0;
+                hullStrength = 100;
+                currentHull = hullStrength;
                 police = 0;
                 trader = 0;
                 pirate = 0;
@@ -96,7 +98,7 @@ public class Ship {
                 weaponSlots = 1;
                 shieldSlots = 0;
                 gadgetSlots = 1;
-                crewSlots = 0;
+                crewSlots = 1;
                 cargoSlots = 15;
                 break;
             case FIREFLY:
@@ -105,10 +107,10 @@ public class Ship {
                 fuel = maxFuel;
                 minTechLevel = 0;
                 price = 1000;
-                bounty = 0;
+                bounty = 75;
                 occurence = 0;
-                hullStrength = 0;
-                currentHull = 0;
+                hullStrength = 100;
+                currentHull = hullStrength;
                 police = 0;
                 trader = 0;
                 pirate = 0;
@@ -119,10 +121,55 @@ public class Ship {
                 weaponSlots = 1;
                 shieldSlots = 1;
                 gadgetSlots = 1;
-                crewSlots = 0;
+                crewSlots = 1;
                 cargoSlots = 20;
                 break;
-            // TODO: add all ship types
+            case MOSQUITO:
+                name = "Mosquito";
+                maxFuel = 5000.0;
+                fuel = maxFuel;
+                minTechLevel = 0;
+                price = 4000;
+                bounty = 100;
+                occurence = 0;
+                hullStrength = 100;
+                currentHull = hullStrength;
+                police = 0;
+                trader = 0;
+                pirate = 0;
+                repairCost = 0;
+                size = 0;
+                maxHealth = 5000.0;
+                health = maxHealth;
+                weaponSlots = 2;
+                shieldSlots = 2;
+                gadgetSlots = 1;
+                crewSlots = 2;
+                cargoSlots = 15;
+                break;
+            case BUMBLEBEE:
+                name = "Bumblebee";
+                maxFuel = 8000.0;
+                fuel = maxFuel;
+                minTechLevel = 0;
+                price = 10000;
+                bounty = 125;
+                occurence = 0;
+                hullStrength = 100;
+                currentHull = hullStrength;
+                police = 0;
+                trader = 0;
+                pirate = 0;
+                repairCost = 0;
+                size = 0;
+                maxHealth = 5000.0;
+                health = maxHealth;
+                weaponSlots = 3;
+                shieldSlots = 3;
+                gadgetSlots = 2;
+                crewSlots = 3;
+                cargoSlots = 25;
+                break;
             default: break;
         }
         this.type = type;
@@ -360,9 +407,5 @@ public class Ship {
             ships.add(ship);
         }
         return ships;
-    }
-    
-    public ShipType getShipType() {
-        return type;
     }
 }
