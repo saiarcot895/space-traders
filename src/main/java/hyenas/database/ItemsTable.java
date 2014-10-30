@@ -5,9 +5,12 @@ import hyenas.Models.Ship;
 import hyenas.Models.Ware;
 import hyenas.Models.Ware.Good;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ItemsTable implements Table {
 
@@ -17,33 +20,7 @@ public class ItemsTable implements Table {
         this.conn = connArgs;
     }
 
-    private boolean ignoreSQLException(String state) {
-        if (state == null) {
-            System.out.println("State not defined");
-            return false;
-        }
-        return state.equalsIgnoreCase("X0Y32")
-                || state.equalsIgnoreCase("42Y55");
-    }
-
-    private void printException(SQLException ex) {
-        for (Throwable e : ex) {
-            if (e instanceof SQLException) {
-                if (ignoreSQLException(((SQLException)e).getSQLState()) == false) {
-                    e.printStackTrace(System.err);
-                    System.err.println("State: " + ((SQLException)e).getSQLState());
-                    System.err.println("Error Code: " + ((SQLException)e).getErrorCode());
-                    System.err.println("Message: " + e.getMessage());
-                    Throwable t = ex.getCause();
-                    while (t != null) {
-                        System.out.println("Cause: " + t);
-                        t = t.getCause();
-                    }
-                }
-            }
-        }
-    }
-
+    @Override
     public void createTable() {
         String create = "CREATE TABLE IF NOT EXISTS Items " + "(Water INTEGER, "
                 + "Furs INTEGER, " + "Food INTEGER, " + "Ore INTEGER, "
@@ -56,22 +33,26 @@ public class ItemsTable implements Table {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(ItemsTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
 
     // Initial population
     public void populateTable(String name) {
-        try (Statement stmt = conn.createStatement()) {
+        try (PreparedStatement stmt = 
+                (PreparedStatement) conn.createStatement()) {
         // initially everything is zero
         // insert into Items values(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1)
             stmt.executeUpdate("INSERT INTO Items " +
                                "VALUES(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1)");
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(ItemsTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
 
+    @Override
     public void loadTable() {
         try {
             Statement stmt = conn.createStatement();
@@ -115,7 +96,8 @@ public class ItemsTable implements Table {
                 ship.getCargo().add(new Ware(Good.Robots));
             }
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(ItemsTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
 
@@ -229,11 +211,13 @@ public class ItemsTable implements Table {
         stmt.executeQuery(query);
     }
 
+    @Override
     public void dropTable() {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DROP TABLE Items");
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(ItemsTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
     
@@ -242,14 +226,16 @@ public class ItemsTable implements Table {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DELETE FROM Items");
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(ItemsTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
-
+/*
     public void deleteRow()  throws SQLException {
     }
 
     // TODO: When we allow multiple characters per user.
     public void insertRow() throws SQLException {
     }
+*/
 }

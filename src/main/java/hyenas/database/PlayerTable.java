@@ -8,8 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class PlayerTable implements Table {
+public class PlayerTable implements Table{
 
     private final Connection conn;
 
@@ -17,37 +19,10 @@ public class PlayerTable implements Table {
         this.conn = connArgs;
     }
 
-    private boolean ignoreSQLException(String state) {
-        if (state == null) {
-            System.out.println("State not defined");
-            return false;
-        }
-        return state.equalsIgnoreCase("X0Y32")
-                || state.equalsIgnoreCase("42Y55");
-    }
-
-    private void printException(SQLException ex) {
-        for (Throwable e : ex) {
-            if (e instanceof SQLException) {
-                SQLException exception = (SQLException) e;
-                if (!ignoreSQLException(exception.getSQLState())) {
-                    e.printStackTrace(System.err);
-                    System.err.println("State: " + exception.getSQLState());
-                    System.err.println("Error Code: " + exception.getErrorCode());
-                    System.err.println("Message: " + e.getMessage());
-                    Throwable t = ex.getCause();
-                    while (t != null) {
-                        System.out.println("Cause: " + t);
-                        t = t.getCause();
-                    }
-                }
-            }
-        }
-    }
-
     /**
      * Create the player table.
      */
+    @Override
     public void createTable() {
         String create = "CREATE TABLE IF NOT EXISTS Players " + "(ID INTEGER NOT NULL, "
                 + "Name VARCHAR(20) NOT NULL, "
@@ -56,12 +31,13 @@ public class PlayerTable implements Table {
                 + "Fighter INTEGER NOT NULL, " + "Trader INTEGER NOT NULL, "
                 + "Credits INTEGER, " 
                 + "Fuel INTEGER NOT NULL, " + "Health INTEGER NOT NULL, "
-                + "SSID INTEGER, "  + "PRIMARY KEY (ID), "
+                + "SSID INTEGER NOT NULL, "  + "PRIMARY KEY (ID), "
                 + "FOREIGN KEY (SSID) REFERENCES SolarSystem (ID))";
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(PlayerTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
 
@@ -96,7 +72,8 @@ public class PlayerTable implements Table {
             stmt.setInt(10, 250);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(PlayerTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
 
@@ -104,6 +81,7 @@ public class PlayerTable implements Table {
      * Load the player data from the database. This is used when continuing
      * the game.
      */
+    @Override
     public void loadTable() {
         try {
             Statement stmt = conn.createStatement();
@@ -134,7 +112,8 @@ public class PlayerTable implements Table {
             player.setCurrentSystem(system);
             player.setTradingPlanet(system.getPlanets().get(0));
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(PlayerTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
 
@@ -239,16 +218,18 @@ public class PlayerTable implements Table {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DROP TABLE Players");
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(PlayerTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
     
     @Override
     public void clearTable() {
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate("DELETE FROM Players");
+            stmt.executeUpdate("DELETE FROM Planet");
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(PlayerTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
 
