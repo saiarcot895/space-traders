@@ -96,7 +96,7 @@ public class MapUIController implements Initializable {
         Pane scrollContentPane = new Pane();
         scrollContentPane.setPrefSize(UIHelper.GALAXY_SIZE, UIHelper.GALAXY_SIZE);
         scrollContentPane.setStyle("-fx-background-color: transparent;");
-        ssTable = HyenasLoader.getInstance().getSSTable();
+        ssTable = HyenasLoader.getInstance().getSolarSystemTable();
         systemNamePane = new HoverPane();
         Map<String, SolarSystem> solarSystems = Galaxy.getInstance().getSolarSystems();
         Set<String> solarSystemIDs = solarSystems.keySet();

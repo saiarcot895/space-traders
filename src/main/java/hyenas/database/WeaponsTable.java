@@ -84,4 +84,13 @@ public class WeaponsTable implements Table {
         }
     }
     
+    @Override
+    public void clearTable() {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("DELETE FROM Weapon");
+        } catch (SQLException e) {
+            printException(e);
+        }
+    }
+    
 }

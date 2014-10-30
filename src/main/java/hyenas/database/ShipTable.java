@@ -167,4 +167,13 @@ public class ShipTable implements Table {
         }
     }
     
+    @Override
+    public void clearTable() {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("DELETE FROM Ship");
+        } catch (SQLException e) {
+            printException(e);
+        }
+    }
+    
 }

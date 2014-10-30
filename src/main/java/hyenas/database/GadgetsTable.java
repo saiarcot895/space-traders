@@ -89,7 +89,16 @@ public class GadgetsTable implements Table {
     @Override
     public void dropTable() {
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate("DROP TABLE Weapon");
+            stmt.executeUpdate("DROP TABLE Gadgets");
+        } catch (SQLException e) {
+            printException(e);
+        }
+    }
+    
+    @Override
+    public void clearTable() {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("DELETE FROM Gadgets");
         } catch (SQLException e) {
             printException(e);
         }

@@ -5,10 +5,13 @@
  */
 package hyenas;
 
+import hyenas.database.GadgetsTable;
 import hyenas.database.ItemsTable;
 import hyenas.database.PlanetTable;
 import hyenas.database.PlayerTable;
+import hyenas.database.ShipTable;
 import hyenas.database.SolarSystemTable;
+import hyenas.database.WeaponsTable;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -38,29 +41,32 @@ public class HyenasLoader extends Application {
     private Connection conn;
     private final String host = "jdbc:sqlite:database.db";
 
-    private PlayerTable players;
-    private PlanetTable planets;
-    private ItemsTable items;
-    private SolarSystemTable solarSystem;
+    private PlayerTable playerTable;
+    private PlanetTable planetTable;
+    private ItemsTable itemTable;
+    private SolarSystemTable solarSystemTable;
+    private ShipTable shipTable;
+    private GadgetsTable gadgetsTable;
+    private WeaponsTable weaponsTable;
 
     public static HyenasLoader getInstance() {
         return instance;
     }
 
-    public SolarSystemTable getSSTable() {
-        return solarSystem;
+    public SolarSystemTable getSolarSystemTable() {
+        return solarSystemTable;
     }
 
     public PlanetTable getPlanetTable() {
-        return planets;
+        return planetTable;
     }
 
     public PlayerTable getPlayerTable() {
-        return players;
+        return playerTable;
     }
 
     public ItemsTable getItemsTable() {
-        return items;
+        return itemTable;
     }
 
     @Override
@@ -71,17 +77,23 @@ public class HyenasLoader extends Application {
         // Else create new database!
         Connection connect = connectToDB();
         
-        players = new PlayerTable(connect);
-        planets = new PlanetTable(connect);
-        items = new ItemsTable(connect);
-        solarSystem = new SolarSystemTable(connect);
+        playerTable = new PlayerTable(connect);
+        planetTable = new PlanetTable(connect);
+        itemTable = new ItemsTable(connect);
+        solarSystemTable = new SolarSystemTable(connect);
+        shipTable = new ShipTable(connect);
+        gadgetsTable = new GadgetsTable(connect);
+        weaponsTable = new WeaponsTable(connect);
 
         // Create the tables. If the tables are already created, this will
         // do nothing.
-        solarSystem.createTable();
-        planets.createTable();
-        players.createTable();
-        items.createTable();
+        solarSystemTable.createTable();
+        planetTable.createTable();
+        playerTable.createTable();
+        itemTable.createTable();
+        shipTable.createTable();
+        gadgetsTable.createTable();
+        weaponsTable.createTable();
 
         this.stage = stage;
         stage.setFullScreen(true);
@@ -106,10 +118,13 @@ public class HyenasLoader extends Application {
     }
 
     public void goToStartGameScreen() {
-        items.clearTable();
-        players.clearTable();
-        planets.clearTable();
-        solarSystem.clearTable();
+        weaponsTable.clearTable();
+        gadgetsTable.clearTable();
+        shipTable.clearTable();
+        itemTable.clearTable();
+        playerTable.clearTable();
+        planetTable.clearTable();
+        solarSystemTable.clearTable();
 
         loadScreen("AllocationUI.fxml");
     }
@@ -159,10 +174,10 @@ public class HyenasLoader extends Application {
      * in SolarSystemView.
      */
     public void continueGame() {
-        solarSystem.loadTable();
-        planets.loadTable();
-        players.loadTable();
-        items.loadTable();
+        solarSystemTable.loadTable();
+        planetTable.loadTable();
+        playerTable.loadTable();
+        itemTable.loadTable();
         goToMapScreen();
     }
 
