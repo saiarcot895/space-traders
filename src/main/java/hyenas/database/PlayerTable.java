@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PlayerTable implements Table{
 
@@ -15,34 +17,6 @@ public class PlayerTable implements Table{
 
     public PlayerTable(Connection connArgs) {
         this.conn = connArgs;
-    }
-
-    private boolean ignoreSQLException(String state) {
-        if (state == null) {
-            System.out.println("State not defined");
-            return false;
-        }
-        return state.equalsIgnoreCase("X0Y32")
-                || state.equalsIgnoreCase("42Y55");
-    }
-
-    private void printException(SQLException ex) {
-        for (Throwable e : ex) {
-            if (e instanceof SQLException) {
-                SQLException exception = (SQLException) e;
-                if (!ignoreSQLException(exception.getSQLState())) {
-                    e.printStackTrace(System.err);
-                    System.err.println("State: " + exception.getSQLState());
-                    System.err.println("Error Code: " + exception.getErrorCode());
-                    System.err.println("Message: " + e.getMessage());
-                    Throwable t = ex.getCause();
-                    while (t != null) {
-                        System.out.println("Cause: " + t);
-                        t = t.getCause();
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -62,7 +36,8 @@ public class PlayerTable implements Table{
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(PlayerTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
 
@@ -97,7 +72,8 @@ public class PlayerTable implements Table{
             stmt.setInt(10, 250);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(PlayerTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
 
@@ -136,7 +112,8 @@ public class PlayerTable implements Table{
             player.setCurrentSystem(system);
             player.setTradingPlanet(system.getPlanets().get(0));
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(PlayerTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
 
@@ -241,7 +218,8 @@ public class PlayerTable implements Table{
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DROP TABLE Players");
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(PlayerTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
     
@@ -250,7 +228,8 @@ public class PlayerTable implements Table{
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DELETE FROM Planet");
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(PlayerTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
 

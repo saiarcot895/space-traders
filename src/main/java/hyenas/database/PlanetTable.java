@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PlanetTable implements Table {
 
@@ -15,33 +17,6 @@ public class PlanetTable implements Table {
 
     public PlanetTable(Connection connArgs) {
         this.conn = connArgs;
-    }
-    
-    private boolean ignoreSQLException(String state) {
-        if (state == null) {
-            System.out.println("State not defined");
-            return false;
-        }
-        return state.equalsIgnoreCase("X0Y32") 
-                || state.equalsIgnoreCase("42Y55");
-    }
-    
-    private void printException(SQLException ex) {
-        for (Throwable e : ex) {
-            if (e instanceof SQLException) {
-                if (ignoreSQLException(((SQLException)e).getSQLState()) == false) {
-                    e.printStackTrace(System.err);
-                    System.err.println("State: " + ((SQLException)e).getSQLState());
-                    System.err.println("Error Code: " + ((SQLException)e).getErrorCode());
-                    System.err.println("Message: " + e.getMessage());
-                    Throwable t = ex.getCause();
-                    while (t != null) {
-                        System.out.println("Cause: " + t);
-                        t = t.getCause();
-                    }
-                }
-            }
-        }
     }
     
     @Override
@@ -67,7 +42,8 @@ public class PlanetTable implements Table {
                 solarSystem.getPlanets().add(planet);
             }
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(PlanetTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
 
@@ -83,7 +59,8 @@ public class PlanetTable implements Table {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(PlanetTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
     // TODO: fix the x and y for planets!
@@ -111,7 +88,8 @@ public class PlanetTable implements Table {
             stmt.executeUpdate();
             // Id & ssid are generated based on how the System is generated.
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(PlanetTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
 
@@ -120,7 +98,8 @@ public class PlanetTable implements Table {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DROP TABLE Planet");
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(PlanetTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
     
@@ -129,7 +108,8 @@ public class PlanetTable implements Table {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DELETE FROM Planet");
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(PlanetTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
 }

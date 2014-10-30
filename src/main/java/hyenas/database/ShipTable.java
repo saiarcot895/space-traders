@@ -17,33 +17,6 @@ public class ShipTable implements Table {
         this.conn = connArgs;
     }
     
-    private boolean ignoreSQLException(String state) {
-        if (state == null) {
-            System.out.println("State not defined");
-            return false;
-        }
-        return state.equalsIgnoreCase("X0Y32") 
-                || state.equalsIgnoreCase("42Y55");
-    }
-    
-    private void printException(SQLException ex) {
-        for (Throwable e : ex) {
-            if (e instanceof SQLException) {
-                if (ignoreSQLException(((SQLException)e).getSQLState()) == false) {
-                    e.printStackTrace(System.err);
-                    System.err.println("State: " + ((SQLException)e).getSQLState());
-                    System.err.println("Error Code: " + ((SQLException)e).getErrorCode());
-                    System.err.println("Message: " + e.getMessage());
-                    Throwable t = ex.getCause();
-                    while (t != null) {
-                        System.out.println("Cause: " + t);
-                        t = t.getCause();
-                    }
-                }
-            }
-        }
-    }
-    
     @Override
     public void createTable() {
         // name (type) string, int upkeep (UK), <- Wat?
@@ -60,7 +33,8 @@ public class ShipTable implements Table {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(ShipTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
 
@@ -85,7 +59,6 @@ public class ShipTable implements Table {
             stmt.setInt(5, shipIDResultSet.getInt(1));
             stmt.executeUpdate();
         } catch (SQLException e) {
-            printException(e);
             Logger.getLogger(ShipTable.class.getName()).
                     log(Level.SEVERE, null, e);
         }
@@ -103,9 +76,9 @@ public class ShipTable implements Table {
             ResultSet shipInfo = stmt.executeQuery(query);
             shipInfo.next();
             // TODO!!!!!!!!
-        } catch (SQLException ex) {
-            printException(ex);
-            Logger.getLogger(ShipTable.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            Logger.getLogger(ShipTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
     
@@ -162,7 +135,8 @@ public class ShipTable implements Table {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DROP TABLE Ship");
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(ShipTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
     
@@ -171,7 +145,8 @@ public class ShipTable implements Table {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DELETE FROM Ship");
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(ShipTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
     

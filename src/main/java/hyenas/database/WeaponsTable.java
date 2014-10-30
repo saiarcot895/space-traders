@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class WeaponsTable implements Table {
 
@@ -12,33 +14,6 @@ public class WeaponsTable implements Table {
 
     public WeaponsTable(Connection connArgs) {
         this.conn = connArgs;
-    }
-
-    private boolean ignoreSQLException(String state) {
-        if (state == null) {
-            System.out.println("State not defined");
-            return false;
-        }
-        return state.equalsIgnoreCase("X0Y32")
-                || state.equalsIgnoreCase("42Y55");
-    }
-
-    private void printException(SQLException ex) {
-        for (Throwable e : ex) {
-            if (e instanceof SQLException) {
-                if (ignoreSQLException(((SQLException)e).getSQLState()) == false) {
-                    e.printStackTrace(System.err);
-                    System.err.println("State: " + ((SQLException)e).getSQLState());
-                    System.err.println("Error Code: " + ((SQLException)e).getErrorCode());
-                    System.err.println("Message: " + e.getMessage());
-                    Throwable t = ex.getCause();
-                    while (t != null) {
-                        System.out.println("Cause: " + t);
-                        t = t.getCause();
-                    }
-                }
-            }
-        }
     }
     
     @Override
@@ -51,7 +26,8 @@ public class WeaponsTable implements Table {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(WeaponsTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
 
@@ -65,7 +41,8 @@ public class WeaponsTable implements Table {
             // TODO: Get Damage (Default)
             // TODO: Match the SID to ship ID
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(WeaponsTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
     
@@ -79,7 +56,7 @@ public class WeaponsTable implements Table {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DROP TABLE Weapon");
         } catch (SQLException e) {
-            printException(e);
+            e.printStackTrace();
         }
     }
     
@@ -88,7 +65,7 @@ public class WeaponsTable implements Table {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DELETE FROM Weapon");
         } catch (SQLException e) {
-            printException(e);
+            e.printStackTrace();
         }
     }
     

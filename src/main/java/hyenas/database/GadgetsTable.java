@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GadgetsTable implements Table {
 
@@ -12,33 +14,6 @@ public class GadgetsTable implements Table {
 
     public GadgetsTable(Connection connArgs) {
         this.conn = connArgs;
-    }
-
-    private boolean ignoreSQLException(String state) {
-        if (state == null) {
-            System.out.println("State not defined");
-            return false;
-        }
-        return state.equalsIgnoreCase("X0Y32")
-                || state.equalsIgnoreCase("42Y55");
-    }
-
-    private void printException(SQLException ex) {
-        for (Throwable e : ex) {
-            if (e instanceof SQLException) {
-                if (ignoreSQLException(((SQLException)e).getSQLState()) == false) {
-                    e.printStackTrace(System.err);
-                    System.err.println("State: " + ((SQLException)e).getSQLState());
-                    System.err.println("Error Code: " + ((SQLException)e).getErrorCode());
-                    System.err.println("Message: " + e.getMessage());
-                    Throwable t = ex.getCause();
-                    while (t != null) {
-                        System.out.println("Cause: " + t);
-                        t = t.getCause();
-                    }
-                }
-            }
-        }
     }
     
     /* Shield is a type of Gadget!!!!!!!!! */
@@ -61,7 +36,8 @@ public class GadgetsTable implements Table {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(GadgetsTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
 
@@ -75,7 +51,8 @@ public class GadgetsTable implements Table {
             // TODO: Get Property (initially NULL)
             // TODO: Match the SID to ship ID
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(GadgetsTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
     
@@ -89,7 +66,8 @@ public class GadgetsTable implements Table {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DROP TABLE Gadgets");
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(GadgetsTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
     
@@ -98,7 +76,8 @@ public class GadgetsTable implements Table {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DELETE FROM Gadgets");
         } catch (SQLException e) {
-            printException(e);
+            Logger.getLogger(GadgetsTable.class.getName()).
+                    log(Level.SEVERE, null, e);
         }
     }
     
