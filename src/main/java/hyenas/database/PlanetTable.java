@@ -78,7 +78,7 @@ public class PlanetTable implements Table {
                 + "Radius INTEGER NOT NULL, "
                 + "ClockwiseOrbit BOOLEAN NOT NULL, " + "Size DOUBLE NOT NULL, "
                 + "Tech INTEGER NOT NULL, " + "Type INTEGER NOT NULL, "
-                + "SSID INTEGER NOT NULL, " + "PRIMARY KEY (ID), "
+                + "SSID INTEGER, " + "PRIMARY KEY (ID), "
                 + "FOREIGN KEY (SSID) REFERENCES SolarSystem (ID))";
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
@@ -119,15 +119,6 @@ public class PlanetTable implements Table {
     public void dropTable() {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DROP TABLE Planet");
-        } catch (SQLException e) {
-            printException(e);
-        }
-    }
-
-    @Override
-    public void clearTable() {
-        try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate("DELETE FROM Planet");
         } catch (SQLException e) {
             printException(e);
         }

@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class PlayerTable implements Table {
+public class PlayerTable implements Table{
 
     private final Connection conn;
 
@@ -48,6 +48,7 @@ public class PlayerTable implements Table {
     /**
      * Create the player table.
      */
+    @Override
     public void createTable() {
         String create = "CREATE TABLE IF NOT EXISTS Players " + "(ID INTEGER NOT NULL, "
                 + "Name VARCHAR(20) NOT NULL, "
@@ -56,7 +57,7 @@ public class PlayerTable implements Table {
                 + "Fighter INTEGER NOT NULL, " + "Trader INTEGER NOT NULL, "
                 + "Credits INTEGER, " 
                 + "Fuel INTEGER NOT NULL, " + "Health INTEGER NOT NULL, "
-                + "SSID INTEGER, "  + "PRIMARY KEY (ID), "
+                + "SSID INTEGER NOT NULL, "  + "PRIMARY KEY (ID), "
                 + "FOREIGN KEY (SSID) REFERENCES SolarSystem (ID))";
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
@@ -96,7 +97,7 @@ public class PlayerTable implements Table {
             stmt.setInt(10, 250);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            printException(e);
         }
     }
 
@@ -104,6 +105,7 @@ public class PlayerTable implements Table {
      * Load the player data from the database. This is used when continuing
      * the game.
      */
+    @Override
     public void loadTable() {
         try {
             Statement stmt = conn.createStatement();
@@ -238,15 +240,6 @@ public class PlayerTable implements Table {
     public void dropTable() {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DROP TABLE Players");
-        } catch (SQLException e) {
-            printException(e);
-        }
-    }
-    
-    @Override
-    public void clearTable() {
-        try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate("DELETE FROM Players");
         } catch (SQLException e) {
             printException(e);
         }

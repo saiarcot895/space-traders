@@ -61,6 +61,7 @@ public class SolarSystemTable implements Table {
         }
     }
 
+    @Override
     public void createTable() {
         String create = "CREATE TABLE IF NOT EXISTS SolarSystem "
                 + "(ID INTEGER NOT NULL, " + "Name VARCHAR(20) NOT NULL, "
@@ -88,6 +89,7 @@ public class SolarSystemTable implements Table {
         }
     }
     
+    @Override
     public void loadTable() {
         try {
             Statement stmt = conn.createStatement();
@@ -112,15 +114,6 @@ public class SolarSystemTable implements Table {
     public void dropTable() {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DROP TABLE SolarSystem");
-        } catch (SQLException e) {
-            printException(e);
-        }
-    }
-    
-    @Override
-    public void clearTable() {
-        try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate("DELETE FROM SolarSystem");
         } catch (SQLException e) {
             printException(e);
         }

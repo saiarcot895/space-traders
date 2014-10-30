@@ -5,6 +5,7 @@ import hyenas.Models.Ship;
 import hyenas.Models.Ware;
 import hyenas.Models.Ware.Good;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -44,6 +45,7 @@ public class ItemsTable implements Table {
         }
     }
 
+    @Override
     public void createTable() {
         String create = "CREATE TABLE IF NOT EXISTS Items " + "(Water INTEGER, "
                 + "Furs INTEGER, " + "Food INTEGER, " + "Ore INTEGER, "
@@ -62,7 +64,8 @@ public class ItemsTable implements Table {
 
     // Initial population
     public void populateTable(String name) {
-        try (Statement stmt = conn.createStatement()) {
+        try (PreparedStatement stmt = 
+                (PreparedStatement) conn.createStatement()) {
         // initially everything is zero
         // insert into Items values(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1)
             stmt.executeUpdate("INSERT INTO Items " +
@@ -72,6 +75,7 @@ public class ItemsTable implements Table {
         }
     }
 
+    @Override
     public void loadTable() {
         try {
             Statement stmt = conn.createStatement();
@@ -229,6 +233,7 @@ public class ItemsTable implements Table {
         stmt.executeQuery(query);
     }
 
+    @Override
     public void dropTable() {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DROP TABLE Items");
@@ -236,20 +241,12 @@ public class ItemsTable implements Table {
             printException(e);
         }
     }
-    
-    @Override
-    public void clearTable() {
-        try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate("DELETE FROM Items");
-        } catch (SQLException e) {
-            printException(e);
-        }
-    }
-
+/*
     public void deleteRow()  throws SQLException {
     }
 
     // TODO: When we allow multiple characters per user.
     public void insertRow() throws SQLException {
     }
+*/
 }

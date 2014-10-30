@@ -129,6 +129,22 @@ public class Ship {
     }
     
     /**
+     * Get the ShipType
+     * @return ShipType
+     */
+    public ShipType getShipType() {
+        return type;
+    }
+    
+    /**
+     * Set the ShipType
+     * @param type 
+     */
+    public void setShipType(ShipType type) {
+        this.type = type;
+    }
+    
+    /**
      * Get the ship's name
      * @return name, the name of the ship
      */
@@ -233,15 +249,15 @@ public class Ship {
         // each wares respective quantity
         List<Ware> defaultWares = Ware.defaultWares();
         List<Ware> shipCargo = getCargo();
-        for (Ware ware: defaultWares) {
+        defaultWares.stream().forEach((ware) -> {
             Good good = ware.getGood();
             int count = 0;
-            for (Ware cargoWare: shipCargo) {
-                Good cargoGood = cargoWare.getGood();
-                if (good == cargoGood) count ++;
-            }
+            count = shipCargo.stream().map((cargoWare) -> 
+                    cargoWare.getGood()).filter((cargoGood) -> 
+                            (good == cargoGood)).map
+                                ((_item) -> 1).reduce(count, Integer::sum);
             ware.setCurrentQuantity(count);
-        }
+        });
         return defaultWares;
     }
 
@@ -311,7 +327,7 @@ public class Ship {
     
     /**
      * Set the ship's health
-     * @param fuel, the ship's fuel
+     * @param health
      */
     public void setHealth(double health) {
         this.health = health;
