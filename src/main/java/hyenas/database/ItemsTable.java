@@ -241,6 +241,15 @@ public class ItemsTable implements Table {
             printException(e);
         }
     }
+    
+    @Override
+    public void clearTable() {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("DELETE FROM Items");
+        } catch (SQLException e) {
+            printException(e);
+        }
+    }
 /*
     public void deleteRow()  throws SQLException {
     }

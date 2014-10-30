@@ -118,5 +118,14 @@ public class SolarSystemTable implements Table {
             printException(e);
         }
     }
+
+    @Override
+    public void clearTable() {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("DELETE FROM SolarSystem");
+        } catch (SQLException e) {
+            printException(e);
+        }
+    }
     
 }
