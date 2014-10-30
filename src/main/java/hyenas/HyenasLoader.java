@@ -5,18 +5,8 @@
  */
 package hyenas;
 
-import hyenas.database.GadgetsTable;
-import hyenas.database.ItemsTable;
-import hyenas.database.PlanetTable;
-import hyenas.database.PlayerTable;
-import hyenas.database.ShipTable;
-import hyenas.database.SolarSystemTable;
-import hyenas.database.WeaponsTable;
-import java.io.File;
+import hyenas.database.ConnectionManager;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -26,8 +16,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import org.sqlite.JDBC;
-
 /**
  *
  * @author Alex
@@ -35,65 +23,31 @@ import org.sqlite.JDBC;
 public class HyenasLoader extends Application {
 
     private static HyenasLoader instance;
+    
+    private ConnectionManager connectionManager;
 
     private Stage stage;
 
-    private Connection conn;
-    private final String host = "jdbc:sqlite:database.db";
-
-    private PlayerTable playerTable;
-    private PlanetTable planetTable;
-    private ItemsTable itemTable;
-    private SolarSystemTable solarSystemTable;
-    private ShipTable shipTable;
-    private GadgetsTable gadgetsTable;
-    private WeaponsTable weaponsTable;
-
     public static HyenasLoader getInstance() {
         return instance;
-    }
-
-    public SolarSystemTable getSolarSystemTable() {
-        return solarSystemTable;
-    }
-
-    public PlanetTable getPlanetTable() {
-        return planetTable;
-    }
-
-    public PlayerTable getPlayerTable() {
-        return playerTable;
-    }
-
-    public ItemsTable getItemsTable() {
-        return itemTable;
     }
 
     @Override
     public void start(Stage stage) throws Exception {
         instance = this;
 
-        // TODO: If connected Yay!
-        // Else create new database!
-        Connection connect = connectToDB();
+        connectionManager = new ConnectionManager("jdbc:sqlite:database.db");
+        connectionManager.openConnection();
         
-        playerTable = new PlayerTable(connect);
-        planetTable = new PlanetTable(connect);
-        itemTable = new ItemsTable(connect);
-        solarSystemTable = new SolarSystemTable(connect);
-        shipTable = new ShipTable(connect);
-        gadgetsTable = new GadgetsTable(connect);
-        weaponsTable = new WeaponsTable(connect);
-
         // Create the tables. If the tables are already created, this will
         // do nothing.
-        solarSystemTable.createTable();
-        planetTable.createTable();
-        playerTable.createTable();
-        itemTable.createTable();
-        shipTable.createTable();
-        gadgetsTable.createTable();
-        weaponsTable.createTable();
+        connectionManager.getSolarSystemTable().createTable();
+        connectionManager.getPlanetTable().createTable();
+        connectionManager.getPlayerTable().createTable();
+        connectionManager.getItemTable().createTable();
+        connectionManager.getShipTable().createTable();
+        connectionManager.getGadgetsTable().createTable();
+        connectionManager.getWeaponsTable().createTable();
 
         this.stage = stage;
         stage.setFullScreen(true);
@@ -112,19 +66,24 @@ public class HyenasLoader extends Application {
             try {
                 stop(stage);
             } catch (Exception ex) {
-                Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(HyenasLoader.class.getName())
+                        .log(Level.SEVERE, null, ex);
             }
         });
     }
 
+    public ConnectionManager getConnectionManager() {
+        return connectionManager;
+    }
+
     public void goToStartGameScreen() {
-        weaponsTable.clearTable();
-        gadgetsTable.clearTable();
-        shipTable.clearTable();
-        itemTable.clearTable();
-        playerTable.clearTable();
-        planetTable.clearTable();
-        solarSystemTable.clearTable();
+        connectionManager.getWeaponsTable().clearTable();
+        connectionManager.getGadgetsTable().clearTable();
+        connectionManager.getShipTable().clearTable();
+        connectionManager.getItemTable().clearTable();
+        connectionManager.getPlayerTable().clearTable();
+        connectionManager.getPlanetTable().clearTable();
+        connectionManager.getSolarSystemTable().clearTable();
 
         loadScreen("AllocationUI.fxml");
     }
@@ -174,10 +133,10 @@ public class HyenasLoader extends Application {
      * in SolarSystemView.
      */
     public void continueGame() {
-        solarSystemTable.loadTable();
-        planetTable.loadTable();
-        playerTable.loadTable();
-        itemTable.loadTable();
+        connectionManager.getSolarSystemTable().loadTable();
+        connectionManager.getPlanetTable().loadTable();
+        connectionManager.getPlayerTable().loadTable();
+        connectionManager.getItemTable().loadTable();
         goToMapScreen();
     }
 
@@ -196,59 +155,6 @@ public class HyenasLoader extends Application {
 //        } catch (Exception ex) {
 //            Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-    }
-
-/**********************************************************************/
-
-    private boolean ignoreSQLException(String state) {
-        if (state == null) {
-            System.out.println("State undefined");
-            return false;
-        }
-        return state.equalsIgnoreCase("X0Y32")
-                || state.equalsIgnoreCase("42Y55");
-    }
-
-    private void printException(SQLException ex){
-        for (Throwable e : ex){
-            if (e instanceof SQLException){
-                if (ignoreSQLException(((SQLException)e).getSQLState()) == false) {
-                    e.printStackTrace(System.err);
-                    System.err.println("State: " + ((SQLException)e).getSQLState());
-                    System.err.println("Error Code: " + ((SQLException)e).getErrorCode());
-                    System.err.println("Message: " + e.getMessage());
-                    Throwable t = ex.getCause();
-                    while (t != null) {
-                        System.out.println("Cause: " + t);
-                        t = t.getCause();
-                    }
-                }
-            }
-        }
-    }
-
-    public Connection connectToDB() throws SQLException {
-        try {
-            conn = DriverManager.getConnection(host);
-            conn.createStatement().execute("PRAGMA foreign_keys = ON");
-            return conn;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
-
-    @SuppressWarnings("UnusedAssignment")
-    public void closeConnection(Connection connArgs){
-        System.out.println("Releasing sources...");
-        try {
-            if (connArgs != null) {
-                connArgs.close();
-                connArgs = null;
-            }
-        } catch (SQLException e) {
-            printException(e);
-        }
     }
 
 /**********************************************************************/

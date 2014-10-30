@@ -17,26 +17,6 @@ public class SolarSystemTable implements Table {
     public SolarSystemTable(Connection connArgs) {
         this.conn = connArgs;
     }
-    
-    public void beginTransaction() {
-        try {
-            Statement stmt = conn.createStatement();
-            stmt.execute("BEGIN TRANSACTION");
-        } catch (SQLException e) {
-            Logger.getLogger(SolarSystemTable.class.getName()).
-                    log(Level.SEVERE, null, e);
-        }
-    }
-    
-    public void commitTransaction() {
-        try {
-            Statement stmt = conn.createStatement();
-            stmt.execute("COMMIT TRANSACTION");
-        } catch (SQLException e) {
-            Logger.getLogger(SolarSystemTable.class.getName()).
-                    log(Level.SEVERE, null, e);
-        }
-    }
 
     @Override
     public void createTable() {

@@ -143,7 +143,8 @@ public class AllocationController implements Initializable {
             player.setEngineerSkill(eValue);
             player.setInvestorSkill(iValue);
             player.setState(true);
-            PlayerTable newPlayers = HyenasLoader.getInstance().getPlayerTable();
+            PlayerTable newPlayers = HyenasLoader.getInstance()
+                    .getConnectionManager().getPlayerTable();
             newPlayers.populateTable(name.getText(), pointsRemaining,
                     eValue, pValue, iValue, fValue, tValue, player.getCredits());
             HyenasLoader.getInstance().goToMapScreen();

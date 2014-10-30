@@ -96,7 +96,8 @@ public class MapUIController implements Initializable {
         Pane scrollContentPane = new Pane();
         scrollContentPane.setPrefSize(UIHelper.GALAXY_SIZE, UIHelper.GALAXY_SIZE);
         scrollContentPane.setStyle("-fx-background-color: transparent;");
-        ssTable = HyenasLoader.getInstance().getSolarSystemTable();
+        ssTable = HyenasLoader.getInstance().getConnectionManager()
+                .getSolarSystemTable();
         systemNamePane = new HoverPane();
         Map<String, SolarSystem> solarSystems = Galaxy.getInstance().getSolarSystems();
         Set<String> solarSystemIDs = solarSystems.keySet();
@@ -157,9 +158,11 @@ public class MapUIController implements Initializable {
                 Galaxy.getInstance().getDistances();
 
         if (!Galaxy.getInstance().isLocationsSet()) {
-            ssTable.beginTransaction();
+            HyenasLoader.getInstance().getConnectionManager()
+                    .beginTransaction();
 
-            PlanetTable planetTable = HyenasLoader.getInstance().getPlanetTable();
+            PlanetTable planetTable = HyenasLoader.getInstance()
+                    .getConnectionManager().getPlanetTable();
 
             for (int i = 0; i < solarSystemValues.size(); i++) {
                 SolarSystem ss = solarSystemValues.get(i);
@@ -170,13 +173,15 @@ public class MapUIController implements Initializable {
             }
             
             try {
-                HyenasLoader.getInstance().getPlayerTable().updateLocation(
-                        Player.getInstance().getCurrentSystem());
+                HyenasLoader.getInstance().getConnectionManager()
+                        .getPlayerTable().updateLocation(Player.getInstance()
+                                .getCurrentSystem());
             } catch (SQLException ex) {
                 Logger.getLogger(MapUIController.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            ssTable.commitTransaction();
+            HyenasLoader.getInstance().getConnectionManager()
+                    .commitTransaction();
         }
         
         if (distances.size() == 0) {
@@ -364,7 +369,8 @@ public class MapUIController implements Initializable {
                 
                 anchor.getChildren().remove(resultPane);
                 
-                playerTable = HyenasLoader.getInstance().getPlayerTable();
+                playerTable = HyenasLoader.getInstance().getConnectionManager()
+                        .getPlayerTable();
                 try {
                     playerTable.updateLocation(currentJourney.getDestinationSolarSystem());
                 } catch (SQLException ex) {
@@ -421,7 +427,7 @@ public class MapUIController implements Initializable {
                 
                 anchor.getChildren().remove(resultPane);
                 
-                playerTable = HyenasLoader.getInstance().getPlayerTable();
+                playerTable = HyenasLoader.getInstance().getConnectionManager().getPlayerTable();
                 try {
                     playerTable.updateLocation(currentJourney.getDestinationSolarSystem());
                 } catch (SQLException ex) {
@@ -512,7 +518,8 @@ public class MapUIController implements Initializable {
             if (!randomEventOccurred()) {
                 makeJourney(currentJourney);
 
-                playerTable = HyenasLoader.getInstance().getPlayerTable();
+                playerTable = HyenasLoader.getInstance().getConnectionManager()
+                        .getPlayerTable();
                 try {
                     playerTable.updateLocation(solarSystem);
                 } catch (SQLException ex) {
