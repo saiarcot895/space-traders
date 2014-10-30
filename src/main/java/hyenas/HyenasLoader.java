@@ -61,17 +61,6 @@ public class HyenasLoader extends Application {
         stage.show();
     }
 
-    public void stop(Stage stage) throws Exception {
-        stage.setOnCloseRequest((WindowEvent t) -> {
-            try {
-                stop(stage);
-            } catch (Exception ex) {
-                Logger.getLogger(HyenasLoader.class.getName())
-                        .log(Level.SEVERE, null, ex);
-            }
-        });
-    }
-
     public ConnectionManager getConnectionManager() {
         return connectionManager;
     }
