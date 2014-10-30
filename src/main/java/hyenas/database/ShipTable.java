@@ -27,7 +27,7 @@ public class ShipTable implements Table {
         String create = "CREATE TABLE IF NOT EXISTS Ship "
                 + "(ID INTEGER NOT NULL, " + "Type VARCHAR(20) NOT NULL, "
                 + "Fuel DOUBLE NOT NULL, " + "Health DOUBLE NOT NULL, "
-                + "Shield DOUBLE NOT NULL "
+                + "Shield DOUBLE NOT NULL, "
                 + "Player INTEGER NOT NULL, " + "PRIMARY KEY (ID), "
                 + "FOREIGN KEY (Player) REFERENCES Players (ID))";
         try (Statement stmt = conn.createStatement()) {
