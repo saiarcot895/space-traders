@@ -11,6 +11,7 @@ public class Shield {
     private ShieldType type;
     private String name;
     private int price;
+    private int strength;
     
     public enum ShieldType {
         CIVILIAN_ENERGY,
@@ -26,26 +27,32 @@ public class Shield {
             case CIVILIAN_ENERGY:
                 name = "Civilian Energy";
                 price = 100;
+                strength = 100;
                 break;
             case MILITIA_ENERGY:
                 name = "Militia Energy";
                 price = 200;
+                strength = 200;
                 break;
             case MILITARY_ENERGY:
                 name = "Military Energy";
                 price = 300;
+                strength = 400;
                 break;
             case CIVILIAN_REFLECTIVE:
                 name = "Civilian Reflective";
                 price = 400;
+                strength = 600;
                 break;
             case MILITIA_REFLECTIVE:
                 name = "Militia Reflective";
                 price = 500;
+                strength = 800;
                 break;
             case MILITARY_REFLECTIVE:
                 name = "Military Reflective";
                 price = 600;
+                strength = 1000;
                 break;
             default: break;
         }
@@ -64,8 +71,16 @@ public class Shield {
      * Get the price of the shield
      * @return price, the price of the shield
      */
-    public int getPrice()    {
+    public int getPrice() {
         return price;
+    }
+    
+    /**
+     * Get the strength of the shield
+     * @return strength, the strength of the shield
+     */
+    public int getStrength() {
+        return strength;
     }
     
     /**

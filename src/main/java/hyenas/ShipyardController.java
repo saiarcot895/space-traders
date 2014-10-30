@@ -78,6 +78,8 @@ public class ShipyardController implements Initializable {
     private final int TAB_PANE_WIDTH = 600;
     
     private Ship ship;
+    
+    private TabPane tabPane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -88,7 +90,7 @@ public class ShipyardController implements Initializable {
         Player player = Player.getInstance();
         ship = player.getShip();
         
-        TabPane tabPane = new TabPane();
+        tabPane = new TabPane();
         tabPane.setPrefWidth(TAB_PANE_WIDTH);
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         Tab shipTab = new ShipyardTab(ShipyardTableType.SHIPS);
@@ -225,7 +227,6 @@ public class ShipyardController implements Initializable {
     }
     
     public void buyItem(ActionEvent e) {
-        removeAlert();
         Player player = Player.getInstance();
         ship = player.getShip();
         if(currentTableView == weaponsTable)    {
@@ -274,14 +275,22 @@ public class ShipyardController implements Initializable {
             }
         }
         else if(currentTableView == shipsTable) {
+            Ship currentShip = player.getShip();
             Ship item = (Ship)currentTableView.getSelectionModel().getSelectedItem();
-            if(Player.getInstance().getCredits() >= item.getPrice())    {
-                Player.getInstance().setShip(item);
-                Player.getInstance().setCredits(Player.getInstance().getCredits()-item.getPrice());
+            if (item.getShipType() != currentShip.getShipType()) {
+                int currentShipValue = (int) (currentShip.getPrice() * .8);
+                if (player.getCredits() + currentShipValue >= item.getPrice()) {
+                    int credits = player.getCredits();
+                    player.setShip(item);
+                    ship = item;
+                    player.setCredits(credits + currentShipValue - item.getPrice());
+                } else {
+                    displayAlert("Not Enough Credits", "You don't have enough credits to afford that.");
+                }
+            } else {
+                displayAlert("You already have this ship", "It doesn't make sense to buy a ship you already own.");
             }
-            else    {
-                displayAlert("Not Enough Credits", "You don't have enough credits to afford that.");
-           }
+            
             
         }
         infoPane.updateInfo();
@@ -296,11 +305,10 @@ public class ShipyardController implements Initializable {
         // Example: If buying weapon, make sure weapon slots aren't filled
         // If any conditions are not met, use displayAlert() method to inform user
         // ... and probably more things I'm forgetting
+        setupForTabChange(tabPane.getSelectionModel().getSelectedItem());
     }
 
     public void sellItem(ActionEvent e) {
-        removeAlert();
-        
         // Note: object type shouldn't necessarily be Object
         if(currentTableView == weaponsTable)    {
             Weapon item = (Weapon)currentTableView.getSelectionModel().getSelectedItem();
@@ -331,6 +339,8 @@ public class ShipyardController implements Initializable {
             else    {
                 displayAlert("No Gadget", "You do not have a gadget of this type on your ship.");
             }
+        } else if(currentTableView == shipsTable)   {
+            displayAlert("You can't sell your ship", "Your ship is automatically sold when you buy a new ship.");
         }
         infoPane.updateInfo();
         
@@ -355,12 +365,5 @@ public class ShipyardController implements Initializable {
         };
         alertPane.getCloseButton().setOnAction(closeAction);
         anchorPane.getChildren().add(alertPane);
-    }
-    
-    private void removeAlert() {
-        List children = anchorPane.getChildren();
-        if (children.size() > 1) {
-            children.remove(children.get(1));
-        }
     }
 }

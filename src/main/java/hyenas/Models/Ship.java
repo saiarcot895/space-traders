@@ -345,4 +345,8 @@ public class Ship {
         }
         return ships;
     }
+    
+    public ShipType getShipType() {
+        return type;
+    }
 }
