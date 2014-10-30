@@ -152,6 +152,9 @@ public class MapUIController implements Initializable {
         });
 
         List<SolarSystem> solarSystemValues = new LinkedList<>(solarSystems.values());
+        Player player = Player.getInstance();
+        Map<SolarSystem, List<ABPair<SolarSystem, Double>>> distances =
+                Galaxy.getInstance().getDistances();
 
         if (!Galaxy.getInstance().isLocationsSet()) {
             ssTable.beginTransaction();
@@ -175,50 +178,63 @@ public class MapUIController implements Initializable {
             
             ssTable.commitTransaction();
         }
+        
+        if (distances.size() == 0) {
+            Random random = new Random();
+            for (int i = 0; i < solarSystemValues.size(); i++) {
+                SolarSystem solarSystem1 = solarSystemValues.get(i);
+                for (int j = i; j < solarSystemValues.size(); j++) {
+                    SolarSystem solarSystem2 = solarSystemValues.get(j);
 
-        Random random = new Random();
-        Map<SolarSystem, List<ABPair<SolarSystem, Double>>> distances =
-                Galaxy.getInstance().getDistances();
-        Player player = Player.getInstance();
+                    double distance = getDistance(solarSystem1, solarSystem2);
+                    if (solarSystem1 != player.getCurrentSystem()
+                            && solarSystem2 != player.getCurrentSystem()){
+                        if (distance >= 400) {
+                            continue;
+                        }
+
+                        if (random.nextDouble() >= 0.35) {
+                            continue;
+                        }
+                    } else {
+                        if (random.nextDouble() >= 0.15) {
+                            continue;
+                        }
+                    }
+
+                    double weight = distance + (solarSystem1.getPlanets().size()
+                                    - solarSystem2.getPlanets().size()) * 10;
+                    ABPair<SolarSystem, Double> destination = new ABPair<>(solarSystem2,
+                            weight);
+                    if (!distances.containsKey(solarSystem1)) {
+                        distances.put(solarSystem1, new LinkedList<>());
+                    }
+                    distances.get(solarSystem1).add(destination);
+
+                    weight = distance + (solarSystem2.getPlanets().size()
+                                    - solarSystem1.getPlanets().size()) * 10;
+                    destination = new ABPair<>(solarSystem1, weight);
+                    if (!distances.containsKey(solarSystem2)) {
+                        distances.put(solarSystem2, new LinkedList<>());
+                    }
+                    distances.get(solarSystem2).add(destination);
+                }
+            }
+        }
+        
         for (int i = 0; i < solarSystemValues.size(); i++) {
             SolarSystem solarSystem1 = solarSystemValues.get(i);
-            for (int j = i; j < solarSystemValues.size(); j++) {
-                SolarSystem solarSystem2 = solarSystemValues.get(j);
-
-                double distance = getDistance(solarSystem1, solarSystem2);
-                if (solarSystem1 != player.getCurrentSystem()
-                        && solarSystem2 != player.getCurrentSystem()){
-                    if (distance >= 400) {
-                        continue;
-                    }
-                    
-                    if (random.nextDouble() >= 0.35) {
-                        continue;
-                    }
-                } else {
-                    if (random.nextDouble() >= 0.15) {
-                        continue;
-                    }
-                }
+            double system1Size = solarSystem1.getSize();
+            
+            List<ABPair<SolarSystem, Double>> connections = distances.get(solarSystem1);
+            
+            if (connections == null) {
+                continue;
+            }
+            
+            for (int j = 0; j < connections.size(); j++) {
+                SolarSystem solarSystem2 = distances.get(solarSystem1).get(j).getA();
                 
-                double weight = distance + (solarSystem1.getPlanets().size()
-                                - solarSystem2.getPlanets().size()) * 10;
-                ABPair<SolarSystem, Double> destination = new ABPair<>(solarSystem2,
-                        weight);
-                if (!distances.containsKey(solarSystem1)) {
-                    distances.put(solarSystem1, new LinkedList<>());
-                }
-                distances.get(solarSystem1).add(destination);
-
-                weight = distance + (solarSystem2.getPlanets().size()
-                                - solarSystem1.getPlanets().size()) * 10;
-                destination = new ABPair<>(solarSystem1, weight);
-                if (!distances.containsKey(solarSystem2)) {
-                    distances.put(solarSystem2, new LinkedList<>());
-                }
-                distances.get(solarSystem2).add(destination);
-                
-                double system1Size = solarSystem1.getSize();
                 double system2Size = solarSystem2.getSize();
                 Line connection = new Line(solarSystem1.getX() + system1Size,
                         solarSystem1.getY() + system1Size, solarSystem2.getX() + system2Size,

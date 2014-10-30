@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class PlayerTable {
+public class PlayerTable implements Table {
 
     private final Connection conn;
 
@@ -232,6 +232,24 @@ public class PlayerTable {
                 + ", Fuel = " + player.getShip().getFuel()
                 + ", Credits = " + player.getCredits();
         stmt.execute(query);
+    }
+
+    @Override
+    public void dropTable() {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("DROP TABLE Players");
+        } catch (SQLException e) {
+            printException(e);
+        }
+    }
+    
+    @Override
+    public void clearTable() {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("DELETE FROM Players");
+        } catch (SQLException e) {
+            printException(e);
+        }
     }
 
 }

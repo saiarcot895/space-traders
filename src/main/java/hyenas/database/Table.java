@@ -17,7 +17,12 @@ public interface Table {
     public void loadTable();
     
     /**
-     * Drop table upon deletion of player.
+     * Remove all entries in the table.
+     */
+    public void clearTable();
+    
+    /**
+     * Drop the table from the database.
      */
     public void dropTable();
 }

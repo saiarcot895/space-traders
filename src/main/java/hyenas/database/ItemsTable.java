@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ItemsTable {
+public class ItemsTable implements Table {
 
     private final Connection conn;
 
@@ -232,6 +232,15 @@ public class ItemsTable {
     public void dropTable() {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DROP TABLE Items");
+        } catch (SQLException e) {
+            printException(e);
+        }
+    }
+    
+    @Override
+    public void clearTable() {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("DELETE FROM Items");
         } catch (SQLException e) {
             printException(e);
         }
