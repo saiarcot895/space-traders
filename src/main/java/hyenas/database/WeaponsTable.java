@@ -43,12 +43,11 @@ public class WeaponsTable implements Table {
     
     @Override
     public void createTable() {
-        String create = 
-        "CREATE TABLE IF NOT EXISTS Weapons "
-        + "(ID INTEGER NOT NULL, Type VARCHAR(20) NOT NULL, "
-        + "Damage INTEGER NOT NULL, WID INTEGER NOT NULL, "
-        + "PRIMARY KEY (ID), FOREIGN KEY (WID) "
-        + "REFERENCES Ship (ID))";
+        String create = "CREATE TABLE IF NOT EXISTS Weapons "
+                + "(ID INTEGER NOT NULL, Type VARCHAR(20) NOT NULL, "
+                + "Damage INTEGER NOT NULL, Ship INTEGER NOT NULL, "
+                + "PRIMARY KEY (ID), FOREIGN KEY (Ship) "
+                + "REFERENCES Ship (ID))";
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
         } catch (SQLException e) {

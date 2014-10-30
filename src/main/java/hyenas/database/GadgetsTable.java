@@ -53,13 +53,11 @@ public class GadgetsTable implements Table {
         // 2 -> Increase shields (Random value)
         // 3 -> Increase Weapon Damage (all)
         
-        String create = 
-        "CREATE TABLE IF NOT EXISTS Gadgets "
-        + "(ID INTEGER NOT NULL, Name VARCHAR(20), "
-        + "Property INTEGER, "
-        + "GID INTEGER, "
-        + "PRIMARY KEY (ID), FOREIGN KEY (GID) "
-        + "REFERENCES Ship (ID))";
+        String create = "CREATE TABLE IF NOT EXISTS Gadgets "
+                + "(ID INTEGER NOT NULL, Name VARCHAR(20), "
+                + "Property INTEGER, " + "Ship INTEGER, "
+                + "PRIMARY KEY (ID), FOREIGN KEY (Ship) "
+                + "REFERENCES Ship (ID))";
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
         } catch (SQLException e) {
