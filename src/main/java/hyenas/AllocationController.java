@@ -17,7 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 /**
- * FXML Controller class
+ * FXML Controller class for allocating skill points and setting up the player
  *
  * @author Abhishek
  */
@@ -79,11 +79,6 @@ public class AllocationController implements Initializable {
     int eValue = 1;
     int iValue = 1;
     
-    /**
-     * Initializes the controller class.
-     * @param url
-     * @param rb
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         point.setText(Integer.toString(pointsRemaining) + " point(s) remaining");
@@ -124,6 +119,11 @@ public class AllocationController implements Initializable {
         });
     }
 
+    /**
+     * Updates the current skill points
+     * @param points, the new skill points
+     * @param label, the label to update
+     */
     private void updatePoints(int points, Label label) {
         if (pointsRemaining > 0) {
             pointsRemaining--;
@@ -132,6 +132,10 @@ public class AllocationController implements Initializable {
         }
     }
 
+    /**
+     * Creates the player object and sets up the database
+     * @param e, an action event
+     */
     public void create(ActionEvent e) throws SQLException {
         if (validInput()) {
             Player player = Player.getInstance();
@@ -166,13 +170,20 @@ public class AllocationController implements Initializable {
         }
     }
     
+    /**
+     * Determines whether the input in the fields is valid
+     * @return boolean, whether the input is valid
+     */
     private boolean validInput() {
         if (name.getText().length() == 0) {
             return false;
         }
         return true;
     }
-
+    
+    /**
+     * Changes screens back to the home screen
+     */
     public void goBack(ActionEvent e) {
         HyenasLoader.getInstance().goToHomeScreen();
     }

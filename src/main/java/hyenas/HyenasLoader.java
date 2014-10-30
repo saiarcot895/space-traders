@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hyenas;
 
 import hyenas.database.ConnectionManager;
@@ -17,7 +12,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 /**
- *
+ * The main application driver class
  * @author Alex
  */
 public class HyenasLoader extends Application {
@@ -28,6 +23,10 @@ public class HyenasLoader extends Application {
 
     private Stage stage;
 
+    /**
+     * Gets the common HyenasLoader instance, since we should only have one
+     * @return instance, the current HyenasLoader instance
+     */
     public static HyenasLoader getInstance() {
         return instance;
     }
@@ -61,10 +60,17 @@ public class HyenasLoader extends Application {
         stage.show();
     }
 
+    /**
+     * Gets the database connection manager
+     * @return connectionManager, the connection manager
+     */
     public ConnectionManager getConnectionManager() {
         return connectionManager;
     }
-
+    
+    /**
+     * Changes screens to the allocation screen and resets all the tables
+     */
     public void goToAllocationScreen() {
         connectionManager.getWeaponsTable().clearTable();
         connectionManager.getGadgetsTable().clearTable();
@@ -77,30 +83,52 @@ public class HyenasLoader extends Application {
         loadScreen("AllocationUI.fxml");
     }
 
+    /**
+     * Changes screens to the map UI screen
+     */
     public void goToMapScreen() {
         loadScreen("MapUI.fxml");
     }
-
+    
+    /**
+     * Changes screens to the Settings screen
+     */
     public void goToSettingsScreen() {
         loadScreen("Settings.fxml");
     }
-
+    
+    /**
+     * Changes screens to the Home screen
+     */
     public void goToHomeScreen() {
         loadScreen("MainWindow.fxml");
     }
-
+    
+    /**
+     * Changes screens to the Marketplace screen
+     */
     public void goToMarketplace() {
         loadScreen("MarketUI.fxml");
     }
-
+    
+    /**
+     * Changes screens to the System screen
+     */
     public void goToSystemScreen() {
         loadScreen("SystemUI.fxml");
     }
     
+    /**
+     * Changes screens to the Shipyard screen
+     */
     public void goToShipyard() {
         loadScreen("ShipyardUI.fxml");
     }
     
+    /**
+     * Loads a given screen and catches errors if necessary
+     * @param screen, the screen to load
+     */
     private void loadScreen(String screen) {
         try {
             changePage(screen);
@@ -110,6 +138,10 @@ public class HyenasLoader extends Application {
         }
     }
 
+    /**
+     * Changes to the given page
+     * @param pageName, the name of the page
+     */
     private void changePage(String pageName) throws IOException {
         Parent page = FXMLLoader.load(getClass().getResource(pageName));
 
@@ -118,8 +150,7 @@ public class HyenasLoader extends Application {
     }
 
     /**
-     * Restore last point in game
-     * in SolarSystemView.
+     * Restore last point in game in SolarSystem view.
      */
     public void continueGame() {
         connectionManager.getSolarSystemTable().loadTable();
@@ -149,14 +180,18 @@ public class HyenasLoader extends Application {
 /**********************************************************************/
 
     /**
+     * Launches the application
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Gets the stage
+     * @param stage, the current stage
+     */
     public Stage getStage() {
         return stage;
     }
-
 }
