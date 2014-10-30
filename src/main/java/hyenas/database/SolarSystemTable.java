@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SolarSystemTable {
+public class SolarSystemTable implements Table {
 
     private final Connection conn;
 
@@ -103,6 +103,24 @@ public class SolarSystemTable {
                 }
             }
             Galaxy.getInstance().setLocationsSet(true);
+        } catch (SQLException e) {
+            printException(e);
+        }
+    }
+
+    @Override
+    public void dropTable() {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("DROP TABLE SolarSystem");
+        } catch (SQLException e) {
+            printException(e);
+        }
+    }
+    
+    @Override
+    public void clearTable() {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("DELETE FROM SolarSystem");
         } catch (SQLException e) {
             printException(e);
         }

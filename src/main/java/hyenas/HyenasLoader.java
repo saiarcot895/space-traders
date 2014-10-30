@@ -106,6 +106,11 @@ public class HyenasLoader extends Application {
     }
 
     public void goToStartGameScreen() {
+        items.clearTable();
+        players.clearTable();
+        planets.clearTable();
+        solarSystem.clearTable();
+
         loadScreen("AllocationUI.fxml");
     }
 

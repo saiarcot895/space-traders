@@ -64,4 +64,9 @@ public class ShipTable implements Table {
         
     }
     
+    @Override
+    public void clearTable() {
+        
+    }
+    
 }
