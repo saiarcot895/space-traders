@@ -22,6 +22,7 @@ public class ShipInfoPane extends BorderPane {
     private Label shipShieldsLabel;
     private Label shipGadgetsLabel;
     private Label shipCrewLabel;
+    private Label creditsLabel;
     private Button buyButton;
     private Button sellButton;
     
@@ -45,9 +46,11 @@ public class ShipInfoPane extends BorderPane {
         shipGadgets.getStyleClass().add("alertPaneTitleLabel");
         Label shipCrew = new Label("Crew:");
         shipCrew.getStyleClass().add("alertPaneTitleLabel");
+        Label credits = new Label("Credits:");
+        credits.getStyleClass().add("alertPaneTitleLabel");
         
         leftBox.getChildren().addAll(shipName, shipCargo, shipFuel, shipWeapons,
-                shipShields, shipGadgets, shipCrew);
+                shipShields, shipGadgets, shipCrew, credits);
         
         VBox rightBox = new VBox();
         shipNameLabel = new Label("[Name]");
@@ -64,10 +67,12 @@ public class ShipInfoPane extends BorderPane {
         shipGadgetsLabel.getStyleClass().add("alertPaneMessageLabel");
         shipCrewLabel = new Label("[0/0]");
         shipCrewLabel.getStyleClass().add("alertPaneMessageLabel");
+        creditsLabel = new Label("[0]");
+        creditsLabel.getStyleClass().add("alertPaneMessageLabel");
         
         rightBox.getChildren().addAll(shipNameLabel, shipCargoLabel,
                 shipFuelLabel, shipWeaponsLabel, shipShieldsLabel, 
-                shipGadgetsLabel, shipCrewLabel);
+                shipGadgetsLabel, shipCrewLabel, creditsLabel);
         BorderPane.setMargin(rightBox, new Insets(0,0,0,20));
         updateInfo();
         
@@ -123,5 +128,6 @@ public class ShipInfoPane extends BorderPane {
                 ship.getGadgetSlots());
         shipCrewLabel.setText(ship.getCrew().size() + "/" +
                 ship.getCrewSlots());
+        creditsLabel.setText("" + player.getCredits());
     }
 }
