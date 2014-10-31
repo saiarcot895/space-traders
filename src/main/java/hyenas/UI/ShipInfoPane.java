@@ -79,17 +79,11 @@ public class ShipInfoPane extends BorderPane {
         BorderPane bottomBox = new BorderPane();
         bottomBox.setPrefWidth(300.0);
         bottomBox.setPrefHeight(85.0);
-        buyButton = new Button("Buy");
+        buyButton = new StandardButton("Buy");
         buyButton.setDisable(true);
-        buyButton.getStyleClass().add("standard-button");
-        buyButton.setPrefHeight(37.0);
-        buyButton.setPrefWidth(143.0);
         
-        sellButton = new Button("Sell");
+        sellButton = new StandardButton("Sell");
         sellButton.setDisable(true);
-        sellButton.getStyleClass().add("standard-button");
-        sellButton.setPrefHeight(37.0);
-        sellButton.setPrefWidth(143.0);
         
         BorderPane buyPane = new BorderPane();
         buyPane.setCenter(buyButton);

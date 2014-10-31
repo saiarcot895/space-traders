@@ -313,17 +313,6 @@ public class ShipyardController implements Initializable {
             
         }
         infoPane.updateInfo();
-        // TODO:
-        // Buying a ship has addition consequences (See wiki), so it needs to be
-        // handled more carefully
-        // For the rest, its really just interfacing with the Ship class, which
-        // will need methods like addGadget and addShield (refer to addCargo method)
-        // 
-        // Make sure player has enough credits
-        // Make sure player ahs enough slots for item they're buying
-        // Example: If buying weapon, make sure weapon slots aren't filled
-        // If any conditions are not met, use displayAlert() method to inform user
-        // ... and probably more things I'm forgetting
         setupForTabChange(tabPane.getSelectionModel().getSelectedItem());
     }
     
