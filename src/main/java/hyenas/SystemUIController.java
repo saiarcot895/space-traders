@@ -222,7 +222,7 @@ public class SystemUIController implements Initializable {
             animationTimer.cancel();
             animationTimer.purge();
         } else {
-            displayAlert("Insufficient Tech Level", "Your planet does not have a high enough tech level for a sipyard.");
+            displayAlert("Insufficient Tech Level", "Your planet does not have a high enough tech level for a shipyard.");
         }
     }
     
