@@ -140,6 +140,10 @@ public class ShipyardController implements Initializable {
         BorderPane.setMargin(playerShipTable, new Insets(80, 0, 50, 0));
     }
     
+    /**
+     * Set the item the user clicked on to be the selected item to sell.
+     * @param item item the user clicked on
+     */
     private void setSelectedSellItem(Object item) {
         if (item == null) {
             Button sellButton = infoPane.getSellButton();
@@ -153,6 +157,10 @@ public class ShipyardController implements Initializable {
         }
     }
     
+    /**
+     * Set the item the user clicked on to be the selected item to buy.
+     * @param item item the user clicked on
+     */
     private void setSelectedBuyItem(Object item) {
         if (item == null) {
             Button buyButton = infoPane.getBuyButton();
@@ -166,6 +174,10 @@ public class ShipyardController implements Initializable {
         }
     }
     
+    /**
+     * Change the tab
+     * @param tab new tab to display
+     */
     public void setupForTabChange(Tab tab) {
         ShipyardTab shipyardTab = (ShipyardTab)tab;
         playerShipTable.setItems(null);
@@ -226,6 +238,10 @@ public class ShipyardController implements Initializable {
         playerShipTable.setPlaceholder(placeholderLabel);
     }
     
+    /**
+     * Buy an item from the shipyard.
+     * @param e unused
+     */
     public void buyItem(ActionEvent e) {
         Player player = Player.getInstance();
         ship = player.getShip();
@@ -235,6 +251,9 @@ public class ShipyardController implements Initializable {
                 if(Player.getInstance().getCredits() >= item.getPrice())    {
                     ship.getWeapons().add(item);
                     Player.getInstance().setCredits(Player.getInstance().getCredits()-item.getPrice());
+                    
+                    HyenasLoader.getInstance().getConnectionManager().getWeaponsTable().clearTable();
+                    HyenasLoader.getInstance().getConnectionManager().getWeaponsTable().populateTable(ship);
                 }
                 else    {
                     displayAlert("Not Enough Credits", "You don't have enough credits to afford that.");
@@ -307,7 +326,11 @@ public class ShipyardController implements Initializable {
         // ... and probably more things I'm forgetting
         setupForTabChange(tabPane.getSelectionModel().getSelectedItem());
     }
-
+    
+    /**
+     * Sell an item to the shipyard.
+     * @param e unused
+     */
     public void sellItem(ActionEvent e) {
         // Note: object type shouldn't necessarily be Object
         if(currentTableView == weaponsTable)    {
@@ -352,10 +375,19 @@ public class ShipyardController implements Initializable {
         // ... and probably more things I'm forgetting
     }
     
+    /**
+     * Return to the system screen
+     * @param e unused
+     */
     public void goBack(ActionEvent e) {
         HyenasLoader.getInstance().goToSystemScreen();
     }
     
+    /**
+     * Display an alert message
+     * @param title title of the message
+     * @param message message itself
+     */
     private void displayAlert(String title, String message) {
         AlertPane alertPane = new AlertPane(AlertPaneType.OneButton);
         alertPane.setTitleText(title);

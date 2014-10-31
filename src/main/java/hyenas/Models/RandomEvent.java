@@ -5,7 +5,11 @@
  */
 package hyenas.Models;
 
+import hyenas.HyenasLoader;
+import java.sql.SQLException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Represents a Random Event
@@ -160,6 +164,16 @@ public class RandomEvent {
                 }
                 return success;
         }
+        
+        try {
+            HyenasLoader.getInstance().getConnectionManager().getShipTable()
+                .updateShipHealth(player.getShip().getHealth());
+            HyenasLoader.getInstance().getConnectionManager().getShipTable()
+                    .updateShipFuel(player.getShip().getFuel());
+        } catch (SQLException ex) {
+            Logger.getLogger(RandomEvent.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return true;
     }
     
@@ -198,6 +212,16 @@ public class RandomEvent {
                 
                 return successful;
         }
+        
+        try {
+            HyenasLoader.getInstance().getConnectionManager().getShipTable()
+                .updateShipHealth(player.getShip().getHealth());
+            HyenasLoader.getInstance().getConnectionManager().getShipTable()
+                    .updateShipFuel(player.getShip().getFuel());
+        } catch (SQLException ex) {
+            Logger.getLogger(RandomEvent.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return true;
     }
 }

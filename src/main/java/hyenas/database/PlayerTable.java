@@ -29,9 +29,8 @@ public class PlayerTable implements Table{
                 + "Points INTEGER NOT NULL, " + "Engineer INTEGER NOT NULL, "
                 + "Pilot INTEGER NOT NULL, " + "Investor INTEGER NOT NULL, "
                 + "Fighter INTEGER NOT NULL, " + "Trader INTEGER NOT NULL, "
-                + "Credits INTEGER, " 
-                + "Fuel INTEGER NOT NULL, " + "Health INTEGER NOT NULL, "
-                + "SSID INTEGER NOT NULL, "  + "PRIMARY KEY (ID), "
+                + "Credits INTEGER, "
+                + "SSID INTEGER, "  + "PRIMARY KEY (ID), "
                 + "FOREIGN KEY (SSID) REFERENCES SolarSystem (ID))";
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
@@ -58,8 +57,8 @@ public class PlayerTable implements Table{
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Players "
                     + "(Name, Points, Engineer, Pilot, Fighter, Investor, "
-                    + "Trader, Credits, Fuel, Health) "
-                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    + "Trader, Credits) "
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, name);
             stmt.setInt(2, points);
             stmt.setInt(3, ePoints);
@@ -68,8 +67,6 @@ public class PlayerTable implements Table{
             stmt.setInt(6, fPoints);
             stmt.setInt(7, tPoints);
             stmt.setInt(8, credits);
-            stmt.setInt(9, 700);
-            stmt.setInt(10, 250);
             stmt.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(PlayerTable.class.getName()).
@@ -88,7 +85,7 @@ public class PlayerTable implements Table{
             ResultSet playerInfo = stmt.executeQuery("SELECT Players.Name,"
                     + " Players.Points, Players.Engineer, Players.Pilot,"
                     + " Players.Investor, Players.Fighter, Players.Trader,"
-                    + " Players.Fuel, Players.Health, Players.Credits,"
+                    + " Players.Credits,"
                     + " SolarSystem.Name FROM Players"
                     + " INNER JOIN SolarSystem"
                     + " ON Players.SSID = SolarSystem.ID");
@@ -102,13 +99,10 @@ public class PlayerTable implements Table{
             player.setInvestorSkill(playerInfo.getInt(5));
             player.setFighterSkill(playerInfo.getInt(6));
             player.setTraderSkill(playerInfo.getInt(7));
-            player.setCredits(playerInfo.getInt(10));
-
-            player.getShip().setFuel(playerInfo.getInt(8));
-            player.getShip().setHealth(playerInfo.getInt(9));
+            player.setCredits(playerInfo.getInt(8));
 
             SolarSystem system = Galaxy.getInstance().getSolarSystemForName(
-                    playerInfo.getString(11));
+                    playerInfo.getString(9));
             player.setCurrentSystem(system);
             player.setTradingPlanet(system.getPlanets().get(0));
         } catch (SQLException e) {
@@ -207,8 +201,6 @@ public class PlayerTable implements Table{
         int variable = update.getInt(1);
         Player player = Player.getInstance();
         query = "UPDATE PLAYERS SET SSID = " + variable
-                + ", Health = " + player.getShip().getHealth()
-                + ", Fuel = " + player.getShip().getFuel()
                 + ", Credits = " + player.getCredits();
         stmt.execute(query);
     }
@@ -226,7 +218,7 @@ public class PlayerTable implements Table{
     @Override
     public void clearTable() {
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate("DELETE FROM Planet");
+            stmt.executeUpdate("DELETE FROM Players");
         } catch (SQLException e) {
             Logger.getLogger(PlayerTable.class.getName()).
                     log(Level.SEVERE, null, e);

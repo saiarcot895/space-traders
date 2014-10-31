@@ -147,6 +147,9 @@ public class AllocationController implements Initializable {
             newPlayers.populateTable(name.getText(), pointsRemaining,
                     eValue, pValue, iValue, fValue, tValue, player.getCredits());
             
+            HyenasLoader.getInstance().getConnectionManager().getShipTable()
+                    .populateTable(player);
+            
 //            Problem with getting this to actually appear:
 //            AlertPane alertPane = new AlertPane(AlertPaneType.Loading);
 //            alertPane.setTitleText("Loading");

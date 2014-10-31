@@ -1,6 +1,7 @@
 package hyenas.database;
 
 import hyenas.Models.Player;
+import hyenas.Models.Ship;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +28,6 @@ public class ShipTable implements Table {
         String create = "CREATE TABLE IF NOT EXISTS Ship "
                 + "(ID INTEGER NOT NULL, " + "Type VARCHAR(20) NOT NULL, "
                 + "Fuel DOUBLE NOT NULL, " + "Health DOUBLE NOT NULL, "
-                + "Shield DOUBLE NOT NULL, "
                 + "Player INTEGER NOT NULL, " + "PRIMARY KEY (ID), "
                 + "FOREIGN KEY (Player) REFERENCES Players (ID))";
         try (Statement stmt = conn.createStatement()) {
@@ -38,17 +38,16 @@ public class ShipTable implements Table {
         }
     }
 
-    public void populateTable(Player player){
+    public void populateTable(Player player) {
         try {
             player = Player.getInstance();
-            String query = 
-            "INSERT INTO Ship "
-            + "(Type, Fuel, Health, Shield, SID) VALUES(?, ?, ?, ?, ?)";
+            String query = "INSERT INTO Ship "
+                    + "(Type, Fuel, Health, Player) VALUES(?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, player.getShip().getName());
             stmt.setDouble(2, player.getShip().getFuel());
             stmt.setDouble(3, player.getShip().getHealth());
-            // TODO: Get shield value (indexed at 4)
+            
             PreparedStatement sysStmt = conn.prepareStatement(
                     "SELECT ID FROM Players WHERE Name = ?");
             sysStmt.setString(1, player.getName());
@@ -56,7 +55,8 @@ public class ShipTable implements Table {
             if (!shipIDResultSet.next()) {
                 throw new IllegalArgumentException();
             }
-            stmt.setInt(5, shipIDResultSet.getInt(1));
+            
+            stmt.setInt(4, shipIDResultSet.getInt(1));
             stmt.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(ShipTable.class.getName()).
@@ -70,12 +70,16 @@ public class ShipTable implements Table {
             Statement stmt = conn.createStatement();
             String query = 
             "SELECT Ship.Type, " + "Ship.Fuel, "
-            + "Ship.Health, Ship.Shield, Players.Name FROM "
+            + "Ship.Health, Players.Name FROM "
             + "Ship INNER JOIN Players "
-            + "ON Ship.SID = Players.ID";
+            + "ON Ship.Player = Players.ID";
             ResultSet shipInfo = stmt.executeQuery(query);
             shipInfo.next();
-            // TODO!!!!!!!!
+            
+            Player.getInstance().setShip(new Ship(Ship.ShipType
+                    .valueOf(shipInfo.getString(1).toUpperCase())));
+            Player.getInstance().getShip().setFuel(shipInfo.getDouble(2));
+            Player.getInstance().getShip().setHealth(shipInfo.getDouble(3));
         } catch (SQLException e) {
             Logger.getLogger(ShipTable.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -99,7 +103,7 @@ public class ShipTable implements Table {
      * @param health
      * @throws SQLException 
      */
-    public void updateShipHealth(int health) throws SQLException {
+    public void updateShipHealth(double health) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
         String query = "UPDATE SHIP SET HEALTH = " + health;
@@ -111,7 +115,7 @@ public class ShipTable implements Table {
      * @param fuel
      * @throws SQLException 
      */
-    public void updateShipFuel(int fuel) throws SQLException {
+    public void updateShipFuel(double fuel) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
         String query = "UPDATE SHIP SET FUEL = " + fuel;
