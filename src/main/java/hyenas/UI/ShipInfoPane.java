@@ -2,8 +2,8 @@ package hyenas.UI;
 
 import hyenas.Models.Player;
 import hyenas.Models.Ship;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import hyenas.UI.AlertPane.AlertPaneMessageLabel;
+import hyenas.UI.AlertPane.AlertPaneTitleLabel;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,49 +26,36 @@ public class ShipInfoPane extends BorderPane {
     private Button buyButton;
     private Button sellButton;
     
+    /**
+     * Initializer for ship info pane
+     */
     public ShipInfoPane() {
         getStyleClass().add("market-info-pane");
         setPrefWidth(250.0);
         setPadding(new Insets(10));
         
         VBox leftBox = new VBox();
-        Label shipName = new Label("Ship:");
-        shipName.getStyleClass().add("alertPaneTitleLabel");
-        Label shipCargo = new Label("Cargo:");
-        shipCargo.getStyleClass().add("alertPaneTitleLabel");
-        Label shipFuel = new Label("Fuel:");
-        shipFuel.getStyleClass().add("alertPaneTitleLabel");
-        Label shipWeapons = new Label("Weapons:");
-        shipWeapons.getStyleClass().add("alertPaneTitleLabel");
-        Label shipShields = new Label("Shields:");
-        shipShields.getStyleClass().add("alertPaneTitleLabel");
-        Label shipGadgets = new Label("Gadgets:");
-        shipGadgets.getStyleClass().add("alertPaneTitleLabel");
-        Label shipCrew = new Label("Crew:");
-        shipCrew.getStyleClass().add("alertPaneTitleLabel");
-        Label credits = new Label("Credits:");
-        credits.getStyleClass().add("alertPaneTitleLabel");
+        Label shipName = new AlertPaneTitleLabel("Ship:");
+        Label shipCargo = new AlertPaneTitleLabel("Cargo:");
+        Label shipFuel = new AlertPaneTitleLabel("Fuel:");
+        Label shipWeapons = new AlertPaneTitleLabel("Weapons:");
+        Label shipShields = new AlertPaneTitleLabel("Shields:");
+        Label shipGadgets = new AlertPaneTitleLabel("Gadgets:");
+        Label shipCrew = new AlertPaneTitleLabel("Crew:");
+        Label credits = new AlertPaneTitleLabel("Credits:");
         
         leftBox.getChildren().addAll(shipName, shipCargo, shipFuel, shipWeapons,
                 shipShields, shipGadgets, shipCrew, credits);
         
         VBox rightBox = new VBox();
-        shipNameLabel = new Label("[Name]");
-        shipNameLabel.getStyleClass().add("alertPaneMessageLabel");
-        shipCargoLabel = new Label("[0/0]");
-        shipCargoLabel.getStyleClass().add("alertPaneMessageLabel");
-        shipFuelLabel = new Label("[0/0]");
-        shipFuelLabel.getStyleClass().add("alertPaneMessageLabel");
-        shipWeaponsLabel = new Label("[0/0]");
-        shipWeaponsLabel.getStyleClass().add("alertPaneMessageLabel");
-        shipShieldsLabel = new Label("[0/0]");
-        shipShieldsLabel.getStyleClass().add("alertPaneMessageLabel");
-        shipGadgetsLabel = new Label("[0/0]");
-        shipGadgetsLabel.getStyleClass().add("alertPaneMessageLabel");
-        shipCrewLabel = new Label("[0/0]");
-        shipCrewLabel.getStyleClass().add("alertPaneMessageLabel");
-        creditsLabel = new Label("[0]");
-        creditsLabel.getStyleClass().add("alertPaneMessageLabel");
+        shipNameLabel = new AlertPaneMessageLabel("[Name]");
+        shipCargoLabel = new AlertPaneMessageLabel("[0/0]");
+        shipFuelLabel = new AlertPaneMessageLabel("[0/0]");
+        shipWeaponsLabel = new AlertPaneMessageLabel("[0/0]");
+        shipShieldsLabel = new AlertPaneMessageLabel("[0/0]");
+        shipGadgetsLabel = new AlertPaneMessageLabel("[0/0]");
+        shipCrewLabel = new AlertPaneMessageLabel("[0/0]");
+        creditsLabel = new AlertPaneMessageLabel("[0]");
         
         rightBox.getChildren().addAll(shipNameLabel, shipCargoLabel,
                 shipFuelLabel, shipWeaponsLabel, shipShieldsLabel, 
@@ -98,14 +85,25 @@ public class ShipInfoPane extends BorderPane {
         setBottom(bottomBox);
     }
     
+    /**
+     * Get the buy button
+     * @return buyButton, the buy button
+     */
     public Button getBuyButton() {
         return buyButton;
     }
     
+    /**
+     * Get the sell button
+     * @return sellButton, the sell button
+     */
     public Button getSellButton() {
         return sellButton;
     }
     
+    /**
+     * Updates the info in the pane
+     */
     public void updateInfo() {
         Player player = Player.getInstance();
         Ship ship = player.getShip();

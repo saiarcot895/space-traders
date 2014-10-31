@@ -1,45 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hyenas.UI;
 
 import hyenas.Models.Player;
 import hyenas.Models.Ship;
-import javafx.fxml.FXML;
+import hyenas.UI.AlertPane.AlertPaneTitleLabel;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 /**
- *
+ * For displaying info 
  * @author Alex
  */
 public class PlayerInfoPane extends AnchorPane {
-    @FXML
+    
     private Label creditsLabel;
-    
-    @FXML
     private Label fuelLabel;
-    
-    @FXML
     private Label healthLabel;
     
     private final int PLAYER_INFO_PANE_WIDTH = 300;
     private final int PLAYER_INFO_PANE_HEIGHT = 60;
     
+    /**
+     * Initializer for PlayerInfoPane
+     */
     public PlayerInfoPane() {
         setPrefSize(PLAYER_INFO_PANE_WIDTH, PLAYER_INFO_PANE_HEIGHT);
         
-        creditsLabel = new Label();
+        creditsLabel = new AlertPaneTitleLabel();
         AnchorPane.setTopAnchor(creditsLabel, 10.0);
         AnchorPane.setLeftAnchor(creditsLabel, 0.0);
         
-        healthLabel = new Label();
+        healthLabel = new AlertPaneTitleLabel();
         AnchorPane.setLeftAnchor(healthLabel, 0.0);
         AnchorPane.setTopAnchor(healthLabel, 30.0);
         
-        fuelLabel = new Label();
+        fuelLabel = new AlertPaneTitleLabel();
         AnchorPane.setTopAnchor(fuelLabel, 50.0);
         AnchorPane.setLeftAnchor(fuelLabel, 0.0);
         
@@ -48,13 +42,18 @@ public class PlayerInfoPane extends AnchorPane {
         getChildren().addAll(creditsLabel, healthLabel, fuelLabel);
     }
     
+    /**
+     * Updates the info in the pane
+     */
     public void updateInfo() {
         Player player = Player.getInstance();
         Ship ship = player.getShip();
         
         String credits = "Credits: " + player.getCredits();
-        String health = "Health: " + Math.floor(ship.getHealth()) + "/" + Math.floor(ship.getMaxHealth());
-        String fuel = "Fuel: " + Math.floor(ship.getFuel()) + "/" + Math.floor(ship.getMaxFuel());
+        String health = "Health: " + Math.floor(ship.getHealth()) + "/" +
+                Math.floor(ship.getMaxHealth());
+        String fuel = "Fuel: " + Math.floor(ship.getFuel()) + "/" +
+                Math.floor(ship.getMaxFuel());
         
         creditsLabel.setText(credits);
         healthLabel.setText(health);

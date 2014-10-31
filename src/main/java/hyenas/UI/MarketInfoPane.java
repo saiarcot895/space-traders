@@ -88,14 +88,25 @@ public class MarketInfoPane extends BorderPane {
         
     }
     
+    /**
+     * Get the buy button
+     * @return buyButton, the buy button
+     */
     public Button getBuyButton() {
         return buyButton;
     }
     
+    /**
+     * Get the sell button
+     * @return sellButton, the sell button
+     */
     public Button getSellButton() {
         return sellButton;
     }
     
+    /**
+     * Updates the info in the pane
+     */
     public void updateInfo() {
         Player player = Player.getInstance();
         Planet planet = player.getTradingPlanet();

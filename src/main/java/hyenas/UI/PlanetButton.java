@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hyenas.UI;
 
 import hyenas.Models.Planet;
@@ -13,11 +8,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- *
+ * Planet button for displaying planet
  * @author Brian
  */
 public class PlanetButton extends Button {
 
+    /**
+     * Sets up the button for a planet
+     * @param planet, the planet to set up for
+     */
     public void setupForPlanet(Planet planet) {
         Image image = new Image("hyenas/images/Planet.png");
         ImageView planetImageView = new ImageView(image);
@@ -35,13 +34,17 @@ public class PlanetButton extends Button {
         getStyleClass().add("planet");
     }
 
+    /**
+     * Gets the coordinated of the planet
+     * @retun coordinates, the coordinates of the planet
+     */
     private Point getCoordinates() {
         Random rand = new Random();
         int x = rand.nextInt(1160);
         int y = rand.nextInt(680);
 
-//        TODO: make sure coordinates don't overlap
-//        TODO: make sure no planet is half off-screen
+        // TODO: make sure coordinates don't overlap
+        // TODO: make sure no planet is half off-screen
 
         Point coordinates = new Point(x, y);
         return coordinates;

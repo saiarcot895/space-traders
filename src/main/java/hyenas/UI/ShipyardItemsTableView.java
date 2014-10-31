@@ -12,12 +12,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
- *
+ * Table for displaying buy items in shipyard.
  * @author Alex
  */
 public class ShipyardItemsTableView extends TableView {
     private ShipyardTableType type;
     
+    /**
+     * A ShipyardTableType, used to distinguish between what to populate.
+     */
     public enum ShipyardTableType {
         SHIPS,
         WEAPONS,
@@ -25,12 +28,20 @@ public class ShipyardItemsTableView extends TableView {
         GADGETS,
     }
     
+    /**
+     * Initializes a table.
+     * @param type, the table type
+     */
     public ShipyardItemsTableView(ShipyardTableType type) {
         setupTableForType(type);
         this.type = type;
         setEditable(false);
     }
     
+    /**
+     * Sets up the table for a given table type
+     * @param type, the table type
+     */
     public void setupTableForType(ShipyardTableType type) {
         switch (type) {
             case SHIPS: {
