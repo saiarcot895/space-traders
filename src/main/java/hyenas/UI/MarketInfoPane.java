@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hyenas.UI;
 
 import hyenas.Models.Planet;
 import hyenas.Models.Player;
 import hyenas.Models.Ship;
+import hyenas.UI.AlertPane.AlertPaneMessageLabel;
+import hyenas.UI.AlertPane.AlertPaneTitleLabel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -32,6 +29,9 @@ public class MarketInfoPane extends BorderPane {
     private Button buyButton;
     private Button sellButton;
     
+    /**
+     * Initializes a MarketInfoPane, sets up ui elements
+     */
     public MarketInfoPane() {
         getStyleClass().add("market-info-pane");
         setPrefWidth(300.0);
@@ -39,40 +39,26 @@ public class MarketInfoPane extends BorderPane {
         setPadding(new Insets(10));
         
         VBox leftBox = new VBox();
-        Label planetName = new Label("Planet:");
-        planetName.getStyleClass().add("alertPaneTitleLabel");
-        Label planetType = new Label("Type:");
-        planetType.getStyleClass().add("alertPaneTitleLabel");
-        Label techLevel = new Label("Tech Level:");
-        techLevel.getStyleClass().add("alertPaneTitleLabel");
-        Label planetEvent = new Label("Event:");
-        planetEvent.getStyleClass().add("alertPaneTitleLabel");
-        Label credits = new Label("Credits:");
-        credits.getStyleClass().add("alertPaneTitleLabel");
-        Label fuel = new Label("Fuel:");
-        fuel.getStyleClass().add("alertPaneTitleLabel");
-        Label freeCargo = new Label("Free Cargo:");
-        freeCargo.getStyleClass().add("alertPaneTitleLabel");
+        Label planetName = new AlertPaneTitleLabel("Planet:");
+        Label planetType = new AlertPaneTitleLabel("Type:");
+        Label techLevel = new AlertPaneTitleLabel("Tech Level:");
+        Label planetEvent = new AlertPaneTitleLabel("Event:");
+        Label credits = new AlertPaneTitleLabel("Credits:");
+        Label fuel = new AlertPaneTitleLabel("Fuel:");
+        Label freeCargo = new AlertPaneTitleLabel("Free Cargo:");
         
         leftBox.getChildren().addAll(planetName, planetType, techLevel,
                 planetEvent, credits, fuel, freeCargo);
         
         
         VBox rightBox = new VBox();
-        planetNameLabel = new Label("[Name]");
-        planetNameLabel.getStyleClass().add("alertPaneMessageLabel");
-        planetTypeLabel = new Label("[Type]");
-        planetTypeLabel.getStyleClass().add("alertPaneMessageLabel");
-        techLevelLabel = new Label("[Tech Level]");
-        techLevelLabel.getStyleClass().add("alertPaneMessageLabel");
-        planetEventLabel = new Label("[Event]");
-        planetEventLabel.getStyleClass().add("alertPaneMessageLabel");
-        creditsLabel = new Label("-1");
-        creditsLabel.getStyleClass().add("alertPaneMessageLabel");
-        fuelLabel = new Label("-1");
-        fuelLabel.getStyleClass().add("alertPaneMessageLabel");
-        freeCargoLabel = new Label("-1");
-        freeCargoLabel.getStyleClass().add("alertPaneMessageLabel");
+        planetNameLabel = new AlertPaneMessageLabel("[Name]");
+        planetTypeLabel = new AlertPaneMessageLabel("[Type]");
+        techLevelLabel = new AlertPaneMessageLabel("[Tech Level]");
+        planetEventLabel = new AlertPaneMessageLabel("[Event]");
+        creditsLabel = new AlertPaneMessageLabel("-1");
+        fuelLabel = new AlertPaneMessageLabel("-1");
+        freeCargoLabel = new AlertPaneMessageLabel("-1");
         rightBox.getChildren().addAll(planetNameLabel, planetTypeLabel, 
                 techLevelLabel, planetEventLabel, creditsLabel, fuelLabel,
                 freeCargoLabel);
@@ -82,17 +68,11 @@ public class MarketInfoPane extends BorderPane {
         BorderPane bottomBox = new BorderPane();
         bottomBox.setPrefWidth(300.0);
         bottomBox.setPrefHeight(85.0);
-        buyButton = new Button("Buy");
+        buyButton = new StandardButton("Buy");
         buyButton.setDisable(true);
-        buyButton.getStyleClass().add("standard-button");
-        buyButton.setPrefHeight(37.0);
-        buyButton.setPrefWidth(143.0);
         
-        sellButton = new Button("Sell");
+        sellButton = new StandardButton("Sell");
         sellButton.setDisable(true);
-        sellButton.getStyleClass().add("standard-button");
-        sellButton.setPrefHeight(37.0);
-        sellButton.setPrefWidth(143.0);
         
         BorderPane buyPane = new BorderPane();
         buyPane.setCenter(buyButton);

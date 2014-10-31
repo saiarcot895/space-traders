@@ -77,8 +77,6 @@ public class MapUIController implements Initializable {
     
     private PlayerTable playerTable;
     
-    private HoverPane systemNamePane;
-    
     private final int INFO_PANE_SIZE = 200;
 
     @Override
@@ -88,7 +86,7 @@ public class MapUIController implements Initializable {
         scrollContentPane.setStyle("-fx-background-color: transparent;");
         ssTable = HyenasLoader.getInstance().getConnectionManager()
                 .getSolarSystemTable();
-        systemNamePane = new HoverPane();
+        
         Map<String, SolarSystem> solarSystems = Galaxy.getInstance().getSolarSystems();
         Set<String> solarSystemIDs = solarSystems.keySet();
         solarSystemIDs.stream().map((solarSystemID) -> {

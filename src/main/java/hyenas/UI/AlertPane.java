@@ -1,5 +1,6 @@
 package hyenas.UI;
 
+import hyenas.UI.StandardButton.StandardButtonType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -30,20 +31,58 @@ public class AlertPane extends BorderPane {
     
     private final int ALERT_PANE_WIDTH = 300;
     private final int ALERT_PANE_HEIGHT = 135;
-    private final double ALERT_PANE_BUTTON_WIDTH = 104.0;
-    private final double ALERT_PANE_BUTTON_HEIGHT = 27.0;
     
     private final double PADDING = 10.0;
     
     /**
      * A AlertPaneType, used to distinguish between alert pane types
-     *
-     * @author Alex
      */
     public enum AlertPaneType {
         OneButton,
         TwoButtons,
         Loading
+    }
+    
+    /**
+     * Title label for Alert Pane
+     */
+    public static class AlertPaneTitleLabel extends Label {
+        /**
+         * Initializes an AlertPaneTitleLabel
+         */
+        public AlertPaneTitleLabel() {
+            this("");
+        }
+        
+        /**
+         * Initializes an AlertPaneTitleLabel
+         * @param text, the default text to set
+         */
+        public AlertPaneTitleLabel(String text) {
+            super(text);
+            getStyleClass().add("alertPaneTitleLabel");
+        }
+    }
+    
+    /**
+     * Message label for Alert Pane
+     */
+    public static class AlertPaneMessageLabel extends Label {
+        /**
+         * Initializes an AlertPaneMessageLabel
+         */
+        public AlertPaneMessageLabel() {
+            this("");
+        }
+        
+        /**
+         * Initializes an AlertPaneMessageLabel
+         * @param text, the default text to set
+         */
+        public AlertPaneMessageLabel(String text) {
+            super(text);
+            getStyleClass().add("alertPaneMessageLabel");
+        }
     }
     
     /**
@@ -55,41 +94,33 @@ public class AlertPane extends BorderPane {
         setPrefSize(ALERT_PANE_WIDTH, ALERT_PANE_HEIGHT);
         getStyleClass().add("alertPane");
 
-        titleLabel = new Label();
+        titleLabel = new AlertPaneTitleLabel();
         titleLabel.setWrapText(true);
-        titleLabel.getStyleClass().add("alertPaneTitleLabel");
         titleLabel.setStyle("-fx-padding: 5 0 0 0;");
         BorderPane titlePane = new BorderPane();
         titlePane.setCenter(titleLabel);
         titlePane.setPrefHeight(10.0);
         setTop(titlePane);
         
-        messageLabel = new Label();
+        messageLabel = new AlertPaneMessageLabel();
         messageLabel.setWrapText(true);
-        messageLabel.getStyleClass().add("alertPaneMessageLabel");
         messageLabel.setPrefHeight(88.0);
         messageLabel.setStyle("-fx-padding: 0 10 0 10;");
         setCenter(messageLabel);
         
         if (type == AlertPaneType.OneButton) {
-            closeButton = new Button("Close");
-            closeButton.getStyleClass().add("standard-button");
-            closeButton.setPrefSize(ALERT_PANE_BUTTON_WIDTH, ALERT_PANE_BUTTON_HEIGHT);
+            closeButton = new StandardButton("Close", StandardButtonType.Small);
             
             BorderPane buttonPane = new BorderPane();
             buttonPane.setCenter(closeButton);
             buttonPane.setPrefHeight(35.0);
             setBottom(buttonPane);
         } else if (type == AlertPaneType.TwoButtons) {
-            actionButton = new Button("Action");
-            actionButton.getStyleClass().add("standard-button");
-            actionButton.setPrefSize(ALERT_PANE_BUTTON_WIDTH, ALERT_PANE_BUTTON_HEIGHT);
+            actionButton = new StandardButton("Action", StandardButtonType.Small);
             AnchorPane.setBottomAnchor(actionButton, 5.0);
             AnchorPane.setLeftAnchor(actionButton, 41.0);
             
-            closeButton = new Button("Close");
-            closeButton.getStyleClass().add("standard-button");
-            closeButton.setPrefSize(ALERT_PANE_BUTTON_WIDTH, ALERT_PANE_BUTTON_HEIGHT);
+            closeButton = new StandardButton("Close", StandardButtonType.Small);
             AnchorPane.setBottomAnchor(closeButton, 5.0);
             AnchorPane.setRightAnchor(closeButton, 41.0);
             

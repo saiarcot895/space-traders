@@ -9,6 +9,7 @@ import hyenas.UI.AlertPane;
 import hyenas.UI.AlertPane.AlertPaneType;
 import hyenas.UI.MarketInfoPane;
 import hyenas.UI.MarketTableColumn;
+import hyenas.UI.StandardButton;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -79,9 +80,7 @@ public class MarketController implements Initializable {
             setLeft(fuelCostLabel);
 
             BorderPane fuelButtonPane = new BorderPane();
-            fuelButton = new Button("Buy");
-            fuelButton.setPrefWidth(120.0);
-            fuelButton.getStyleClass().add("standard-button");
+            fuelButton = new StandardButton("Buy", StandardButton.StandardButtonType.Medium);
             EventHandler<ActionEvent> buyFuelEvent = (ActionEvent e) -> {
                 buyFuel(e);
             };
