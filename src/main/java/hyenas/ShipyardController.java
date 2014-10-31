@@ -248,8 +248,8 @@ public class ShipyardController implements Initializable {
                     ship.getWeapons().add(item);
                     Player.getInstance().setCredits(Player.getInstance().getCredits()-item.getPrice());
                     
-                    HyenasLoader.getInstance().getConnectionManager().getWeaponsTable().clearTable();
-                    HyenasLoader.getInstance().getConnectionManager().getWeaponsTable().populateTable(ship);
+                    HyenasLoader.getInstance().getConnectionManager()
+                            .getWeaponsTable().addRow(item, ship);
                 }
                 else    {
                     displayAlert("Not Enough Credits", "You don't have enough credits to afford that.");

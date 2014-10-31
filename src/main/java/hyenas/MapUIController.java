@@ -154,25 +154,20 @@ public class MapUIController implements Initializable {
 
             for (int i = 0; i < solarSystemValues.size(); i++) {
                 SolarSystem ss = solarSystemValues.get(i);
-                ssTable.populateTable(ss.getSystemName(), ss.getX(), ss.getY(), i);
+                ssTable.addRow(ss, null);
                 ss.getPlanets().stream().forEach((planet) -> {
-                    planetTable.populateTable(planet, ss);
+                    planetTable.addRow(planet, ss);
                 });
             }
             
-            try {
-                HyenasLoader.getInstance().getConnectionManager()
-                        .getPlayerTable().updateLocation(Player.getInstance()
-                                .getCurrentSystem());
-            } catch (SQLException ex) {
-                Logger.getLogger(MapUIController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            HyenasLoader.getInstance().getConnectionManager().getPlayerTable()
+                    .update(player, null);
             
             HyenasLoader.getInstance().getConnectionManager()
                     .commitTransaction();
         }
         
-        if (distances.size() == 0) {
+        if (distances.isEmpty()) {
             Random random = new Random();
             for (int i = 0; i < solarSystemValues.size(); i++) {
                 SolarSystem solarSystem1 = solarSystemValues.get(i);
@@ -343,13 +338,12 @@ public class MapUIController implements Initializable {
                 
                 anchor.getChildren().remove(resultPane);
                 
+                Player player = Player.getInstance();
                 playerTable = HyenasLoader.getInstance().getConnectionManager()
                         .getPlayerTable();
-                try {
-                    playerTable.updateLocation(currentJourney.getDestinationSolarSystem());
-                } catch (SQLException ex) {
-                    Logger.getLogger(MapUIController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                playerTable.update(player, null);
+                HyenasLoader.getInstance().getConnectionManager().getShipTable()
+                        .update(player.getShip(), player);
             };
             resultPane.getCloseButton().setOnAction(closeAction);
             playerInfoPane.updateInfo();
@@ -401,12 +395,12 @@ public class MapUIController implements Initializable {
                 
                 anchor.getChildren().remove(resultPane);
                 
-                playerTable = HyenasLoader.getInstance().getConnectionManager().getPlayerTable();
-                try {
-                    playerTable.updateLocation(currentJourney.getDestinationSolarSystem());
-                } catch (SQLException ex) {
-                    Logger.getLogger(MapUIController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                Player player = Player.getInstance();
+                playerTable = HyenasLoader.getInstance().getConnectionManager()
+                        .getPlayerTable();
+                playerTable.update(player, null);
+                HyenasLoader.getInstance().getConnectionManager().getShipTable()
+                        .update(player.getShip(), player);
             };
             resultPane.getCloseButton().setOnAction(closeAction);
             playerInfoPane.updateInfo();
@@ -509,11 +503,9 @@ public class MapUIController implements Initializable {
 
                 playerTable = HyenasLoader.getInstance().getConnectionManager()
                         .getPlayerTable();
-                try {
-                    playerTable.updateLocation(solarSystem);
-                } catch (SQLException ex) {
-                    Logger.getLogger(MapUIController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                playerTable.update(player, null);
+                HyenasLoader.getInstance().getConnectionManager().getShipTable()
+                        .update(player.getShip(), player);
             }
 
         // Messing around with animations, save for later
