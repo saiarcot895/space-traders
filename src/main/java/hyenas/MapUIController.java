@@ -185,7 +185,7 @@ public class MapUIController implements Initializable {
                             continue;
                         }
                     } else {
-                        if (random.nextDouble() >= 0.15) {
+                        if (distance >= 250) {
                             continue;
                         }
                     }
