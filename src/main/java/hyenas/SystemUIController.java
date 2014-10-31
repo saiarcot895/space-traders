@@ -176,18 +176,31 @@ public class SystemUIController implements Initializable {
         }, delay, period);
     }
 
+    /**
+     * Sets current planet button
+     * @param button, the current planet button
+     * @param planet, the current planet
+     */
     private void setCurrentPlanetButton(Button button, Planet planet)  {
         currentPlanetButton.getStyleClass().remove("currentPlanet");
         button.getStyleClass().add("currentPlanet");
         currentPlanetButton = button;
     }
-
+    
+    /**
+     * Changes screens to marketplace
+     * @param e, unused
+     */
     public void goToMarketplace(ActionEvent e) {
         HyenasLoader.getInstance().goToMarketplace();
         animationTimer.cancel();
         animationTimer.purge();
     }
-
+    
+    /**
+     * Changes screens to map ui
+     * @param e, unused
+     */
     public void goBack(ActionEvent e) {
         HyenasLoader.getInstance().goToMapScreen();
         animationTimer.cancel();

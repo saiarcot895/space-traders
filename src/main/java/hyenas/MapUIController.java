@@ -46,7 +46,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 /**
- * FXML Controller class
+ * FXML Controller class for map of solar systems
  *
  * @author Abhishek
  */
@@ -81,11 +81,6 @@ public class MapUIController implements Initializable {
     
     private final int INFO_PANE_SIZE = 200;
 
-    /**
-     * Initializes the controller class.
-     * @param url
-     * @param rb
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Pane scrollContentPane = new Pane();
@@ -270,24 +265,6 @@ public class MapUIController implements Initializable {
         Dimension screenSize = UIHelper.getScreenSize();
         scrollPane.setPrefSize(screenSize.getWidth(), screenSize.getHeight());
         scrollPane.setContent(scrollContentPane);
-
-
-
-//        scrollPane.setOnScroll(
-//            new EventHandler<ScrollEvent>() {
-//                @Override
-//                public void handle(ScrollEvent event) {
-//                    double zoomFactor = 1.05;
-//                    double deltaY = event.getDeltaY();
-//                    if (deltaY < 0) {
-//                        zoomFactor = 2.0 - zoomFactor;
-//                    }
-//                    System.out.println(zoomFactor);
-//                    scrollContentPane.setScaleX(scrollContentPane.getScaleX() * zoomFactor);
-//                    scrollContentPane.setScaleY(scrollContentPane.getScaleY() * zoomFactor);
-//                    event.consume();
-//                }
-//            });
         playerInfoPane = new PlayerInfoPane();
         AnchorPane.setBottomAnchor(playerInfoPane, 0.0);
         AnchorPane.setLeftAnchor(playerInfoPane, 10.0);
@@ -295,6 +272,10 @@ public class MapUIController implements Initializable {
         anchor.getChildren().addAll(scrollPane, playerInfoPane);
     }
     
+    /**
+     * Manages what happens when a random event occurs
+     * @param eventType, the type of random event
+     */
     private void handleRandomEvent(RandomEventType eventType) {
         scrollPane.setInfoPane(null); // Remove system info pane
         AlertPane eventPane = new AlertPane(AlertPaneType.TwoButtons);
@@ -440,7 +421,11 @@ public class MapUIController implements Initializable {
         
         Galaxy.getInstance().setLocationsSet(true);
     }
-
+    
+    /**
+     * Randomly determines whether a random event occured.
+     * @return boolean, whether a random event occurred
+     */
     private boolean randomEventOccurred() {
         Random rand = new Random();
         int roll = rand.nextInt(5);
@@ -478,6 +463,11 @@ public class MapUIController implements Initializable {
         return false;
     }
     
+    /**
+     * Completes a journey by moving the player,deducting fuel, and setting the
+     * current system and planet
+     * @param journey, the journey the player wishes to make
+     */
     private void makeJourney(Journey journey) {
         Player player = Player.getInstance();
         Ship ship = player.getShip();
@@ -496,6 +486,12 @@ public class MapUIController implements Initializable {
         HyenasLoader.getInstance().goToSystemScreen();
     }
     
+    /**
+     * Handles a player traveling to a system and checks for random events
+     * @param solarSystem, the system being traveled to
+     * @param solarSystemButton, the corresponding button of the system being
+     * traveled to
+     */
     private void travelToSystem(SolarSystem solarSystem, Button solarSystemButton) {
         Player player = Player.getInstance();
         SolarSystem currentSystem = player.getCurrentSystem();
@@ -561,9 +557,10 @@ public class MapUIController implements Initializable {
     }
 
     /**
-     * Go to the settings screen.
+     * Go to the home screen.
      */
     public void goToHome() {
+        Player.getInstance().setState(false);
         HyenasLoader.getInstance().goToHomeScreen();
     }
 
@@ -639,15 +636,6 @@ public class MapUIController implements Initializable {
         }
 
         return -1;
-    }
-
-    /**
-     * Exit the game.
-     */
-    public void quitGame() {
-        // TODO: Save game before quitting. (M7)
-        Player.getInstance().setState(false); // They are not playing the game anymore.
-        HyenasLoader.getInstance().goToHomeScreen();
     }
 
 }

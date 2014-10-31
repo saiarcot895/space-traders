@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hyenas;
 
 import hyenas.Models.Gadget;
@@ -42,7 +37,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 /**
- * For buying ship
+ * FXML controller for buying and upgrading ships
  * @author Alex
  */
 public class ShipyardController implements Initializable {

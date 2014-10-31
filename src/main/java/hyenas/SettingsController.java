@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package hyenas;
 
 import hyenas.Models.Player;
@@ -13,20 +7,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 
 /**
- * FXML Controller class
+ * FXML Controller class for Settings
  *
  * @author saikrishna
  */
 public class SettingsController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-
+    
+    /**
+     * Cancels settings changes, returns to previous screen
+     * @param e, unused
+     */
     public void onCancelClicked(ActionEvent e) {
         if (Player.getInstance().getState() == false) {
             HyenasLoader.getInstance().goToHomeScreen();
@@ -35,7 +30,11 @@ public class SettingsController implements Initializable {
             HyenasLoader.getInstance().goToMapScreen();
         }
     }
-
+    
+    /**
+     * Saves settings changes, returns to previous screen
+     * @param e, unused
+     */
     public void onSaveClicked(ActionEvent e) {
         if (Player.getInstance().getState() == false) {
             HyenasLoader.getInstance().goToHomeScreen();

@@ -30,6 +30,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+/**
+ * FXML Controller class for marketplace
+ * @author Alex
+ */
 public class MarketController implements Initializable {
     private int[] wares;
     private int[] tempWare;
@@ -181,6 +185,9 @@ public class MarketController implements Initializable {
         BorderPane.setMargin(rightBox, new Insets(50, 0, 0, 0));
     }
     
+    /**
+     * Updates player table in database
+     */
     private void updatePlayerTable() {
         ObservableList<Ware> currentItems = playerTable.getItems();
         currentItems.removeAll(currentItems);
@@ -192,6 +199,9 @@ public class MarketController implements Initializable {
         playerTable.setItems(playerTableData);
     }
     
+    /**
+     * Updates planet table in database
+     */
     private void updatePlanetTable() {
         ObservableList<Ware> currentItems = planetTable.getItems();
         currentItems.removeAll(currentItems);
@@ -201,6 +211,10 @@ public class MarketController implements Initializable {
         planetTable.setItems(planetTableData);
     }
 
+    /**
+     * Handles buying of an item, checks for edge cases
+     * @param e, unused
+     */
     public void buyItem(ActionEvent e) {
         removeAlert();
         Ware ware = (Ware) planetTable.getSelectionModel().getSelectedItem();
@@ -232,7 +246,11 @@ public class MarketController implements Initializable {
             displayAlert("No Items Remaining", "The planet has run out of this item.");
         }
     }
-
+    
+    /**
+     * Handles selling of an item
+     * @param e, unused
+     */
     public void sellItem(ActionEvent e) {
         removeAlert();
         Ware ware = (Ware) playerTable.getSelectionModel().getSelectedItem();
@@ -262,6 +280,11 @@ public class MarketController implements Initializable {
         }
     }
     
+    /**
+     * Displays an alert
+     * @param title, the alert title
+     * @param message, the alert message
+     */
     private void displayAlert(String title, String message) {
         AlertPane alertPane = new AlertPane(AlertPaneType.OneButton);
         alertPane.setTitleText(title);
@@ -273,6 +296,11 @@ public class MarketController implements Initializable {
         anchorPane.getChildren().add(alertPane);
     }
     
+    /**
+     * Displays an alert
+     * @param title, the alert title
+     * @param message, the alert message
+     */
     private void removeAlert() {
         List children = anchorPane.getChildren();
         if (children.size() > 1) {
@@ -280,6 +308,10 @@ public class MarketController implements Initializable {
         }
     }
     
+    /**
+     * Sets the selected ware to sell
+     * @param ware, the ware to sell
+     */
     private void setSelectedSellWare(Ware ware) {
         if (ware == null) {
             Button sellButton = infoPane.getSellButton();
@@ -293,6 +325,10 @@ public class MarketController implements Initializable {
         }
     }
     
+    /**
+     * Sets the selected ware to buy
+     * @param ware, the ware to buy
+     */
     private void setSelectedBuyWare(Ware ware) {
         if (ware == null) {
             Button buyButton = infoPane.getBuyButton();
@@ -308,6 +344,10 @@ public class MarketController implements Initializable {
     
     private final double FUEL_INCREMENT = 10.0;
     
+    /**
+     * Handles buying fuel
+     * @param e, unused
+     */
     public void buyFuel(ActionEvent e) {
         Player player = Player.getInstance();
         Ship ship = player.getShip();
@@ -350,7 +390,11 @@ public class MarketController implements Initializable {
         // fuelLeft.setText(String.format("%.0f", fuelCount));
         // currentCredits.setText("" + creditCount);
     }
-
+    
+    /**
+     * Changes to system screen
+     * @param e, unused
+     */
     public void goBack(ActionEvent e) {
         HyenasLoader.getInstance().goToSystemScreen();
     }
