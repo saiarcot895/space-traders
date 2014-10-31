@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ShipTable implements Table {
+public class ShipTable implements Table<Ship, Player> {
 
     private final Connection conn;
     
@@ -38,15 +38,15 @@ public class ShipTable implements Table {
         }
     }
 
-    public void populateTable(Player player) {
+    @Override
+    public void addRow(Ship ship, Player player) {
         try {
-            player = Player.getInstance();
             String query = "INSERT INTO Ship "
                     + "(Type, Fuel, Health, Player) VALUES(?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, player.getShip().getName());
-            stmt.setDouble(2, player.getShip().getFuel());
-            stmt.setDouble(3, player.getShip().getHealth());
+            stmt.setString(1, ship.getName());
+            stmt.setDouble(2, ship.getFuel());
+            stmt.setDouble(3, ship.getHealth());
             
             PreparedStatement sysStmt = conn.prepareStatement(
                     "SELECT ID FROM Players WHERE Name = ?");
@@ -57,6 +57,56 @@ public class ShipTable implements Table {
             }
             
             stmt.setInt(4, shipIDResultSet.getInt(1));
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(ShipTable.class.getName()).
+                    log(Level.SEVERE, null, e);
+        }
+    }
+
+    @Override
+    public void update(Ship ship, Player player) {
+        try {
+            String query = "UPDATE Ship "
+                    + "SET Type = ?, Fuel = ?, Health = ? WHERE Player = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, ship.getName());
+            stmt.setDouble(2, ship.getFuel());
+            stmt.setDouble(3, ship.getHealth());
+            
+            PreparedStatement sysStmt = conn.prepareStatement(
+                    "SELECT ID FROM Players WHERE Name = ?");
+            sysStmt.setString(1, player.getName());
+            ResultSet shipIDResultSet = sysStmt.executeQuery();
+            if (!shipIDResultSet.next()) {
+                throw new IllegalArgumentException();
+            }
+            
+            stmt.setInt(4, shipIDResultSet.getInt(1));
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(ShipTable.class.getName()).
+                    log(Level.SEVERE, null, e);
+        }
+    }
+
+    @Override
+    public void remove(Ship ship, Player player) {
+        try {
+            String query = "DELETE FROM Ship "
+                    + "WHERE Type = ? AND Player = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, ship.getName());
+            
+            PreparedStatement sysStmt = conn.prepareStatement(
+                    "SELECT ID FROM Players WHERE Name = ?");
+            sysStmt.setString(1, player.getName());
+            ResultSet shipIDResultSet = sysStmt.executeQuery();
+            if (!shipIDResultSet.next()) {
+                throw new IllegalArgumentException();
+            }
+            
+            stmt.setInt(2, shipIDResultSet.getInt(1));
             stmt.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(ShipTable.class.getName()).
@@ -84,54 +134,6 @@ public class ShipTable implements Table {
             Logger.getLogger(ShipTable.class.getName()).
                     log(Level.SEVERE, null, e);
         }
-    }
-    
-    /**
-     * Update ship type
-     * @param type
-     * @throws SQLException 
-     */
-    public void updateShipType(String type) throws SQLException {
-        Statement stmt = null;
-        stmt = conn.createStatement();
-        String query = "UPDATE SHIP SET TYPE = " + type;
-        stmt.executeQuery(query);
-    }
-    
-    /**
-     * Update ship health
-     * @param health
-     * @throws SQLException 
-     */
-    public void updateShipHealth(double health) throws SQLException {
-        Statement stmt = null;
-        stmt = conn.createStatement();
-        String query = "UPDATE SHIP SET HEALTH = " + health;
-        stmt.executeQuery(query);
-    }
-    
-    /**
-     * Update ship fuel
-     * @param fuel
-     * @throws SQLException 
-     */
-    public void updateShipFuel(double fuel) throws SQLException {
-        Statement stmt = null;
-        stmt = conn.createStatement();
-        String query = "UPDATE SHIP SET FUEL = " + fuel;
-        stmt.executeQuery(query);
-    }
-    
-    /**
-     * Update ship shields
-     * @param shield
-     * @throws SQLException 
-     */
-    public void updateShield(int shield) throws SQLException {
-        Statement stmt = null;
-        stmt = conn.createStatement();
-        String query = "UPDATE SHIP SET SHIELD = " + shield;
-        stmt.executeQuery(query);
     }
     
     @Override

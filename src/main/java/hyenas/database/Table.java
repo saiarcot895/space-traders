@@ -4,12 +4,18 @@ package hyenas.database;
  *
  * @author Abhishek
  */
-public interface Table {
+public interface Table<K, P> {
     
     /**
      * Create a table using SQLite statement.
      */
     public void createTable();
+    
+    public void addRow(K item, P parent);
+    
+    public void update(K item, P parent);
+    
+    public void remove(K item, P parent);
     
     /**
      * Load table on continue.

@@ -1,5 +1,6 @@
 package hyenas.database;
 
+import hyenas.Models.Gadget;
 import hyenas.Models.Ship;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +9,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class GadgetsTable implements Table {
+public class GadgetsTable implements Table<Gadget, Ship> {
 
     private final Connection conn;
 
@@ -41,7 +42,7 @@ public class GadgetsTable implements Table {
         }
     }
 
-    public void populateTable(Ship ship) {
+    public void addRow(Gadget item, Ship parent) {
         try {
             String info = 
             "INSERT INTO Gadgets (Name, Property, GID) "
@@ -54,6 +55,16 @@ public class GadgetsTable implements Table {
             Logger.getLogger(GadgetsTable.class.getName()).
                     log(Level.SEVERE, null, e);
         }
+    }
+    
+    @Override
+    public void update(Gadget item, Ship parent) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void remove(Gadget item, Ship parent) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     @Override
