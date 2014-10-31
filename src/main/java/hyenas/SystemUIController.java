@@ -1,21 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hyenas;
 
 import hyenas.Models.Player;
 import hyenas.Models.Planet;
 import hyenas.Models.SolarSystem;
+import hyenas.UI.AlertPane;
 import hyenas.UI.UIHelper;
 import hyenas.UI.PlanetButton;
 import hyenas.UI.HoverPane;
 import hyenas.UI.PlayerInfoPane;
 import hyenas.UI.SolarSystemImageView;
 import java.awt.Dimension;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +17,6 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -31,7 +24,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -40,11 +32,14 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.StrokeType;
 
 /**
- * FXML Controller class
+ * FXML Controller class for the system ui
  *
  * @author Brian
  */
 public class SystemUIController implements Initializable {
+    
+    @FXML
+    private AnchorPane anchorPane;
     
     @FXML
     private VBox boxPane;
@@ -206,8 +201,26 @@ public class SystemUIController implements Initializable {
     }
     
     public void goToShipyard(ActionEvent e) {
-        HyenasLoader.getInstance().goToShipyard();
-        animationTimer.cancel();
-        animationTimer.purge();
+        Player player = Player.getInstance();
+        Planet planet = player.getTradingPlanet();
+        
+        if (planet.hasShipyard()) {
+            HyenasLoader.getInstance().goToShipyard();
+            animationTimer.cancel();
+            animationTimer.purge();
+        } else {
+            displayAlert("Insufficient Tech Level", "Your planet does not have a high enough tech level for a sipyard.");
+        }
+    }
+    
+    private void displayAlert(String title, String message) {
+        AlertPane alertPane = new AlertPane(AlertPane.AlertPaneType.OneButton);
+        alertPane.setTitleText(title);
+        alertPane.setMessageText(message);
+        EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
+            anchorPane.getChildren().remove(alertPane);
+        };
+        alertPane.getCloseButton().setOnAction(closeAction);
+        anchorPane.getChildren().add(alertPane);
     }
 }

@@ -63,7 +63,7 @@ public class MarketController implements Initializable {
             getStyleClass().add("alertPane");
             
             int fuelCost = planet.getFuelCost();
-            boolean canSellFuel = planet.canSellFuel();
+            boolean canSellFuel = planet.hasShipyard();
             
             if (canSellFuel) {
                 fuelCostLabel = new Label("Fuel Cost: " + fuelCost);

@@ -119,7 +119,8 @@ public class ShipInfoPane extends BorderPane {
         shipNameLabel.setText(ship.getName());
         shipCargoLabel.setText(ship.getCargo().size() + 
                 "/" + ship.getCargoSlots());
-        shipFuelLabel.setText(ship.getFuel() + "/" + ship.getMaxFuel());
+        shipFuelLabel.setText(String.format("%.0f", ship.getFuel()) + "/" +
+                String.format("%.0f", ship.getMaxFuel()));
         shipWeaponsLabel.setText(ship.getWeapons().size() + "/" +
                 ship.getWeaponSlots());
         shipShieldsLabel.setText(ship.getShields().size() + "/" +

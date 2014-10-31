@@ -13,12 +13,20 @@ public class Weapon {
     private int price;
     private int damage;
     
+    /**
+     * A WeaponType, used to distinguish between the types of weapon
+     */
     public enum WeaponType {
         PULSE,
         BEAM,
         MILITARY,
     }
     
+    /**
+     * Initializes an instance of Weapon
+     * Sets default values based on the weapon type
+     * @param type, the type of weapon
+     */
     public Weapon(WeaponType type) {
         switch (type) {
             case PULSE:

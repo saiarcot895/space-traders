@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package hyenas;
 
 import hyenas.UI.UIHelper;
@@ -44,12 +38,6 @@ public class MainWindowController implements Initializable {
     @FXML
     private Button closeButton;
 
-
-    /**
-     * Initializes the controller class.
-     * @param url
-     * @param rb
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Font titleFont = Font.loadFont(HyenasLoader.class.getResource("/hyenas/fonts/GALACTICVANGUARDIANNCV.ttf").toExternalForm(), 70);
