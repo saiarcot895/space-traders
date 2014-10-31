@@ -11,6 +11,7 @@ public class Gadget {
     private GadgetType type;
     private String name;
     private int price;
+    private int minTechLevel;
     
     /**
      * A GadgetType, used to distinguish between the types of gadget
@@ -34,26 +35,32 @@ public class Gadget {
             case EXTRA_CARGO:
                 name = "Extra Cargo";
                 price = 100;
+                minTechLevel = 0;
                 break;
             case NAVIGATION_SYSTEM:
                 name = "Navigation System";
                 price = 200;
+                minTechLevel = 3;
                 break;
             case AUTO_REPAIR_SYSTEM:
                 name = "Auto-Repair System";
                 price = 300;
+                minTechLevel = 3;
                 break;
             case TARGETING_SYSTEM:
                 name = "Targeting System";
                 price = 300;
+                minTechLevel = 3;
                 break;
             case CLOAKING_DEVICE:
                 name = "Cloaking Device";
                 price = 1000;
+                minTechLevel = 7;
                 break;
             case ESCAPE_POD:
                 name = "Escape Pod";
                 price = 200;
+                minTechLevel = 0;
                 break;
             
             default: break;
@@ -75,6 +82,14 @@ public class Gadget {
      */
     public int getPrice()    {
         return price;
+    }
+    
+    /**
+     * Get the minimum required tech level
+     * @return minTechLevel, the min tech level
+     */
+    public int getMinTechLevel()    {
+        return minTechLevel;
     }
     
     /**

@@ -93,15 +93,17 @@ public class ShipyardItemsTableView extends TableView {
             case GADGETS: {
                 TableColumn nameCol = new MarketTableColumn("Name");
                 TableColumn priceCol = new MarketTableColumn("Price");
+                TableColumn minTechCol = new MarketTableColumn("Min Tech Level");
                 nameCol.setPrefWidth(150.0);
 
                 nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
                 priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+                minTechCol.setCellValueFactory(new PropertyValueFactory<>("minTechLevel"));
 
                 List<Gadget> gadgets = Gadget.getDefaultGadgets();
                 ObservableList<Gadget> playerTableData = FXCollections.observableArrayList(gadgets);
                 setItems(playerTableData);
-                getColumns().addAll(nameCol, priceCol);
+                getColumns().addAll(nameCol, priceCol, minTechCol);
                 break;
             }
             default: break;

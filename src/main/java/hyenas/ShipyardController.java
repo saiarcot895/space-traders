@@ -1,6 +1,7 @@
 package hyenas;
 
 import hyenas.Models.Gadget;
+import hyenas.Models.Planet;
 import hyenas.Models.Player;
 import hyenas.Models.Shield;
 import hyenas.Models.Ship;
@@ -273,18 +274,22 @@ public class ShipyardController implements Initializable {
                 displayAlert("No Shield Slot", "There are no more slots for shields on your ship");
             }
         }
-        else if(currentTableView == gadgetsTable)   {
+        else if (currentTableView == gadgetsTable) {
+            Planet planet = player.getTradingPlanet();
             Gadget item = (Gadget)currentTableView.getSelectionModel().getSelectedItem();
-            if(ship.getGadgetSlots() > ship.getGadgets().size())    {
-                if(Player.getInstance().getCredits() >= item.getPrice())    {
-                    ship.getGadgets().add(item);
-                    Player.getInstance().setCredits(Player.getInstance().getCredits()-item.getPrice());
-                }
-                else    {
-                    displayAlert("Not Enough Credits", "You don't have enough credits to afford that.");
+            if (ship.getGadgetSlots() > ship.getGadgets().size())    {
+                if (planet.getTechLevel().ordinal() >= item.getMinTechLevel()) {
+                    if (player.getCredits() >= item.getPrice()) {
+                        ship.getGadgets().add(item);
+                        player.setCredits(player.getCredits() - item.getPrice());
+                    } else {
+                        displayAlert("Not Enough Credits", "You don't have enough credits to afford that.");
+                    }
+                } else {
+                    displayAlert("Insufficient Tech Level", "This planet doesn't have the tech level to sell this item.");
                 }
             }
-            else    {
+            else {
                 displayAlert("No Gadget Slot", "There are no more slots for gadgets on your ship");
             }
         }
