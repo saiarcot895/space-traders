@@ -207,12 +207,20 @@ public class SystemUIController implements Initializable {
         animationTimer.purge();
     }
     
+    /**
+     * Changes screens to settings
+     * @param e, unused
+     */
     public void goToSettings(ActionEvent e) {
         HyenasLoader.getInstance().goToSettingsScreen();
         animationTimer.cancel();
         animationTimer.purge();
     }
     
+    /**
+     * Changes screens to shipyard assuming planet has high enough tech level
+     * @param e, unused
+     */
     public void goToShipyard(ActionEvent e) {
         Player player = Player.getInstance();
         Planet planet = player.getTradingPlanet();
@@ -226,6 +234,11 @@ public class SystemUIController implements Initializable {
         }
     }
     
+    /**
+     * Convenience method for displaying alert
+     * @param title,
+     * @param message, the message to display on the label
+     */
     private void displayAlert(String title, String message) {
         AlertPane alertPane = new AlertPane(AlertPane.AlertPaneType.OneButton);
         alertPane.setTitleText(title);
