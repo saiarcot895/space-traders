@@ -25,7 +25,7 @@ public class ItemsTable implements Table<List<Ware>, Void> {
     public void createTable() {
         String create = "CREATE TABLE IF NOT EXISTS Items "
                 + "(ItemID INTEGER NOT NULL, "
-                + "Quantity INTEGER NOT NULL, " + "Player INTEGER NOT NULL "
+                + "Quantity INTEGER NOT NULL, " + "Player INTEGER NOT NULL, "
                 + "PRIMARY KEY (ItemID) ON CONFLICT REPLACE, "
                 + "FOREIGN KEY (Player) REFERENCES Players (ID))";
         try (Statement stmt = conn.createStatement()) {
