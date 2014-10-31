@@ -355,13 +355,6 @@ public class ShipyardController implements Initializable {
             displayAlert("You can't sell your ship", "Your ship is automatically sold when you buy a new ship.");
         }
         infoPane.updateInfo();
-        
-        // TODO:
-        // Handle edge cases - for example, a player must have a ship (cant sell
-        // if he only has one)
-        // Must update the player's credits
-        // Must remove the item from player's table after it is sold (or just refrsh the table)
-        // ... and probably more things I'm forgetting
     }
     
     /**
