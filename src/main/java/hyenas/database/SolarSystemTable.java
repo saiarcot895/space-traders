@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SolarSystemTable implements Table {
+public class SolarSystemTable implements Table<SolarSystem, Void> {
 
     private final Connection conn;
 
@@ -22,7 +22,7 @@ public class SolarSystemTable implements Table {
     public void createTable() {
         String create = "CREATE TABLE IF NOT EXISTS SolarSystem "
                 + "(ID INTEGER NOT NULL, " + "Name VARCHAR(20) NOT NULL, "
-                + "XPoint DOUBLE NOT NULL, " + "YPoint DOUBLE NOT NULL, "
+                + "XPoint INTEGER NOT NULL, " + "YPoint INTEGER NOT NULL, "
                 + "PRIMARY KEY (ID))";
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(create);
@@ -32,16 +32,46 @@ public class SolarSystemTable implements Table {
         }
     }
 
-    public void populateTable(String name, double x, double y, int id) {
+    @Override
+    public void addRow(SolarSystem solarSystem, Void unused) {
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO "
                     + "SolarSystem (Name, XPoint, YPoint) "
                     + "VALUES(?, ?, ?)");
-            stmt.setString(1, name);
-            stmt.setDouble(2, x);
-            stmt.setDouble(3, y);
+            stmt.setString(1, solarSystem.getSystemName());
+            stmt.setInt(2, solarSystem.getX());
+            stmt.setInt(3, solarSystem.getY());
             stmt.executeUpdate();
             // Id is generated based on how the System is generated.
+        } catch (SQLException e) {
+            Logger.getLogger(SolarSystemTable.class.getName()).
+                    log(Level.SEVERE, null, e);
+        }
+    }
+
+    @Override
+    public void update(SolarSystem solarSystem, Void unused) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("UPDATE "
+                    + "SolarSystem SET XPoint = ?, YPoint = ? "
+                    + "WHERE Name = ?");
+            stmt.setInt(1, solarSystem.getX());
+            stmt.setInt(2, solarSystem.getY());
+            stmt.setString(3, solarSystem.getSystemName());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(SolarSystemTable.class.getName()).
+                    log(Level.SEVERE, null, e);
+        }
+    }
+
+    @Override
+    public void remove(SolarSystem solarSystem, Void unused) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM "
+                    + "SolarSystem WHERE Name = ?");
+            stmt.setString(1, solarSystem.getSystemName());
+            stmt.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(SolarSystemTable.class.getName()).
                     log(Level.SEVERE, null, e);

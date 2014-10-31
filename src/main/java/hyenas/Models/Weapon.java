@@ -72,6 +72,14 @@ public class Weapon {
     public int getDamage()    {
         return damage;
     }
+
+    /**
+     * Get the type of the weapon
+     * @return type of the weapon
+     */
+    public WeaponType getType() {
+        return type;
+    }
     
     /**
      * Get the list of default buyable weapons

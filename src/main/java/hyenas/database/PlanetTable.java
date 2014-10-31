@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class PlanetTable implements Table {
+public class PlanetTable implements Table<Planet, SolarSystem> {
 
     private final Connection conn;
 
@@ -63,8 +63,9 @@ public class PlanetTable implements Table {
                     log(Level.SEVERE, null, e);
         }
     }
-    // TODO: fix the x and y for planets!
-    public void populateTable(Planet planet, SolarSystem system) {
+
+    @Override
+    public void addRow(Planet planet, SolarSystem system) {
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Planet "
                     + "(Name, Radius, ClockwiseOrbit, Size, "
@@ -87,6 +88,58 @@ public class PlanetTable implements Table {
             stmt.setInt(7, systemIDResultSet.getInt(1));
             stmt.executeUpdate();
             // Id & ssid are generated based on how the System is generated.
+        } catch (SQLException e) {
+            Logger.getLogger(PlanetTable.class.getName()).
+                    log(Level.SEVERE, null, e);
+        }
+    }
+
+    @Override
+    public void update(Planet planet, SolarSystem system) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("UPDATE Planet "
+                    + "SET Radius = ?, ClockwiseOrbit = ?, Size = ?, "
+                    + "Tech = ?, Type = ? WHERE SSID = ? AND Name = ?");
+            stmt.setInt(1, planet.getOrbitRadius());
+            stmt.setBoolean(2, planet.isClockwiseOrbit());
+            stmt.setDouble(3, planet.getSize());
+            stmt.setInt(4, planet.getTechLevel().ordinal());
+            stmt.setInt(5, planet.getPlanetType().ordinal());
+
+            PreparedStatement systemStatement = conn.prepareStatement(
+                    "SELECT ID FROM SolarSystem WHERE Name = ?");
+            systemStatement.setString(1, system.getSystemName());
+            ResultSet systemIDResultSet = systemStatement.executeQuery();
+            if (!systemIDResultSet.next()) {
+                throw new IllegalArgumentException();
+            }
+
+            stmt.setInt(6, systemIDResultSet.getInt(1));
+            stmt.setString(7, planet.getPlanetName());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(PlanetTable.class.getName()).
+                    log(Level.SEVERE, null, e);
+        }
+    }
+
+    @Override
+    public void remove(Planet planet, SolarSystem system) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM Planet "
+                    + "WHERE SSID = ? AND Name = ?");
+
+            PreparedStatement systemStatement = conn.prepareStatement(
+                    "SELECT ID FROM SolarSystem WHERE Name = ?");
+            systemStatement.setString(1, system.getSystemName());
+            ResultSet systemIDResultSet = systemStatement.executeQuery();
+            if (!systemIDResultSet.next()) {
+                throw new IllegalArgumentException();
+            }
+
+            stmt.setInt(1, systemIDResultSet.getInt(1));
+            stmt.setString(2, planet.getPlanetName());
+            stmt.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(PlanetTable.class.getName()).
                     log(Level.SEVERE, null, e);

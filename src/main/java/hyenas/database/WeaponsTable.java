@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class WeaponsTable implements Table {
+public class WeaponsTable implements Table<Weapon, Ship> {
 
     private final Connection conn;
 
@@ -22,7 +22,7 @@ public class WeaponsTable implements Table {
     @Override
     public void createTable() {
         String create = "CREATE TABLE IF NOT EXISTS Weapons "
-                + "(ID INTEGER NOT NULL, Type VARCHAR(20) NOT NULL, "
+                + "(ID INTEGER NOT NULL, "
                 + "Ship INTEGER NOT NULL, "
                 + "PRIMARY KEY (ID), FOREIGN KEY (Ship) "
                 + "REFERENCES Ship (ID))";
@@ -34,9 +34,10 @@ public class WeaponsTable implements Table {
         }
     }
 
-    public void populateTable(Ship ship) {
+    @Override
+    public void addRow(Weapon weapon, Ship ship) {
         try {
-            String info = "INSERT INTO Weapons (Type, Ship) "
+            String info = "INSERT INTO Weapons "
                     + "VALUES(?, ?)";
             PreparedStatement stmt = conn.prepareStatement(info);
             
@@ -47,12 +48,39 @@ public class WeaponsTable implements Table {
             if (!shipIDResultSet.next()) {
                 throw new IllegalArgumentException();
             }
+
+            stmt.setInt(1, weapon.getType().ordinal());
+            stmt.setInt(2, shipIDResultSet.getInt(1));
+            stmt.execute();
+        } catch (SQLException e) {
+            Logger.getLogger(WeaponsTable.class.getName()).
+                    log(Level.SEVERE, null, e);
+        }
+    }
+
+    @Override
+    public void update(Weapon weapon, Ship ship) {
+        throw new UnsupportedOperationException("Not supported.");
+    }
+
+    @Override
+    public void remove(Weapon weapon, Ship ship) {
+        try {
+            String info = "DELETE FROM Weapons "
+                    + "WHERE ID = ? AND Ship = ?)";
+            PreparedStatement stmt = conn.prepareStatement(info);
             
-            for (int i = 0; i < ship.getWeapons().size(); i++) {
-                stmt.setString(1, ship.getWeapons().get(i).getName());
-                stmt.setInt(2, shipIDResultSet.getInt(1));
-                stmt.execute();
+            PreparedStatement sysStmt = conn.prepareStatement(
+                    "SELECT ID FROM Ship WHERE Name = ?");
+            sysStmt.setString(1, ship.getName());
+            ResultSet shipIDResultSet = sysStmt.executeQuery();
+            if (!shipIDResultSet.next()) {
+                throw new IllegalArgumentException();
             }
+
+            stmt.setInt(1, weapon.getType().ordinal());
+            stmt.setInt(2, shipIDResultSet.getInt(1));
+            stmt.execute();
         } catch (SQLException e) {
             Logger.getLogger(WeaponsTable.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -63,11 +91,12 @@ public class WeaponsTable implements Table {
     public void loadTable() {
         try {
             Statement stmt = conn.createStatement();
-            String query = "SELECT Type, Ship FROM Weapons";
+            String query = "SELECT ID, Ship FROM Weapons";
             ResultSet shipInfo = stmt.executeQuery(query);
             while (shipInfo.next()) {
-                Weapon weapon = new Weapon(Weapon.WeaponType.valueOf(
-                        shipInfo.getString(1).toUpperCase()));
+                Weapon.WeaponType weaponType = Weapon.WeaponType.values()[
+                        shipInfo.getInt(1)];
+                Weapon weapon = new Weapon(weaponType);
                 Player.getInstance().getShip().getWeapons().add(weapon);
             }
         } catch (SQLException e) {
