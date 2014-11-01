@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * The main application driver class
+ * The main application driver class.
  * @author Alex
  */
 public class HyenasLoader extends Application {
@@ -61,14 +61,14 @@ public class HyenasLoader extends Application {
 
     /**
      * Gets the database connection manager
-     * @return connectionManager, the connection manager
+     * @return the connection manager
      */
     public ConnectionManager getConnectionManager() {
         return connectionManager;
     }
     
     /**
-     * Changes screens to the allocation screen and resets all the tables
+     * Changes screens to the allocation screen and resets all the tables.
      */
     public void goToAllocationScreen() {
         connectionManager.getWeaponsTable().clearTable();
@@ -83,42 +83,42 @@ public class HyenasLoader extends Application {
     }
 
     /**
-     * Changes screens to the map UI screen
+     * Changes screens to the map UI screen.
      */
     public void goToMapScreen() {
         loadScreen("MapUI.fxml");
     }
     
     /**
-     * Changes screens to the Settings screen
+     * Changes screens to the Settings screen.
      */
     public void goToSettingsScreen() {
         loadScreen("Settings.fxml");
     }
     
     /**
-     * Changes screens to the Home screen
+     * Changes screens to the Home screen.
      */
     public void goToHomeScreen() {
         loadScreen("MainWindow.fxml");
     }
     
     /**
-     * Changes screens to the Marketplace screen
+     * Changes screens to the Marketplace screen.
      */
     public void goToMarketplace() {
         loadScreen("MarketUI.fxml");
     }
     
     /**
-     * Changes screens to the System screen
+     * Changes screens to the System screen.
      */
     public void goToSystemScreen() {
         loadScreen("SystemUI.fxml");
     }
     
     /**
-     * Changes screens to the Shipyard screen
+     * Changes screens to the Shipyard screen.
      */
     public void goToShipyard() {
         loadScreen("ShipyardUI.fxml");
@@ -126,7 +126,7 @@ public class HyenasLoader extends Application {
     
     /**
      * Loads a given screen and catches errors if necessary
-     * @param screen, the screen to load
+     * @param screen the screen to load
      */
     private void loadScreen(String screen) {
         try {
@@ -138,8 +138,8 @@ public class HyenasLoader extends Application {
     }
 
     /**
-     * Changes to the given page
-     * @param pageName, the name of the page
+     * Changes to the given page.
+     * @param pageName the name of the page
      */
     private void changePage(String pageName) throws IOException {
         Parent page = FXMLLoader.load(getClass().getResource(pageName));
@@ -162,12 +162,11 @@ public class HyenasLoader extends Application {
     }
 
     /**
-     * Close connection to database if not already closed
-     * Exit application
+     * Close connection to database if not already closed, and exit application.
      */
     public void closeGame() {
         // In the main menu the game should not be connected to the database!
-        goToShipyard();
+        connectionManager.closeConnection();
         
 //        closeConnection(conn);
 //        try {

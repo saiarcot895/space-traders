@@ -93,7 +93,7 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Display the settings screen
+     * Display the settings screen.
      * @param e unused
      */
     public void onSettingsClicked(ActionEvent e) {
