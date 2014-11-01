@@ -116,6 +116,7 @@ public class AllocationController implements Initializable {
            tCounter.setText(Integer.toString(tValue));
            eCounter.setText(Integer.toString(eValue));
            iCounter.setText(Integer.toString(iValue));
+           name.setText("");
         });
     }
 
@@ -153,11 +154,6 @@ public class AllocationController implements Initializable {
             HyenasLoader.getInstance().getConnectionManager().getShipTable()
                     .addRow(player.getShip(), player);
             
-//            Problem with getting this to actually appear:
-//            AlertPane alertPane = new AlertPane(AlertPaneType.Loading);
-//            alertPane.setTitleText("Loading");
-//            alertPane.setMessageText("This may take a few seconds...");
-//            anchorPane.getChildren().add(alertPane);
             HyenasLoader.getInstance().goToMapScreen();
         } else {
             AlertPane alertPane = new AlertPane(AlertPaneType.ONEBUTTON);

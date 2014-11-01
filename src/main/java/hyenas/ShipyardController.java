@@ -8,18 +8,13 @@ import hyenas.Models.Ship;
 import hyenas.Models.Weapon;
 import hyenas.UI.AlertPane;
 import hyenas.UI.AlertPane.AlertPaneType;
-import hyenas.UI.MarketTableColumn;
 import hyenas.UI.ShipInfoPane;
 import hyenas.UI.ShipyardItemsTableView;
 import hyenas.UI.ShipyardPlayerTableView;
 import hyenas.UI.ShipyardTab.ShipyardTabType;
 import hyenas.UI.ShipyardTab;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,12 +22,11 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -179,6 +173,7 @@ public class ShipyardController implements Initializable {
     public void setupForTabChange(Tab tab) {
         ShipyardTab shipyardTab = (ShipyardTab)tab;
         playerShipTable.setupTableForType(shipyardTab.getType());
+        playerShipTable.getSelectionModel().clearSelection();
         centerPane.setCenter(playerShipTable);
         
         if (shipyardTab.getType() == ShipyardTabType.SHIPS) {
@@ -203,42 +198,41 @@ public class ShipyardController implements Initializable {
      * @param e unused
      */
     public void buyItem(ActionEvent e) {
+        ShipyardTab shipyardTab = (ShipyardTab) tabPane.getSelectionModel()
+                .getSelectedItem();
         Player player = Player.getInstance();
-        ship = player.getShip();
-        if(currentTableView == weaponsTable)    {
+        if (shipyardTab.getType() == ShipyardTabType.WEAPONS) {
             Weapon item = (Weapon)currentTableView.getSelectionModel().getSelectedItem();
-            if(ship.getWeaponSlots() > ship.getWeapons().size())    {
-                if(Player.getInstance().getCredits() >= item.getPrice())    {
+            if(ship.getWeaponSlots() > ship.getWeapons().size()) {
+                if(player.getCredits() >= item.getPrice()) {
                     ship.getWeapons().add(item);
-                    Player.getInstance().setCredits(Player.getInstance().getCredits()-item.getPrice());
+                    player.setCredits(player.getCredits() - item.getPrice());
                     
                     HyenasLoader.getInstance().getConnectionManager()
                             .getWeaponsTable().addRow(item, ship);
                 }
-                else    {
+                else {
                     displayAlert("Not Enough Credits", "You don't have enough credits to afford that.");
                 }
-            }
-            else    {
+            } else {
                 displayAlert("No Weapon Slot", "There are no more slots for weapons on your ship");
             }
         }
-        else if(currentTableView == shieldsTable)   {
+        else if (shipyardTab.getType() == ShipyardTabType.SHIELDS) {
             Shield item = (Shield)currentTableView.getSelectionModel().getSelectedItem();
             if(ship.getShieldSlots() > ship.getShields().size())    {
-                if(Player.getInstance().getCredits() >= item.getPrice())    {
+                if(player.getCredits() >= item.getPrice()) {
                     ship.getShields().add(item);
-                    Player.getInstance().setCredits(Player.getInstance().getCredits()-item.getPrice());
+                    player.setCredits(player.getCredits() - item.getPrice());
                 }
-                else    {
+                else {
                     displayAlert("Not Enough Credits", "You don't have enough credits to afford that.");
                 }
-            }
-            else    {
+            } else {
                 displayAlert("No Shield Slot", "There are no more slots for shields on your ship");
             }
         }
-        else if (currentTableView == gadgetsTable) {
+        else if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
             Planet planet = player.getTradingPlanet();
             Gadget item = (Gadget)currentTableView.getSelectionModel().getSelectedItem();
             if (ship.getGadgetSlots() > ship.getGadgets().size())    {
@@ -252,16 +246,14 @@ public class ShipyardController implements Initializable {
                 } else {
                     displayAlert("Insufficient Tech Level", "This planet doesn't have the tech level to sell this item.");
                 }
-            }
-            else {
+            } else {
                 displayAlert("No Gadget Slot", "There are no more slots for gadgets on your ship");
             }
         }
-        else if(currentTableView == shipsTable) {
-            Ship currentShip = player.getShip();
+        else if (shipyardTab.getType() == ShipyardTabType.SHIPS) {
             Ship item = (Ship)currentTableView.getSelectionModel().getSelectedItem();
-            if (item.getShipType() != currentShip.getShipType()) {
-                int currentShipValue = (int) (currentShip.getPrice() * .8);
+            if (item.getShipType() != ship.getShipType()) {
+                int currentShipValue = (int) (ship.getPrice() * .8);
                 if (player.getCredits() + currentShipValue >= item.getPrice()) {
                     int credits = player.getCredits();
                     player.setShip(item);
@@ -273,8 +265,6 @@ public class ShipyardController implements Initializable {
             } else {
                 displayAlert("You already have this ship", "It doesn't make sense to buy a ship you already own.");
             }
-            
-            
         }
         infoPane.updateInfo();
         updatePlayerShipTable();
@@ -285,37 +275,36 @@ public class ShipyardController implements Initializable {
      * @param e unused
      */
     public void sellItem(ActionEvent e) {
-        if (currentTableView == weaponsTable) {
+        ShipyardTab shipyardTab = (ShipyardTab) tabPane.getSelectionModel()
+                .getSelectedItem();
+        Player player = Player.getInstance();
+        if (shipyardTab.getType() == ShipyardTabType.WEAPONS) {
             Weapon item = (Weapon)playerShipTable.getSelectionModel().getSelectedItem();
-            
-            if (ship.getWeapons().contains(item)) {
-                ship.getWeapons().remove(item);
-                Player.getInstance().setCredits(Player.getInstance().getCredits()+item.getPrice());
-            }
-            else {
+            boolean removed = ship.getWeapons().remove(item);
+            if (removed) {
+                player.setCredits(player.getCredits() + item.getPrice());
+            } else {
                 displayAlert("No Weapon", "You do not have a weapon of this type on your ship.");
             }
         }
-        else if (currentTableView == shieldsTable) {
+        else if (shipyardTab.getType() == ShipyardTabType.SHIELDS) {
             Shield item = (Shield)playerShipTable.getSelectionModel().getSelectedItem();
-            if(ship.getShields().contains(item))    {
-                ship.getShields().remove(item);
-                Player.getInstance().setCredits(Player.getInstance().getCredits()+item.getPrice());
-            }
-            else    {
+            boolean removed = ship.getShields().remove(item);
+            if (removed) {
+                player.setCredits(player.getCredits() + item.getPrice());
+            } else {
                 displayAlert("No Shield", "You do not have a shield of this type on your ship.");
             }
         }
-        else if (currentTableView == gadgetsTable) {
+        else if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
             Gadget item = (Gadget)playerShipTable.getSelectionModel().getSelectedItem();
-            if(ship.getGadgets().contains(item)) {
-                ship.getGadgets().remove(item);
-                Player.getInstance().setCredits(Player.getInstance().getCredits()+item.getPrice());
-            }
-            else {
+            boolean removed = ship.getGadgets().remove(item);
+            if (removed) {
+                player.setCredits(player.getCredits() + item.getPrice());
+            } else {
                 displayAlert("No Gadget", "You do not have a gadget of this type on your ship.");
             }
-        } else if(currentTableView == shipsTable)   {
+        } else if (shipyardTab.getType() == ShipyardTabType.SHIPS) {
             displayAlert("You can't sell your ship", "Your ship is automatically sold when you buy a new ship.");
         }
         infoPane.updateInfo();
