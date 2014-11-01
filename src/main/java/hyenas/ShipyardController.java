@@ -11,7 +11,8 @@ import hyenas.UI.AlertPane.AlertPaneType;
 import hyenas.UI.MarketTableColumn;
 import hyenas.UI.ShipInfoPane;
 import hyenas.UI.ShipyardItemsTableView;
-import hyenas.UI.ShipyardItemsTableView.ShipyardTableType;
+import hyenas.UI.ShipyardPlayerTableView;
+import hyenas.UI.ShipyardTab.ShipyardTabType;
 import hyenas.UI.ShipyardTab;
 import java.net.URL;
 import java.util.ArrayList;
@@ -58,15 +59,16 @@ public class ShipyardController implements Initializable {
     @FXML
     private BorderPane tablePane;
     
-    private TableView playerShipTable = new TableView();
+    private ShipyardPlayerTableView playerShipTable =
+            new ShipyardPlayerTableView(ShipyardTabType.SHIPS);
     private TableView shipsTable =
-            new ShipyardItemsTableView(ShipyardTableType.SHIPS);
+            new ShipyardItemsTableView(ShipyardTabType.SHIPS);
     private TableView weaponsTable =
-            new ShipyardItemsTableView(ShipyardTableType.WEAPONS);
+            new ShipyardItemsTableView(ShipyardTabType.WEAPONS);
     private TableView gadgetsTable =
-            new ShipyardItemsTableView(ShipyardTableType.GADGETS);
+            new ShipyardItemsTableView(ShipyardTabType.GADGETS);
     private TableView shieldsTable =
-            new ShipyardItemsTableView(ShipyardTableType.SHIELDS);
+            new ShipyardItemsTableView(ShipyardTabType.SHIELDS);
     private TableView currentTableView;
     
     private ShipInfoPane infoPane;
@@ -89,10 +91,10 @@ public class ShipyardController implements Initializable {
         tabPane = new TabPane();
         tabPane.setPrefWidth(TAB_PANE_WIDTH);
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-        Tab shipTab = new ShipyardTab(ShipyardTableType.SHIPS);
-        Tab weaponsTab = new ShipyardTab(ShipyardTableType.WEAPONS);
-        Tab shieldTab = new ShipyardTab(ShipyardTableType.SHIELDS);
-        Tab gadgetTab = new ShipyardTab(ShipyardTableType.GADGETS);
+        Tab shipTab = new ShipyardTab(ShipyardTabType.SHIPS);
+        Tab weaponsTab = new ShipyardTab(ShipyardTabType.WEAPONS);
+        Tab shieldTab = new ShipyardTab(ShipyardTabType.SHIELDS);
+        Tab gadgetTab = new ShipyardTab(ShipyardTabType.GADGETS);
         shipTab.setContent(shipsTable);
         weaponsTab.setContent(weaponsTable);
         shieldTab.setContent(shieldsTable);
@@ -176,54 +178,16 @@ public class ShipyardController implements Initializable {
      */
     public void setupForTabChange(Tab tab) {
         ShipyardTab shipyardTab = (ShipyardTab)tab;
-        playerShipTable.setItems(null);
-        playerShipTable.getSelectionModel().clearSelection();
+        playerShipTable.setupTableForType(shipyardTab.getType());
         centerPane.setCenter(playerShipTable);
         
-        if (shipyardTab.getType() == ShipyardTableType.SHIPS) {
-            TableColumn mainCol = new MarketTableColumn("Your Ship");
-            mainCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-            mainCol.prefWidthProperty().bind(playerShipTable.widthProperty());
-            playerShipTable.getColumns().setAll(mainCol);
-            
-            List<Ship> ships = new ArrayList<>();
-            ships.add(ship);
-            ObservableList<Ship> weaponData = FXCollections.observableArrayList(ships);
-            playerShipTable.setItems(weaponData);
-            
+        if (shipyardTab.getType() == ShipyardTabType.SHIPS) {
             currentTableView = shipsTable;
-        } else if (shipyardTab.getType() == ShipyardTableType.WEAPONS) {
-            TableColumn mainCol = new MarketTableColumn("Your Weapons");
-            mainCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-            mainCol.prefWidthProperty().bind(playerShipTable.widthProperty());
-            playerShipTable.getColumns().setAll(mainCol);
-            
-            List<Weapon> weapons = ship.getWeapons();
-            ObservableList<Weapon> weaponData = FXCollections.observableArrayList(weapons);
-            playerShipTable.setItems(weaponData);
-            
+        } else if (shipyardTab.getType() == ShipyardTabType.WEAPONS) {
             currentTableView = weaponsTable;
-        } else if (shipyardTab.getType() == ShipyardTableType.SHIELDS) {
-            TableColumn mainCol = new MarketTableColumn("Your Shields");
-            mainCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-            mainCol.prefWidthProperty().bind(playerShipTable.widthProperty());
-            playerShipTable.getColumns().setAll(mainCol);
-            
-            List<Shield> shields = ship.getShields();
-            ObservableList<Shield> shieldData = FXCollections.observableArrayList(shields);
-            playerShipTable.setItems(shieldData);
-            
+        } else if (shipyardTab.getType() == ShipyardTabType.SHIELDS) {
             currentTableView = shieldsTable;
-        } else if (shipyardTab.getType() == ShipyardTableType.GADGETS) {
-            TableColumn mainCol = new MarketTableColumn("Your Gadgets");
-            mainCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-            mainCol.prefWidthProperty().bind(playerShipTable.widthProperty());
-            playerShipTable.getColumns().setAll(mainCol);
-            
-            List<Gadget> gadgets = ship.getGadgets();
-            ObservableList<Gadget> gadgetData = FXCollections.observableArrayList(gadgets);
-            playerShipTable.setItems(gadgetData);
-            
+        } else if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
             currentTableView = gadgetsTable;
         } else {
             currentTableView = null;
@@ -313,7 +277,7 @@ public class ShipyardController implements Initializable {
             
         }
         infoPane.updateInfo();
-        setupForTabChange(tabPane.getSelectionModel().getSelectedItem());
+        updatePlayerShipTable();
     }
     
     /**
@@ -321,19 +285,19 @@ public class ShipyardController implements Initializable {
      * @param e unused
      */
     public void sellItem(ActionEvent e) {
-        // Note: object type shouldn't necessarily be Object
-        if(currentTableView == weaponsTable)    {
-            Weapon item = (Weapon)currentTableView.getSelectionModel().getSelectedItem();
-            if(ship.getWeapons().contains(item))    {
+        if (currentTableView == weaponsTable) {
+            Weapon item = (Weapon)playerShipTable.getSelectionModel().getSelectedItem();
+            
+            if (ship.getWeapons().contains(item)) {
                 ship.getWeapons().remove(item);
                 Player.getInstance().setCredits(Player.getInstance().getCredits()+item.getPrice());
             }
-            else    {
+            else {
                 displayAlert("No Weapon", "You do not have a weapon of this type on your ship.");
             }
         }
-        else if(currentTableView == shieldsTable)   {
-            Shield item = (Shield)currentTableView.getSelectionModel().getSelectedItem();
+        else if (currentTableView == shieldsTable) {
+            Shield item = (Shield)playerShipTable.getSelectionModel().getSelectedItem();
             if(ship.getShields().contains(item))    {
                 ship.getShields().remove(item);
                 Player.getInstance().setCredits(Player.getInstance().getCredits()+item.getPrice());
@@ -342,19 +306,29 @@ public class ShipyardController implements Initializable {
                 displayAlert("No Shield", "You do not have a shield of this type on your ship.");
             }
         }
-        else if(currentTableView == gadgetsTable)   {
-            Gadget item = (Gadget)currentTableView.getSelectionModel().getSelectedItem();
-            if(ship.getGadgets().contains(item))    {
+        else if (currentTableView == gadgetsTable) {
+            Gadget item = (Gadget)playerShipTable.getSelectionModel().getSelectedItem();
+            if(ship.getGadgets().contains(item)) {
                 ship.getGadgets().remove(item);
                 Player.getInstance().setCredits(Player.getInstance().getCredits()+item.getPrice());
             }
-            else    {
+            else {
                 displayAlert("No Gadget", "You do not have a gadget of this type on your ship.");
             }
         } else if(currentTableView == shipsTable)   {
             displayAlert("You can't sell your ship", "Your ship is automatically sold when you buy a new ship.");
         }
         infoPane.updateInfo();
+        updatePlayerShipTable();
+    }
+    
+    /**
+     * Updates the player ship table.
+     */
+    private void updatePlayerShipTable() {
+        ShipyardTab shipyardTab = (ShipyardTab) tabPane.getSelectionModel()
+                .getSelectedItem();
+        playerShipTable.setupTableForType(shipyardTab.getType());
     }
     
     /**

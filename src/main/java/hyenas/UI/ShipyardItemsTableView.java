@@ -4,6 +4,7 @@ import hyenas.Models.Gadget;
 import hyenas.Models.Shield;
 import hyenas.Models.Ship;
 import hyenas.Models.Weapon;
+import hyenas.UI.ShipyardTab.ShipyardTabType;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,42 +17,32 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author Alex
  */
 public class ShipyardItemsTableView extends TableView {
-    private ShipyardTableType type;
-    
-    /**
-     * A ShipyardTableType, used to distinguish between what to populate.
-     */
-    public enum ShipyardTableType {
-        SHIPS,
-        WEAPONS,
-        SHIELDS,
-        GADGETS,
-    }
+    private ShipyardTabType type;
     
     /**
      * Initializes a table.
-     * @param type the table type
+     * @param type the tab type
      */
-    public ShipyardItemsTableView(ShipyardTableType type) {
+    public ShipyardItemsTableView(ShipyardTabType type) {
         setupTableForType(type);
         this.type = type;
         setEditable(false);
     }
     
     /**
-     * Sets up the table for a given table type.
-     * @param type the table type
+     * Sets up the table for a given tab type.
+     * @param type the tab type
      */
-    public void setupTableForType(ShipyardTableType type) {
+    public void setupTableForType(ShipyardTabType type) {
         setupColumnsForType(type);
         setupDataForType(type);
     }
     
     /**
-     * Sets up the table columns for a given table type.
-     * @param type the table type
+     * Sets up the table columns for a given tab type.
+     * @param type the tab type
      */
-    private void setupColumnsForType(ShipyardTableType type) {
+    private void setupColumnsForType(ShipyardTabType type) {
         switch (type) {
             case SHIPS: {
                 TableColumn nameCol = nameColumn();
@@ -110,10 +101,10 @@ public class ShipyardItemsTableView extends TableView {
     }
     
     /**
-     * Sets up the table data for a given table type.
-     * @param type the table type
+     * Sets up the table data for a given tab type.
+     * @param type the tab type
      */
-    private void setupDataForType(ShipyardTableType type) {
+    private void setupDataForType(ShipyardTabType type) {
         switch (type) {
             case SHIPS:
                 List<Ship> ships = Ship.getDefaultShips();

@@ -1,6 +1,5 @@
 package hyenas.UI;
 
-import hyenas.UI.ShipyardItemsTableView.ShipyardTableType;
 import javafx.scene.control.Tab;
 
 /**
@@ -8,14 +7,24 @@ import javafx.scene.control.Tab;
  * @author Alex
  */
 public class ShipyardTab extends Tab {
-    private ShipyardTableType type;
+    private ShipyardTabType type;
     private String placeholder;
     
     /**
-     * Initializes a tab.
-     * @param type the shipyard table type
+     * A ShipyardTabType, used to distinguish between what to populate.
      */
-    public ShipyardTab(ShipyardTableType type) {
+    public enum ShipyardTabType {
+        SHIPS,
+        WEAPONS,
+        SHIELDS,
+        GADGETS,
+    }
+    
+    /**
+     * Initializes a tab.
+     * @param type the shipyard tab type
+     */
+    public ShipyardTab(ShipyardTabType type) {
         setText(tabNameForType(type));
         this.type = type;
         this.placeholder = placeholderForType(type);
@@ -23,10 +32,10 @@ public class ShipyardTab extends Tab {
     
     /**
      * Returns the name for a given shipyard type.
-     * @param type the shipyard table type
+     * @param type the shipyard tab type
      * @return the name for the tab
      */
-    private String tabNameForType(ShipyardTableType type) {
+    private String tabNameForType(ShipyardTabType type) {
         switch (type) {
             case SHIPS:
                 return "Ships";
@@ -42,11 +51,11 @@ public class ShipyardTab extends Tab {
     }
     
     /**
-     * Returns the placeholder for a given shipyard type.
-     * @param type the shipyard type
+     * Returns the placeholder for a given shipyard tab type.
+     * @param type the shipyard tab type
      * @return the placeholder for the tab
      */
-    private String placeholderForType(ShipyardTableType type) {
+    private String placeholderForType(ShipyardTabType type) {
         switch (type) {
             case SHIPS:
                 return "[Error - player should have a ship]";
@@ -65,7 +74,7 @@ public class ShipyardTab extends Tab {
      * Get the shipyard tab type.
      * @return the shipyard tab table type
      */
-    public ShipyardTableType getType() {
+    public ShipyardTabType getType() {
         return type;
     }
     
