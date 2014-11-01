@@ -3,7 +3,6 @@ package hyenas.UI;
 import java.awt.Dimension;
 import javafx.event.Event;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 /**

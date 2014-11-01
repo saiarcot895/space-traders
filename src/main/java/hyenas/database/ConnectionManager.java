@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hyenas.database;
 
 import java.sql.Connection;
@@ -12,14 +7,10 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.sqlite.JDBC;
-
 /**
- *
+ * Manages connection to database.
  * @author saikrishna
  */
-
-
 public class ConnectionManager {
     private Connection conn;
 
@@ -33,10 +24,17 @@ public class ConnectionManager {
     private GadgetsTable gadgetsTable;
     private WeaponsTable weaponsTable;
     
+    /**
+     * Initializes a connection manager.
+     * @param host the host
+     */
     public ConnectionManager(String host) {
         this.host = host;
     }
     
+    /**
+     * Opens connection to the database.
+     */
     public void openConnection() {
         try {
             conn = DriverManager.getConnection(host);
@@ -55,6 +53,9 @@ public class ConnectionManager {
         }
     }
 
+    /**
+     * Closes connection to the database.
+     */
     @SuppressWarnings("UnusedAssignment")
     public void closeConnection() {
         try {
@@ -73,6 +74,9 @@ public class ConnectionManager {
         }
     }
     
+    /**
+     * Begins a transaction with the database.
+     */
     public void beginTransaction() {
         try {
             Statement stmt = conn.createStatement();
@@ -83,6 +87,9 @@ public class ConnectionManager {
         }
     }
     
+    /**
+     * Commits a transaction to the database.
+     */
     public void commitTransaction() {
         try {
             Statement stmt = conn.createStatement();
@@ -93,34 +100,58 @@ public class ConnectionManager {
         }
     }
     
+    /**
+     * Get the solar system table.
+     * @return the solar system table
+     */
     public SolarSystemTable getSolarSystemTable() {
         return solarSystemTable;
     }
 
+    /**
+     * Get the planet table.
+     * @return the planet table
+     */
     public PlanetTable getPlanetTable() {
         return planetTable;
     }
 
+    /**
+     * Get the player table.
+     * @return the player table
+     */
     public PlayerTable getPlayerTable() {
         return playerTable;
     }
 
-    public ItemsTable getItemsTable() {
-        return itemTable;
-    }
-
+    /**
+     * Get the item table.
+     * @return the item table
+     */
     public ItemsTable getItemTable() {
         return itemTable;
     }
 
+    /**
+     * Get the ship table.
+     * @return the ship table
+     */
     public ShipTable getShipTable() {
         return shipTable;
     }
 
+    /**
+     * Get the gadget table.
+     * @return the gadget table
+     */
     public GadgetsTable getGadgetsTable() {
         return gadgetsTable;
     }
 
+    /**
+     * Get the weapon table.
+     * @return the weapons table
+     */
     public WeaponsTable getWeaponsTable() {
         return weaponsTable;
     }

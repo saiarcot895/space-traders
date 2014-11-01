@@ -119,10 +119,10 @@ public class ShipTable implements Table<Ship, Player> {
         try {
             Statement stmt = conn.createStatement();
             String query = 
-            "SELECT Ship.Type, " + "Ship.Fuel, "
-            + "Ship.Health, Players.Name FROM "
-            + "Ship INNER JOIN Players "
-            + "ON Ship.Player = Players.ID";
+                "SELECT Ship.Type, " + "Ship.Fuel, "
+                + "Ship.Health, Players.Name FROM "
+                + "Ship INNER JOIN Players "
+                + "ON Ship.Player = Players.ID";
             ResultSet shipInfo = stmt.executeQuery(query);
             shipInfo.next();
             

@@ -26,7 +26,7 @@ public class Shield {
     }
     
     /**
-     * Initializes an instance of Shield
+     * Initializes an instance of Shield.
      * @param type the type of shield
      */
     public Shield(ShieldType type) {

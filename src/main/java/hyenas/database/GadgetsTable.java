@@ -44,9 +44,8 @@ public class GadgetsTable implements Table<Gadget, Ship> {
 
     public void addRow(Gadget item, Ship parent) {
         try {
-            String info = 
-            "INSERT INTO Gadgets (Name, Property, GID) "
-            + "VALUES(NULL, NULL, NULL)";
+            String info = "INSERT INTO Gadgets (Name, Property, GID) "
+                    + "VALUES(NULL, NULL, NULL)";
             PreparedStatement stmt = conn.prepareStatement(info);
             // TODO: Get Gadget Type (initially NULL)
             // TODO: Get Property (initially NULL)

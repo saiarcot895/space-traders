@@ -14,23 +14,23 @@ public interface Table<K, P> {
     public void createTable();
     
     /**
-     * add a row to the table
-     * @param item
-     * @param parent 
+     * Add a row to the table.
+     * @param item the item to add
+     * @param parent the parent
      */
     public void addRow(K item, P parent);
     
     /**
-     * update a row in the table
-     * @param item
-     * @param parent 
+     * Update a row in the table.
+     * @param item the item to update
+     * @param parent the parent
      */
     public void update(K item, P parent);
     
     /**
-     * remove a row from the table
-     * @param item
-     * @param parent 
+     * Remove a row from the table.
+     * @param item the item to remove
+     * @param parent the parent
      */
     public void remove(K item, P parent);
     

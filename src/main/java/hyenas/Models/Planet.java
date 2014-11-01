@@ -91,7 +91,7 @@ public class Planet {
      * Constructor for Planet when loading from database. Overrides values set
      * at random in original constructor with values stored in table.
      * 
-     * @param planetName the name of the planet
+     * @param name the name of the planet
      * @param clockwiseOrbit whether the planet's orbit is clockwise
      * @param techLevel the tech level of the planet
      * @param planetType the type of the planet
@@ -105,31 +105,31 @@ public class Planet {
     }
     
     /**
-     * Get the planet's name
-     * @return planetName, the name of the planet
+     * Get the planet's name.
+     * @return planetName the name of the planet
      */
     public String getPlanetName()   {
         return planetName;
     }
     
     /**
-     * Get the planet's size
-     * @return size, the size of the planet
+     * Get the planet's size.
+     * @return size the size of the planet
      */
     public double getSize() {
         return size;
     }
     
     /**
-     * Set the planet's size
-     * @param size, the size of the planet
+     * Set the planet's size.
+     * @param size the size of the planet
      */
     public void setSize(double size) {
         this.size = size;
     }
     
     /**
-     * Get whether the planet's orbit is clockwise
+     * Get whether the planet's orbit is clockwise.
      * @return clockwiseOrbit, whether the planet's orbit is clockwise
      */
     public boolean isClockwiseOrbit()    {
@@ -137,20 +137,29 @@ public class Planet {
     }
     
     /**
-     * Get the name of the planet's tech level
+     * Get the name of the planet's tech level.
      * @return string, the name of the tech level of the planet
      */
     public String techLevelString() {
         switch (techLevel) {
-            case PREAGRICULTURE: return "Pre-Agriculture";
-            case AGRICULTURE: return "Agriculture";
-            case MEDIEVAL: return "Medieval";
-            case RENAISSANCE: return "Renaissance";
-            case EARLYINDUSTRIAL: return "Early Industrial";
-            case INDUSTRIAL: return "Industrial";
-            case POSTINDUSTRIAL: return "Post-Industrial";
-            case HITECH: return "Hi-Tech";
-            default: return "Error";
+            case PREAGRICULTURE:
+                return "Pre-Agriculture";
+            case AGRICULTURE:
+                return "Agriculture";
+            case MEDIEVAL:
+                return "Medieval";
+            case RENAISSANCE:
+                return "Renaissance";
+            case EARLYINDUSTRIAL:
+                return "Early Industrial";
+            case INDUSTRIAL:
+                return "Industrial";
+            case POSTINDUSTRIAL:
+                return "Post-Industrial";
+            case HITECH:
+                return "Hi-Tech";
+            default:
+                return "Error";
         }
     }
 
@@ -164,8 +173,8 @@ public class Planet {
 
     @Override
     public String toString() {
-        return "<Planet: " + planetName + ", Radius: " + orbitRadius +
-                ", Tech: " + techLevelString() + ">";
+        return "<Planet: " + planetName + ", Radius: " + orbitRadius
+                + ", Tech: " + techLevelString() + ">";
     }
 
     /**
@@ -180,73 +189,96 @@ public class Planet {
     }
 
     /**
-     * Get the planet's orbit radius
-     * @return orbitRadius, the orbit radius of the planet
+     * Get the planet's orbit radius.
+     * @return orbitRadius the orbit radius of the planet
      */
     public int getOrbitRadius() {
         return orbitRadius;
     }
     
     /**
-     * Set the planet's orbit radius
-     * @param orbitRadius, the orbitRadius of the planet
+     * Set the planet's orbit radius.
+     * @param orbitRadius the orbitRadius of the planet
      */
     public void setOrbitRadius(int orbitRadius)    {
         this.orbitRadius = orbitRadius;
     }
     
     /**
-     * Get the planet's type
-     * @return type, the planet's type
+     * Get the planet's type.
+     * @return type the planet's type
      */
     public PlanetType getPlanetType() {
         return type;
     }
     
     /**
-     * Get a string representation of the planet's type
-     * @return string, the string representation of the planet's type
+     * Get a string representation of the planet's type.
+     * @return string the string representation of the planet's type
      */
     public String getPlanetTypeString() {
         switch (type) {
-            case NONE: return "Normal";
-            case MINERALRICH: return "Mineral Rich";
-            case MINERALPOOR: return "Mineral Poor";
-            case LOTSOFWATER: return "Lots of Water";
-            case DESERT: return "Desert";
-            case RICHSOIL: return "Rich Soil";
-            case POORSOIL: return "Poor Soil";
-            case RICHFAUNA: return "Rich Fauna";
-            case LIFELESS: return "Lifeless";
-            case WIERDMUSHROOMS: return "Weird Mushrooms";
-            case LOTSOFHERBS: return "Lots of Herbs";
-            case ARTISTIC: return "Artistic";
-            case WARLIKE: return "Warlike";
-            default: return "Normal";
+            case NONE:
+                return "Normal";
+            case MINERALRICH:
+                return "Mineral Rich";
+            case MINERALPOOR:
+                return "Mineral Poor";
+            case LOTSOFWATER:
+                return "Lots of Water";
+            case DESERT:
+                return "Desert";
+            case RICHSOIL:
+                return "Rich Soil";
+            case POORSOIL:
+                return "Poor Soil";
+            case RICHFAUNA:
+                return "Rich Fauna";
+            case LIFELESS:
+                return "Lifeless";
+            case WIERDMUSHROOMS:
+                return "Weird Mushrooms";
+            case LOTSOFHERBS:
+                return "Lots of Herbs";
+            case ARTISTIC:
+                return "Artistic";
+            case WARLIKE:
+                return "Warlike";
+            default:
+                return "Unknown Type";
         }
     }
     
     /**
-     * Get a string representation of the planet's event
+     * Get a string representation of the planet's event.
      * @return string, the string representation of the planet's event
      */
     public String getPlanetEventString() {
         switch (event) {
-            case NONE: return "None";
-            case DROUGHT: return "Drought";
-            case COLD: return "Cold";
-            case CROPFAIL: return "Cropfail";
-            case WAR: return "War";
-            case BOREDOM: return "Boredom";
-            case PLAGUE: return "Plague";
-            case LACKOFWORKERS: return "Lack of Workers";
-            default: return "None";
+            case NONE:
+                return "None";
+            case DROUGHT:
+                return "Drought";
+            case COLD:
+                return "Cold";
+            case CROPFAIL:
+                return "Cropfail";
+            case WAR:
+                return "War";
+            case BOREDOM:
+                return "Boredom";
+            case PLAGUE:
+                return "Plague";
+            case LACKOFWORKERS:
+                return "Lack of Workers";
+            default:
+                return "Unknown Event";
         }
     }
     
     /**
-     * Get the planet's wares
-     * @return wares, the planet's wares
+     * Get the planet's wares.
+     * @return wares the planet's wares
      */
     public List<Ware> getWares() {
         if (wares == null) {
@@ -256,13 +288,13 @@ public class Planet {
     }
     
     /**
-     * Add a ware to the planet's wares
-     * @param newWare, the ware to add
+     * Add a ware to the planet's wares.
+     * @param newWare the ware to add
      */
     public void addWare(Ware newWare) {
         Good good = newWare.getGood();
-        List<Ware> wares = getWares();
-        for (Ware ware: wares) {
+        List<Ware> planetWares = getWares();
+        for (Ware ware: planetWares) {
             if (ware.getGood() == good) {
                 int quantity = ware.getCurrentQuantity();
                 ware.setCurrentQuantity(++quantity);
@@ -277,7 +309,7 @@ public class Planet {
      */
     public void produceWares() {
         int numGoods = Good.values().length;
-        List<Ware> wares = new ArrayList<>(numGoods);
+        List<Ware> producedWares = new ArrayList<>(numGoods);
         AffectedGood affectedGoodForPlanetType = affectedGoodForPlanetType();
         List<AffectedGood> affectedGoodsForPlanetEvent = affectedGoodsForPlanetEvent();
         
@@ -288,8 +320,8 @@ public class Planet {
             int basePrice = ware.getBasePrice();
             int variance = 0;
             
-            if (affectedGoodForPlanetType != null &&
-                    good == affectedGoodForPlanetType.getGood()) {
+            if (affectedGoodForPlanetType != null
+                    && good == affectedGoodForPlanetType.getGood()) {
                 // Add or deduct 10% of good's base price based on planet's type
                 // Also triple or reduce by 60% the available quantity
                 boolean priceIncreased = affectedGoodForPlanetType.isIncreasedPrice();
@@ -321,18 +353,18 @@ public class Planet {
             int price = basePrice + (ware.getPriceIncreasePerLevel() * (techLevel.ordinal() - ware.getMinimumTechLevelToProduce())) + variance;
             ware.setCurrentPrice(price);
             ware.setCurrentQuantity(quantity);
-            wares.add(ware);
+            producedWares.add(ware);
         }
         
-        this.wares = wares;
+        this.wares = producedWares;
     }
 
     /**
      * Returns the appropriate amount of a given good to produce based on the
      * planet's tech level and properties of the good.
      * 
-     * @param good, the good
-     * @return int, the number to produce
+     * @param good the good
+     * @return the number to produce
      */
     private int howMuchToProduce(Good good) {
         Ware item = new Ware(good);
@@ -344,16 +376,16 @@ public class Planet {
     }
     
     /**
-     * Represents a good affected by either the Planet's Type, or a PlanetEvent
+     * Represents a good affected by either the Planet's Type, or a PlanetEvent.
      */
     private class AffectedGood {
         private Good good;
         private boolean increasedPrice;
         
         /**
-         * Initializes AffectedGood instance
-         * @param good, the Good type
-         * @param increasedPrice, whether the affected good's price increases
+         * Initializes AffectedGood instance.
+         * @param good the Good type
+         * @param increasedPrice whether the affected good's price increases
          */
         public AffectedGood(Good good, boolean increasedPrice) {
             this.good = good;
@@ -361,16 +393,16 @@ public class Planet {
         }
         
         /**
-         * Getter for the good
-         * @return good, the Good type
+         * Getter for the good.
+         * @return the Good type
          */
         public Good getGood() {
             return good;
         }
         
         /**
-         * Getter for whether the price is increased
-         * @return increasedPrice, whether the price is increased
+         * Getter for whether the price is increased.
+         * @return whether the price is increased
          */
         public boolean isIncreasedPrice() {
             return increasedPrice;
@@ -379,27 +411,40 @@ public class Planet {
     
     /**
      * Returns AffectedGood of which good is affected due to the planet's type
-     * as well as how the price of the good is affected
+     * as well as how the price of the good is affected.
      * 
-     * @return AffectedGood with the good affected, and a boolean of whether
-     * the price is increased or not
+     * @return the good affected, and whether the price is increased or not
      */
     public AffectedGood affectedGoodForPlanetType() {
         switch (type) {
-            case NONE: return null;
-            case MINERALRICH: return new AffectedGood(Good.ORE, false);
-            case MINERALPOOR: return new AffectedGood(Good.ORE, true);
-            case LOTSOFWATER: return new AffectedGood(Good.WATER, false);
-            case DESERT: return new AffectedGood(Good.WATER, true);
-            case RICHSOIL: return new AffectedGood(Good.FOOD, false);
-            case POORSOIL: return new AffectedGood(Good.FOOD, true);
-            case RICHFAUNA: return new AffectedGood(Good.FURS, false);
-            case LIFELESS: return new AffectedGood(Good.FURS, true);
-            case WIERDMUSHROOMS: return new AffectedGood(Good.NARCOTICS, false);
-            case LOTSOFHERBS: return new AffectedGood(Good.MEDICINE, false);
-            case ARTISTIC: return new AffectedGood(Good.GAMES, false);
-            case WARLIKE: return new AffectedGood(Good.FIREARMS, false);
-            default: return null;
+            case NONE:
+                return null;
+            case MINERALRICH:
+                return new AffectedGood(Good.ORE, false);
+            case MINERALPOOR:
+                return new AffectedGood(Good.ORE, true);
+            case LOTSOFWATER:
+                return new AffectedGood(Good.WATER, false);
+            case DESERT:
+                return new AffectedGood(Good.WATER, true);
+            case RICHSOIL:
+                return new AffectedGood(Good.FOOD, false);
+            case POORSOIL:
+                return new AffectedGood(Good.FOOD, true);
+            case RICHFAUNA:
+                return new AffectedGood(Good.FURS, false);
+            case LIFELESS:
+                return new AffectedGood(Good.FURS, true);
+            case WIERDMUSHROOMS:
+                return new AffectedGood(Good.NARCOTICS, false);
+            case LOTSOFHERBS: 
+                return new AffectedGood(Good.MEDICINE, false);
+            case ARTISTIC:
+                return new AffectedGood(Good.GAMES, false);
+            case WARLIKE:
+                return new AffectedGood(Good.FIREARMS, false);
+            default:
+                return null;
         }
     }
     
@@ -411,9 +456,10 @@ public class Planet {
      * @return affectedGoods, the goods affected by the given planet event
      */
     public List<AffectedGood> affectedGoodsForPlanetEvent() {
-        ArrayList<AffectedGood> affectedGoods = new ArrayList<AffectedGood>();
+        ArrayList<AffectedGood> affectedGoods = new ArrayList<>();
         switch (event) {
-            case NONE: break;
+            case NONE:
+                break;
             case DROUGHT: 
                 AffectedGood water = new AffectedGood(Good.WATER, true);
                 affectedGoods.add(water);
@@ -448,14 +494,15 @@ public class Planet {
                 affectedGoods.add(machines);
                 affectedGoods.add(robots);
                 break;
-            default: break;
+            default:
+                break;
         }
         return affectedGoods;
     }
     
     /**
-     * Gets whether a planet has a high enough tech level or a shipyard
-     * @return boolean whether the planet has a shipyard
+     * Gets whether a planet has a high enough tech level or a shipyard.
+     * @return true if the planet has a shipyard; false otherwise
      */
     public boolean hasShipyard() {
         return techLevel.ordinal() >= PlanetTechLevel.MEDIEVAL.ordinal();
@@ -464,8 +511,8 @@ public class Planet {
     private final int BASE_FUEL_COST = 5;
     
     /**
-     * Gets the cost of fuel on the planet
-     * @return fuelCost, the cost of fuel
+     * Gets the cost of fuel on the planet.
+     * @return fuelCost the cost of fuel
      */
     public int getFuelCost() {
         int startingFuelTechLevel = PlanetTechLevel.MEDIEVAL.ordinal();

@@ -36,7 +36,7 @@ public class Galaxy {
     }
 
     /**
-     * Sets up the galaxy's solar systems
+     * Sets up the galaxy's solar systems.
      */
     private void setupSolarSystems() {
         final String[] systemNames = new String[] {

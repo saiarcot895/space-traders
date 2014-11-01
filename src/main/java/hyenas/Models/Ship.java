@@ -40,7 +40,7 @@ public class Ship {
     private double maxHealth;
     
     /**
-     * A ShipType, used to distinguish between the types of ships
+     * A ShipType, used to distinguish between the types of ships.
      */
     public enum ShipType {
         FLEA,
@@ -48,12 +48,10 @@ public class Ship {
         FIREFLY,
         MOSQUITO,
         BUMBLEBEE,
-        // TODO: add all ship types
     }
 
     /**
-     * Initializes an instance of Ship
-     * Sets default values based on the ship type
+     * Initializes an instance of Ship, sets default values based on the type.
      * @param type, the type of ship
      */
     public Ship(ShipType type) {
@@ -179,71 +177,71 @@ public class Ship {
     }
     
     /**
-     * Get the ShipType
-     * @return ShipType
+     * Get the ShipType.
+     * @return the ship type
      */
     public ShipType getShipType() {
         return type;
     }
     
     /**
-     * Set the ShipType
-     * @param type 
+     * Set the Ship's type.
+     * @param type the ship type
      */
     public void setShipType(ShipType type) {
         this.type = type;
     }
     
     /**
-     * Get the ship's name
-     * @return name, the name of the ship
+     * Get the ship's name.
+     * @return name the name of the ship
      */
     public String getName() {
         return name;
     }
     
     /**
-     * Get the number of weapon slots
-     * @return weaponSlots, the number of weapon slots
+     * Get the number of weapon slots.
+     * @return weaponSlots the number of weapon slots
      */
     public int getWeaponSlots() {
         return weaponSlots;
     }
     
     /**
-     * Get the number of shield slots
-     * @return shieldSlots, the number of shield slots
+     * Get the number of shield slots.
+     * @return shieldSlots the number of shield slots
      */
     public int getShieldSlots() {
         return shieldSlots;
     }
     
     /**
-     * Get the number of gadget slots
-     * @return gadgetSlots, the number of gadget slots
+     * Get the number of gadget slots.
+     * @return gadgetSlots the number of gadget slots
      */
     public int getGadgetSlots() {
         return gadgetSlots;
     }
     
     /**
-     * Get the number of crew slots
-     * @return crewSlots, the number of crew slots
+     * Get the number of crew slots.
+     * @return crewSlots the number of crew slots
      */
     public int getCrewSlots() {
         return crewSlots;
     }
     
     /**
-     * Get the number of cargo slots
-     * @return cargoSlots, the number of cargo slots
+     * Get the number of cargo slots.
+     * @return cargoSlots the number of cargo slots
      */
     public int getCargoSlots() {
         return cargoSlots;
     }
     
     /**
-     * Get how much free cargo space the ship has
+     * Get how much free cargo space the ship has.
      * @return the amount of free cargo space
      */
     public int getFreeCargo() {
@@ -251,7 +249,7 @@ public class Ship {
     }
 
     /**
-     * Get the ship's cargo
+     * Get the ship's cargo.
      * @return the ship's cargo
      */
     public List<Ware> getCargo() {
@@ -259,7 +257,7 @@ public class Ship {
     }
     
     /**
-     * Get the ship's weapons
+     * Get the ship's weapons.
      * @return the ship's weapons
      */
     public List<Weapon> getWeapons() {
@@ -267,7 +265,7 @@ public class Ship {
     }
     
     /**
-     * Get the ship's shields
+     * Get the ship's shields.
      * @return the ship's shields
      */
     public List<Shield> getShields() {
@@ -275,7 +273,7 @@ public class Ship {
     }
     
     /**
-     * Get the ship's gadgets
+     * Get the ship's gadgets.
      * @return the ship's gadgets
      */
     public List<Gadget> getGadgets() {
@@ -283,7 +281,7 @@ public class Ship {
     }
     
     /**
-     * Get the ship's crew
+     * Get the ship's crew.
      * @return the ship's crew
      */
     public List<Mercenary> getCrew() {
@@ -400,11 +398,11 @@ public class Ship {
     }
     
     /**
-     * Get the list of default buyable ships
+     * Get the list of default buyable ships.
      * @return ships, the list of ships
      */
     public static List<Ship> getDefaultShips() {
-        ArrayList<Ship> ships = new ArrayList<Ship>(ShipType.values().length);
+        ArrayList<Ship> ships = new ArrayList<>(ShipType.values().length);
         for (ShipType type: ShipType.values()) {
             Ship ship = new Ship(type);
             ships.add(ship);

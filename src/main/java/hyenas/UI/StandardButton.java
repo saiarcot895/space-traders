@@ -16,7 +16,9 @@ public class StandardButton extends Button {
     private final double SMALL_PREF_WIDTH = 104.0;
     private final double SMALL_PREF_HEIGHT = 27.0;
     
-    
+    /**
+     * StandardButtonType, for distinguishing between the types of buttons.
+     */
     public enum StandardButtonType {
         REGULAR,
         SMALL,

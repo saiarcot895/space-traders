@@ -7,7 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 
 /**
- * FXML Controller class for Settings
+ * FXML Controller class for Settings.
  *
  * @author saikrishna
  */
@@ -19,11 +19,11 @@ public class SettingsController implements Initializable {
     }
     
     /**
-     * Cancels settings changes, returns to previous screen
-     * @param e, unused
+     * Cancels settings changes, returns to previous screen.
+     * @param e unused
      */
     public void onCancelClicked(ActionEvent e) {
-        if (Player.getInstance().getState() == false) {
+        if (!Player.getInstance().getState()) {
             HyenasLoader.getInstance().goToHomeScreen();
         } else {
             // TODO: Go back to previous instance of state.
@@ -32,11 +32,11 @@ public class SettingsController implements Initializable {
     }
     
     /**
-     * Saves settings changes, returns to previous screen
-     * @param e, unused
+     * Saves settings changes, returns to previous screen.
+     * @param e unused
      */
     public void onSaveClicked(ActionEvent e) {
-        if (Player.getInstance().getState() == false) {
+        if (!Player.getInstance().getState()) {
             HyenasLoader.getInstance().goToHomeScreen();
         } else {
             // TODO: Go back to previous instance of state.

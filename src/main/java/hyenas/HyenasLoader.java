@@ -23,8 +23,8 @@ public class HyenasLoader extends Application {
     private Stage stage;
 
     /**
-     * Gets the common HyenasLoader instance, since we should only have one
-     * @return instance, the current HyenasLoader instance
+     * Gets the common HyenasLoader instance, since we should only have one.
+     * @return the current HyenasLoader instance
      */
     public static HyenasLoader getInstance() {
         return instance;
@@ -60,7 +60,7 @@ public class HyenasLoader extends Application {
     }
 
     /**
-     * Gets the database connection manager
+     * Gets the database connection manager.
      * @return the connection manager
      */
     public ConnectionManager getConnectionManager() {
@@ -125,7 +125,7 @@ public class HyenasLoader extends Application {
     }
     
     /**
-     * Loads a given screen and catches errors if necessary
+     * Loads a given screen and catches errors if necessary.
      * @param screen the screen to load
      */
     private void loadScreen(String screen) {
@@ -180,7 +180,7 @@ public class HyenasLoader extends Application {
 /**********************************************************************/
 
     /**
-     * Launches the application
+     * Launches the application.
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -188,8 +188,8 @@ public class HyenasLoader extends Application {
     }
 
     /**
-     * Gets the stage
-     * @param stage, the current stage
+     * Gets the stage.
+     * @return the current stage
      */
     public Stage getStage() {
         return stage;

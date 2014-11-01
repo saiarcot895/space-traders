@@ -62,7 +62,8 @@ public class RandomEvent {
                 actionButtonText = "Fight!";
                 cancelButtonText = "Run Away!";
                 break;
-            default: break;
+            default:
+                break;
         }
     }
     
@@ -178,7 +179,8 @@ public class RandomEvent {
                     player.setCredits(player.getCredits() - 100);
                 }
                 return success;
-            case TRADER: return true;
+            case TRADER:
+                return true;
             case PIRATE:
                 int x = 6;
                 Random random = new Random();

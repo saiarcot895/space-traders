@@ -14,7 +14,7 @@ class Mercenary {
     private int investorSkill;
     private int price;
     private String name;
-    private final int SKILL_MAX = 30;
+    private static final int SKILL_MAX = 30;
     
     /**
      * Constructor for mercenary, randomly assigns mercenary's skills and name
@@ -37,7 +37,7 @@ class Mercenary {
     }
     
     /**
-     * Constructor for mercenary, takes in generated mercenary's skills and name
+     * Constructor for mercenary, takes in generated mercenary's skills and name.
      * @param name new mercenary's name
      * @param pilot new mercenary's pilot skill
      * @param fighter new mercenary's fighter skill
