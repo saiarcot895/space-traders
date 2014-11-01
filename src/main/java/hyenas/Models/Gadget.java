@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A gadget that can be added to a ship
+ * A gadget that can be added to a ship.
  * @author Alex
  */
 public class Gadget {
@@ -14,7 +14,7 @@ public class Gadget {
     private int minTechLevel;
     
     /**
-     * A GadgetType, used to distinguish between the types of gadget
+     * A GadgetType, used to distinguish between the types of gadget.
      */
     public enum GadgetType {
         EXTRA_CARGO,
@@ -26,9 +26,9 @@ public class Gadget {
     }
     
     /**
-     * Initializes an instance of Gadget
+     * Initializes an instance of Gadget.
      * Sets default values based on the gadget type
-     * @param type, the type of gadget
+     * @param type the type of gadget
      */
     public Gadget(GadgetType type) {
         switch (type) {
@@ -62,39 +62,39 @@ public class Gadget {
                 price = 200;
                 minTechLevel = 0;
                 break;
-            
-            default: break;
+            default:
+                break;
         }
         this.type = type;
     }
     
     /**
-     * Get the name of the gadget
-     * @return name, the name of the gadget
+     * Get the name of the gadget.
+     * @return name the name of the gadget
      */
     public String getName() {
         return name;
     }
     
     /**
-     * Get the price of the gadget
-     * @return price, the price of the gadget
+     * Get the price of the gadget.
+     * @return price the price of the gadget
      */
     public int getPrice()    {
         return price;
     }
     
     /**
-     * Get the minimum required tech level
-     * @return minTechLevel, the min tech level
+     * Get the minimum required tech level.
+     * @return minTechLevel the min tech level
      */
     public int getMinTechLevel()    {
         return minTechLevel;
     }
     
     /**
-     * Get the list of default buyable gadgets
-     * @return gadgets, the list of gadgets
+     * Get the list of default buyable gadgets.
+     * @return gadgets the list of gadgets
      */
     public static List<Gadget> getDefaultGadgets() {
         ArrayList<Gadget> gadgets = new ArrayList<>(GadgetType.values().length);

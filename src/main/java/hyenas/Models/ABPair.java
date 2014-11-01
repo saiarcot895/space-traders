@@ -3,7 +3,7 @@ package hyenas.Models;
 import java.util.Objects;
 
 /**
- * Represents pair for use with Dijkstra's algorithm
+ * Represents pair for use with Dijkstra's algorithm.
  * @author saikrishna
  */
 public class ABPair<A, B> {
@@ -11,9 +11,9 @@ public class ABPair<A, B> {
     private final B b;
 
     /**
-     * Initializes an ABPair
-     * @param a, the first item
-     * @param b, the second item
+     * Initializes an ABPair.
+     * @param a the first item
+     * @param b the second item
      */
     public ABPair(A a, B b) {
         this.a = a;

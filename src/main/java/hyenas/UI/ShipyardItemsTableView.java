@@ -30,7 +30,7 @@ public class ShipyardItemsTableView extends TableView {
     
     /**
      * Initializes a table.
-     * @param type, the table type
+     * @param type the table type
      */
     public ShipyardItemsTableView(ShipyardTableType type) {
         setupTableForType(type);
@@ -40,7 +40,7 @@ public class ShipyardItemsTableView extends TableView {
     
     /**
      * Sets up the table for a given table type
-     * @param type, the table type
+     * @param type the table type
      */
     public void setupTableForType(ShipyardTableType type) {
         switch (type) {

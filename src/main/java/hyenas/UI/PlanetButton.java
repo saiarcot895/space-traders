@@ -8,13 +8,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * Planet button for displaying planet
+ * Planet button for displaying planet.
  * @author Brian
  */
 public class PlanetButton extends Button {
 
     /**
-     * Sets up the button for a planet
+     * Sets up the button for a planet.
      * @param planet, the planet to set up for
      */
     public void setupForPlanet(Planet planet) {
@@ -35,8 +35,8 @@ public class PlanetButton extends Button {
     }
 
     /**
-     * Gets the coordinated of the planet
-     * @retun coordinates, the coordinates of the planet
+     * Gets the coordinated of the planet.
+     * @retun coordinates the coordinates of the planet
      */
     private Point getCoordinates() {
         Random rand = new Random();

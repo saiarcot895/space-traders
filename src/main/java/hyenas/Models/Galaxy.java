@@ -5,28 +5,27 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * A Galaxy that contains solar systems
+ * A Galaxy that contains solar systems.
  * @author Alex
  */
 public class Galaxy {
     private Map<String, SolarSystem> solarSystems;
     private Map<SolarSystem, List<ABPair<SolarSystem, Double>>> distances;
-    private boolean locationsSet;
+    private boolean locationSet;
 
     private static Galaxy instance;
 
     /**
-     * Initializes an instance of Galaxy
-     * Sets initial values
+     * Initializes an instance of Galaxy, sets initial values.
      */
     private Galaxy() {
         distances = new HashMap<>();
-        locationsSet = false;
+        locationSet = false;
         setupSolarSystems();
     }
 
     /**
-     * Getter for Galaxy singleton
+     * Getter for Galaxy singleton.
      * @return Galaxy the common galaxy instance
      */
     public static Galaxy getInstance() {
@@ -42,13 +41,7 @@ public class Galaxy {
     private void setupSolarSystems() {
         final String[] systemNames = new String[] {
             "Earth616",
-            "Utopia",
-            "Omega",
-            "Tantalos",
-            "Carzon",
-            "Exo",
             "Destiny",
-            "Frolix",
             "Acamar",
             "Adahn", // The alternate personality for The Nameless One in "Planescape: Torment"
             "Aldea",
@@ -171,10 +164,9 @@ public class Galaxy {
             "Zuul"
         };
 
-        solarSystems = new HashMap<String, SolarSystem>();
+        solarSystems = new HashMap<>();
 
-        for (int x = 0; x < systemNames.length; x++) {
-            String systemName = systemNames[x];
+        for (String systemName : systemNames) {
             SolarSystem solarSystem = new SolarSystem(systemName);
             solarSystems.put(systemName, solarSystem);
         }
@@ -189,7 +181,8 @@ public class Galaxy {
     }
 
     /**
-     * Get the solar system for a system name
+     * Get the solar system for a system name.
+     * @param solarSystemName the name of the solar ssytem
      * @return the system corresponding to the system name
      */
     public SolarSystem getSolarSystemForName(String solarSystemName) {
@@ -205,18 +198,18 @@ public class Galaxy {
     }
 
     /**
-     * Get whether the galaxy's location is set
+     * Get whether the galaxy's location is set.
      * @return whether the galaxy's location is set
      */
     public boolean isLocationsSet() {
-        return locationsSet;
+        return locationSet;
     }
 
     /**
-     * Set whether the galaxy's location is set
-     * @param locationSet, whether the galaxy's location is set
+     * Set whether the galaxy's location is set.
+     * @param locationSet whether the galaxy's location is set
      */
-    public void setLocationsSet(boolean locationsSet) {
-        this.locationsSet = locationsSet;
+    public void setLocationsSet(boolean locationSet) {
+        this.locationSet = locationSet;
     }
 }
