@@ -9,7 +9,7 @@ import javafx.scene.control.TableColumn;
 public class MarketTableColumn extends TableColumn {
     /**
      * Initializer for Market Table Column.
-     * @param text 
+     * @param text the column text
      */
     public MarketTableColumn(String text) {
         super(text);

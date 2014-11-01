@@ -74,6 +74,7 @@ public class MapUIController implements Initializable {
     private PlayerTable playerTable;
     
     private final int INFO_PANE_SIZE = 200;
+    private final double SCROLL_PANE_PADDING = 60.0;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -242,17 +243,14 @@ public class MapUIController implements Initializable {
 
         SolarSystem currentSystem = player.getCurrentSystem();
         travelRange = new Circle(x, y, player.getShip().getFuel());
-//        travelRange.setStrokeType(StrokeType.OUTSIDE);
-//        travelRange.setStroke(Color.web("white", 0.5));
-//        travelRange.setStrokeWidth(1);
         travelRange.setFill(Color.web("cyan", 0.1));
         travelRange.setDisable(true);
         scrollContentPane.getChildren().add(travelRange);
-
-
-
-        Dimension screenSize = UIHelper.getScreenSize();
-        scrollPane.setPrefSize(screenSize.getWidth(), screenSize.getHeight());
+        
+        AnchorPane.setTopAnchor(scrollPane, SCROLL_PANE_PADDING);
+        AnchorPane.setBottomAnchor(scrollPane, SCROLL_PANE_PADDING);
+        AnchorPane.setRightAnchor(scrollPane, SCROLL_PANE_PADDING);
+        AnchorPane.setLeftAnchor(scrollPane, SCROLL_PANE_PADDING);
         scrollPane.setContent(scrollContentPane);
         playerInfoPane = new PlayerInfoPane();
         AnchorPane.setBottomAnchor(playerInfoPane, 0.0);
@@ -267,36 +265,13 @@ public class MapUIController implements Initializable {
      */
     private void handleRandomEvent(RandomEventType eventType) {
         scrollPane.setInfoPane(null); // Remove system info pane
-        AlertPane eventPane = new AlertPane(AlertPaneType.TwoButtons);
+        AlertPane eventPane = new AlertPane(AlertPaneType.TWOBUTTONS);
         RandomEvent event = new RandomEvent(eventType);
         eventPane.setTitleText(event.getDescription());
         eventPane.setMessageText(event.getQuestion());
         eventPane.getActionButton().setText(event.getActionButtonText());
         eventPane.getCloseButton().setText(event.getCancelButtonText());
-        
-        //
-        // police
-        // action: pay fine
-        // cancel: run away
-        // action result: deduct 5% of credits, continue to planet
-        // cancel result 1: run away successfully, fuel deducted arrive at planet
-        // cancel result 2: run away unnsuccessfully, double fine deducted, half fuel deducted, dont arrive at planet
-        //
-        
-        // pirate
-        // action: fight
-        // cancel: run away
-        // action result 1: successfully fend off pirates, ship slightly damaged fuel deducted, arrive at planet
-        // action result 2: fight unsuccessfully, ship half damaged, half fuel deducted, dont arrive at planet
-        // cancel result 1: run away successfully, fuel deducted arrive at planet
-        // cancel result 2: run away unnsuccessfully, ship half damaged, half fuel deducted, dont arrive at planet
-        
-        // trader
-        // action: trade
-        // cancel: ignore
-        // action result: sell unused parts, credits added, fuel deducted, arrive at planet
-        // cancel result: fuel deducted, arrive at planet
-        
+
         EventHandler<ActionEvent> actionEvent = (ActionEvent e1) -> {
             boolean success = event.performAction();
             String resultText = event.getActionResultText();
@@ -316,7 +291,7 @@ public class MapUIController implements Initializable {
                     resultText = resultText + solarSystem.getSystemName() + ".";
                     break;
             }
-            AlertPane resultPane = new AlertPane(AlertPaneType.OneButton);
+            AlertPane resultPane = new AlertPane(AlertPaneType.ONEBUTTON);
             resultPane.setMessageText(resultText);
             
             EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
@@ -373,7 +348,7 @@ public class MapUIController implements Initializable {
                     }
                     break;
             }
-            AlertPane resultPane = new AlertPane(AlertPaneType.OneButton);
+            AlertPane resultPane = new AlertPane(AlertPaneType.ONEBUTTON);
             resultPane.setMessageText(resultText);
             
             EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
@@ -411,8 +386,8 @@ public class MapUIController implements Initializable {
     }
     
     /**
-     * Randomly determines whether a random event occured.
-     * @return boolean, whether a random event occurred
+     * Randomly determines whether a random event occurred.
+     * @return true if a random event occurred; false otherwise
      */
     private boolean randomEventOccurred() {
         Random rand = new Random();
@@ -437,7 +412,7 @@ public class MapUIController implements Initializable {
             Planet randPlanet = planets.get(randPlanetIndex);
             
             
-            AlertPane resultPane = new AlertPane(AlertPaneType.OneButton);
+            AlertPane resultPane = new AlertPane(AlertPaneType.ONEBUTTON);
             // TODO: How to replace [ware] with the ware that was affected??
             resultPane.setMessageText("The [ware] on planet " + randPlanet.getPlanetName() + 
                     " in system " + randSys.getSystemName() + " has been affected.");
@@ -452,9 +427,9 @@ public class MapUIController implements Initializable {
     }
     
     /**
-     * Completes a journey by moving the player,deducting fuel, and setting the
-     * current system and planet
-     * @param journey, the journey the player wishes to make
+     * Completes a journey by moving the player, deducting fuel, and setting the
+     * current system and planet.
+     * @param journey the journey the player wishes to make
      */
     private void makeJourney(Journey journey) {
         Player player = Player.getInstance();
@@ -475,9 +450,9 @@ public class MapUIController implements Initializable {
     }
     
     /**
-     * Handles a player traveling to a system and checks for random events
-     * @param solarSystem, the system being traveled to
-     * @param solarSystemButton, the corresponding button of the system being
+     * Handles a player traveling to a system and checks for random events.
+     * @param solarSystem the system being traveled to
+     * @param solarSystemButton the corresponding button of the system being
      * traveled to
      */
     private void travelToSystem(SolarSystem solarSystem, Button solarSystemButton) {
@@ -503,42 +478,6 @@ public class MapUIController implements Initializable {
                 HyenasLoader.getInstance().getConnectionManager().getShipTable()
                         .update(player.getShip(), player);
             }
-
-        // Messing around with animations, save for later
-        /*
-             scrollPane.setPannable(false);
-             Dimension screenSize = UIHelper.getScreenSize();
-
-             Pane contentPane = (Pane)scrollPane.getContent();
-
-             System.out.println("System: "+solarSystem.getX() +","+solarSystem.getY());
-             double hvalue;
-             if (solarSystem.getX() <= GALAXY_SIZE / 2) {
-             double factor = (((-.004 * solarSystem.getX()) + 5) * solarSystem.getX());
-             System.out.println("X less than: "+factor);
-             hvalue = factor / GALAXY_SIZE;
-             } else {
-             double factor = (((.004 * solarSystem.getX()) - 3) * solarSystem.getX());
-             System.out.println("X greater than: "+factor);
-             hvalue = factor / GALAXY_SIZE;
-             }
-
-             System.out.println("HV: "+hvalue +","+vvalue);
-
-             final Timeline timeline = new Timeline();
-             final KeyValue kvScaleX = new KeyValue(contentPane.scaleXProperty(), 5.0);
-             final KeyValue kvScaleY = new KeyValue(contentPane.scaleYProperty(), 5.0);
-             final KeyValue kvH = new KeyValue(scrollPane.hvalueProperty(), hvalue);
-             final KeyValue kvV = new KeyValue(scrollPane.vvalueProperty(), vvalue);
-             final KeyFrame kfScaleX = new KeyFrame(Duration.millis(500), kvScaleX);
-             final KeyFrame kfScaleY = new KeyFrame(Duration.millis(500), kvScaleY);
-             final KeyFrame kfH = new KeyFrame(Duration.millis(500), kvH);
-             final KeyFrame kfV = new KeyFrame(Duration.millis(500), kvV);
-             timeline.getKeyFrames().add(kfScaleX);
-             timeline.getKeyFrames().add(kfScaleY);
-             timeline.getKeyFrames().add(kfH);
-             timeline.getKeyFrames().add(kfV);
-             timeline.play();*/
         }
     }
 

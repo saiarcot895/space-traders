@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 /**
- * Alert Panes, for use when displaying alerts/messages to user
+ * Alert Panes, for use when displaying alerts/messages to user.
  * @author Alex
  */
 public class AlertPane extends BorderPane {
@@ -35,28 +35,28 @@ public class AlertPane extends BorderPane {
     private final double PADDING = 10.0;
     
     /**
-     * A AlertPaneType, used to distinguish between alert pane types
+     * A AlertPaneType, used to distinguish between alert pane types.
      */
     public enum AlertPaneType {
-        OneButton,
-        TwoButtons,
-        Loading
+        ONEBUTTON,
+        TWOBUTTONS,
+        LOADING
     }
     
     /**
-     * Title label for Alert Pane
+     * Title label for Alert Pane.
      */
     public static class AlertPaneTitleLabel extends Label {
         /**
-         * Initializes an AlertPaneTitleLabel
+         * Initializes an AlertPaneTitleLabel.
          */
         public AlertPaneTitleLabel() {
             this("");
         }
         
         /**
-         * Initializes an AlertPaneTitleLabel
-         * @param text, the default text to set
+         * Initializes an AlertPaneTitleLabel.
+         * @param text the default text to set
          */
         public AlertPaneTitleLabel(String text) {
             super(text);
@@ -65,19 +65,19 @@ public class AlertPane extends BorderPane {
     }
     
     /**
-     * Message label for Alert Pane
+     * Message label for Alert Pane.
      */
     public static class AlertPaneMessageLabel extends Label {
         /**
-         * Initializes an AlertPaneMessageLabel
+         * Initializes an AlertPaneMessageLabel.
          */
         public AlertPaneMessageLabel() {
             this("");
         }
         
         /**
-         * Initializes an AlertPaneMessageLabel
-         * @param text, the default text to set
+         * Initializes an AlertPaneMessageLabel.
+         * @param text the default text to set
          */
         public AlertPaneMessageLabel(String text) {
             super(text);
@@ -86,8 +86,8 @@ public class AlertPane extends BorderPane {
     }
     
     /**
-     * Initializes an AlertPane and creates required label/button elements
-     * @param type, the alert pane type
+     * Initializes an AlertPane and creates required label/button elements.
+     * @param type the alert pane type
      */
     public AlertPane(AlertPaneType type) {
         this.type = type;
@@ -108,19 +108,19 @@ public class AlertPane extends BorderPane {
         messageLabel.setStyle("-fx-padding: 0 10 0 10;");
         setCenter(messageLabel);
         
-        if (type == AlertPaneType.OneButton) {
-            closeButton = new StandardButton("Close", StandardButtonType.Small);
+        if (type == AlertPaneType.ONEBUTTON) {
+            closeButton = new StandardButton("Close", StandardButtonType.SMALL);
             
             BorderPane buttonPane = new BorderPane();
             buttonPane.setCenter(closeButton);
             buttonPane.setPrefHeight(35.0);
             setBottom(buttonPane);
-        } else if (type == AlertPaneType.TwoButtons) {
-            actionButton = new StandardButton("Action", StandardButtonType.Small);
+        } else if (type == AlertPaneType.TWOBUTTONS) {
+            actionButton = new StandardButton("Action", StandardButtonType.SMALL);
             AnchorPane.setBottomAnchor(actionButton, 5.0);
             AnchorPane.setLeftAnchor(actionButton, 41.0);
             
-            closeButton = new StandardButton("Close", StandardButtonType.Small);
+            closeButton = new StandardButton("Close", StandardButtonType.SMALL);
             AnchorPane.setBottomAnchor(closeButton, 5.0);
             AnchorPane.setRightAnchor(closeButton, 41.0);
             
@@ -128,7 +128,7 @@ public class AlertPane extends BorderPane {
             buttonPane.setPrefHeight(35.0);
             buttonPane.getChildren().addAll(actionButton, closeButton);
             setBottom(buttonPane);
-        } else if (type == AlertPaneType.Loading) {
+        } else if (type == AlertPaneType.LOADING) {
             BorderPane progressPane = new BorderPane();
             progressPane.setPrefHeight(50.0);
             ProgressBar progressBar = new ProgressBar();
@@ -143,16 +143,16 @@ public class AlertPane extends BorderPane {
     }
     
     /**
-     * Set the alert pane's title text
-     * @param text, the title text
+     * Set the alert pane's title text.
+     * @param text the title text
      */
     public void setTitleText(String text) {
         titleLabel.setText(text);
     }
     
     /**
-     * Set the alert pane's message text
-     * @param text, the message text
+     * Set the alert pane's message text.
+     * @param text the message text
      */
     public void setMessageText(String text) {
         messageLabel.setText(text);
@@ -165,16 +165,16 @@ public class AlertPane extends BorderPane {
     }
     
     /**
-     * Get the alert pane's action button
-     * @param actionButton, the action button
+     * Get the alert pane's action button.
+     * @return the action button
      */
     public Button getActionButton() {
         return actionButton;
     }
     
     /**
-     * Get the alert pane's close button
-     * @param closeButton, the close button
+     * Get the alert pane's close button.
+     * @return the close button
      */
     public Button getCloseButton() {
         return closeButton;

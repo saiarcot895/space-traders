@@ -3,7 +3,7 @@ package hyenas.UI;
 import javafx.scene.control.Button;
 
 /**
- * The standard button used throughout the ui
+ * The standard button used throughout the ui.
  * @author Alex
  */
 public class StandardButton extends Button {
@@ -18,35 +18,44 @@ public class StandardButton extends Button {
     
     
     public enum StandardButtonType {
-        Regular,
-        Small,
-        Medium
+        REGULAR,
+        SMALL,
+        MEDIUM
     }
     
     /**
-     * Initializes a standard button
+     * Default initializer for standard button.
      */
     public StandardButton() {
         this("");
     }
     
+    /**
+     * Initializes a standard button with text.
+     * @param text the text to set
+     */
     public StandardButton(String text) {
-        this(text, StandardButtonType.Regular);
+        this(text, StandardButtonType.REGULAR);
     }
     
+    /**
+     * Initializes a standard button with text and given type.
+     * @param text the text to set
+     * @param type the type of the button
+     */
     public StandardButton(String text, StandardButtonType type) {
         super(text);
         getStyleClass().add("standard-button");
         switch (type) {
-            case Small:
+            case SMALL:
                 setPrefWidth(SMALL_PREF_WIDTH);
                 setPrefHeight(SMALL_PREF_HEIGHT);
                 break;
-            case Medium:
+            case MEDIUM:
                 setPrefWidth(MEDIUM_PREF_WIDTH);
                 setPrefHeight(MEDIUM_PREF_HEIGHT);
                 break;
-            case Regular:
+            case REGULAR:
             default:
                 setPrefWidth(REGULAR_PREF_WIDTH);
                 setPrefHeight(REGULAR_PREF_HEIGHT);

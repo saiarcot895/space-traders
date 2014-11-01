@@ -5,8 +5,6 @@ import hyenas.Models.Player;
 import hyenas.Models.Ship;
 import hyenas.UI.AlertPane.AlertPaneMessageLabel;
 import hyenas.UI.AlertPane.AlertPaneTitleLabel;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,7 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 /**
- * For use with Marketplace. Displays planet and player info
+ * For use with Marketplace. Displays planet and player info.
  * @author Alex
  */
 public class MarketInfoPane extends BorderPane {
@@ -30,7 +28,7 @@ public class MarketInfoPane extends BorderPane {
     private Button sellButton;
     
     /**
-     * Initializes a MarketInfoPane, sets up ui elements
+     * Initializes a MarketInfoPane, sets up ui elements.
      */
     public MarketInfoPane() {
         getStyleClass().add("market-info-pane");
@@ -56,13 +54,13 @@ public class MarketInfoPane extends BorderPane {
         planetTypeLabel = new AlertPaneMessageLabel("[Type]");
         techLevelLabel = new AlertPaneMessageLabel("[Tech Level]");
         planetEventLabel = new AlertPaneMessageLabel("[Event]");
-        creditsLabel = new AlertPaneMessageLabel("-1");
-        fuelLabel = new AlertPaneMessageLabel("-1");
-        freeCargoLabel = new AlertPaneMessageLabel("-1");
+        creditsLabel = new AlertPaneMessageLabel();
+        fuelLabel = new AlertPaneMessageLabel();
+        freeCargoLabel = new AlertPaneMessageLabel();
         rightBox.getChildren().addAll(planetNameLabel, planetTypeLabel, 
                 techLevelLabel, planetEventLabel, creditsLabel, fuelLabel,
                 freeCargoLabel);
-        BorderPane.setMargin(rightBox, new Insets(0,0,0,20));
+        BorderPane.setMargin(rightBox, new Insets(0, 0, 0, 20));
         updateInfo();
         
         BorderPane bottomBox = new BorderPane();
@@ -89,23 +87,23 @@ public class MarketInfoPane extends BorderPane {
     }
     
     /**
-     * Get the buy button
-     * @return buyButton, the buy button
+     * Get the buy button.
+     * @return the buy button
      */
     public Button getBuyButton() {
         return buyButton;
     }
     
     /**
-     * Get the sell button
-     * @return sellButton, the sell button
+     * Get the sell button.
+     * @return the sell button
      */
     public Button getSellButton() {
         return sellButton;
     }
     
     /**
-     * Updates the info in the pane
+     * Updates the info in the pane.
      */
     public void updateInfo() {
         Player player = Player.getInstance();
@@ -117,8 +115,8 @@ public class MarketInfoPane extends BorderPane {
         techLevelLabel.setText("" + planet.techLevelString());
         planetEventLabel.setText(planet.getPlanetEventString());
         creditsLabel.setText("" + player.getCredits());
-        fuelLabel.setText(String.format("%.0f", ship.getFuel()) + "/" +
-                String.format("%.0f", ship.getMaxFuel()));
+        fuelLabel.setText(String.format("%.0f / %.0f", ship.getFuel(),
+                ship.getMaxFuel()));
         freeCargoLabel.setText("" + ship.getFreeCargo());
     }
 }

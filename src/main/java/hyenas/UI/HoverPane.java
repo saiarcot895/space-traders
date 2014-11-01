@@ -4,7 +4,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 /**
- * Use for displaying hover text over an ui element
+ * Use for displaying hover text over a UI element.
  * @author Alex
  */
 public class HoverPane extends AnchorPane {
@@ -14,7 +14,7 @@ public class HoverPane extends AnchorPane {
     private final double HEIGHT = 30.0;
     
     /**
-     * Initializes a HoverPane
+     * Initializes a HoverPane.
      */
     public HoverPane() {
         getStyleClass().add("alertPane");
@@ -30,8 +30,8 @@ public class HoverPane extends AnchorPane {
     }
     
     /**
-     * Sets the text of the hover pane
-     * @param text, the text to set
+     * Sets the text of the hover pane.
+     * @param text the text to set
      */
     public void setLabelText(String text) {
         label.setText(text);

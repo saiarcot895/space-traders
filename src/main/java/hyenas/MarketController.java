@@ -80,7 +80,7 @@ public class MarketController implements Initializable {
             setLeft(fuelCostLabel);
 
             BorderPane fuelButtonPane = new BorderPane();
-            fuelButton = new StandardButton("Buy", StandardButton.StandardButtonType.Medium);
+            fuelButton = new StandardButton("Buy", StandardButton.StandardButtonType.MEDIUM);
             EventHandler<ActionEvent> buyFuelEvent = (ActionEvent e) -> {
                 buyFuel(e);
             };
@@ -285,7 +285,7 @@ public class MarketController implements Initializable {
      * @param message, the alert message
      */
     private void displayAlert(String title, String message) {
-        AlertPane alertPane = new AlertPane(AlertPaneType.OneButton);
+        AlertPane alertPane = new AlertPane(AlertPaneType.ONEBUTTON);
         alertPane.setTitleText(title);
         alertPane.setMessageText(message);
         EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {

@@ -240,7 +240,7 @@ public class SystemUIController implements Initializable {
      * @param message, the message to display on the label
      */
     private void displayAlert(String title, String message) {
-        AlertPane alertPane = new AlertPane(AlertPane.AlertPaneType.OneButton);
+        AlertPane alertPane = new AlertPane(AlertPane.AlertPaneType.ONEBUTTON);
         alertPane.setTitleText(title);
         alertPane.setMessageText(message);
         EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {

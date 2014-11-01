@@ -15,7 +15,7 @@ public class PlanetButton extends Button {
 
     /**
      * Sets up the button for a planet.
-     * @param planet, the planet to set up for
+     * @param planet the planet to set up for
      */
     public void setupForPlanet(Planet planet) {
         Image image = new Image("hyenas/images/Planet.png");
@@ -36,7 +36,7 @@ public class PlanetButton extends Button {
 
     /**
      * Gets the coordinated of the planet.
-     * @retun coordinates the coordinates of the planet
+     * @return the coordinates of the planet
      */
     private Point getCoordinates() {
         Random rand = new Random();

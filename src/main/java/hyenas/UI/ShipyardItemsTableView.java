@@ -39,7 +39,7 @@ public class ShipyardItemsTableView extends TableView {
     }
     
     /**
-     * Sets up the table for a given table type
+     * Sets up the table for a given table type.
      * @param type the table type
      */
     public void setupTableForType(ShipyardTableType type) {
@@ -117,7 +117,8 @@ public class ShipyardItemsTableView extends TableView {
                 getColumns().addAll(nameCol, minTechCol, priceCol);
                 break;
             }
-            default: break;
+            default:
+                break;
         }
     }
 }

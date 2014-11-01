@@ -5,7 +5,7 @@ import java.awt.Toolkit;
 import java.util.Random;
 
 /**
- * For UI helper methods
+ * For UI helper methods.
  * @author Alex
  */
 public class UIHelper {
@@ -14,15 +14,15 @@ public class UIHelper {
     public static final double SYSTEM_HEIGHT = 680.0;
 
     /**
-     * Returns the monitor's screen size
-     * @return Dimension, the screen size
+     * Returns the monitor's screen size.
+     * @return the screen size
      */
     public static final Dimension getScreenSize() {
         return Toolkit.getDefaultToolkit().getScreenSize();
     }
     
     /**
-     * Generates a random color string for use with CSS
+     * Generates a random color string for use with CSS.
      * @return generated random color string
      */
     public static String randomColorString() {

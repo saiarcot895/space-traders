@@ -27,7 +27,7 @@ public class ShipInfoPane extends BorderPane {
     private Button sellButton;
     
     /**
-     * Initializer for ship info pane
+     * Initializer for ship info pane.
      */
     public ShipInfoPane() {
         getStyleClass().add("market-info-pane");
@@ -48,19 +48,20 @@ public class ShipInfoPane extends BorderPane {
                 shipShields, shipGadgets, shipCrew, credits);
         
         VBox rightBox = new VBox();
+        final String defaultUnsetValue = "[0/0]";
         shipNameLabel = new AlertPaneMessageLabel("[Name]");
-        shipCargoLabel = new AlertPaneMessageLabel("[0/0]");
-        shipFuelLabel = new AlertPaneMessageLabel("[0/0]");
-        shipWeaponsLabel = new AlertPaneMessageLabel("[0/0]");
-        shipShieldsLabel = new AlertPaneMessageLabel("[0/0]");
-        shipGadgetsLabel = new AlertPaneMessageLabel("[0/0]");
-        shipCrewLabel = new AlertPaneMessageLabel("[0/0]");
+        shipCargoLabel = new AlertPaneMessageLabel(defaultUnsetValue);
+        shipFuelLabel = new AlertPaneMessageLabel(defaultUnsetValue);
+        shipWeaponsLabel = new AlertPaneMessageLabel(defaultUnsetValue);
+        shipShieldsLabel = new AlertPaneMessageLabel(defaultUnsetValue);
+        shipGadgetsLabel = new AlertPaneMessageLabel(defaultUnsetValue);
+        shipCrewLabel = new AlertPaneMessageLabel(defaultUnsetValue);
         creditsLabel = new AlertPaneMessageLabel("[0]");
         
         rightBox.getChildren().addAll(shipNameLabel, shipCargoLabel,
                 shipFuelLabel, shipWeaponsLabel, shipShieldsLabel, 
                 shipGadgetsLabel, shipCrewLabel, creditsLabel);
-        BorderPane.setMargin(rightBox, new Insets(0,0,0,20));
+        BorderPane.setMargin(rightBox, new Insets(0, 0, 0, 20));
         updateInfo();
         
         BorderPane bottomBox = new BorderPane();
@@ -86,41 +87,42 @@ public class ShipInfoPane extends BorderPane {
     }
     
     /**
-     * Get the buy button
-     * @return buyButton, the buy button
+     * Get the buy button.
+     * @return the buy button
      */
     public Button getBuyButton() {
         return buyButton;
     }
     
     /**
-     * Get the sell button
-     * @return sellButton, the sell button
+     * Get the sell button.
+     * @return the sell button
      */
     public Button getSellButton() {
         return sellButton;
     }
     
     /**
-     * Updates the info in the pane
+     * Updates the info in the pane.
      */
     public void updateInfo() {
         Player player = Player.getInstance();
         Ship ship = player.getShip();
         
+        final String integerFormatString = "%d/%d";
         shipNameLabel.setText(ship.getName());
-        shipCargoLabel.setText(ship.getCargo().size() + 
-                "/" + ship.getCargoSlots());
-        shipFuelLabel.setText(String.format("%.0f", ship.getFuel()) + "/" +
-                String.format("%.0f", ship.getMaxFuel()));
-        shipWeaponsLabel.setText(ship.getWeapons().size() + "/" +
-                ship.getWeaponSlots());
-        shipShieldsLabel.setText(ship.getShields().size() + "/" +
-                ship.getShieldSlots());
-        shipGadgetsLabel.setText(ship.getGadgets().size() + "/" +
-                ship.getGadgetSlots());
-        shipCrewLabel.setText(ship.getCrew().size() + "/" +
-                ship.getCrewSlots());
+        shipCargoLabel.setText(String.format(integerFormatString,
+                ship.getCargo().size(), ship.getCargoSlots()));
+        shipFuelLabel.setText(String.format("%.0f/%.0f", ship.getFuel(),
+                ship.getMaxFuel()));
+        shipWeaponsLabel.setText(String.format(integerFormatString,
+                ship.getWeapons().size(), ship.getWeaponSlots()));
+        shipShieldsLabel.setText(String.format(integerFormatString,
+                ship.getShields().size(), ship.getShieldSlots()));
+        shipGadgetsLabel.setText(String.format(integerFormatString,
+                ship.getGadgets().size(), ship.getGadgetSlots()));
+        shipCrewLabel.setText(String.format(integerFormatString,
+                ship.getCrew().size(), ship.getCrewSlots()));
         creditsLabel.setText("" + player.getCredits());
     }
 }

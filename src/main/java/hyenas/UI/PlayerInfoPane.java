@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 /**
- * For displaying info 
+ * For displaying info.
  * @author Alex
  */
 public class PlayerInfoPane extends AnchorPane {
@@ -20,7 +20,7 @@ public class PlayerInfoPane extends AnchorPane {
     private final int PLAYER_INFO_PANE_HEIGHT = 60;
     
     /**
-     * Initializer for PlayerInfoPane
+     * Initializer for PlayerInfoPane.
      */
     public PlayerInfoPane() {
         setPrefSize(PLAYER_INFO_PANE_WIDTH, PLAYER_INFO_PANE_HEIGHT);
@@ -43,18 +43,17 @@ public class PlayerInfoPane extends AnchorPane {
     }
     
     /**
-     * Updates the info in the pane
+     * Updates the info in the pane.
      */
     public void updateInfo() {
         Player player = Player.getInstance();
         Ship ship = player.getShip();
         
         String credits = "Credits: " + player.getCredits();
-        String health = "Health: " + Math.floor(ship.getHealth()) + "/" +
-                Math.floor(ship.getMaxHealth());
-        String fuel = "Fuel: " + Math.floor(ship.getFuel()) + "/" +
-                Math.floor(ship.getMaxFuel());
-        
+        String health = String.format("Health: %.0f/%.0f", Math.floor(
+                ship.getHealth()), Math.floor(ship.getMaxHealth()));
+        String fuel = String.format("Fuel: %.0f/%.0f", Math.floor(ship.getFuel()),
+                Math.floor(ship.getMaxFuel()));
         creditsLabel.setText(credits);
         healthLabel.setText(health);
         fuelLabel.setText(fuel);

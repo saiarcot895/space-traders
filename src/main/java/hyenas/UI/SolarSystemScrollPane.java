@@ -1,33 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hyenas.UI;
 
+import java.awt.Dimension;
 import javafx.event.Event;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 /**
- *
+ * Scroll pane for displaying solar systems.
  * @author Alex
  */
 public class SolarSystemScrollPane extends ScrollPane {
 
     private SolarSystemInfoPane infoPane;
 
+    /**
+     * Initializer for solar system scroll pane.
+     * @author Alex
+     */
     public SolarSystemScrollPane() {
         getStyleClass().add("scroll-pane");
         setPannable(true);
         setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        AnchorPane.setTopAnchor(this, 60.0);
-        AnchorPane.setBottomAnchor(this, 60.0);
-        AnchorPane.setRightAnchor(this, 60.0);
-        AnchorPane.setLeftAnchor(this, 60.0);
+        
+        Dimension screenSize = UIHelper.getScreenSize();
+        setPrefSize(screenSize.getWidth(), screenSize.getHeight());
 
         setOnMousePressed((Event event) -> {
             if (infoPane != null) {
@@ -36,7 +34,11 @@ public class SolarSystemScrollPane extends ScrollPane {
             }
         });
     }
-
+    
+    /**
+     * Sets the info pane for the scroll pane
+     * @param infoPane the info pane
+     */
     public void setInfoPane(SolarSystemInfoPane infoPane) {
         ((Pane) getContent()).getChildren().remove(this.infoPane);
         this.infoPane = infoPane;

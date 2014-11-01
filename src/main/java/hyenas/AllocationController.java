@@ -160,7 +160,7 @@ public class AllocationController implements Initializable {
 //            anchorPane.getChildren().add(alertPane);
             HyenasLoader.getInstance().goToMapScreen();
         } else {
-            AlertPane alertPane = new AlertPane(AlertPaneType.OneButton);
+            AlertPane alertPane = new AlertPane(AlertPaneType.ONEBUTTON);
             alertPane.setTitleText("Invalid Setup");
             alertPane.setMessageText("Please make sure you have set a player name and have allocated all skill points.");
             EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {

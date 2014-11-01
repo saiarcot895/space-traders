@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hyenas.UI;
 
 import hyenas.Models.Galaxy;
@@ -19,7 +14,12 @@ import javafx.scene.image.ImageView;
  */
 public class SolarSystemButton extends Button {
     public static final double SYSTEM_UI_SIZE_FACTOR = 10.0;
+    private final String styleClass = "planet";
 
+    /**
+     * Sets up the button for the given system in the map UI.
+     * @param solarSystem the solar system
+     */
     public void setupForMapUI(SolarSystem solarSystem) {
         setUpSystemImage(solarSystem, 1);
         if (!Galaxy.getInstance().isLocationsSet()) {
@@ -31,15 +31,24 @@ public class SolarSystemButton extends Button {
         setLayoutY(solarSystem.getY());
         setId(solarSystem.getSystemName());
         setMnemonicParsing(false);
-        getStyleClass().add("planet");
+        getStyleClass().add(styleClass);
     }
 
+    /**
+     * Sets up the button for the given system in the solar system UI.
+     * @param solarSystem the solar system
+     */
     public void setupForSystemUI(SolarSystem solarSystem) {
         setUpSystemImage(solarSystem, SYSTEM_UI_SIZE_FACTOR);
         setMnemonicParsing(false);
-        getStyleClass().add("planet");
+        getStyleClass().add(styleClass);
     }
-
+    
+    /**
+     * Sets up the button image for the given system and size factor.
+     * @param solarSystem the solar system
+     * @param sizeFactor the size factor
+     */
     public void setUpSystemImage(SolarSystem solarSystem, double sizeFactor) {
         Image image = new Image("hyenas/images/Planet.png");
         ImageView planetImageView = new ImageView(image);
@@ -49,17 +58,20 @@ public class SolarSystemButton extends Button {
         setPrefHeight(solarSystem.getSize() * sizeFactor);
         setGraphic(planetImageView);
 
-        String styleString = String.format("-fx-effect: innershadow(gaussian, %s, 15, 0, 0, 0)", solarSystem.getColorString());
+        String styleString = String.format("-fx-effect: innershadow(gaussian,"
+                + "%s, 15, 0, 0, 0)", solarSystem.getColorString());
         setStyle(styleString);
     }
 
+    /**
+     * Generate random coordinates for the button.
+     * @return the coordinates of the system button
+     */
     private Point getCoordinates() {
         Random rand = new Random();
-        int x = rand.nextInt(UIHelper.GALAXY_SIZE);
-        int y = rand.nextInt(UIHelper.GALAXY_SIZE);
-
-//        TODO: make sure coordinates don't overlap
-//        TODO: make sure no planet is half off-screen
+        // Adds padding, so no button is too close to edge
+        int x = 20 + rand.nextInt(UIHelper.GALAXY_SIZE - 20);
+        int y = 20 + rand.nextInt(UIHelper.GALAXY_SIZE - 20);
 
         Point coordinates = new Point(x, y);
         return coordinates;

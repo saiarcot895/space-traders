@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hyenas.UI;
 
 import hyenas.Models.SolarSystem;
@@ -11,10 +6,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- *
+ * Image view for solar system.
  * @author Alex
  */
 public class SolarSystemImageView extends ImageView {
+    /**
+     * Sets up the image view for a given solar system.
+     * @param solarSystem the solar system
+     */
     public void setupForSystemUI(SolarSystem solarSystem) {
         getStyleClass().add("planet");
 
