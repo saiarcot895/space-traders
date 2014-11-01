@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a Ware object, for use when buying/selling Goods
+ * Represents a Ware object, for use when buying/selling Goods.
  */
 public class Ware {
     private String name;
@@ -23,24 +23,24 @@ public class Ware {
     private String currentCondition;
     
     /**
-     * A Good, used to distinguish between the types of goods
+     * A Good, used to distinguish between the types of goods.
      */
     public enum Good {
-        Water,
-        Furs,
-        Food,
-        Ore,
-        Games,
-        Firearms,
-        Medicine,
-        Machines,
-        Narcotics,
-        Robots
+        WATER,
+        FURS,
+        FOOD,
+        ORE,
+        GAMES,
+        FIREARMS,
+        MEDICINE,
+        MACHINES,
+        NARCOTICS,
+        ROBOTS
     }
 
     /**
-     * Initializes a Ware and sets its initial values based on a given Good
-     * @param good, the ware's good
+     * Initializes a Ware and sets its initial values based on a given Good.
+     * @param good the ware's good
      */
     public Ware(Good good) {
         this.good = good;
@@ -48,11 +48,11 @@ public class Ware {
     }
     
     /**
-     * Sets the initial default values for a Ware
+     * Sets the initial default values for a Ware.
      */
     private void setUp() {
         switch(good) {
-            case Water:
+            case WATER:
                 name = "Water";
                 minimumTechLevelToProduce = 0;
                 minimumTechLevelToUse = 0;
@@ -63,7 +63,7 @@ public class Ware {
                 spaceTradeMinPrice = 30;
                 spaceTradeMaxPrice = 50;
                 break;
-            case Furs:
+            case FURS:
                 name = "Furs";
                 minimumTechLevelToProduce = 0;
                 minimumTechLevelToUse = 0;
@@ -74,7 +74,7 @@ public class Ware {
                 spaceTradeMinPrice = 230;
                 spaceTradeMaxPrice = 280;
                 break;
-            case Food:
+            case FOOD:
                 name = "Food";
                 minimumTechLevelToProduce = 1;
                 minimumTechLevelToUse = 0;
@@ -85,7 +85,7 @@ public class Ware {
                 spaceTradeMinPrice = 90;
                 spaceTradeMaxPrice = 160;
                 break;
-            case Ore:
+            case ORE:
                 name = "Ore";
                 minimumTechLevelToProduce = 2;
                 minimumTechLevelToUse = 2;
@@ -96,7 +96,7 @@ public class Ware {
                 spaceTradeMinPrice = 350;
                 spaceTradeMaxPrice = 420;
                 break;
-            case Games:
+            case GAMES:
                 name = "Games";
                 minimumTechLevelToProduce = 3;
                 minimumTechLevelToUse = 1;
@@ -107,7 +107,7 @@ public class Ware {
                 spaceTradeMinPrice = 160;
                 spaceTradeMaxPrice = 270;
                 break;
-            case Firearms:
+            case FIREARMS:
                 name = "Firearms";
                 minimumTechLevelToProduce = 3;
                 minimumTechLevelToUse = 1;
@@ -118,7 +118,7 @@ public class Ware {
                 spaceTradeMinPrice = 600;
                 spaceTradeMaxPrice = 1100;
                 break;
-            case Medicine:
+            case MEDICINE:
                 name = "Medicine";
                 minimumTechLevelToProduce = 4;
                 minimumTechLevelToUse = 1;
@@ -129,7 +129,7 @@ public class Ware {
                 spaceTradeMinPrice = 400;
                 spaceTradeMaxPrice = 700;
                 break;
-            case Machines:
+            case MACHINES:
                 name = "Machines";
                 minimumTechLevelToProduce = 4;
                 minimumTechLevelToUse = 3;
@@ -140,7 +140,7 @@ public class Ware {
                 spaceTradeMinPrice = 600;
                 spaceTradeMaxPrice = 800;
                 break;
-            case Narcotics:
+            case NARCOTICS:
                 name = "Narcotics";
                 minimumTechLevelToProduce = 5;
                 minimumTechLevelToUse = 0;
@@ -151,7 +151,7 @@ public class Ware {
                 spaceTradeMinPrice = 2000;
                 spaceTradeMaxPrice = 3000;
                 break;
-            case Robots:
+            case ROBOTS:
                 name = "Robots";
                 minimumTechLevelToProduce = 6;
                 minimumTechLevelToUse = 4;
@@ -163,141 +163,141 @@ public class Ware {
                 spaceTradeMaxPrice = 5000;
                 break;
             default:
-                // Do nothing
+                break;
         }
     }
 
     /**
-     * Get the name of the ware
-     * @return name, the name of the ware
+     * Get the name of the ware.
+     * @return name the name of the ware
      */
     public String getName() {
         return name;
     }
     
     /**
-     * Get the good
-     * @return good, the good of the ware
+     * Get the ware's good.
+     * @return good the good of the ware
      */
     public Good getGood() {
         return good;
     }
 
     /**
-     * Get the minimum tech level to produce
-     * @return minimumTechLevelToProduce, the min tech level to produce
+     * Get the minimum tech level to produce.
+     * @return the min tech level to produce
      */
     public int getMinimumTechLevelToProduce() {
         return minimumTechLevelToProduce;
     }
 
     /**
-     * Get the minimum tech level to use
-     * @return minimumTechLevelToUse, the min tech level to use
+     * Get the minimum tech level to use.
+     * @return the min tech level to use
      */
     public int getMinimumTechLevelToUse() {
         return minimumTechLevelToUse;
     }
 
     /**
-     * Get the tech level production
-     * @return techLevelProduction, the tech level production
+     * Get the tech level production.
+     * @return the tech level production
      */
     public int getTechLevelProduction() {
         return techLevelProduction;
     }
 
     /**
-     * Get the base price
-     * @return basePrice, the base price
+     * Get the base price.
+     * @return the base price
      */
     public int getBasePrice()   {
         return basePrice;
     }
 
     /**
-     * Get the price increase per tech level
-     * @return priceIncreasePerLevel, the price increase per tech level
+     * Get the price increase per tech level.
+     * @return the price increase per tech level
      */
     public int getPriceIncreasePerLevel() {
         return priceIncreasePerLevel;
     }
 
     /**
-     * Get the price increase per tech level
-     * @return variance, the price increase per tech level
+     * Get the price increase per tech level.
+     * @return the price increase per tech level
      */
     public int getVariance() {
         return variance;
     }
     
     /**
-     * Get the space trade minimum price
-     * @return spaceTradeMinPrice, the space trade min price
+     * Get the space trade minimum price.
+     * @return the space trade min price
      */
     public int getSpaceTradeMinPrice() {
         return spaceTradeMinPrice;
     }
 
     /**
-     * Get the space trade maximum price
-     * @return spaceTradeMaxPrice, the space trade max price
+     * Get the space trade maximum price.
+     * @return the space trade max price
      */
     public int getSpaceTradeMaxPrice() {
         return spaceTradeMaxPrice;
     }
     
     /**
-     * Get the current price of the ware
-     * @return currentPrice, the current price
+     * Get the current price of the ware.
+     * @return the current price
      */
     public int getCurrentPrice() {
         return currentPrice;
     }
     
     /**
-     * Set the current price of the ware
-     * @param currentPrice, the current price
+     * Set the current price of the ware.
+     * @param currentPrice the current price
      */
     public void setCurrentPrice(int currentPrice) {
         this.currentPrice = currentPrice;
     }
     
     /**
-     * Get the current quantity of the ware
-     * @return currentQuantity, the current quantity
+     * Get the current quantity of the ware.
+     * @return the current quantity
      */
     public int getCurrentQuantity() {
         return currentQuantity;
     }
     
     /**
-     * Set the current quantity of the ware
-     * @param currentQuantity, the current quantity
+     * Set the current quantity of the ware.
+     * @param currentQuantity the current quantity
      */
     public void setCurrentQuantity(int currentQuantity) {
         this.currentQuantity = currentQuantity;
     }
     
     /**
-     * Get the current condition of the ware
-     * @return currentCondition, the current condition
+     * Get the current condition of the ware.
+     * @return the current condition
      */
     public String getCurrentCondition() {
         return currentCondition;
     }
     
     /**
-     * Set the current condition of the ware
-     * @param currentCondition, the current condition
+     * Set the current condition of the ware.
+     * @param currentCondition the current condition
      */
     public void setCurrentCondition(String currentCondition) {
         this.currentCondition = currentCondition;
     }
     
     /**
-     * Get the list of the default wares
-     * @return wares, the list of the default wares
+     * Get the list of the default wares.
+     * @return the list of the default wares
      */
     public static List<Ware> defaultWares() {
         ArrayList<Ware> wares = new ArrayList<>(Good.values().length);
@@ -310,7 +310,7 @@ public class Ware {
     
     @Override
     public String toString() {
-        return "<Ware: " + name + ", Cost: " + currentPrice + ", Avl: " +
-                currentQuantity + ">";
+        return "<Ware: " + name + ", Cost: " + currentPrice + ", Avl: "
+                + currentQuantity + ">";
     }
 }

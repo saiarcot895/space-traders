@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Represents a ship used by the player
+ * Represents a ship used by the player.
  * @author Alex
  */
 public class Ship {

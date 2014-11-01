@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A shield that can be added to a ship
+ * A shield that can be added to a ship.
  * @author Alex
  */
 public class Shield {
@@ -14,7 +14,7 @@ public class Shield {
     private int strength;
     
     /**
-     * A ShieldType, used to distinguish between the types of shields
+     * A ShieldType, used to distinguish between the types of shields.
      */
     public enum ShieldType {
         CIVILIAN_ENERGY,
@@ -27,8 +27,7 @@ public class Shield {
     
     /**
      * Initializes an instance of Shield
-     * Sets default values based on the shield type
-     * @param type, the type of shield
+     * @param type the type of shield
      */
     public Shield(ShieldType type) {
         switch (type) {
@@ -62,38 +61,39 @@ public class Shield {
                 price = 600;
                 strength = 1000;
                 break;
-            default: break;
+            default:
+                break;
         }
         this.type = type;
     }
     
     /**
-     * Get the name of the shield
-     * @return name, the name of the shield
+     * Get the name of the shield.
+     * @return the name of the shield
      */
     public String getName() {
         return name;
     }
     
     /**
-     * Get the price of the shield
-     * @return price, the price of the shield
+     * Get the price of the shield.
+     * @return the price of the shield
      */
     public int getPrice() {
         return price;
     }
     
     /**
-     * Get the strength of the shield
-     * @return strength, the strength of the shield
+     * Get the strength of the shield.
+     * @return the strength of the shield
      */
     public int getStrength() {
         return strength;
     }
     
     /**
-     * Get the list of default buyable shields
-     * @return shields, the list of shields
+     * Get the list of default buyable shields.
+     * @return the list of shields
      */
     public static List<Shield> getDefaultShields() {
         ArrayList<Shield> shields = new ArrayList<>(ShieldType.values().length);

@@ -301,9 +301,9 @@ public class MapUIController implements Initializable {
             boolean success = event.performAction();
             String resultText = event.getActionResultText();
             switch (eventType) {
-                case Police: break;
-                case Trader: break;
-                case Pirate:
+                case POLICE: break;
+                case TRADER: break;
+                case PIRATE:
                     SolarSystem solarSystem = currentJourney.getDestinationSolarSystem();
                     if (!success) {
                         Player player = Player.getInstance();
@@ -321,11 +321,11 @@ public class MapUIController implements Initializable {
             
             EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
                 switch (eventType) {
-                    case Police:
-                    case Trader:
+                    case POLICE:
+                    case TRADER:
                         makeJourney(currentJourney);
                         break;
-                    case Pirate:
+                    case PIRATE:
                         if (success) {
                             makeJourney(currentJourney);
                         }
@@ -352,7 +352,7 @@ public class MapUIController implements Initializable {
             boolean success = event.performCancel();
             String resultText = event.getCancelResultText();
             switch (eventType) {
-                case Police:
+                case POLICE:
                     if (!success) {
                         Player player = Player.getInstance();
                         Ship ship = player.getShip();
@@ -360,10 +360,10 @@ public class MapUIController implements Initializable {
                         ship.setFuel(ship.getFuel() - (currentJourney.getDistance() / 2));
                     }
                     break;
-                case Trader:
+                case TRADER:
                     makeJourney(currentJourney);
                     break;
-                case Pirate:
+                case PIRATE:
                     if (!success) {
                         Player player = Player.getInstance();
                         Ship ship = player.getShip();
@@ -378,13 +378,13 @@ public class MapUIController implements Initializable {
             
             EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
                 switch (eventType) {
-                    case Police:
-                    case Pirate:
+                    case POLICE:
+                    case PIRATE:
                         if (success) {
                             makeJourney(currentJourney);
                         }
                         break;
-                    case Trader:
+                    case TRADER:
                         makeJourney(currentJourney);
                         break;
                 }
@@ -420,13 +420,13 @@ public class MapUIController implements Initializable {
         RandomEventType eventType;
         
         if (roll == 1) {
-            handleRandomEvent(RandomEventType.Pirate);
+            handleRandomEvent(RandomEventType.PIRATE);
             return true;
         } else if (roll == 2) {
-            handleRandomEvent(RandomEventType.Trader);
+            handleRandomEvent(RandomEventType.TRADER);
             return true;
         } else if (roll == 3) {
-            handleRandomEvent(RandomEventType.Police);
+            handleRandomEvent(RandomEventType.POLICE);
             return true;
         }
         else if (roll == 4) {

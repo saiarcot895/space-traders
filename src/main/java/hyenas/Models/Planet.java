@@ -22,56 +22,56 @@ public class Planet {
     private List<Ware> wares;
     
     /**
-     * A PlanetTechType, used to distinguish between the types of planets
+     * A PlanetTechType, used to distinguish between the types of planets.
      */
     public enum PlanetType {
-        None,
-        MineralRich,
-        MineralPoor,
-        LotsOfWater,
-        Desert,
-        RichSoil,
-        PoorSoil,
-        RichFauna,
-        Lifeless,
-        WeirdMushrooms,
-        LotsOfHerbs,
-        Artistic,
-        Warlike,
+        NONE,
+        MINERALRICH,
+        MINERALPOOR,
+        LOTSOFWATER,
+        DESERT,
+        RICHSOIL,
+        POORSOIL,
+        RICHFAUNA,
+        LIFELESS,
+        WIERDMUSHROOMS,
+        LOTSOFHERBS,
+        ARTISTIC,
+        WARLIKE,
     }
     
     /**
-     * A PlanetTechLevel, used to distinguish between Planet tech levels
+     * A PlanetTechLevel, used to distinguish between Planet tech levels.
      */
     public enum PlanetTechLevel {
-        PreAgriculture,
-        Agriculture,
-        Medieval,
-        Renaissance,
-        EarlyIndustrial,
-        Industrial,
-        PostIndustrial,
-        HiTech,
+        PREAGRICULTURE,
+        AGRICULTURE,
+        MEDIEVAL,
+        RENAISSANCE,
+        EARLYINDUSTRIAL,
+        INDUSTRIAL,
+        POSTINDUSTRIAL,
+        HITECH,
     }
     
     /**
      * A PlanetEvent, used to distinguish between events that can affect a
-     * Planet
+     * Planet.
      */
     public enum PlanetEvent {
-        None,
-        Drought,
-        Cold,
-        Cropfail,
-        War,
-        Boredom,
-        Plague,
-        LackOfWorkers,
+        NONE,
+        DROUGHT,
+        COLD,
+        CROPFAIL,
+        WAR,
+        BOREDOM,
+        PLAGUE,
+        LACKOFWORKERS,
     }
     
     /**
      * Standard constructor for initializing planet.
-     * @param planetName, the name of the planet
+     * @param planetName the name of the planet
      */
     public Planet(String planetName) {
         this.planetName = planetName;
@@ -84,21 +84,21 @@ public class Planet {
         color = UIHelper.randomColorString();
         int randPlanetType = rand.nextInt(PlanetType.values().length);
         type = PlanetType.values()[randPlanetType];
-        event = PlanetEvent.None;
+        event = PlanetEvent.NONE;
     }
     
     /**
      * Constructor for Planet when loading from database. Overrides values set
      * at random in original constructor with values stored in table.
      * 
-     * @param planetName, the name of the planet
-     * @param clockwiseOrbit, whether the planet's orbit is clockwise
-     * @param techLevel, the tech level of the planet
-     * @param planetType, the type of the planet
+     * @param planetName the name of the planet
+     * @param clockwiseOrbit whether the planet's orbit is clockwise
+     * @param techLevel the tech level of the planet
+     * @param planetType the type of the planet
      */
-    public Planet(String planetName, boolean clockwiseOrbit, int techLevel,
+    public Planet(String name, boolean clockwiseOrbit, int techLevel,
             int planetType) {
-        this(planetName);
+        this(name);
         this.clockwiseOrbit = clockwiseOrbit;
         this.techLevel = PlanetTechLevel.values()[techLevel];
         this.type = PlanetType.values()[planetType];
@@ -142,14 +142,14 @@ public class Planet {
      */
     public String techLevelString() {
         switch (techLevel) {
-            case PreAgriculture: return "Pre-Agriculture";
-            case Agriculture: return "Agriculture";
-            case Medieval: return "Medieval";
-            case Renaissance: return "Renaissance";
-            case EarlyIndustrial: return "Early Industrial";
-            case Industrial: return "Industrial";
-            case PostIndustrial: return "Post-Industrial";
-            case HiTech: return "Hi-Tech";
+            case PREAGRICULTURE: return "Pre-Agriculture";
+            case AGRICULTURE: return "Agriculture";
+            case MEDIEVAL: return "Medieval";
+            case RENAISSANCE: return "Renaissance";
+            case EARLYINDUSTRIAL: return "Early Industrial";
+            case INDUSTRIAL: return "Industrial";
+            case POSTINDUSTRIAL: return "Post-Industrial";
+            case HITECH: return "Hi-Tech";
             default: return "Error";
         }
     }
@@ -209,19 +209,19 @@ public class Planet {
      */
     public String getPlanetTypeString() {
         switch (type) {
-            case None: return "Normal";
-            case MineralRich: return "Mineral Rich";
-            case MineralPoor: return "Mineral Poor";
-            case LotsOfWater: return "Lots of Water";
-            case Desert: return "Desert";
-            case RichSoil: return "Rich Soil";
-            case PoorSoil: return "Poor Soil";
-            case RichFauna: return "Rich Fauna";
-            case Lifeless: return "Lifeless";
-            case WeirdMushrooms: return "Weird Mushrooms";
-            case LotsOfHerbs: return "Lots of Herbs";
-            case Artistic: return "Artistic";
-            case Warlike: return "Warlike";
+            case NONE: return "Normal";
+            case MINERALRICH: return "Mineral Rich";
+            case MINERALPOOR: return "Mineral Poor";
+            case LOTSOFWATER: return "Lots of Water";
+            case DESERT: return "Desert";
+            case RICHSOIL: return "Rich Soil";
+            case POORSOIL: return "Poor Soil";
+            case RICHFAUNA: return "Rich Fauna";
+            case LIFELESS: return "Lifeless";
+            case WIERDMUSHROOMS: return "Weird Mushrooms";
+            case LOTSOFHERBS: return "Lots of Herbs";
+            case ARTISTIC: return "Artistic";
+            case WARLIKE: return "Warlike";
             default: return "Normal";
         }
     }
@@ -232,14 +232,14 @@ public class Planet {
      */
     public String getPlanetEventString() {
         switch (event) {
-            case None: return "None";
-            case Drought: return "Drought";
-            case Cold: return "Cold";
-            case Cropfail: return "Cropfail";
-            case War: return "War";
-            case Boredom: return "Boredom";
-            case Plague: return "Plague";
-            case LackOfWorkers: return "Lack of Workers";
+            case NONE: return "None";
+            case DROUGHT: return "Drought";
+            case COLD: return "Cold";
+            case CROPFAIL: return "Cropfail";
+            case WAR: return "War";
+            case BOREDOM: return "Boredom";
+            case PLAGUE: return "Plague";
+            case LACKOFWORKERS: return "Lack of Workers";
             default: return "None";
         }
     }
@@ -386,19 +386,19 @@ public class Planet {
      */
     public AffectedGood affectedGoodForPlanetType() {
         switch (type) {
-            case None: return null;
-            case MineralRich: return new AffectedGood(Good.Ore, false);
-            case MineralPoor: return new AffectedGood(Good.Ore, true);
-            case LotsOfWater: return new AffectedGood(Good.Water, false);
-            case Desert: return new AffectedGood(Good.Water, true);
-            case RichSoil: return new AffectedGood(Good.Food, false);
-            case PoorSoil: return new AffectedGood(Good.Food, true);
-            case RichFauna: return new AffectedGood(Good.Furs, false);
-            case Lifeless: return new AffectedGood(Good.Furs, true);
-            case WeirdMushrooms: return new AffectedGood(Good.Narcotics, false);
-            case LotsOfHerbs: return new AffectedGood(Good.Medicine, false);
-            case Artistic: return new AffectedGood(Good.Games, false);
-            case Warlike: return new AffectedGood(Good.Firearms, false);
+            case NONE: return null;
+            case MINERALRICH: return new AffectedGood(Good.ORE, false);
+            case MINERALPOOR: return new AffectedGood(Good.ORE, true);
+            case LOTSOFWATER: return new AffectedGood(Good.WATER, false);
+            case DESERT: return new AffectedGood(Good.WATER, true);
+            case RICHSOIL: return new AffectedGood(Good.FOOD, false);
+            case POORSOIL: return new AffectedGood(Good.FOOD, true);
+            case RICHFAUNA: return new AffectedGood(Good.FURS, false);
+            case LIFELESS: return new AffectedGood(Good.FURS, true);
+            case WIERDMUSHROOMS: return new AffectedGood(Good.NARCOTICS, false);
+            case LOTSOFHERBS: return new AffectedGood(Good.MEDICINE, false);
+            case ARTISTIC: return new AffectedGood(Good.GAMES, false);
+            case WARLIKE: return new AffectedGood(Good.FIREARMS, false);
             default: return null;
         }
     }
@@ -413,38 +413,38 @@ public class Planet {
     public List<AffectedGood> affectedGoodsForPlanetEvent() {
         ArrayList<AffectedGood> affectedGoods = new ArrayList<AffectedGood>();
         switch (event) {
-            case None: break;
-            case Drought: 
-                AffectedGood water = new AffectedGood(Good.Water, true);
+            case NONE: break;
+            case DROUGHT: 
+                AffectedGood water = new AffectedGood(Good.WATER, true);
                 affectedGoods.add(water);
                 break;
-            case Cold: 
-                AffectedGood furs = new AffectedGood(Good.Furs, true);
+            case COLD: 
+                AffectedGood furs = new AffectedGood(Good.FURS, true);
                 affectedGoods.add(furs);
                 break;
-            case Cropfail:
-                AffectedGood food = new AffectedGood(Good.Food, true);
+            case CROPFAIL:
+                AffectedGood food = new AffectedGood(Good.FOOD, true);
                 affectedGoods.add(food);
                 break;
-            case War:
-                AffectedGood ore = new AffectedGood(Good.Ore, true);
-                AffectedGood firearms = new AffectedGood(Good.Firearms, true);
+            case WAR:
+                AffectedGood ore = new AffectedGood(Good.ORE, true);
+                AffectedGood firearms = new AffectedGood(Good.FIREARMS, true);
                 affectedGoods.add(ore);
                 affectedGoods.add(firearms);
                 break;
-            case Boredom:
-                AffectedGood games = new AffectedGood(Good.Games, true);
-                AffectedGood narcotics = new AffectedGood(Good.Narcotics, true);
+            case BOREDOM:
+                AffectedGood games = new AffectedGood(Good.GAMES, true);
+                AffectedGood narcotics = new AffectedGood(Good.NARCOTICS, true);
                 affectedGoods.add(games);
                 affectedGoods.add(narcotics);
                 break;
-            case Plague:
-                AffectedGood medicine = new AffectedGood(Good.Medicine, true);
+            case PLAGUE:
+                AffectedGood medicine = new AffectedGood(Good.MEDICINE, true);
                 affectedGoods.add(medicine);
                 break;
-            case LackOfWorkers:
-                AffectedGood machines = new AffectedGood(Good.Machines, true);
-                AffectedGood robots = new AffectedGood(Good.Robots, true);
+            case LACKOFWORKERS:
+                AffectedGood machines = new AffectedGood(Good.MACHINES, true);
+                AffectedGood robots = new AffectedGood(Good.ROBOTS, true);
                 affectedGoods.add(machines);
                 affectedGoods.add(robots);
                 break;
@@ -458,7 +458,7 @@ public class Planet {
      * @return boolean whether the planet has a shipyard
      */
     public boolean hasShipyard() {
-        return techLevel.ordinal() >= PlanetTechLevel.Medieval.ordinal();
+        return techLevel.ordinal() >= PlanetTechLevel.MEDIEVAL.ordinal();
     }
     
     private final int BASE_FUEL_COST = 5;
@@ -468,7 +468,7 @@ public class Planet {
      * @return fuelCost, the cost of fuel
      */
     public int getFuelCost() {
-        int startingFuelTechLevel = PlanetTechLevel.Medieval.ordinal();
+        int startingFuelTechLevel = PlanetTechLevel.MEDIEVAL.ordinal();
         int currentTechLevel = techLevel.ordinal();
         int difference = currentTechLevel - startingFuelTechLevel;
         int fuelCost = BASE_FUEL_COST - difference;

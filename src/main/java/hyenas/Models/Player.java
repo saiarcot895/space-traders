@@ -4,7 +4,7 @@ import hyenas.Models.Ship.ShipType;
 import java.util.Random;
 
 /**
- * Represents the player
+ * Represents the player.
  * @author saikrishna
  */
 public class Player {
@@ -23,8 +23,7 @@ public class Player {
     private static Player instance;
 
     /**
-     * Initializes an instance of Player
-     * Sets initial values
+     * Initializes an instance of Player, sets initial values.
      */
     private Player() {
         // KEEP PRIVATE - use getInstance instead
@@ -38,8 +37,8 @@ public class Player {
     }
 
     /**
-     * Getter for Player singleton
-     * @return Player the common player instance
+     * Getter for Player singleton.
+     * @return the common player instance
      */
     public static Player getInstance() {
         if (instance == null) {
@@ -49,7 +48,7 @@ public class Player {
     }
 
     /**
-     * Get player's name
+     * Get player's name.
      * @return the name of the player
      */
     public String getName() {
@@ -57,15 +56,15 @@ public class Player {
     }
 
     /**
-     * Set player's name
-     * @param name the String of the player
+     * Set player's name.
+     * @param name the String name of the player
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Get player's total points
+     * Get player's total points.
      * @return the player's total points
      */
     public int getPoints() {
@@ -73,7 +72,7 @@ public class Player {
     }
     
     /**
-     * Set player's total points
+     * Set player's total points.
      * @param points the points
      */
     public void setPoints(int points) {
@@ -81,7 +80,7 @@ public class Player {
     }
     
     /**
-     * Get player's pilot skill
+     * Get player's pilot skill.
      * @return the pilot skill of the player
      */
     public int getPilotSkill() {
@@ -89,7 +88,7 @@ public class Player {
     }
 
     /**
-     * Set player's pilot skill
+     * Set player's pilot skill.
      * @param pilotSkill the pilot skill of the player
      */
     public void setPilotSkill(int pilotSkill) {
@@ -97,7 +96,7 @@ public class Player {
     }
 
     /**
-     * Get player's fighter skill
+     * Get player's fighter skill.
      * @return the fighter skill of the player
      */
     public int getFighterSkill() {
@@ -105,7 +104,7 @@ public class Player {
     }
 
     /**
-     * Set player's fighter skill
+     * Set player's fighter skill.
      * @param fighterSkill the fighter skill of the player
      */
     public void setFighterSkill(int fighterSkill) {
@@ -113,7 +112,7 @@ public class Player {
     }
 
     /**
-     * Get player's trader skill
+     * Get player's trader skill.
      * @return the trader skill of the player
      */
     public int getTraderSkill() {
@@ -121,7 +120,7 @@ public class Player {
     }
 
     /**
-     * Set player's trader skill
+     * Set player's trader skill.
      * @param traderSkill the trader skill of the player
      */
     public void setTraderSkill(int traderSkill) {
@@ -129,7 +128,7 @@ public class Player {
     }
 
     /**
-     * Get player's engineer skill
+     * Get player's engineer skill.
      * @return the engineer skill of the player
      */
     public int getEngineerSkill() {
@@ -137,7 +136,7 @@ public class Player {
     }
 
     /**
-     * Set player's engineer skill
+     * Set player's engineer skill.
      * @param engineerSkill the engineer skill of the player
      */
     public void setEngineerSkill(int engineerSkill) {
@@ -145,7 +144,7 @@ public class Player {
     }
 
     /**
-     * Get player's investor skill
+     * Get player's investor skill.
      * @return the investor skill of the player
      */
     public int getInvestorSkill() {
@@ -153,7 +152,7 @@ public class Player {
     }
 
     /**
-     * Set player's investor skill
+     * Set player's investor skill.
      * @param investorSkill the investor skill of the player
      */
     public void setInvestorSkill(int investorSkill) {
@@ -161,7 +160,7 @@ public class Player {
     }
 
     /**
-     * Get player's current system
+     * Get player's current system.
      * @return the current SolarSystem of the player
      */
     public SolarSystem getCurrentSystem() {
@@ -169,7 +168,7 @@ public class Player {
     }
 
     /**
-     * Set player's current system
+     * Set player's current system.
      * @param currentSystem the player's current SolarSystem
      */
     public void setCurrentSystem(SolarSystem currentSystem) {
@@ -177,7 +176,7 @@ public class Player {
     }
 
     /**
-     * Get player's trading planet
+     * Get player's trading planet.
      * @return the trading Planet of the player
      */
     public Planet getTradingPlanet() {
@@ -185,7 +184,7 @@ public class Player {
     }
 
     /**
-     * Set player's trading planet
+     * Set player's trading planet.
      * @param tradingPlanet the trading Planet of the player
      */
     public void setTradingPlanet(Planet tradingPlanet) {
@@ -193,7 +192,7 @@ public class Player {
     }
 
     /**
-     * Get player's ship
+     * Get player's ship.
      * @return the player's ship
      */
     public Ship getShip() {
@@ -201,7 +200,7 @@ public class Player {
     }
 
     /**
-     * Set player's ship
+     * Set player's ship.
      * @param ship the Ship of the player
      */
     public void setShip(Ship ship) {
@@ -209,7 +208,7 @@ public class Player {
     }
 
     /**
-     * Get player's credits
+     * Get player's credits.
      * @return the amount of credits
      */
     public int getCredits() {
@@ -217,7 +216,7 @@ public class Player {
     }
 
     /**
-     * Set player's credits
+     * Set player's credits.
      * @param credits the amount of credits
      */
     public void setCredits(int credits) {
@@ -225,16 +224,16 @@ public class Player {
     }
     
     /**
-     * Get player's game state
-     * @return player State
+     * Get player's game state.
+     * @return the player's game state
      */
     public boolean getState() {
         return state;
     }
     
     /**
-     * Set player's state
-     * @param state 
+     * Set player's state.
+     * @param state the game state
      */
     public void setState(boolean state) {
         this.state = state;

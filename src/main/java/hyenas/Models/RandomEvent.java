@@ -3,7 +3,7 @@ package hyenas.Models;
 import java.util.Random;
 
 /**
- * Represents a Random Event
+ * Represents a Random Event.
  * @author Alex
  */
 public class RandomEvent {
@@ -18,17 +18,17 @@ public class RandomEvent {
     private String cancelResultText;
     
     /**
-     * A RandomEventType, used to distinguish between random events
+     * A RandomEventType, used to distinguish between random events.
      */
     public enum RandomEventType {
-        Police,
-        Trader,
-        Pirate,
+        POLICE,
+        TRADER,
+        PIRATE,
     }
 
     /**
-     * Initialized RandomEvent based on the RandomEventType
-     * @param eventType, the type of random event
+     * Initialized RandomEvent based on the RandomEventType.
+     * @param eventType the type of random event
      */
     public RandomEvent(RandomEventType eventType) {
         this.eventType = eventType;
@@ -37,25 +37,25 @@ public class RandomEvent {
     
     /**
      * Sets up the default random event values based on the RandomEvent's
-     * eventType
+     * eventType.
      */
     private void setUp() {
         switch(eventType) {
-            case Police:
+            case POLICE:
                 name = "Police";
                 description = "You've been stopped by police!";
                 question = "Pay fine or attempt to run away?";
                 actionButtonText = "Pay Fine";
                 cancelButtonText = "Run Away";
                 break;
-            case Trader:
+            case TRADER:
                 name = "Trader";
                 description = "You've encountered a trader!";
                 question = "Trade or ignore?";
                 actionButtonText = "Trade";
                 cancelButtonText = "Ignore";
                 break;
-            case Pirate:
+            case PIRATE:
                 name = "Pirate";
                 description = "You've been attacked by pirates!";
                 question = "Fight or attempt to run away?";
@@ -67,56 +67,56 @@ public class RandomEvent {
     }
     
     /**
-     * Get the random event's name
-     * @return name, the name of the random event
+     * Get the random event's name.
+     * @return name the name of the random event
      */
     public String getName() {
         return name;
     }
     
     /**
-     * Get the random event's description
-     * @return description, the description of the random event
+     * Get the random event's description.
+     * @return description the description of the random event
      */
     public String getDescription() {
         return description;
     }
     
     /**
-     * Get the random event's question
-     * @return question, the question of the random event
+     * Get the random event's question.
+     * @return question the question of the random event
      */
     public String getQuestion() {
         return question;
     }
     
     /**
-     * Get the random event's actionButtonText
-     * @return actionButtonText, the actionButtonText of the random event
+     * Get the random event's actionButtonText.
+     * @return actionButtonText the actionButtonText of the random event
      */
     public String getActionButtonText() {
         return actionButtonText;
     }
     
     /**
-     * Get the random event's cancel button text
-     * @return cancelButtonText, the cancel button text of the random event
+     * Get the random event's cancel button text.
+     * @return cancelButtonText the cancel button text of the random event
      */
     public String getCancelButtonText() {
         return cancelButtonText;
     }
     
     /**
-     * Get the random event's action result text
-     * @return actionResultText, the action result text of the random event
+     * Get the random event's action result text.
+     * @return actionResultText the action result text of the random event
      */
     public String getActionResultText() {
         return actionResultText;
     }
     
     /**
-     * Get the random event's cancel result text
-     * @return cancelResultText, the cancel result text of the random event
+     * Get the random event's cancel result text.
+     * @return cancelResultText the cancel result text of the random event
      */
     public String getCancelResultText() {
         return cancelResultText;
@@ -126,20 +126,20 @@ public class RandomEvent {
      * Performs the standard action for the given random event type. Informs
      * whether the player's action succeeded or failed.
      * 
-     * @return success, whether the action was successful or failed
+     * @return true if the action was successful, false otherwise
      */
     public boolean performAction() {
         Player player = Player.getInstance();
         switch(eventType) {
-            case Police:
+            case POLICE:
                 player.setCredits(player.getCredits() - 50);
                 actionResultText = "You pay the fine and are deducted 50 credits.";
                 return true;
-            case Trader:
+            case TRADER:
                 player.setCredits(player.getCredits() + 100);
                 actionResultText = "You trade some unused parts and gain 100 credits.";
                 return true;
-            case Pirate:
+            case PIRATE:
                 Random rand = new Random();
                 boolean success = rand.nextBoolean();
                 Ship ship = player.getShip();
@@ -163,12 +163,12 @@ public class RandomEvent {
      * Performs the standard cancel for the given random event type. Informs
      * whether the player's action succeeded or failed.
      * 
-     * @return success, whether the action was successful or failed
+     * @return true if the action was successful, false otherwise
      */
     public boolean performCancel() {
         Player player = Player.getInstance();
         switch(eventType) {
-            case Police:
+            case POLICE:
                 Random rand = new Random();
                 boolean success = rand.nextBoolean();
                 if (success) {
@@ -178,8 +178,8 @@ public class RandomEvent {
                     player.setCredits(player.getCredits() - 100);
                 }
                 return success;
-            case Trader: return true;
-            case Pirate:
+            case TRADER: return true;
+            case PIRATE:
                 int x = 6;
                 Random random = new Random();
                 boolean successful = random.nextBoolean();

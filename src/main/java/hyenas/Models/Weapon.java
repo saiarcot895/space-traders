@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A weapon that can be added to a ship
+ * A weapon that can be added to a ship.
  * @author Alex
  */
 public class Weapon {
@@ -14,7 +14,7 @@ public class Weapon {
     private int damage;
     
     /**
-     * A WeaponType, used to distinguish between the types of weapon
+     * A WeaponType, used to distinguish between the types of weapon.
      */
     public enum WeaponType {
         PULSE,
@@ -24,7 +24,6 @@ public class Weapon {
     
     /**
      * Initializes an instance of Weapon.
-     * Sets default values based on the weapon type
      * @param type the type of weapon
      */
     public Weapon(WeaponType type) {
@@ -52,7 +51,7 @@ public class Weapon {
     
     /**
      * Get the name of the weapon.
-     * @return name the name of the weapon
+     * @return the name of the weapon
      */
     public String getName() {
         return name;
@@ -60,7 +59,7 @@ public class Weapon {
     
     /**
      * Get the price of the weapon.
-     * @return price the price of the weapon
+     * @return the price of the weapon
      */
     public int getPrice()    {
         return price;
@@ -68,7 +67,7 @@ public class Weapon {
     
     /**
      * Get the damage of the weapon.
-     * @return damage the damage of the weapon
+     * @return the damage of the weapon
      */
     public int getDamage()    {
         return damage;
@@ -76,7 +75,7 @@ public class Weapon {
 
     /**
      * Get the type of the weapon.
-     * @return type the type of the weapon
+     * @return the type of the weapon
      */
     public WeaponType getType() {
         return type;
@@ -84,7 +83,7 @@ public class Weapon {
     
     /**
      * Get the list of default buyable weapons.
-     * @return weapons the list of weapons
+     * @return the list of weapons
      */
     public static List<Weapon> getDefaultWeapons() {
         ArrayList<Weapon> weapons = new ArrayList<>(WeaponType.values().length);

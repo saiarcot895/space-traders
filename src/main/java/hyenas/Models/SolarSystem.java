@@ -19,8 +19,8 @@ public class SolarSystem {
     private final int ORBIT_TOLERANCE = 10;
 
     /**
-     * Initializes an instance of SolarSyem and sets initial values
-     * @param systemName, the name of the system
+     * Initializes an instance of SolarSyem and sets initial values.
+     * @param systemName the name of the system
      */
     public SolarSystem(String systemName) {
         this.systemName = systemName;
@@ -107,7 +107,6 @@ public class SolarSystem {
             "Eldarion",
             "Easterlings",
             "Ithilien",
-            "Imrahil",
             "Orthanc",
             "Dunadan",
             "Evinyatar",
@@ -196,9 +195,9 @@ public class SolarSystem {
     }
     
     /**
-     * Returns whether a given name has already been used for a planet
-     * @param name, the name to check
-     * @return boolean, whether the planet's name has been used
+     * Returns whether a given name has already been used for a planet.
+     * @param name the name to check
+     * @return true if the planet's name has been used, false otherwise
      */
     private boolean planetNameUsed(String name) {
         for (Planet planet: this.planets) {
@@ -211,9 +210,9 @@ public class SolarSystem {
     
     /**
      * Returns whether a given orbit radius has been used (within a tolerance)
-     * to prevent planet orbits from overlapping
-     * @param orbitRadius, the orbit radius to check
-     * @return boolean, whether the planet's orbit radius overlaps another's
+     * to prevent planet orbits from overlapping.
+     * @param orbitRadius the orbit radius to check
+     * @return true if the planet's orbit radius overlaps, false otherwise
      */
     private boolean orbitRadiusUsed(int orbitRadius) {
         for (Planet planet: this.planets) {
@@ -225,32 +224,32 @@ public class SolarSystem {
     }
 
     /**
-     * Get the x-coordinate of the solar system
-     * @return x, the x-coordinate of the system
+     * Get the x-coordinate of the solar system.
+     * @return the x-coordinate of the system
      */
     public int getX()   {
         return x;
     }
     
     /**
-     * Set the x-coordinate of the solar system
-     * @param x, x-coordinate of the system
+     * Set the x-coordinate of the solar system.
+     * @param x the x-coordinate of the system
      */
     public void setX(int x) {
         this.x = x;
     }
 
     /**
-     * Get the y-coordinate of the solar system
-     * @return y, the y-coordinate of the system
+     * Get the y-coordinate of the solar system.
+     * @return the y-coordinate of the system
      */
     public int getY()   {
         return y;
     }
     
     /**
-     * Set the y-coordinate of the solar system
-     * @param y, y-coordinate of the system
+     * Set the y-coordinate of the solar system.
+     * @param y the y-coordinate of the system
      */
     public void setY(int y) {
         this.y = y;
