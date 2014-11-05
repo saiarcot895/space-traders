@@ -11,32 +11,98 @@ import java.util.Random;
  * @author saikrishna
  */
 public class Planet {
-    private int orbitRadius;
-    private boolean clockwiseOrbit;
-    private double size;
+    /**
+     * The planet name.
+     */
     private String planetName;
+    /**
+     * The planet orbit radius.
+     */
+    private int orbitRadius;
+    /**
+     * Whether the planet orbit is clockwise.
+     */
+    private boolean clockwiseOrbit;
+    /**
+     * The planet size.
+     */
+    private double size;
+    /**
+     * The planet color.
+     */
     private String color;
+    /**
+     * The planet tech level.
+     */
     private PlanetTechLevel techLevel;
+    /**
+     * The planet type.
+     */
     private PlanetType type;
+    /**
+     * The planet event.
+     */
     private PlanetEvent event;
+    /**
+     * The planet wares.
+     */
     private List<Ware> wares;
     
     /**
      * A PlanetTechType, used to distinguish between the types of planets.
      */
     public enum PlanetType {
+        /**
+         * No distinguishing features.
+         */
         NONE,
+        /**
+         * Abundance of minerals.
+         */
         MINERALRICH,
+        /**
+         * Minerals are scarce.
+         */
         MINERALPOOR,
+        /**
+         * Abundance of water.
+         */
         LOTSOFWATER,
+        /**
+         * Water is scarce.
+         */
         DESERT,
+        /**
+         * Soil is good for farming. Food is abundant.
+         */
         RICHSOIL,
+        /**
+         * Soil is bad for farming. Food is scarce.
+         */
         POORSOIL,
+        /**
+         * Rich wildlife. Furs are abundant.
+         */
         RICHFAUNA,
+        /**
+         * Little wildlife. Furs are scarce.
+         */
         LIFELESS,
+        /**
+         * Lots of mushrooms. Narcotics are abundant.
+         */
         WIERDMUSHROOMS,
+        /**
+         * Lots of herbs. Medicine is abundant.
+         */
         LOTSOFHERBS,
+        /**
+         * Artistic population. Games are abundant.
+         */
         ARTISTIC,
+        /**
+         * War is common. Firearms are abundant.
+         */
         WARLIKE,
     }
     
@@ -44,14 +110,38 @@ public class Planet {
      * A PlanetTechLevel, used to distinguish between Planet tech levels.
      */
     public enum PlanetTechLevel {
+        /**
+         * Little to offer. Very primitive nomadic groups.
+         */
         PREAGRICULTURE,
+        /**
+         * No longer nomadic, the precursor to civilizations.
+         */
         AGRICULTURE,
+        /**
+         * Feudal societies.
+         */
         MEDIEVAL,
+        /**
+         * Rebirth of art and enlightenment.
+         */
         RENAISSANCE,
+        /**
+         * Beginnings of printing press, factories.
+         */
         EARLYINDUSTRIAL,
+        /**
+         * Cultured and civil.
+         */
         INDUSTRIAL,
+        /**
+         * Advanced civilizations. Intelligent societies.
+         */
         POSTINDUSTRIAL,
-        HITECH,
+        /**
+         * Has a lot to offer. Highly advanced civilizations and technologies.
+         */
+        HITECH, 
     }
     
     /**
@@ -59,14 +149,38 @@ public class Planet {
      * Planet.
      */
     public enum PlanetEvent {
+        /**
+         * No event is occurring.
+         */
         NONE,
+        /**
+         * Drought makes water scarce.
+         */
         DROUGHT,
+        /**
+         * Cold makes wildlife die. Furs are scarce.
+         */
         COLD,
+        /**
+         * Crop failure makes crops die. Food is scarce.
+         */
         CROPFAIL,
+        /**
+         * War demands additional resources. Ore and firearms are scarce.
+         */
         WAR,
+        /**
+         * Boredom demands entertainment. Games and narcotics are scarce.
+         */
         BOREDOM,
+        /**
+         * Plague makes medicine scarce.
+         */
         PLAGUE,
-        LACKOFWORKERS,
+        /**
+         * Lack of workers makes machines and robots scarce.
+         */
+        LACKOFWORKERS
     }
     
     /**
@@ -330,12 +444,12 @@ public class Planet {
                 if (priceIncreased) {
                     quantity = (int) (quantity * .4);
                     variance = variance + affectedAmount;
-                    ware.setCurrentCondition("Scarce");
+                    ware.setCurrentCondition(AffectedGood.SCARCE_TEXT);
                 } else {
                     quantity = quantity * 3;
                     variance = variance - affectedAmount;
                     if (quantity > 0) {
-                        ware.setCurrentCondition("Abundant");
+                        ware.setCurrentCondition(AffectedGood.ABUNDANT_TEXT);
                     }
                 }
             }
@@ -346,7 +460,7 @@ public class Planet {
                 if (good == affectedGood.getGood()) {
                     basePrice = 2 * basePrice;
                     quantity = (int) (quantity * .3);
-                    ware.setCurrentCondition("Scarce");
+                    ware.setCurrentCondition(AffectedGood.SCARCE_TEXT);
                 }
             }
             
@@ -379,13 +493,27 @@ public class Planet {
      * Represents a good affected by either the Planet's Type, or a PlanetEvent.
      */
     private class AffectedGood {
+        /**
+         * The good that is affected.
+         */
         private Good good;
+        /**
+         * Whether or not the price is increased.
+         */
         private boolean increasedPrice;
+        /**
+         * Text when a good is abundant.
+         */
+        private static final String ABUNDANT_TEXT = "Abundant";
+        /**
+         * Text when a good is scarce.
+         */
+        private static final String SCARCE_TEXT = "Scarce";
         
         /**
          * Initializes AffectedGood instance.
          * @param good the Good type
-         * @param increasedPrice whether the affected good's price increases
+         * @param increasedPrice whether the affected good price increases
          */
         public AffectedGood(Good good, boolean increasedPrice) {
             this.good = good;
@@ -402,7 +530,7 @@ public class Planet {
         
         /**
          * Getter for whether the price is increased.
-         * @return whether the price is increased
+         * @return true if the price is increased; false otherwise
          */
         public boolean isIncreasedPrice() {
             return increasedPrice;
@@ -508,7 +636,10 @@ public class Planet {
         return techLevel.ordinal() >= PlanetTechLevel.MEDIEVAL.ordinal();
     }
     
-    private final int BASE_FUEL_COST = 5;
+    /**
+     * The base fuel cost.
+     */
+    private static final int BASE_FUEL_COST = 5;
     
     /**
      * Gets the cost of fuel on the planet.
