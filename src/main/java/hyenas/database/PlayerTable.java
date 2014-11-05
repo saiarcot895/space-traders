@@ -126,7 +126,7 @@ public class PlayerTable implements Table<Player, Void> {
             SolarSystem system = Galaxy.getInstance().getSolarSystemForName(
                     playerInfo.getString(9));
             player.setCurrentSystem(system);
-            player.setTradingPlanet(system.getPlanets().get(0));
+            player.setCurrentPlanet(system.getPlanets().get(0));
         } catch (SQLException e) {
             Logger.getLogger(PlayerTable.class.getName()).
                     log(Level.SEVERE, null, e);
