@@ -36,8 +36,6 @@ import javafx.scene.text.Font;
  * @author Alex
  */
 public class MarketController implements Initializable {
-    private int[] wares;
-    private int[] tempWare;
     private Planet planet;
     private TableView planetTable = new TableView();
     private TableView playerTable = new TableView();
@@ -45,9 +43,6 @@ public class MarketController implements Initializable {
 
     @FXML
     private BorderPane borderPane;
-    
-    @FXML
-    private VBox boxPane;
     
     @FXML
     private AnchorPane anchorPane;

@@ -13,6 +13,7 @@ import java.awt.Dimension;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -55,7 +56,7 @@ public class SystemUIController implements Initializable {
     
     private Timer animationTimer;
     
-    private HashMap<Planet, PlanetButton> planetMap = new HashMap<Planet, PlanetButton>();
+    private Map<Planet, PlanetButton> planetMap = new HashMap<>();
     
     @Override
     public void initialize(URL url, ResourceBundle rb)  {
@@ -120,7 +121,7 @@ public class SystemUIController implements Initializable {
 
             EventHandler<ActionEvent> event = (ActionEvent e) -> {
                 Button button1 = (Button)e.getSource();
-                setCurrentPlanetButton(button1, planet);
+                setCurrentPlanetButton(button1);
                 Player player = Player.getInstance();
                 player.setTradingPlanet(planet);
             };
@@ -178,10 +179,9 @@ public class SystemUIController implements Initializable {
 
     /**
      * Sets current planet button
-     * @param button, the current planet button
-     * @param planet, the current planet
+     * @param button the current planet button
      */
-    private void setCurrentPlanetButton(Button button, Planet planet)  {
+    private void setCurrentPlanetButton(Button button)  {
         currentPlanetButton.getStyleClass().remove("currentPlanet");
         button.getStyleClass().add("currentPlanet");
         currentPlanetButton = button;
@@ -189,7 +189,7 @@ public class SystemUIController implements Initializable {
     
     /**
      * Changes screens to marketplace
-     * @param e, unused
+     * @param e unused
      */
     public void goToMarketplace(ActionEvent e) {
         HyenasLoader.getInstance().goToMarketplace();
@@ -199,7 +199,7 @@ public class SystemUIController implements Initializable {
     
     /**
      * Changes screens to map ui
-     * @param e, unused
+     * @param e unused
      */
     public void goBack(ActionEvent e) {
         HyenasLoader.getInstance().goToMapScreen();
@@ -209,7 +209,7 @@ public class SystemUIController implements Initializable {
     
     /**
      * Changes screens to settings
-     * @param e, unused
+     * @param e unused
      */
     public void goToSettings(ActionEvent e) {
         HyenasLoader.getInstance().goToSettingsScreen();
@@ -219,7 +219,7 @@ public class SystemUIController implements Initializable {
     
     /**
      * Changes screens to shipyard assuming planet has high enough tech level
-     * @param e, unused
+     * @param e unused
      */
     public void goToShipyard(ActionEvent e) {
         Player player = Player.getInstance();
@@ -236,8 +236,8 @@ public class SystemUIController implements Initializable {
     
     /**
      * Convenience method for displaying alert
-     * @param title,
-     * @param message, the message to display on the label
+     * @param title
+     * @param message the message to display on the label
      */
     private void displayAlert(String title, String message) {
         AlertPane alertPane = new AlertPane(AlertPane.AlertPaneType.ONEBUTTON);

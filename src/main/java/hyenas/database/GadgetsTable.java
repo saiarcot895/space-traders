@@ -42,6 +42,7 @@ public class GadgetsTable implements Table<Gadget, Ship> {
         }
     }
 
+    @Override
     public void addRow(Gadget item, Ship parent) {
         try {
             String info = "INSERT INTO Gadgets (Name, Property, GID) "
