@@ -5,7 +5,6 @@ import hyenas.UI.AlertPane;
 import hyenas.UI.AlertPane.AlertPaneType;
 import hyenas.database.PlayerTable;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 /**
- * FXML Controller class for allocating skill points and setting up the player
+ * FXML Controller class for allocating skill points and setting up the player.
  *
  * @author Abhishek
  */
@@ -100,83 +99,87 @@ public class AllocationController implements Initializable {
     /**
      * The allocation controller pilot skill value.
      */
-    int pValue = 1;
+    private int pValue = 1;
     /**
      * The allocation controller fighter skill value.
      */
-    int fValue = 1;
+    private int fValue = 1;
     /**
      * The allocation controller trader skill value.
      */
-    int tValue = 1;
+    private int tValue = 1;
     /**
      * The allocation controller engineer skill value.
      */
-    int eValue = 1;
+    private int eValue = 1;
     /**
      * The allocation controller investor skill value.
      */
-    int iValue = 1;
+    private int iValue = 1;
+    /**
+     * The points remaining string.
+     */
+    private static final String POINTS_REMAINING_STRING = " point(s) remaining";
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        point.setText(Integer.toString(pointsRemaining) + " point(s) remaining");
+        point.setText(Integer.toString(pointsRemaining) + POINTS_REMAINING_STRING);
         
         pilot.setOnAction((ActionEvent t) -> {
-            updatePoints(++pValue, pCounter);
-        });
+                updatePoints(++pValue, pCounter);
+            });
 
         fighter.setOnAction((ActionEvent t) -> {
-            updatePoints(++fValue, fCounter);
-        });
+                updatePoints(++fValue, fCounter);
+            });
 
         trader.setOnAction((ActionEvent t) -> {
-            updatePoints(++tValue, tCounter);
-        });
+                updatePoints(++tValue, tCounter);
+            });
 
         engineer.setOnAction((ActionEvent t) -> {
-            updatePoints(++eValue, eCounter);
-        });
+                updatePoints(++eValue, eCounter);
+            });
 
         investor.setOnAction((ActionEvent t) -> {
-            updatePoints(++iValue, iCounter);
-        });
+                updatePoints(++iValue, iCounter);
+            });
 
         reset.setOnAction((ActionEvent t) -> {
-           pointsRemaining = 8;
-           pValue = 1;
-           fValue = 1;
-           tValue = 1;
-           eValue = 1;
-           iValue = 1;
-           point.setText(Integer.toString(pointsRemaining) + " point(s) remaining");
-           pCounter.setText(Integer.toString(pValue));
-           fCounter.setText(Integer.toString(fValue));
-           tCounter.setText(Integer.toString(tValue));
-           eCounter.setText(Integer.toString(eValue));
-           iCounter.setText(Integer.toString(iValue));
-           name.setText("");
-        });
+                pointsRemaining = 8;
+                pValue = 1;
+                fValue = 1;
+                tValue = 1;
+                eValue = 1;
+                iValue = 1;
+                point.setText(Integer.toString(pointsRemaining) + POINTS_REMAINING_STRING);
+                pCounter.setText(Integer.toString(pValue));
+                fCounter.setText(Integer.toString(fValue));
+                tCounter.setText(Integer.toString(tValue));
+                eCounter.setText(Integer.toString(eValue));
+                iCounter.setText(Integer.toString(iValue));
+                name.setText("");
+            });
     }
 
     /**
-     * Updates the current skill points
-     * @param points, the new skill points
-     * @param label, the label to update
+     * Updates the current skill points.
+     * @param points the new skill points
+     * @param label the label to update
      */
     private void updatePoints(int points, Label label) {
         if (pointsRemaining > 0) {
             pointsRemaining--;
             label.setText(Integer.toString(points));
-            point.setText(Integer.toString(pointsRemaining) + " point(s) remaining");
+            point.setText(Integer.toString(pointsRemaining) + POINTS_REMAINING_STRING);
         }
     }
 
     /**
-     * Creates the player object and sets up the database
+     * Creates the player object and sets up the database.
      * @param e unused
      */
-    public void create(ActionEvent e) throws SQLException {
+    public void create(ActionEvent e) {
         if (validInput()) {
             Player player = Player.getInstance();
             player.setName(name.getText());
@@ -208,7 +211,7 @@ public class AllocationController implements Initializable {
     }
     
     /**
-     * Determines whether the input in the fields is valid
+     * Determines whether the input in the fields is valid.
      * @return true if input is valid; false otherwise
      */
     private boolean validInput() {
@@ -219,7 +222,7 @@ public class AllocationController implements Initializable {
     }
     
     /**
-     * Changes screens back to the home screen
+     * Changes screens back to the home screen.
      * @param e unused
      */
     public void goBack(ActionEvent e) {

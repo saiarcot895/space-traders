@@ -139,23 +139,21 @@ public class HyenasLoader extends Application {
      * @param screen the screen to load
      */
     private void loadScreen(String screen) {
-        try {
-            changePage(screen);
-        } catch (IOException ex) {
-            Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
-                    null, ex);
-        }
+        changePage(screen);
     }
 
     /**
      * Changes to the given page.
      * @param pageName the name of the page
      */
-    private void changePage(String pageName) throws IOException {
-        Parent page = FXMLLoader.load(getClass().getResource(pageName));
-
-        stage.getScene().setRoot(page);
-//      stage.sizeToScene();
+    private void changePage(String pageName) {
+        try {
+            Parent page = FXMLLoader.load(getClass().getResource(pageName));
+            stage.getScene().setRoot(page);
+        } catch (IOException ex) {
+            Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        }
     }
 
     /**

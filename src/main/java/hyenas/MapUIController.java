@@ -63,6 +63,12 @@ public class MapUIController implements Initializable {
      * The map UI controller player info pane.
      */
     private PlayerInfoPane playerInfoPane;
+    /**
+     * The CSS style class for current planet.
+     */
+    private static final String CURRENT_PLANET_STYLE_CLASS = "currentPlanet";
+    
+    
     
     /**
      * The map UI controller current journey. For use in case player encounters
@@ -90,6 +96,10 @@ public class MapUIController implements Initializable {
      * edge.
      */
     private static final double SCROLL_PANE_PADDING = 60.0;
+    /**
+     * The tint color for the travel range.
+     */
+    private static final String TINT_COLOR = "cyan";
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -102,55 +112,60 @@ public class MapUIController implements Initializable {
         Map<String, SolarSystem> solarSystems = Galaxy.getInstance().getSolarSystems();
         Set<String> solarSystemIDs = solarSystems.keySet();
         solarSystemIDs.stream().map((solarSystemID) -> {
-            return solarSystems.get(solarSystemID);
-        }).map((SolarSystem solarSystem) -> {
-            SolarSystemButton button = new SolarSystemButton();
-            button.setupForMapUI(solarSystem);
-            Player player = Player.getInstance();
-            SolarSystem currentSystem = player.getCurrentSystem();
-            if (currentSystem == solarSystem) {
-                button.getStyleClass().add("currentPlanet");
-                currentSolarSystemButton = button;
-            }
+                return solarSystems.get(solarSystemID);
+            }).map((SolarSystem solarSystem) -> {
+                    SolarSystemButton button = new SolarSystemButton();
+                    button.setupForMapUI(solarSystem);
+                    Player player = Player.getInstance();
+                    SolarSystem currentSystem = player.getCurrentSystem();
+                    if (currentSystem == solarSystem) {
+                        button.getStyleClass().add(CURRENT_PLANET_STYLE_CLASS);
+                        currentSolarSystemButton = button;
+                    }
             
-            return button;
-        }).map((button) -> {
-            EventHandler<ActionEvent> event = (ActionEvent e) -> {
-                Button button1 = (Button)e.getSource();
-                String solarSystemID1 = button1.getId();
-                SolarSystem solarSystem1 = Galaxy.getInstance().getSolarSystemForName(solarSystemID1);
+                    return button;
+                }).map((button) -> {
+                        EventHandler<ActionEvent> event = (ActionEvent e) -> {
+                            Button button1 = (Button) e.getSource();
+                            String solarSystemID1 = button1.getId();
+                            SolarSystem solarSystem1 = Galaxy.getInstance().getSolarSystemForName(solarSystemID1);
 
-                SolarSystemInfoPane newPane = new SolarSystemInfoPane();
-                newPane.setPrefSize(INFO_PANE_SIZE, INFO_PANE_SIZE);
-                newPane.setupForSolarSystem(solarSystem1);
+                            SolarSystemInfoPane newPane = new SolarSystemInfoPane();
+                            newPane.setPrefSize(INFO_PANE_SIZE, INFO_PANE_SIZE);
+                            newPane.setupForSolarSystem(solarSystem1);
 
-                EventHandler<ActionEvent> travelEvent = (ActionEvent e1) -> {
-                    travelToSystem(solarSystem1, button1);
-                };
-                newPane.getTravelButton().setOnAction(travelEvent);
-                newPane.getTravelButton().setDisable(!canTravelToSystem(solarSystem1));
+                            EventHandler<ActionEvent> travelEvent = (ActionEvent e1) -> {
+                                travelToSystem(solarSystem1, button1);
+                            };
+                            newPane.getTravelButton().setOnAction(travelEvent);
+                            newPane.getTravelButton().setDisable(!canTravelToSystem(solarSystem1));
 
-                // Ensures entire pane stays in view region
-                int x = solarSystem1.getX() + 40;
-                int y = solarSystem1.getY() - (INFO_PANE_SIZE/2);
-                if (x > UIHelper.GALAXY_SIZE - INFO_PANE_SIZE)
-                    x = (int) UIHelper.GALAXY_SIZE - INFO_PANE_SIZE;
-                if (y < 0) y = 0;
-                if (y > UIHelper.GALAXY_SIZE - INFO_PANE_SIZE)
-                    y = UIHelper.GALAXY_SIZE - INFO_PANE_SIZE;
-                if (x < solarSystem1.getX())
-                    x = solarSystem1.getX() - (INFO_PANE_SIZE + 20);
+                            // Ensures entire pane stays in view region
+                            int x = solarSystem1.getX() + 40;
+                            int y = solarSystem1.getY() - (INFO_PANE_SIZE / 2);
+                            if (x > UIHelper.GALAXY_SIZE - INFO_PANE_SIZE) {
+                                x = (int) UIHelper.GALAXY_SIZE - INFO_PANE_SIZE;
+                            }
+                            if (y < 0) {
+                                y = 0;
+                            }
+                            if (y > UIHelper.GALAXY_SIZE - INFO_PANE_SIZE) {
+                                y = UIHelper.GALAXY_SIZE - INFO_PANE_SIZE;
+                            }
+                            if (x < solarSystem1.getX()) {
+                                x = solarSystem1.getX() - (INFO_PANE_SIZE + 20);
+                            }
 
-                scrollPane.setInfoPane(newPane);
-                scrollContentPane.getChildren().addAll(newPane);
-                newPane.setLayoutX(x);
-                newPane.setLayoutY(y);
-            };
-            button.setOnAction(event);
-            return button;
-        }).forEach((button) -> {
-            scrollContentPane.getChildren().add(button);
-        });
+                            scrollPane.setInfoPane(newPane);
+                            scrollContentPane.getChildren().addAll(newPane);
+                            newPane.setLayoutX(x);
+                            newPane.setLayoutY(y);
+                        };
+                        button.setOnAction(event);
+                        return button;
+                    }).forEach((button) -> {
+                            scrollContentPane.getChildren().add(button);
+                        });
 
         List<SolarSystem> solarSystemValues = new LinkedList<>(solarSystems.values());
         Player player = Player.getInstance();
@@ -168,8 +183,8 @@ public class MapUIController implements Initializable {
                 SolarSystem ss = solarSystemValues.get(i);
                 ssTable.addRow(ss, null);
                 ss.getPlanets().stream().forEach((planet) -> {
-                    planetTable.addRow(planet, ss);
-                });
+                        planetTable.addRow(planet, ss);
+                    });
             }
             
             HyenasLoader.getInstance().getConnectionManager().getPlayerTable()
@@ -188,7 +203,7 @@ public class MapUIController implements Initializable {
 
                     double distance = getDistance(solarSystem1, solarSystem2);
                     if (solarSystem1 != player.getCurrentSystem()
-                            && solarSystem2 != player.getCurrentSystem()){
+                            && solarSystem2 != player.getCurrentSystem()) {
                         if (distance >= 400) {
                             continue;
                         }
@@ -239,7 +254,7 @@ public class MapUIController implements Initializable {
                 Line connection = new Line(solarSystem1.getX() + system1Size,
                         solarSystem1.getY() + system1Size, solarSystem2.getX() + system2Size,
                         solarSystem2.getY() + system2Size);
-                connection.setStroke(Color.web("cyan", 1));
+                connection.setStroke(Color.web(TINT_COLOR, 1));
                 scrollContentPane.getChildren().add(0, connection);
             }
         }
@@ -258,7 +273,7 @@ public class MapUIController implements Initializable {
 
         SolarSystem currentSystem = player.getCurrentSystem();
         travelRange = new Circle(x, y, player.getShip().getFuel());
-        travelRange.setFill(Color.web("cyan", 0.1));
+        travelRange.setFill(Color.web(TINT_COLOR, 0.1));
         travelRange.setDisable(true);
         scrollContentPane.getChildren().add(travelRange);
         
@@ -275,8 +290,8 @@ public class MapUIController implements Initializable {
     }
     
     /**
-     * Manages what happens when a random event occurs
-     * @param eventType, the type of random event
+     * Manages what happens when a random event occurs.
+     * @param eventType the type of random event
      */
     private void handleRandomEvent(RandomEventType eventType) {
         scrollPane.setInfoPane(null); // Remove system info pane
@@ -291,8 +306,10 @@ public class MapUIController implements Initializable {
             boolean success = event.performAction();
             String resultText = event.getActionResultText();
             switch (eventType) {
-                case POLICE: break;
-                case TRADER: break;
+                case POLICE:
+                    break;
+                case TRADER:
+                    break;
                 case PIRATE:
                     SolarSystem solarSystem = currentJourney.getDestinationSolarSystem();
                     if (!success) {
@@ -303,7 +320,7 @@ public class MapUIController implements Initializable {
                         solarSystem = currentJourney.getStartingSolarSystem();
                     }
                     
-                    resultText = resultText + solarSystem.getSystemName() + ".";
+                    resultText = resultText + solarSystem.getSystemName() + ". ";
                     break;
             }
             AlertPane resultPane = new AlertPane(AlertPaneType.ONEBUTTON);
@@ -429,8 +446,8 @@ public class MapUIController implements Initializable {
             
             AlertPane resultPane = new AlertPane(AlertPaneType.ONEBUTTON);
             // TODO: How to replace [ware] with the ware that was affected??
-            resultPane.setMessageText("The [ware] on planet " + randPlanet.getPlanetName() + 
-                    " in system " + randSys.getSystemName() + " has been affected.");
+            resultPane.setMessageText("The [ware] on planet " + randPlanet.getPlanetName()
+                    + " in system " + randSys.getSystemName() + " has been affected.");
             EventHandler<ActionEvent> closeAction = (ActionEvent e1) -> {
                 anchorPane.getChildren().remove(resultPane);
             };
@@ -457,8 +474,8 @@ public class MapUIController implements Initializable {
         player.setCurrentSystem(destination);
         player.setCurrentPlanet(destination.getPlanets().get(0));
 
-        journey.getStartingSystemButton().getStyleClass().remove("currentPlanet");
-        journey.getDestinationSystemButton().getStyleClass().add("currentPlanet");
+        journey.getStartingSystemButton().getStyleClass().remove(CURRENT_PLANET_STYLE_CLASS);
+        journey.getDestinationSystemButton().getStyleClass().add(CURRENT_PLANET_STYLE_CLASS);
         currentSolarSystemButton = journey.getDestinationSystemButton();
 
         HyenasLoader.getInstance().goToSystemScreen();
@@ -534,7 +551,7 @@ public class MapUIController implements Initializable {
         int y1 = system1.getY();
         int x2 = system2.getX();
         int y2 = system2.getY();
-        return Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+        return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
     }
 
     /**
@@ -551,28 +568,28 @@ public class MapUIController implements Initializable {
                 .getInstance().getDistances();
 
         if (!adjList.containsKey(start)) {
-                return -1;
+            return -1;
         }
         distances.add(new ABPair<>(start, 0.0));
 
         Set<SolarSystem> visited = new HashSet<>();
 
         while (!distances.isEmpty()) {
-                ABPair<SolarSystem, Double> node = distances.remove();
-                if (node.getA().equals(goal)) {
-                        return node.getB();
-                }
+            ABPair<SolarSystem, Double> node = distances.remove();
+            if (node.getA().equals(goal)) {
+                return node.getB();
+            }
 
-                if (!visited.contains(node.getA())) {
-                        visited.add(node.getA());
-                        List<ABPair<SolarSystem, Double>> neighbors = adjList.get(node.getA());
-                        if (neighbors != null) {
-                            adjList.get(node.getA()).parallelStream().forEach((neighbor) -> {
-                                double alternateDistance = node.getB() + neighbor.getB();
-                                distances.add(new ABPair<>(neighbor.getA(), alternateDistance));
-                            });
-                        }
+            if (!visited.contains(node.getA())) {
+                visited.add(node.getA());
+                List<ABPair<SolarSystem, Double>> neighbors = adjList.get(node.getA());
+                if (neighbors != null) {
+                    adjList.get(node.getA()).parallelStream().forEach((neighbor) -> {
+                            double alternateDistance = node.getB() + neighbor.getB();
+                            distances.add(new ABPair<>(neighbor.getA(), alternateDistance));
+                        });
                 }
+            }
         }
 
         return -1;
