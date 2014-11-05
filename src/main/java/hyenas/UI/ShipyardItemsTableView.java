@@ -17,6 +17,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author Alex
  */
 public class ShipyardItemsTableView extends TableView {
+    /**
+     * The shipyard items tab type. Corresponds with a shipyard tab.
+     */
     private ShipyardTabType type;
     
     /**

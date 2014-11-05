@@ -7,16 +7,34 @@ import javafx.scene.control.Tab;
  * @author Alex
  */
 public class ShipyardTab extends Tab {
+    /**
+     * The shipyard tab type.
+     */
     private ShipyardTabType type;
+    /**
+     * The tab placeholder text. To be displayed when tab table view is empty.
+     */
     private String placeholder;
     
     /**
      * A ShipyardTabType, used to distinguish between what to populate.
      */
     public enum ShipyardTabType {
+        /**
+         * The ships tab.
+         */
         SHIPS,
+        /**
+         * The weapons tab.
+         */
         WEAPONS,
+        /**
+         * The shields tab.
+         */
         SHIELDS,
+        /**
+         * The gadgets tab.
+         */
         GADGETS,
     }
     

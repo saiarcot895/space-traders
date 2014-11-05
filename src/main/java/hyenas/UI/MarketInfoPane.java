@@ -16,19 +16,45 @@ import javafx.scene.layout.VBox;
  * @author Alex
  */
 public class MarketInfoPane extends BorderPane {
-    
+    /**
+     * The market info pane's planet name label.
+     */
     private Label planetNameLabel;
+    /**
+     * The market info pane's planet type label.
+     */
     private Label planetTypeLabel;
+    /**
+     * The market info pane's tech level label.
+     */
     private Label techLevelLabel;
+    /**
+     * The market info pane's credits label.
+     */
     private Label creditsLabel;
+    /**
+     * The market info pane's fuel label.
+     */
     private Label fuelLabel;
+    /**
+     * The market info pane's free cargo label.
+     */
     private Label freeCargoLabel;
+    /**
+     * The market info pane's planet event label.
+     */
     private Label planetEventLabel;
+    /**
+     * The market info pane's buy button.
+     */
     private Button buyButton;
+    /**
+     * The market info pane's sell button.
+     */
     private Button sellButton;
     
     /**
-     * Initializes a MarketInfoPane, sets up ui elements.
+     * Initializes a MarketInfoPane, sets up UI elements.
      */
     public MarketInfoPane() {
         getStyleClass().add("market-info-pane");

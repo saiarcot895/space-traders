@@ -9,8 +9,17 @@ import java.util.Random;
  * @author Alex
  */
 public class UIHelper {
+    /**
+     * The size of the galaxy in pixels.
+     */
     public static final int GALAXY_SIZE = 2000;
+    /**
+     * The width of a system in pixels.
+     */
     public static final double SYSTEM_WIDTH = 1160.0;
+    /**
+     * The height of a system in pixels.
+     */
     public static final double SYSTEM_HEIGHT = 680.0;
 
     /**

@@ -15,31 +15,67 @@ import javafx.scene.layout.BorderPane;
  */
 public class AlertPane extends BorderPane {
     
+    /**
+     * The alert pane's title label.
+     */
     @FXML
     private Label titleLabel;
 
+     /**
+     * The alert pane's message label.
+     */
     @FXML
     private Label messageLabel;
 
+     /**
+     * The alert pane's action button.
+     */
     @FXML
     private Button actionButton;
     
+    /**
+     * The alert pane's close button.
+     */
     @FXML
     private Button closeButton;
     
+    /**
+     * The alert pane's type.
+     */
     private AlertPaneType type;
     
-    private final int ALERT_PANE_WIDTH = 300;
-    private final int ALERT_PANE_HEIGHT = 135;
-    
-    private final double PADDING = 10.0;
+    /**
+     * Alert pane width in pixels.
+     */
+    private static final int ALERT_PANE_WIDTH = 300;
+    /**
+     * Alert pane height in pixels.
+     */
+    private static final int ALERT_PANE_HEIGHT = 135;
+    /**
+     * Alert pane width in pixels.
+     */
+    private static final String DEFAULT_ACTION_TEXT = "Action";
+    /**
+     * Alert pane height in pixels.
+     */
+    private static final String DEFAULT_CLOSE_TEXT = "Close";
     
     /**
      * A AlertPaneType, used to distinguish between alert pane types.
      */
     public enum AlertPaneType {
+        /**
+         * An alert with one button.
+         */
         ONEBUTTON,
+        /**
+         * An alert with two buttons.
+         */
         TWOBUTTONS,
+        /**
+         * An alert with a loading indicator and close button.
+         */
         LOADING
     }
     
@@ -109,18 +145,18 @@ public class AlertPane extends BorderPane {
         setCenter(messageLabel);
         
         if (type == AlertPaneType.ONEBUTTON) {
-            closeButton = new StandardButton("Close", StandardButtonType.SMALL);
+            closeButton = new StandardButton(DEFAULT_CLOSE_TEXT, StandardButtonType.SMALL);
             
             BorderPane buttonPane = new BorderPane();
             buttonPane.setCenter(closeButton);
             buttonPane.setPrefHeight(35.0);
             setBottom(buttonPane);
         } else if (type == AlertPaneType.TWOBUTTONS) {
-            actionButton = new StandardButton("Action", StandardButtonType.SMALL);
+            actionButton = new StandardButton(DEFAULT_ACTION_TEXT, StandardButtonType.SMALL);
             AnchorPane.setBottomAnchor(actionButton, 5.0);
             AnchorPane.setLeftAnchor(actionButton, 41.0);
             
-            closeButton = new StandardButton("Close", StandardButtonType.SMALL);
+            closeButton = new StandardButton(DEFAULT_CLOSE_TEXT, StandardButtonType.SMALL);
             AnchorPane.setBottomAnchor(closeButton, 5.0);
             AnchorPane.setRightAnchor(closeButton, 41.0);
             

@@ -10,7 +10,9 @@ import javafx.scene.layout.Pane;
  * @author Alex
  */
 public class SolarSystemScrollPane extends ScrollPane {
-
+    /**
+     * The solar system scroll pane's info pane.
+     */
     private SolarSystemInfoPane infoPane;
 
     /**

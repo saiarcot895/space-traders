@@ -11,13 +11,27 @@ import javafx.scene.layout.AnchorPane;
  * @author Alex
  */
 public class PlayerInfoPane extends AnchorPane {
-    
+    /**
+     * The player info pane's credits label.
+     */
     private Label creditsLabel;
+    /**
+     * The player info pane's fuel label.
+     */
     private Label fuelLabel;
+    /**
+     * The player info pane's health label.
+     */
     private Label healthLabel;
     
-    private final int PLAYER_INFO_PANE_WIDTH = 300;
-    private final int PLAYER_INFO_PANE_HEIGHT = 60;
+    /**
+     * The player info pane's width.
+     */
+    private static final int PLAYER_INFO_PANE_WIDTH = 300;
+    /**
+     * The player info pane's height.
+     */
+    private static final int PLAYER_INFO_PANE_HEIGHT = 60;
     
     /**
      * Initializer for PlayerInfoPane.

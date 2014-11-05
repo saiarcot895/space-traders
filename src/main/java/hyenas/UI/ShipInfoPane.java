@@ -15,15 +15,45 @@ import javafx.scene.layout.VBox;
  * @author Alex
  */
 public class ShipInfoPane extends BorderPane {
+    /**
+     * The ship info pane's ship name label.
+     */
     private Label shipNameLabel;
+    /**
+     * The ship info pane's ship cargo label.
+     */
     private Label shipCargoLabel;
+    /**
+     * The ship info pane's ship fuel label.
+     */
     private Label shipFuelLabel;
+    /**
+     * The ship info pane's ship weapons label.
+     */
     private Label shipWeaponsLabel;
+    /**
+     * The ship info pane's ship shields label.
+     */
     private Label shipShieldsLabel;
+    /**
+     * The ship info pane's ship gadgets label.
+     */
     private Label shipGadgetsLabel;
+    /**
+     * The ship info pane's ship crew label.
+     */
     private Label shipCrewLabel;
+    /**
+     * The ship info pane's credits label.
+     */
     private Label creditsLabel;
+    /**
+     * The ship info pane's buy button.
+     */
     private Button buyButton;
+    /**
+     * The ship info pane's sell button.
+     */
     private Button sellButton;
     
     /**

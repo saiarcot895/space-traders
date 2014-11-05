@@ -8,10 +8,22 @@ import javafx.scene.layout.AnchorPane;
  * @author Alex
  */
 public class HoverPane extends AnchorPane {
+    /**
+     * The hover pane's label.
+     */
     private Label label;
-    private final double PADDING = 3.0;
-    private final double WIDTH = 110.0;
-    private final double HEIGHT = 30.0;
+    /**
+     * The hover pane's margin padding.
+     */
+    private static final double PADDING = 3.0;
+    /**
+     * The hover pane's width.
+     */
+    private static final double WIDTH = 110.0;
+    /**
+     * The hover pane's height.
+     */
+    private static final double HEIGHT = 30.0;
     
     /**
      * Initializes a HoverPane.

@@ -11,9 +11,17 @@ import javafx.scene.layout.AnchorPane;
  * @author Alex
  */
 public class SolarSystemInfoPane extends AnchorPane {
-
+    /**
+     * The solar system info pane's system name label.
+     */
     private Label systemNameLabel;
+    /**
+     * The solar system info pane's planet number label.
+     */
     private Label numPlanetsLabel;
+    /**
+     * The solar system info pane's travel button.
+     */
     private Button travelButton;
 
     /**

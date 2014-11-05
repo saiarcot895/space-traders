@@ -19,7 +19,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author Alex
  */
 public class ShipyardPlayerTableView extends TableView {
+    /**
+     * The shipyard items tab type. Corresponds with a shipyard tab.
+     */
     private ShipyardTabType type;
+    /**
+     * The shipyard items tab type. Corresponds with a shipyard tab.
+     */
+    private static String NAME_PROPERTY_VALUE = "name";
+    
     /**
      * Initializes a table.
      * @param type the tab type
@@ -40,7 +48,7 @@ public class ShipyardPlayerTableView extends TableView {
         switch (type) {
             case SHIPS: {
                 TableColumn mainCol = new MarketTableColumn("Your Ship");
-                mainCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+                mainCol.setCellValueFactory(new PropertyValueFactory<>(NAME_PROPERTY_VALUE));
                 mainCol.prefWidthProperty().bind(widthProperty());
                 getColumns().setAll(mainCol);
 
@@ -52,7 +60,7 @@ public class ShipyardPlayerTableView extends TableView {
             }
             case WEAPONS: {
                 TableColumn mainCol = new MarketTableColumn("Your Weapons");
-                mainCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+                mainCol.setCellValueFactory(new PropertyValueFactory<>(NAME_PROPERTY_VALUE));
                 mainCol.prefWidthProperty().bind(widthProperty());
                 getColumns().setAll(mainCol);
 
@@ -63,7 +71,7 @@ public class ShipyardPlayerTableView extends TableView {
             }
             case SHIELDS: {
                 TableColumn mainCol = new MarketTableColumn("Your Shields");
-                mainCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+                mainCol.setCellValueFactory(new PropertyValueFactory<>(NAME_PROPERTY_VALUE));
                 mainCol.prefWidthProperty().bind(widthProperty());
                 getColumns().setAll(mainCol);
 
@@ -74,7 +82,7 @@ public class ShipyardPlayerTableView extends TableView {
             }
             case GADGETS: {
                 TableColumn mainCol = new MarketTableColumn("Your Gadgets");
-                mainCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+                mainCol.setCellValueFactory(new PropertyValueFactory<>(NAME_PROPERTY_VALUE));
                 mainCol.prefWidthProperty().bind(widthProperty());
                 getColumns().setAll(mainCol);
 

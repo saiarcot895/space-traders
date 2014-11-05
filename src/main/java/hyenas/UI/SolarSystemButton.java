@@ -9,11 +9,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- *
+ * For displaying a solar system button.
  * @author Alex
  */
 public class SolarSystemButton extends Button {
+    /**
+     * The factor the solar system's size is increased by.
+     */
     public static final double SYSTEM_UI_SIZE_FACTOR = 10.0;
+    /**
+     * The solar system button's CSS style class.
+     */
     private final String styleClass = "planet";
 
     /**
