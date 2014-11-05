@@ -218,9 +218,9 @@ public class Galaxy {
 
     /**
      * Set whether the galaxy's location is set.
-     * @param locationSet whether the galaxy's location is set
+     * @param plocationSet whether the galaxy's location is set
      */
-    public void setLocationsSet(boolean locationSet) {
-        this.locationSet = locationSet;
+    public void setLocationsSet(boolean plocationSet) {
+        this.locationSet = plocationSet;
     }
 }

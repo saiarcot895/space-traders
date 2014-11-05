@@ -34,15 +34,15 @@ public class Journey {
      * @param destination the destination Solar System
      * @param startingButton the starting button
      * @param destinationButton the destination button
-     * @param distance the distance between starting and destination
+     * @param pdistance the distance between starting and destination
      */
     public Journey(SolarSystem starting, SolarSystem destination, Button
-            startingButton, Button destinationButton, double distance) {
+            startingButton, Button destinationButton, double pdistance) {
         startingSolarSystem = starting;
         destinationSolarSystem = destination;
         startingSystemButton = startingButton;
         destinationSystemButton = destinationButton;
-        this.distance = distance;
+        this.distance = pdistance;
     }
     
     /**

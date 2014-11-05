@@ -57,10 +57,10 @@ public class Shield {
     
     /**
      * Initializes an instance of Shield.
-     * @param type the type of shield
+     * @param ptype the type of shield
      */
-    public Shield(ShieldType type) {
-        switch (type) {
+    public Shield(ShieldType ptype) {
+        switch (ptype) {
             case CIVILIAN_ENERGY:
                 name = "Civilian Energy";
                 price = 100;
@@ -94,7 +94,7 @@ public class Shield {
             default:
                 break;
         }
-        this.type = type;
+        this.type = ptype;
     }
     
     /**
@@ -103,6 +103,14 @@ public class Shield {
      */
     public String getName() {
         return name;
+    }
+    
+    /**
+     * Get the type of shield.
+     * @return type the type of shield
+     */
+    public ShieldType getType() {
+        return type;
     }
     
     /**

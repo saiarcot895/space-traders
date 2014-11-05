@@ -26,26 +26,26 @@ public class ShipyardPlayerTableView extends TableView {
     /**
      * The shipyard items tab type. Corresponds with a shipyard tab.
      */
-    private static String NAME_PROPERTY_VALUE = "name";
+    private static final String NAME_PROPERTY_VALUE = "name";
     
     /**
      * Initializes a table.
-     * @param type the tab type
+     * @param ptype the tab type
      */
-    public ShipyardPlayerTableView(ShipyardTabType type) {
-        setupTableForType(type);
-        this.type = type;
+    public ShipyardPlayerTableView(ShipyardTabType ptype) {
+        setupTableForType(ptype);
+        this.type = ptype;
         setEditable(false);
     }
     
     /**
      * Sets up the table for a given tab type.
-     * @param type the tab type
+     * @param ptype the tab type
      */
-    public void setupTableForType(ShipyardTabType type) {
+    public void setupTableForType(ShipyardTabType ptype) {
         Player player = Player.getInstance();
         Ship ship = player.getShip();
-        switch (type) {
+        switch (ptype) {
             case SHIPS: {
                 TableColumn mainCol = new MarketTableColumn("Your Ship");
                 mainCol.setCellValueFactory(new PropertyValueFactory<>(NAME_PROPERTY_VALUE));
@@ -92,5 +92,13 @@ public class ShipyardPlayerTableView extends TableView {
                 break;
             }
         }
+    }
+    
+    /**
+     * Get the type of the shipyard tab.
+     * @return type the type of the shipyard tab
+     */
+    public ShipyardTabType getType() {
+        return type;
     }
 }

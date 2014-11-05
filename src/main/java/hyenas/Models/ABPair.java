@@ -5,6 +5,8 @@ import java.util.Objects;
 /**
  * Represents pair for use with Dijkstra's algorithm.
  * @author saikrishna
+ * @param <A> the first item
+ * @param <B> the second item
  */
 public class ABPair<A, B> {
     /**
@@ -18,12 +20,12 @@ public class ABPair<A, B> {
 
     /**
      * Initializes an ABPair.
-     * @param a the first item
-     * @param b the second item
+     * @param pa the first item
+     * @param pb the second item
      */
-    public ABPair(A a, B b) {
-        this.a = a;
-        this.b = b;
+    public ABPair(A pa, B pb) {
+        this.a = pa;
+        this.b = pb;
     }
 
     /**

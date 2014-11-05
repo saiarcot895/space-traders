@@ -24,29 +24,29 @@ public class ShipyardItemsTableView extends TableView {
     
     /**
      * Initializes a table.
-     * @param type the tab type
+     * @param ptype the tab type
      */
-    public ShipyardItemsTableView(ShipyardTabType type) {
+    public ShipyardItemsTableView(ShipyardTabType ptype) {
         setupTableForType(type);
-        this.type = type;
+        this.type = ptype;
         setEditable(false);
     }
     
     /**
      * Sets up the table for a given tab type.
-     * @param type the tab type
+     * @param ptype the tab type
      */
-    public void setupTableForType(ShipyardTabType type) {
-        setupColumnsForType(type);
-        setupDataForType(type);
+    public void setupTableForType(ShipyardTabType ptype) {
+        setupColumnsForType(ptype);
+        setupDataForType(ptype);
     }
     
     /**
      * Sets up the table columns for a given tab type.
-     * @param type the tab type
+     * @param ptype the tab type
      */
-    private void setupColumnsForType(ShipyardTabType type) {
-        switch (type) {
+    private void setupColumnsForType(ShipyardTabType ptype) {
+        switch (ptype) {
             case SHIPS: {
                 TableColumn nameCol = nameColumn();
                 TableColumn cargoCol = new MarketTableColumn("Cargo");
@@ -105,10 +105,10 @@ public class ShipyardItemsTableView extends TableView {
     
     /**
      * Sets up the table data for a given tab type.
-     * @param type the tab type
+     * @param ptype the tab type
      */
-    private void setupDataForType(ShipyardTabType type) {
-        switch (type) {
+    private void setupDataForType(ShipyardTabType ptype) {
+        switch (ptype) {
             case SHIPS:
                 List<Ship> ships = Ship.getDefaultShips();
                 ObservableList<Ship> shipItems = FXCollections.observableArrayList(ships);

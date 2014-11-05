@@ -110,10 +110,10 @@ public class Ware {
 
     /**
      * Initializes a Ware and sets its initial values based on a given Good.
-     * @param good the ware's good
+     * @param pgood the ware's good
      */
-    public Ware(Good good) {
-        this.good = good;
+    public Ware(Good pgood) {
+        this.good = pgood;
         setUp();
     }
     
@@ -327,10 +327,10 @@ public class Ware {
     
     /**
      * Set the current price of the ware.
-     * @param currentPrice the current price
+     * @param pcurrentPrice the current price
      */
-    public void setCurrentPrice(int currentPrice) {
-        this.currentPrice = currentPrice;
+    public void setCurrentPrice(int pcurrentPrice) {
+        this.currentPrice = pcurrentPrice;
     }
     
     /**
@@ -343,10 +343,10 @@ public class Ware {
     
     /**
      * Set the current quantity of the ware.
-     * @param currentQuantity the current quantity
+     * @param pcurrentQuantity the current quantity
      */
-    public void setCurrentQuantity(int currentQuantity) {
-        this.currentQuantity = currentQuantity;
+    public void setCurrentQuantity(int pcurrentQuantity) {
+        this.currentQuantity = pcurrentQuantity;
     }
     
     /**
@@ -359,10 +359,10 @@ public class Ware {
     
     /**
      * Set the current condition of the ware.
-     * @param currentCondition the current condition
+     * @param pcurrentCondition the current condition
      */
-    public void setCurrentCondition(String currentCondition) {
-        this.currentCondition = currentCondition;
+    public void setCurrentCondition(String pcurrentCondition) {
+        this.currentCondition = pcurrentCondition;
     }
     
     /**

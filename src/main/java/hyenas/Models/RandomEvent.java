@@ -61,10 +61,10 @@ public class RandomEvent {
 
     /**
      * Initialized RandomEvent based on the RandomEventType.
-     * @param eventType the type of random event
+     * @param peventType the type of random event
      */
-    public RandomEvent(RandomEventType eventType) {
-        this.eventType = eventType;
+    public RandomEvent(RandomEventType peventType) {
+        this.eventType = peventType;
         setUp();
     }
     
@@ -215,7 +215,6 @@ public class RandomEvent {
             case TRADER:
                 return true;
             case PIRATE:
-                int x = 6;
                 Random random = new Random();
                 boolean successful = random.nextBoolean();
                 Ship ship = player.getShip();

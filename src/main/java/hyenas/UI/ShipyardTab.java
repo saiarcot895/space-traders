@@ -40,21 +40,21 @@ public class ShipyardTab extends Tab {
     
     /**
      * Initializes a tab.
-     * @param type the shipyard tab type
+     * @param ptype the shipyard tab type
      */
-    public ShipyardTab(ShipyardTabType type) {
-        setText(tabNameForType(type));
-        this.type = type;
-        this.placeholder = placeholderForType(type);
+    public ShipyardTab(ShipyardTabType ptype) {
+        setText(tabNameForType(ptype));
+        this.type = ptype;
+        this.placeholder = placeholderForType(ptype);
     }
     
     /**
      * Returns the name for a given shipyard type.
-     * @param type the shipyard tab type
+     * @param ptype the shipyard tab type
      * @return the name for the tab
      */
-    private String tabNameForType(ShipyardTabType type) {
-        switch (type) {
+    private String tabNameForType(ShipyardTabType ptype) {
+        switch (ptype) {
             case SHIPS:
                 return "Ships";
             case WEAPONS:
@@ -70,11 +70,11 @@ public class ShipyardTab extends Tab {
     
     /**
      * Returns the placeholder for a given shipyard tab type.
-     * @param type the shipyard tab type
+     * @param ptype the shipyard tab type
      * @return the placeholder for the tab
      */
-    private String placeholderForType(ShipyardTabType type) {
-        switch (type) {
+    private String placeholderForType(ShipyardTabType ptype) {
+        switch (ptype) {
             case SHIPS:
                 return "[Error - player should have a ship]";
             case WEAPONS:

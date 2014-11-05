@@ -45,10 +45,10 @@ public class Weapon {
     
     /**
      * Initializes an instance of Weapon.
-     * @param type the type of weapon
+     * @param ptype the type of weapon
      */
-    public Weapon(WeaponType type) {
-        switch (type) {
+    public Weapon(WeaponType ptype) {
+        switch (ptype) {
             case PULSE:
                 name = "Pulse";
                 price = 100;
@@ -67,7 +67,7 @@ public class Weapon {
             default:
                 break;
         }
-        this.type = type;
+        this.type = ptype;
     }
     
     /**

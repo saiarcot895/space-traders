@@ -62,15 +62,15 @@ class Mercenary {
     
     /**
      * Constructor for mercenary, takes in generated mercenary's skills and name.
-     * @param name new mercenary's name
+     * @param pname new mercenary's name
      * @param pilot new mercenary's pilot skill
      * @param fighter new mercenary's fighter skill
      * @param trader new mercenary's trader skill
      * @param engineer new mercenary's engineer skill
      * @param investor new mercenary's investor skill
      */
-    public Mercenary(String name, int pilot, int fighter, int trader, int engineer, int investor)    {
-        this.name = name;
+    public Mercenary(String pname, int pilot, int fighter, int trader, int engineer, int investor)    {
+        this.name = pname;
         pilotSkill = pilot;
         fighterSkill = fighter;
         traderSkill = trader;

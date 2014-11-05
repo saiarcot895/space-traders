@@ -41,10 +41,10 @@ public class SolarSystem {
 
     /**
      * Initializes an instance of SolarSyem and sets initial values.
-     * @param systemName the name of the system
+     * @param psystemName the name of the system
      */
-    public SolarSystem(String systemName) {
-        this.systemName = systemName;
+    public SolarSystem(String psystemName) {
+        this.systemName = psystemName;
         Random rand = new Random();
         size = 10 + (rand.nextDouble() * 10);
         color = UIHelper.randomColorString();
@@ -254,10 +254,10 @@ public class SolarSystem {
     
     /**
      * Set the x-coordinate of the solar system.
-     * @param x the x-coordinate of the system
+     * @param px the x-coordinate of the system
      */
-    public void setX(int x) {
-        this.x = x;
+    public void setX(int px) {
+        this.x = px;
     }
 
     /**
@@ -270,10 +270,10 @@ public class SolarSystem {
     
     /**
      * Set the y-coordinate of the solar system.
-     * @param y the y-coordinate of the system
+     * @param py the y-coordinate of the system
      */
-    public void setY(int y) {
-        this.y = y;
+    public void setY(int py) {
+        this.y = py;
     }
 
     /**

@@ -20,11 +20,6 @@ import javafx.scene.text.Font;
  */
 public class MainWindowController implements Initializable {
     /**
-     * The main window controller main anchor pane.
-     */
-    @FXML
-    private AnchorPane anchorPane;
-    /**
      * The main window controller title label.
      */
     @FXML

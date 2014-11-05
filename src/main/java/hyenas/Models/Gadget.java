@@ -58,10 +58,10 @@ public class Gadget {
     /**
      * Initializes an instance of Gadget.
      * Sets default values based on the gadget type
-     * @param type the type of gadget
+     * @param ptype the type of gadget
      */
-    public Gadget(GadgetType type) {
-        switch (type) {
+    public Gadget(GadgetType ptype) {
+        switch (ptype) {
             case EXTRA_CARGO:
                 name = "Extra Cargo";
                 price = 100;
@@ -95,7 +95,7 @@ public class Gadget {
             default:
                 break;
         }
-        this.type = type;
+        this.type = ptype;
     }
     
     /**
@@ -104,6 +104,14 @@ public class Gadget {
      */
     public String getName() {
         return name;
+    }
+    
+    /**
+     * Get the type of the gadget.
+     * @return type the type of the gadget
+     */
+    public GadgetType getType() {
+        return type;
     }
     
     /**

@@ -123,10 +123,10 @@ public class AlertPane extends BorderPane {
     
     /**
      * Initializes an AlertPane and creates required label/button elements.
-     * @param type the alert pane type
+     * @param ptype the alert pane type
      */
-    public AlertPane(AlertPaneType type) {
-        this.type = type;
+    public AlertPane(AlertPaneType ptype) {
+        this.type = ptype;
         setPrefSize(ALERT_PANE_WIDTH, ALERT_PANE_HEIGHT);
         getStyleClass().add("alertPane");
 

@@ -185,10 +185,10 @@ public class Planet {
     
     /**
      * Standard constructor for initializing planet.
-     * @param planetName the name of the planet
+     * @param pplanetName the name of the planet
      */
-    public Planet(String planetName) {
-        this.planetName = planetName;
+    public Planet(String pplanetName) {
+        this.planetName = pplanetName;
         Random rand = new Random();
         clockwiseOrbit = rand.nextBoolean();
         size = 10 + rand.nextInt(10);
@@ -206,15 +206,15 @@ public class Planet {
      * at random in original constructor with values stored in table.
      * 
      * @param name the name of the planet
-     * @param clockwiseOrbit whether the planet's orbit is clockwise
-     * @param techLevel the tech level of the planet
+     * @param pclockwiseOrbit whether the planet's orbit is clockwise
+     * @param ptechLevel the tech level of the planet
      * @param planetType the type of the planet
      */
-    public Planet(String name, boolean clockwiseOrbit, int techLevel,
+    public Planet(String name, boolean pclockwiseOrbit, int ptechLevel,
             int planetType) {
         this(name);
-        this.clockwiseOrbit = clockwiseOrbit;
-        this.techLevel = PlanetTechLevel.values()[techLevel];
+        this.clockwiseOrbit = pclockwiseOrbit;
+        this.techLevel = PlanetTechLevel.values()[ptechLevel];
         this.type = PlanetType.values()[planetType];
     }
     
@@ -236,10 +236,10 @@ public class Planet {
     
     /**
      * Set the planet's size.
-     * @param size the size of the planet
+     * @param psize the size of the planet
      */
-    public void setSize(double size) {
-        this.size = size;
+    public void setSize(double psize) {
+        this.size = psize;
     }
     
     /**
@@ -312,10 +312,10 @@ public class Planet {
     
     /**
      * Set the planet's orbit radius.
-     * @param orbitRadius the orbitRadius of the planet
+     * @param porbitRadius the orbitRadius of the planet
      */
-    public void setOrbitRadius(int orbitRadius)    {
-        this.orbitRadius = orbitRadius;
+    public void setOrbitRadius(int porbitRadius)    {
+        this.orbitRadius = porbitRadius;
     }
     
     /**
@@ -512,12 +512,12 @@ public class Planet {
         
         /**
          * Initializes AffectedGood instance.
-         * @param good the Good type
-         * @param increasedPrice whether the affected good price increases
+         * @param pgood the Good type
+         * @param pincreasedPrice whether the affected good price increases
          */
-        public AffectedGood(Good good, boolean increasedPrice) {
-            this.good = good;
-            this.increasedPrice = increasedPrice;
+        public AffectedGood(Good pgood, boolean pincreasedPrice) {
+            this.good = pgood;
+            this.increasedPrice = pincreasedPrice;
         }
         
         /**

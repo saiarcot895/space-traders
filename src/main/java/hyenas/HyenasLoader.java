@@ -20,13 +20,17 @@ public class HyenasLoader extends Application {
      */
     private static HyenasLoader instance;
     /**
-     * The connection mainager. For use with database.
+     * The connection manager. For use with database.
      */
     private ConnectionManager connectionManager;
     /**
      * The hyenas loader stage.
      */
     private Stage stage;
+    /**
+     * The hyenas loader stage.
+     */
+    private static final String MAIN_WINDOW_FXML_FILE = "MainWindow.fxml";
 
     /**
      * Gets the common HyenasLoader instance, since we should only have one.
@@ -37,7 +41,7 @@ public class HyenasLoader extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage pstage) throws Exception {
         instance = this;
 
         connectionManager = new ConnectionManager("jdbc:sqlite:database.db");
@@ -53,10 +57,10 @@ public class HyenasLoader extends Application {
         connectionManager.getGadgetsTable().createTable();
         connectionManager.getWeaponsTable().createTable();
 
-        this.stage = stage;
+        this.stage = pstage;
         stage.setFullScreen(true);
         Parent root = FXMLLoader.load(getClass().getResource(
-                    "MainWindow.fxml"));
+                    MAIN_WINDOW_FXML_FILE));
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("hyenas/Common.css");
@@ -106,7 +110,7 @@ public class HyenasLoader extends Application {
      * Changes screens to the Home screen.
      */
     public void goToHomeScreen() {
-        loadScreen("MainWindow.fxml");
+        loadScreen(MAIN_WINDOW_FXML_FILE);
     }
     
     /**

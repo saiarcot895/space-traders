@@ -96,10 +96,10 @@ public class Player {
 
     /**
      * Set player's name.
-     * @param name the String name of the player
+     * @param pname the String name of the player
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String pname) {
+        this.name = pname;
     }
 
     /**
@@ -112,10 +112,10 @@ public class Player {
     
     /**
      * Set player's total points.
-     * @param points the points
+     * @param ppoints the points
      */
-    public void setPoints(int points) {
-        this.points = points;
+    public void setPoints(int ppoints) {
+        this.points = ppoints;
     }
     
     /**
@@ -128,10 +128,10 @@ public class Player {
 
     /**
      * Set player's pilot skill.
-     * @param pilotSkill the pilot skill of the player
+     * @param ppilotSkill the pilot skill of the player
      */
-    public void setPilotSkill(int pilotSkill) {
-        this.pilotSkill = pilotSkill;
+    public void setPilotSkill(int ppilotSkill) {
+        this.pilotSkill = ppilotSkill;
     }
 
     /**
@@ -144,10 +144,10 @@ public class Player {
 
     /**
      * Set player's fighter skill.
-     * @param fighterSkill the fighter skill of the player
+     * @param pfighterSkill the fighter skill of the player
      */
-    public void setFighterSkill(int fighterSkill) {
-        this.fighterSkill = fighterSkill;
+    public void setFighterSkill(int pfighterSkill) {
+        this.fighterSkill = pfighterSkill;
     }
 
     /**
@@ -160,10 +160,10 @@ public class Player {
 
     /**
      * Set player's trader skill.
-     * @param traderSkill the trader skill of the player
+     * @param ptraderSkill the trader skill of the player
      */
-    public void setTraderSkill(int traderSkill) {
-        this.traderSkill = traderSkill;
+    public void setTraderSkill(int ptraderSkill) {
+        this.traderSkill = ptraderSkill;
     }
 
     /**
@@ -176,10 +176,10 @@ public class Player {
 
     /**
      * Set player's engineer skill.
-     * @param engineerSkill the engineer skill of the player
+     * @param pengineerSkill the engineer skill of the player
      */
-    public void setEngineerSkill(int engineerSkill) {
-        this.engineerSkill = engineerSkill;
+    public void setEngineerSkill(int pengineerSkill) {
+        this.engineerSkill = pengineerSkill;
     }
 
     /**
@@ -192,10 +192,10 @@ public class Player {
 
     /**
      * Set player's investor skill.
-     * @param investorSkill the investor skill of the player
+     * @param pinvestorSkill the investor skill of the player
      */
-    public void setInvestorSkill(int investorSkill) {
-        this.investorSkill = investorSkill;
+    public void setInvestorSkill(int pinvestorSkill) {
+        this.investorSkill = pinvestorSkill;
     }
 
     /**
@@ -208,10 +208,10 @@ public class Player {
 
     /**
      * Set player's current system.
-     * @param currentSystem the player's current SolarSystem
+     * @param pcurrentSystem the player's current SolarSystem
      */
-    public void setCurrentSystem(SolarSystem currentSystem) {
-        this.currentSystem = currentSystem;
+    public void setCurrentSystem(SolarSystem pcurrentSystem) {
+        this.currentSystem = pcurrentSystem;
     }
 
     /**
@@ -224,10 +224,10 @@ public class Player {
 
     /**
      * Set player's current planet.
-     * @param currentPlanet the current planet of the player
+     * @param pcurrentPlanet the current planet of the player
      */
-    public void setCurrentPlanet(Planet currentPlanet) {
-        this.currentPlanet = currentPlanet;
+    public void setCurrentPlanet(Planet pcurrentPlanet) {
+        this.currentPlanet = pcurrentPlanet;
     }
 
     /**
@@ -240,10 +240,10 @@ public class Player {
 
     /**
      * Set player's ship.
-     * @param ship the Ship of the player
+     * @param pship the Ship of the player
      */
-    public void setShip(Ship ship) {
-        this.ship = ship;
+    public void setShip(Ship pship) {
+        this.ship = pship;
     }
 
     /**
@@ -256,10 +256,10 @@ public class Player {
 
     /**
      * Set player's credits.
-     * @param credits the amount of credits
+     * @param pcredits the amount of credits
      */
-    public void setCredits(int credits) {
-        this.credits = credits;
+    public void setCredits(int pcredits) {
+        this.credits = pcredits;
     }
     
     /**
@@ -272,9 +272,9 @@ public class Player {
     
     /**
      * Set player's state.
-     * @param state the game state
+     * @param pstate the game state
      */
-    public void setState(boolean state) {
-        this.state = state;
+    public void setState(boolean pstate) {
+        this.state = pstate;
     }
 }

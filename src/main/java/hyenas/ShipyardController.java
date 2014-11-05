@@ -42,12 +42,6 @@ public class ShipyardController implements Initializable {
     @FXML
     private AnchorPane anchorPane;
     /**
-     * The shipyard controller box pane. Divided into top section and main
-     * section.
-     */
-    @FXML
-    private VBox boxPane;
-    /**
      * The shipyard controller title label.
      */
     @FXML
@@ -57,11 +51,6 @@ public class ShipyardController implements Initializable {
      */
     @FXML
     private BorderPane centerPane;
-    /**
-     * The shipyard controller table pane.
-     */
-    @FXML
-    private BorderPane tablePane;
     
     /**
      * The shipyard controller player ship table. Data changes to reflect
