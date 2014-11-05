@@ -19,22 +19,34 @@ import javafx.scene.text.Font;
  * @author saikrishna
  */
 public class MainWindowController implements Initializable {
-
+    /**
+     * The main window controller main anchor pane.
+     */
     @FXML
     private AnchorPane anchorPane;
-
+    /**
+     * The main window controller title label.
+     */
     @FXML
     private Label titleLabel;
-
+    /**
+     * The main window controller new game button label.
+     */
     @FXML
     private Button newGameButton;
-
+    /**
+     * The main window controller settings button label.
+     */
     @FXML
     private Button settingsButton;
-
+    /**
+     * The main window controller continue button label.
+     */
     @FXML
     private Button continueButton;
-
+    /**
+     * The main window controller close button label.
+     */
     @FXML
     private Button closeButton;
 
@@ -73,7 +85,6 @@ public class MainWindowController implements Initializable {
         AnchorPane.setTopAnchor(closeButton, 550.0);
         AnchorPane.setLeftAnchor(closeButton, buttonPadding);
         AnchorPane.setRightAnchor(closeButton, buttonPadding);
-
     }
 
     /**

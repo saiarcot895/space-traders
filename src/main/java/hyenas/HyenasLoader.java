@@ -15,11 +15,17 @@ import javafx.stage.Stage;
  * @author Alex
  */
 public class HyenasLoader extends Application {
-
+    /**
+     * The common hyenas loader instance. For use with singleton.
+     */
     private static HyenasLoader instance;
-    
+    /**
+     * The connection mainager. For use with database.
+     */
     private ConnectionManager connectionManager;
-
+    /**
+     * The hyenas loader stage.
+     */
     private Stage stage;
 
     /**

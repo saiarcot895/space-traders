@@ -36,17 +36,36 @@ import javafx.scene.text.Font;
  * @author Alex
  */
 public class MarketController implements Initializable {
+    /**
+     * The market controller planet.
+     */
     private Planet planet;
+    /**
+     * The market controller planet table view.
+     */
     private TableView planetTable = new TableView();
+    /**
+     * The market controller player table view.
+     */
     private TableView playerTable = new TableView();
+    /**
+     * The market controller info pane.
+     */
     private MarketInfoPane infoPane;
-
+    
+    /**
+     * The market controller border pane.
+     */
     @FXML
     private BorderPane borderPane;
-    
+    /**
+     * The market controller main anchor pane.
+     */
     @FXML
     private AnchorPane anchorPane;
-    
+    /**
+     * The market controller title label.
+     */
     @FXML
     private Label titleLabel;
     

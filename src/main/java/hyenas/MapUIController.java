@@ -19,7 +19,6 @@ import hyenas.UI.UIHelper;
 import hyenas.database.PlanetTable;
 import hyenas.database.PlayerTable;
 import hyenas.database.SolarSystemTable;
-import java.awt.Dimension;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -42,39 +41,55 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 /**
- * FXML Controller class for map of solar systems
+ * FXML Controller class for map of solar systems.
  *
  * @author Abhishek
  */
 public class MapUIController implements Initializable {
-
+    /**
+     * The map UI controller main anchor pane.
+     */
     @FXML
-    private Button menu;
-
-    @FXML
-    private AnchorPane anchor;
-
-    @FXML
+    private AnchorPane anchorPane;
+    /**
+     * The map UI controller current solar system button.
+     */
     private Button currentSolarSystemButton;
-
-    @FXML
+    /**
+     * The map UI controller scroll pane.
+     */
     private SolarSystemScrollPane scrollPane = new SolarSystemScrollPane();
-    
-    @FXML
+    /**
+     * The map UI controller player info pane.
+     */
     private PlayerInfoPane playerInfoPane;
     
-    @FXML
+    /**
+     * The map UI controller current journey. For use in case player encounters
+     * random event
+     */
     private Journey currentJourney;
-    
-    @FXML
+    /**
+     * The visible range the player can travel.
+     */
     private Circle travelRange;
-
+    /**
+     * The solar system database table.
+     */
     private SolarSystemTable ssTable;
-    
+    /**
+     * The player database table.
+     */
     private PlayerTable playerTable;
-    
-    private final int INFO_PANE_SIZE = 200;
-    private final double SCROLL_PANE_PADDING = 60.0;
+    /**
+     * The solar system info pane size.
+     */
+    private static final int INFO_PANE_SIZE = 200;
+    /**
+     * The scroll pane padding. Prevents solar systems from being too close to
+     * edge.
+     */
+    private static final double SCROLL_PANE_PADDING = 60.0;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -256,7 +271,7 @@ public class MapUIController implements Initializable {
         AnchorPane.setBottomAnchor(playerInfoPane, 0.0);
         AnchorPane.setLeftAnchor(playerInfoPane, 10.0);
         
-        anchor.getChildren().addAll(scrollPane, playerInfoPane);
+        anchorPane.getChildren().addAll(scrollPane, playerInfoPane);
     }
     
     /**
@@ -307,7 +322,7 @@ public class MapUIController implements Initializable {
                         break;
                 }
                 
-                anchor.getChildren().remove(resultPane);
+                anchorPane.getChildren().remove(resultPane);
                 
                 Player player = Player.getInstance();
                 playerTable = HyenasLoader.getInstance().getConnectionManager()
@@ -318,8 +333,8 @@ public class MapUIController implements Initializable {
             };
             resultPane.getCloseButton().setOnAction(closeAction);
             playerInfoPane.updateInfo();
-            anchor.getChildren().remove(eventPane);
-            anchor.getChildren().add(resultPane);
+            anchorPane.getChildren().remove(eventPane);
+            anchorPane.getChildren().add(resultPane);
         };
         eventPane.getActionButton().setOnAction(actionEvent);
         
@@ -364,7 +379,7 @@ public class MapUIController implements Initializable {
                         break;
                 }
                 
-                anchor.getChildren().remove(resultPane);
+                anchorPane.getChildren().remove(resultPane);
                 
                 Player player = Player.getInstance();
                 playerTable = HyenasLoader.getInstance().getConnectionManager()
@@ -375,12 +390,12 @@ public class MapUIController implements Initializable {
             };
             resultPane.getCloseButton().setOnAction(closeAction);
             playerInfoPane.updateInfo();
-            anchor.getChildren().remove(eventPane);
-            anchor.getChildren().add(resultPane);
+            anchorPane.getChildren().remove(eventPane);
+            anchorPane.getChildren().add(resultPane);
         };
         eventPane.getCloseButton().setOnAction(cancelEvent);
         
-        anchor.getChildren().add(eventPane);
+        anchorPane.getChildren().add(eventPane);
         
         Galaxy.getInstance().setLocationsSet(true);
     }
@@ -417,7 +432,7 @@ public class MapUIController implements Initializable {
             resultPane.setMessageText("The [ware] on planet " + randPlanet.getPlanetName() + 
                     " in system " + randSys.getSystemName() + " has been affected.");
             EventHandler<ActionEvent> closeAction = (ActionEvent e1) -> {
-                anchor.getChildren().remove(resultPane);
+                anchorPane.getChildren().remove(resultPane);
             };
             resultPane.getCloseButton().setOnAction(closeAction);
             

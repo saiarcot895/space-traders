@@ -22,7 +22,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
@@ -37,40 +36,78 @@ import javafx.scene.text.Font;
  * @author Alex
  */
 public class ShipyardController implements Initializable {
-    
-    @FXML
-    private VBox boxPane;
-    
+    /**
+     * The shipyard controller main anchor pane.
+     */
     @FXML
     private AnchorPane anchorPane;
-    
+    /**
+     * The shipyard controller box pane. Divided into top section and main
+     * section.
+     */
+    @FXML
+    private VBox boxPane;
+    /**
+     * The shipyard controller title label.
+     */
     @FXML
     private Label titleLabel;
-    
+    /**
+     * The shipyard controller center pane.
+     */
     @FXML
     private BorderPane centerPane;
-    
+    /**
+     * The shipyard controller table pane.
+     */
     @FXML
     private BorderPane tablePane;
     
+    /**
+     * The shipyard controller player ship table. Data changes to reflect
+     * selected tab.
+     */
     private ShipyardPlayerTableView playerShipTable =
             new ShipyardPlayerTableView(ShipyardTabType.SHIPS);
+    /**
+     * The shipyard controller ships table.
+     */
     private TableView shipsTable =
             new ShipyardItemsTableView(ShipyardTabType.SHIPS);
+    /**
+     * The shipyard controller weapons table.
+     */
     private TableView weaponsTable =
             new ShipyardItemsTableView(ShipyardTabType.WEAPONS);
+    /**
+     * The shipyard controller gadgets table.
+     */
     private TableView gadgetsTable =
             new ShipyardItemsTableView(ShipyardTabType.GADGETS);
+    /**
+     * The shipyard controller shields table.
+     */
     private TableView shieldsTable =
             new ShipyardItemsTableView(ShipyardTabType.SHIELDS);
+    /**
+     * The shipyard controller current table view (based on the selected tab).
+     */
     private TableView currentTableView;
-    
+    /**
+     * The shipyard controller info pane. Displays info about the ship.
+     */
     private ShipInfoPane infoPane;
-    
-    private final int TAB_PANE_WIDTH = 600;
-    
+    /**
+     * The tab pane width.
+     */
+    private static final int TAB_PANE_WIDTH = 600;
+    /**
+     * The player ship.
+     */
     private Ship ship;
-    
+    /**
+     * The shipyard controller tab pane, which contains the current table view.
+     */
     private TabPane tabPane;
 
     @Override

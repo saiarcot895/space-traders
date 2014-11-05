@@ -38,24 +38,33 @@ import javafx.scene.shape.StrokeType;
  * @author Brian
  */
 public class SystemUIController implements Initializable {
-    
+    /**
+     * The system UI controller main anchor pane.
+     */
     @FXML
     private AnchorPane anchorPane;
-    
-    @FXML
-    private VBox boxPane;
-    
+    /**
+     * The system UI controller system pane.
+     */
     @FXML
     private Pane systemPane;
-    
+    /**
+     * The system UI controller current planet name.
+     */
     private Button currentPlanetButton;
-    
-    private PlayerInfoPane playerInfoPane;
-    
+    /**
+     * The system UI controller planet name pane. Displays name of planet on
+     * mouse over.
+     */
     private HoverPane planetNamePane;
-    
+    /**
+     * The system UI controller animation timer for repeating the planet
+     * orbit animation.
+     */
     private Timer animationTimer;
-    
+    /**
+     * The system UI controller planet map.
+     */
     private Map<Planet, PlanetButton> planetMap = new HashMap<>();
     
     @Override

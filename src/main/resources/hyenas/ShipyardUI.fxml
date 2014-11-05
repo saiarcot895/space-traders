@@ -27,8 +27,6 @@
                 <BorderPane fx:id="centerPane">
                     <center><BorderPane fx:id="tablePane"></BorderPane></center>
                 </BorderPane>
-                
-                
             </children>
         </VBox>
         <Button fx:id="backButton" styleClass="standard-button" prefHeight="37.0" prefWidth="143.0" mnemonicParsing="false" onAction="#goBack" text="Back" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />

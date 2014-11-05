@@ -22,61 +22,100 @@ import javafx.scene.layout.AnchorPane;
  * @author Abhishek
  */
 public class AllocationController implements Initializable {
-
-    private int pointsRemaining = 8;
-    
+    /**
+     * The allocation controller main anchor pane.
+     */
     @FXML
     private AnchorPane anchorPane;
-
-    @FXML
-    private Button goBack;
-
+    /**
+     * The allocation controller reset button.
+     */
     @FXML
     private Button reset;
-
-    @FXML
-    private Button create;
-
+    /**
+     * The allocation controller pilot button.
+     */
     @FXML
     private Button pilot;
-
+    /**
+     * The allocation controller fighter button.
+     */
     @FXML
     private Button fighter;
-
+    /**
+     * The allocation controller trader button.
+     */
     @FXML
     private Button trader;
-
+    /**
+     * The allocation controller engineer button.
+     */
     @FXML
     private Button engineer;
-
+    /**
+     * The allocation controller investor button.
+     */
     @FXML
     private Button investor;
-
+    /**
+     * The allocation controller name field.
+     */
     @FXML
     private TextField name;
-
+    /**
+     * The allocation controller pilot skill counter label.
+     */
     @FXML
     private Label pCounter;
-
+    /**
+     * The allocation controller fighter skill counter label.
+     */
     @FXML
     private Label fCounter;
-
+    /**
+     * The allocation controller trader skill counter label.
+     */
     @FXML
     private Label tCounter;
-
+    /**
+     * The allocation controller engineer skill counter label.
+     */
     @FXML
     private Label eCounter;
-
+    /**
+     * The allocation controller investor skill counter label.
+     */
     @FXML
     private Label iCounter;
-
+    /**
+     * The allocation controller points remaining label.
+     */
     @FXML
     private Label point;
-
+    
+    /**
+     * The skill points remaining to allocate.
+     */
+    private int pointsRemaining = 8;
+    /**
+     * The allocation controller pilot skill value.
+     */
     int pValue = 1;
+    /**
+     * The allocation controller fighter skill value.
+     */
     int fValue = 1;
+    /**
+     * The allocation controller trader skill value.
+     */
     int tValue = 1;
+    /**
+     * The allocation controller engineer skill value.
+     */
     int eValue = 1;
+    /**
+     * The allocation controller investor skill value.
+     */
     int iValue = 1;
     
     @Override
@@ -135,7 +174,7 @@ public class AllocationController implements Initializable {
 
     /**
      * Creates the player object and sets up the database
-     * @param e, an action event
+     * @param e unused
      */
     public void create(ActionEvent e) throws SQLException {
         if (validInput()) {
@@ -170,7 +209,7 @@ public class AllocationController implements Initializable {
     
     /**
      * Determines whether the input in the fields is valid
-     * @return boolean, whether the input is valid
+     * @return true if input is valid; false otherwise
      */
     private boolean validInput() {
         if (name.getText().length() == 0) {
@@ -181,6 +220,7 @@ public class AllocationController implements Initializable {
     
     /**
      * Changes screens back to the home screen
+     * @param e unused
      */
     public void goBack(ActionEvent e) {
         HyenasLoader.getInstance().goToHomeScreen();
