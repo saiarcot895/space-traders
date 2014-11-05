@@ -89,7 +89,7 @@ public class MarketController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Player player = Player.getInstance();
-        planet = player.getTradingPlanet();
+        planet = player.getCurrentPlanet();
         
         Font titleFont = Font.loadFont(HyenasLoader.class.getResource("/hyenas/fonts/BlenderPro-Book.otf").toExternalForm(), 40);
         titleLabel.setFont(titleFont);

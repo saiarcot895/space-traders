@@ -133,7 +133,7 @@ public class MarketInfoPane extends BorderPane {
      */
     public void updateInfo() {
         Player player = Player.getInstance();
-        Planet planet = player.getTradingPlanet();
+        Planet planet = player.getCurrentPlanet();
         Ship ship = player.getShip();
         
         planetNameLabel.setText(planet.getPlanetName());

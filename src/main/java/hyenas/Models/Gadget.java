@@ -8,20 +8,50 @@ import java.util.List;
  * @author Alex
  */
 public class Gadget {
+    /**
+     * The gadget type.
+     */
     private GadgetType type;
+    /**
+     * The gadget name.
+     */
     private String name;
+    /**
+     * The gadget price.
+     */
     private int price;
+    /**
+     * The min tech level require to purchase.
+     */
     private int minTechLevel;
     
     /**
      * A GadgetType, used to distinguish between the types of gadget.
      */
     public enum GadgetType {
+        /**
+         * Adds extra cargo slots.
+         */
         EXTRA_CARGO,
+        /**
+         * Reduces fuel consumption.
+         */
         NAVIGATION_SYSTEM,
+        /**
+         * Repairs ship automatically over time.
+         */
         AUTO_REPAIR_SYSTEM,
+        /**
+         * Improves damage done when in combat.
+         */
         TARGETING_SYSTEM,
+        /**
+         * Makes encountering pirates less likely.
+         */
         CLOAKING_DEVICE,
+        /**
+         * Allows you to survive if ship is destroyed.
+         */
         ESCAPE_POD
     }
     

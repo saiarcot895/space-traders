@@ -9,10 +9,21 @@ import java.util.List;
  * @author Alex
  */
 public class Galaxy {
+    /**
+     * The galaxy solar systems.
+     */
     private Map<String, SolarSystem> solarSystems;
+    /**
+     * The galaxy distances between solar systems.
+     */
     private Map<SolarSystem, List<ABPair<SolarSystem, Double>>> distances;
+    /**
+     * Whether the galaxy location is set.
+     */
     private boolean locationSet;
-
+    /**
+     * The common galaxy instance. For use with singleton.
+     */
     private static Galaxy instance;
 
     /**

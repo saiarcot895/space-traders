@@ -8,17 +8,38 @@ import java.util.List;
  * @author Alex
  */
 public class Weapon {
+    /**
+     * The weapon type.
+     */
     private WeaponType type;
+    /**
+     * The weapon name.
+     */
     private String name;
+    /**
+     * The weapon price.
+     */
     private int price;
+    /**
+     * The weapon damage.
+     */
     private int damage;
     
     /**
      * A WeaponType, used to distinguish between the types of weapon.
      */
     public enum WeaponType {
+        /**
+         * Pulse weapon (Weakest).
+         */
         PULSE,
+        /**
+         * Beam weapon (Medium strength).
+         */
         BEAM,
+        /**
+         * Military weapon (Strongest).
+         */
         MILITARY,
     }
     

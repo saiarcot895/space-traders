@@ -9,34 +9,93 @@ import java.util.ArrayList;
  * @author Alex
  */
 public class Ship {
+    /**
+     * The ship type.
+     */
     private ShipType type;
+    /**
+     * The ship name.
+     */
     private String name;
+    /**
+     * Whether the ship has insurance.
+     */
     private boolean insurance;
-    private int upkeep;
+    /**
+     * The ship number of weapon slots.
+     */
     private int weaponSlots;
+    /**
+     * The ship number of shield slots.
+     */
     private int shieldSlots;
+    /**
+     * The ship number of gadget slots.
+     */
     private int gadgetSlots;
+    /**
+     * The ship number of crew slots.
+     */
     private int crewSlots;
+    /**
+     * The ship number of cargo slots.
+     */
     private int cargoSlots;
+    /**
+     * The ship weapons.
+     */
     private List<Weapon> weapons = new ArrayList<>();
+    /**
+     * The ship shields.
+     */
     private List<Shield> shields = new ArrayList<>();
+    /**
+     * The ship gadgets.
+     */
     private List<Gadget> gadgets = new ArrayList<>();
+    /**
+     * The ship crew members.
+     */
     private List<Mercenary> crew = new ArrayList<>();
+    /**
+     * The ship cargo.
+     */
     private List<Ware> cargo = new ArrayList<>();
+    /**
+     * The ship fuel.
+     */
     private double fuel;
+    /**
+     * The ship max fuel.
+     */
     private double maxFuel;
+    /**
+     * The min tech level required to obtain the ship.
+     */
     private int minTechLevel;
+    /**
+     * The ship price.
+     */
     private int price;
-    private int bounty;
-    private int occurence;
-    private int hullStrength;
+    /**
+     * The ship current hull.
+     */
     private int currentHull;
-    private int police;
-    private int trader;
-    private int pirate;
+    /**
+     * The ship hull strength.
+     */
+    private int hullStrength;
+    /**
+     * The ship repair cost.
+     */
     private int repairCost;
-    private int size;
+    /**
+     * The ship health.
+     */
     private double health;
+    /**
+     * The ship max health.
+     */
     private double maxHealth;
     
     /**
@@ -62,15 +121,9 @@ public class Ship {
                 fuel = maxFuel;
                 minTechLevel = 0;
                 price = 100;
-                bounty = 0;
-                occurence = 0;
                 hullStrength = 25;
                 currentHull = hullStrength;
-                police = 0;
-                trader = 0;
-                pirate = 0;
                 repairCost = 0;
-                size = 0;
                 maxHealth = 5000.0;
                 health = maxHealth;
                 weaponSlots = 0;
@@ -85,15 +138,9 @@ public class Ship {
                 fuel = maxFuel;
                 minTechLevel = 0;
                 price = 500;
-                bounty = 50;
-                occurence = 0;
                 hullStrength = 100;
                 currentHull = hullStrength;
-                police = 0;
-                trader = 0;
-                pirate = 0;
                 repairCost = 0;
-                size = 0;
                 maxHealth = 2000.0;
                 health = maxHealth;
                 weaponSlots = 1;
@@ -108,15 +155,9 @@ public class Ship {
                 fuel = maxFuel;
                 minTechLevel = 0;
                 price = 1000;
-                bounty = 75;
-                occurence = 0;
-                hullStrength = 100;
+                hullStrength = 300;
                 currentHull = hullStrength;
-                police = 0;
-                trader = 0;
-                pirate = 0;
                 repairCost = 0;
-                size = 0;
                 maxHealth = 5000.0;
                 health = maxHealth;
                 weaponSlots = 1;
@@ -131,15 +172,9 @@ public class Ship {
                 fuel = maxFuel;
                 minTechLevel = 0;
                 price = 4000;
-                bounty = 100;
-                occurence = 0;
-                hullStrength = 100;
+                hullStrength = 400;
                 currentHull = hullStrength;
-                police = 0;
-                trader = 0;
-                pirate = 0;
                 repairCost = 0;
-                size = 0;
                 maxHealth = 5000.0;
                 health = maxHealth;
                 weaponSlots = 2;
@@ -154,15 +189,9 @@ public class Ship {
                 fuel = maxFuel;
                 minTechLevel = 0;
                 price = 10000;
-                bounty = 125;
-                occurence = 0;
-                hullStrength = 100;
+                hullStrength = 500;
                 currentHull = hullStrength;
-                police = 0;
-                trader = 0;
-                pirate = 0;
                 repairCost = 0;
-                size = 0;
                 maxHealth = 5000.0;
                 health = maxHealth;
                 weaponSlots = 3;

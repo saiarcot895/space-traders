@@ -8,20 +8,50 @@ import java.util.List;
  * @author Alex
  */
 public class Shield {
+    /**
+     * The shield type.
+     */
     private ShieldType type;
+    /**
+     * The shield name.
+     */
     private String name;
+    /**
+     * The shield price.
+     */
     private int price;
+    /**
+     * The shield strength.
+     */
     private int strength;
     
     /**
      * A ShieldType, used to distinguish between the types of shields.
      */
     public enum ShieldType {
+        /**
+         * The weakest shield type.
+         */
         CIVILIAN_ENERGY,
+        /**
+         * The medium strength shield type.
+         */
         MILITIA_ENERGY,
+        /**
+         * The strongest shield type.
+         */
         MILITARY_ENERGY,
+        /**
+         * The weakest shield type. Also reflects damage.
+         */
         CIVILIAN_REFLECTIVE,
+        /**
+         * The medium strength shield type. Also reflects damage.
+         */
         MILITIA_REFLECTIVE,
+        /**
+         * The stronger shield type. Also reflects damage.
+         */
         MILITARY_REFLECTIVE
     }
     

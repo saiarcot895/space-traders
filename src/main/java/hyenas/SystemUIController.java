@@ -64,7 +64,7 @@ public class SystemUIController implements Initializable {
 
         SolarSystem currentSystem = Player.getInstance().getCurrentSystem();
         List<Planet> planets = currentSystem.getPlanets();
-        Planet currentPlanet = Player.getInstance().getTradingPlanet();
+        Planet currentPlanet = Player.getInstance().getCurrentPlanet();
 
         SolarSystemImageView currentSystemButton = new SolarSystemImageView();
         currentSystemButton.setupForSystemUI(currentSystem);
@@ -123,7 +123,7 @@ public class SystemUIController implements Initializable {
                 Button button1 = (Button)e.getSource();
                 setCurrentPlanetButton(button1);
                 Player player = Player.getInstance();
-                player.setTradingPlanet(planet);
+                player.setCurrentPlanet(planet);
             };
             button.setOnAction(event);
             systemPane.getChildren().addAll(circle, button);
@@ -223,7 +223,7 @@ public class SystemUIController implements Initializable {
      */
     public void goToShipyard(ActionEvent e) {
         Player player = Player.getInstance();
-        Planet planet = player.getTradingPlanet();
+        Planet planet = player.getCurrentPlanet();
         
         if (planet.hasShipyard()) {
             HyenasLoader.getInstance().goToShipyard();

@@ -7,34 +7,104 @@ import java.util.List;
  * Represents a Ware object, for use when buying/selling Goods.
  */
 public class Ware {
+    /**
+     * The ware name.
+     */
     private String name;
+    /**
+     * The ware good. Used for distinguishing types of wares.
+     */
     private Good good;
+    /**
+     * The ware minimum tech level required to produce.
+     */
     private int minimumTechLevelToProduce;
+    /**
+     * The ware minimum tech level required to use.
+     */
     private int minimumTechLevelToUse;
+    /**
+     * The number produced per tech level.
+     */
     private int techLevelProduction;
+    /**
+     * The ware base price.
+     */
     private int basePrice;
+    /**
+     * The ware price increase per level.
+     */
     private int priceIncreasePerLevel;
+    /**
+     * The ware variance. TODO: Is this still used?
+     */
     private int variance;
+    /**
+     * The ware min space trade price.
+     */
     private int spaceTradeMinPrice;
+    /**
+     * The ware max space trade price.
+     */
     private int spaceTradeMaxPrice;
     
+    /**
+     * The ware current calculated price (varies by planet).
+     */
     private int currentPrice;
+    /**
+     * The ware current calculated quantity (varies by planet).
+     */
     private int currentQuantity;
+    /**
+     * The ware current condition (varies by planet). Currently none, scarce
+     * or abundant.
+     */
     private String currentCondition;
     
     /**
      * A Good, used to distinguish between the types of goods.
      */
     public enum Good {
+        /**
+         * For satisfying thirst.
+         */
         WATER,
+        /**
+         * For keeping warm.
+         */
         FURS,
+        /**
+         * For eating.
+         */
         FOOD,
+        /**
+         * For trading.
+         */
         ORE,
+        /**
+         * For passing the time.
+         */
         GAMES,
+        /**
+         * For defending against enemy boarding.
+         */
         FIREARMS,
+        /**
+         * For healing player health damage.
+         */
         MEDICINE,
+        /**
+         * For automating tasks, improving efficiency.
+         */
         MACHINES,
+        /**
+         * For passing the time.
+         */
         NARCOTICS,
+        /**
+         * For assisting in tasks.
+         */
         ROBOTS
     }
 

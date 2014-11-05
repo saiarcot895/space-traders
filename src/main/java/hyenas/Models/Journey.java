@@ -7,10 +7,25 @@ import javafx.scene.control.Button;
  * @author Alex
  */
 public class Journey {
+    /**
+     * The journey starting solar system.
+     */
     private SolarSystem startingSolarSystem;
+    /**
+     * The journey destination solar system.
+     */
     private SolarSystem destinationSolarSystem;
+    /**
+     * The journey starting solar system button.
+     */
     private Button startingSystemButton;
+    /**
+     * The journey destination solar system button.
+     */
     private Button destinationSystemButton;
+    /**
+     * The journey distance.
+     */
     private double distance;
     
     /**

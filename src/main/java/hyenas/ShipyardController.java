@@ -233,7 +233,7 @@ public class ShipyardController implements Initializable {
             }
         }
         else if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
-            Planet planet = player.getTradingPlanet();
+            Planet planet = player.getCurrentPlanet();
             Gadget item = (Gadget)currentTableView.getSelectionModel().getSelectedItem();
             if (ship.getGadgetSlots() > ship.getGadgets().size())    {
                 if (planet.getTechLevel().ordinal() >= item.getMinTechLevel()) {

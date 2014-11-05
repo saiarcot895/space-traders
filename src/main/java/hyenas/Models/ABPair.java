@@ -7,7 +7,13 @@ import java.util.Objects;
  * @author saikrishna
  */
 public class ABPair<A, B> {
+    /**
+     * The first item.
+     */
     private final A a;
+    /**
+     * The second item.
+     */
     private final B b;
 
     /**

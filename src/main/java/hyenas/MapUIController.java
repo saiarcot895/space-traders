@@ -440,7 +440,7 @@ public class MapUIController implements Initializable {
         
         SolarSystem destination = journey.getDestinationSolarSystem();
         player.setCurrentSystem(destination);
-        player.setTradingPlanet(destination.getPlanets().get(0));
+        player.setCurrentPlanet(destination.getPlanets().get(0));
 
         journey.getStartingSystemButton().getStyleClass().remove("currentPlanet");
         journey.getDestinationSystemButton().getStyleClass().add("currentPlanet");

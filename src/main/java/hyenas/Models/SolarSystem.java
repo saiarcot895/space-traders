@@ -10,13 +10,34 @@ import java.util.Random;
  * @author saikrishna
  */
 public class SolarSystem {
+    /**
+     * The solar system name.
+     */
     private String systemName;
+    /**
+     * The solar system planets.
+     */
     private List<Planet> planets;
+    /**
+     * The solar system x coordinate.
+     */
     private int x;
+    /**
+     * The solar system y coordinate.
+     */
     private int y;
+    /**
+     * The solar system size.
+     */
     private double size;
+    /**
+     * The solar system color.
+     */
     private String color;
-    private final int ORBIT_TOLERANCE = 10;
+    /**
+     * The minimum distance between orbit radii of planets.
+     */
+    private static final int ORBIT_TOLERANCE = 10;
 
     /**
      * Initializes an instance of SolarSyem and sets initial values.

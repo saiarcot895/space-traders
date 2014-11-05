@@ -8,18 +8,57 @@ import java.util.Random;
  * @author saikrishna
  */
 public class Player {
+    /**
+     * The player name.
+     */
     private String name;
+    /**
+     * The player points.
+     */
     private int points;
+    /**
+     * The player pilot skill.
+     */
     private int pilotSkill;
+    /**
+     * The player fighter skill.
+     */
     private int fighterSkill;
+    /**
+     * The player trader skill.
+     */
     private int traderSkill;
+    /**
+     * The player engineer skill.
+     */
     private int engineerSkill;
+    /**
+     * The player investor skill.
+     */
     private int investorSkill;
+    /**
+     * The system the player is currently on.
+     */
     private SolarSystem currentSystem;
-    private Planet tradingPlanet;
+    /**
+     * The planet the player is currently on.
+     */
+    private Planet currentPlanet;
+    /**
+     * The player ship.
+     */
     private Ship ship;
+    /**
+     * The player credits.
+     */
     private int credits;
+    /**
+     * The player state. For use with database
+     */
     private boolean state;
+    /**
+     * The common player instance. For use with singleton.
+     */
     private static Player instance;
 
     /**
@@ -31,7 +70,7 @@ public class Player {
         Random rand = new Random();
         SolarSystem[] solarSystems = Galaxy.getInstance().getSolarSystems().values().toArray(new SolarSystem[0]);
         currentSystem = solarSystems[rand.nextInt(solarSystems.length)];
-        tradingPlanet = currentSystem.getPlanets().get(0);
+        currentPlanet = currentSystem.getPlanets().get(0);
         credits = 750;
         state = false;
     }
@@ -176,19 +215,19 @@ public class Player {
     }
 
     /**
-     * Get player's trading planet.
-     * @return the trading Planet of the player
+     * Get player's current planet.
+     * @return the current Planet of the player
      */
-    public Planet getTradingPlanet() {
-        return tradingPlanet;
+    public Planet getCurrentPlanet() {
+        return currentPlanet;
     }
 
     /**
-     * Set player's trading planet.
-     * @param tradingPlanet the trading Planet of the player
+     * Set player's current planet.
+     * @param currentPlanet the current planet of the player
      */
-    public void setTradingPlanet(Planet tradingPlanet) {
-        this.tradingPlanet = tradingPlanet;
+    public void setCurrentPlanet(Planet currentPlanet) {
+        this.currentPlanet = currentPlanet;
     }
 
     /**

@@ -7,13 +7,37 @@ import java.util.Random;
  * @author Alex
  */
 class Mercenary {
-    private int pilotSkill;
-    private int fighterSkill;
-    private int traderSkill;
-    private int engineerSkill;
-    private int investorSkill;
-    private int price;
+    /**
+     * The mercenary name.
+     */
     private String name;
+    /**
+     * The mercenary pilot skill.
+     */
+    private int pilotSkill;
+    /**
+     * The mercenary fighter skill.
+     */
+    private int fighterSkill;
+    /**
+     * The mercenary trader skill.
+     */
+    private int traderSkill;
+    /**
+     * The mercenary engineer skill.
+     */
+    private int engineerSkill;
+    /**
+     * The mercenary investor skill.
+     */
+    private int investorSkill;
+    /**
+     * The mercenary price.
+     */
+    private int price;
+    /**
+     * The maximum total skill points.
+     */
     private static final int SKILL_MAX = 30;
     
     /**

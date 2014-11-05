@@ -7,22 +7,55 @@ import java.util.Random;
  * @author Alex
  */
 public class RandomEvent {
+    /**
+     * The random event type.
+     */
     private RandomEventType eventType;
+    /**
+     * The random event name.
+     */
     private String name;
+    /**
+     * The random event description, which described what has happened.
+     */
     private String description;
+    /**
+     * The random event question, which prompts user for an action.
+     */
     private String question;
+    /**
+     * The random event action button text.
+     */
     private String actionButtonText;
+    /**
+     * The random event cancel button text.
+     */
     private String cancelButtonText;
     
+    /**
+     * The random event action result text.
+     */
     private String actionResultText;
+    /**
+     * The random event cancel result text.
+     */
     private String cancelResultText;
     
     /**
      * A RandomEventType, used to distinguish between random events.
      */
     public enum RandomEventType {
+        /**
+         * The police random event.
+         */
         POLICE,
+        /**
+         * The trader random event.
+         */
         TRADER,
+        /**
+         * The pirate random event.
+         */
         PIRATE,
     }
 
