@@ -117,7 +117,7 @@ public class AllocationController implements Initializable {
      */
     private int iValue = 1;
     /**
-     * The points remaining string.
+     * A string that represents the remaining number of points.
      */
     private static final String POINTS_REMAINING_STRING = " point(s) remaining";
     
@@ -177,7 +177,7 @@ public class AllocationController implements Initializable {
 
     /**
      * Creates the player object and sets up the database.
-     * @param e unused
+     * @param e unused action trigger
      */
     public void create(ActionEvent e) {
         if (validInput()) {
@@ -223,7 +223,7 @@ public class AllocationController implements Initializable {
     
     /**
      * Changes screens back to the home screen.
-     * @param e unused
+     * @param e unused action trigger
      */
     public void goBack(ActionEvent e) {
         HyenasLoader.getInstance().goToHomeScreen();

@@ -495,7 +495,7 @@ public class MapUIController implements Initializable {
             // If the player wants to 'travel' to their current system, take them to the system view
             HyenasLoader.getInstance().goToSystemScreen();
         } else {
-            double distance = getDjikstraDistance(currentSystem, solarSystem);
+            double distance = getDijkstraDistance(currentSystem, solarSystem);
             if (distance == -1) {
                 throw new RuntimeException("Unconnected node!!!");
             }
@@ -533,7 +533,7 @@ public class MapUIController implements Initializable {
             return true;
         }
         double fuel = player.getShip().getFuel();
-        double distance = getDjikstraDistance(currentSystem, solarSystem);
+        double distance = getDijkstraDistance(currentSystem, solarSystem);
         if (distance == -1) {
             return false;
         }
@@ -555,12 +555,12 @@ public class MapUIController implements Initializable {
     }
 
     /**
-     * Get the distance between two systems according to Djikstra's algorithm.
+     * Get the distance between two systems according to Dijkstra's algorithm.
      * @param start starting system
      * @param goal ending system
      * @return distance between the two systems on the graph
      */
-    private double getDjikstraDistance(SolarSystem start, SolarSystem goal) {
+    private double getDijkstraDistance(SolarSystem start, SolarSystem goal) {
         Queue<ABPair<SolarSystem, Double>> distances = new PriorityQueue<>(
                 (ABPair<SolarSystem, Double> o1, ABPair<SolarSystem, Double> o2)
                         -> (int) (o1.getB() - o2.getB()));
