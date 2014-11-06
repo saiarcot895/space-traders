@@ -1,6 +1,5 @@
 package hyenas;
 
-import hyenas.Models.Planet;
 import hyenas.Models.Player;
 import hyenas.Models.Ship;
 import hyenas.Models.ShipyardBuyable;
@@ -23,7 +22,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
@@ -58,27 +56,27 @@ public class ShipyardController implements Initializable {
     /**
      * The shipyard controller ships table.
      */
-    private TableView shipsTable =
+    private ShipyardItemsTableView shipsTable =
             new ShipyardItemsTableView(ShipyardTabType.SHIPS);
     /**
      * The shipyard controller weapons table.
      */
-    private TableView weaponsTable =
+    private ShipyardItemsTableView weaponsTable =
             new ShipyardItemsTableView(ShipyardTabType.WEAPONS);
     /**
      * The shipyard controller gadgets table.
      */
-    private TableView gadgetsTable =
+    private ShipyardItemsTableView gadgetsTable =
             new ShipyardItemsTableView(ShipyardTabType.GADGETS);
     /**
      * The shipyard controller shields table.
      */
-    private TableView shieldsTable =
+    private ShipyardItemsTableView shieldsTable =
             new ShipyardItemsTableView(ShipyardTabType.SHIELDS);
     /**
      * The shipyard controller current table view (based on the selected tab).
      */
-    private TableView currentTableView;
+    private ShipyardItemsTableView currentTableView;
     /**
      * The shipyard controller info pane. Displays info about the ship.
      */
@@ -102,8 +100,7 @@ public class ShipyardController implements Initializable {
         titleLabel.setFont(titleFont);
         titleLabel.setStyle("-fx-text-fill: rgba(0,231,255, .9); -fx-effect: dropshadow( gaussian, rgba(0,0,0,1), 0,0,2,2);");
         
-        Player player = Player.getInstance();
-        ship = player.getShip();
+        ship = Player.getInstance().getShip();
         
         tabPane = new TabPane();
         tabPane.setPrefWidth(TAB_PANE_WIDTH);
@@ -233,8 +230,7 @@ public class ShipyardController implements Initializable {
             ShipyardBuyable item = (ShipyardBuyable) currentTableView.getSelectionModel().getSelectedItem();
             Player player = Player.getInstance();
             if (item.hasFreeSlots(ship)) {
-                Planet planet = player.getCurrentPlanet();
-                if (item.hasSufficientTechLevel(planet)) {
+                if (item.hasSufficientTechLevel(player.getCurrentPlanet())) {
                     if (player.getCredits() >= item.getPrice()) {
                         item.getShipItems(ship).add(item);
                         player.setCredits(player.getCredits() - item.getPrice());

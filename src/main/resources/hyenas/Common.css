@@ -21,7 +21,7 @@ and open the template in the editor.
 }
 
 .label {
-    -fx-text-fill: orange;
+    -fx-text-fill: rgba(0,231,255, 1);
 }
 
 .title-label {
