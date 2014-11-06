@@ -138,7 +138,7 @@ public class MarketInfoPane extends BorderPane {
         
         planetNameLabel.setText(planet.getPlanetName());
         planetTypeLabel.setText(planet.getPlanetTypeString());
-        techLevelLabel.setText("" + planet.techLevelString());
+        techLevelLabel.setText("" + Planet.techLevelString(planet.getTechLevel()));
         planetEventLabel.setText(planet.getPlanetEventString());
         creditsLabel.setText("" + player.getCredits());
         fuelLabel.setText(String.format("%.0f / %.0f", ship.getFuel(),

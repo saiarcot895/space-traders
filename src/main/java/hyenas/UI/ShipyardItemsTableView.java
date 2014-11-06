@@ -95,7 +95,7 @@ public class ShipyardItemsTableView extends TableView {
                 TableColumn priceCol = priceColumn();
                 nameCol.setPrefWidth(150.0);
 
-                minTechCol.setCellValueFactory(new PropertyValueFactory<>("minTechLevel"));
+                minTechCol.setCellValueFactory(new PropertyValueFactory<>("minTechLevelString"));
 
                 getColumns().addAll(nameCol, minTechCol, priceCol);
                 break;

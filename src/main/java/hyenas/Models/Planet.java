@@ -252,10 +252,11 @@ public class Planet {
     
     /**
      * Get the name of the planet's tech level.
-     * @return string, the name of the tech level of the planet
+     * @param ptechLevel the planet tech level
+     * @return the name of the tech level of the planet
      */
-    public String techLevelString() {
-        switch (techLevel) {
+    public static String techLevelString(PlanetTechLevel ptechLevel) {
+        switch (ptechLevel) {
             case PREAGRICULTURE:
                 return "Pre-Agriculture";
             case AGRICULTURE:
@@ -288,7 +289,7 @@ public class Planet {
     @Override
     public String toString() {
         return "<Planet: " + planetName + ", Radius: " + orbitRadius
-                + ", Tech: " + techLevelString() + ">";
+                + ", Tech: " + techLevelString(techLevel) + ">";
     }
 
     /**

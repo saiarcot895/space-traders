@@ -119,12 +119,12 @@ public class Gadget implements ShipyardBuyable {
      * Get the minimum required tech level.
      * @return minTechLevel the min tech level
      */
-    public int getMinTechLevel()    {
-        return minTechLevel.ordinal();
+    public String getMinTechLevelString() {
+        return Planet.techLevelString(minTechLevel);
     }
     
     @Override
-    public int getPrice()    {
+    public int getPrice() {
         return price;
     }
     
