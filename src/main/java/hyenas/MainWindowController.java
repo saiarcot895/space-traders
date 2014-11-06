@@ -111,7 +111,9 @@ public class MainWindowController implements Initializable {
      * @param e unused
      */
     public void closeGame(ActionEvent e) {
-        HyenasLoader.getInstance().closeGame();
+        // TODO: reverse
+//        HyenasLoader.getInstance().closeGame();
+        HyenasLoader.getInstance().goToShipyard();
     }
 
 }

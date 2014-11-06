@@ -7,7 +7,7 @@ import java.util.List;
  * A shield that can be added to a ship.
  * @author Alex
  */
-public class Shield extends ShipyardBuyable {
+public class Shield implements ShipyardBuyable {
     /**
      * The shield type.
      */
@@ -17,9 +17,14 @@ public class Shield extends ShipyardBuyable {
      */
     private String name;
     /**
+     * The price of the shield.
+     */
+    private int price;
+    /**
      * The shield strength.
      */
     private int strength;
+    
     
     /**
      * A ShieldType, used to distinguish between the types of shields.
@@ -59,58 +64,38 @@ public class Shield extends ShipyardBuyable {
         switch (ptype) {
             case CIVILIAN_ENERGY:
                 name = "Civilian Energy";
-                setPrice(100);
+                price = 100;
                 strength = 100;
                 break;
             case MILITIA_ENERGY:
                 name = "Militia Energy";
-                setPrice(200);
+                price = 200;
                 strength = 200;
                 break;
             case MILITARY_ENERGY:
                 name = "Military Energy";
-                setPrice(300);
+                price = 300;
                 strength = 400;
                 break;
             case CIVILIAN_REFLECTIVE:
                 name = "Civilian Reflective";
-                setPrice(400);
+                price = 400;
                 strength = 600;
                 break;
             case MILITIA_REFLECTIVE:
                 name = "Militia Reflective";
-                setPrice(500);
+                price = 500;
                 strength = 800;
                 break;
             case MILITARY_REFLECTIVE:
                 name = "Military Reflective";
-                setPrice(600);
+                price = 600;
                 strength = 1000;
                 break;
             default:
                 break;
         }
         this.type = ptype;
-    }
-    
-    @Override
-    public boolean hasFreeSlots(Ship ship) {
-        return ship.getShieldSlots() > ship.getShields().size();
-    }
-
-    @Override
-    public List getShipItems(Ship ship) {
-        return ship.getShields();
-    }
-    
-    @Override
-    public static List<Shield> getDefaultItems() {
-        ArrayList<Shield> shields = new ArrayList<>(ShieldType.values().length);
-        for (ShieldType type: ShieldType.values()) {
-            Shield shield = new Shield(type);
-            shields.add(shield);
-        }
-        return shields;
     }
     
     /**
@@ -135,5 +120,38 @@ public class Shield extends ShipyardBuyable {
      */
     public int getStrength() {
         return strength;
+    }
+    
+    @Override
+    public int getPrice() {
+        return price;
+    }
+    
+    @Override
+    public boolean hasFreeSlots(Ship ship) {
+        return ship.getShieldSlots() > ship.getShields().size();
+    }
+    
+    @Override
+    public boolean hasSufficientTechLevel(Planet planet) {
+        return true;
+    }
+
+    @Override
+    public List getShipItems(Ship ship) {
+        return ship.getShields();
+    }
+    
+    /**
+     * Get the list of default shields.
+     * @return the list of shields
+     */
+    public static List getDefaultShields() {
+        ArrayList<Shield> shields = new ArrayList<>(ShieldType.values().length);
+        for (ShieldType type: ShieldType.values()) {
+            Shield shield = new Shield(type);
+            shields.add(shield);
+        }
+        return shields;
     }
 }

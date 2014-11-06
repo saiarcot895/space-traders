@@ -411,16 +411,16 @@ public class Ship {
     }
     
     /**
-     * Get the ship's max health
-     * @return maxHealth, the ship's max health
+     * Get the ship max health.
+     * @return the ship max health
      */
     public double getMaxHealth() {
         return maxHealth;
     }
     
     /**
-     * Get the ship's price
-     * @return the ship's price
+     * Get the ship price.
+     * @return the price of the ship
      */
     public int getPrice() {
         return price;

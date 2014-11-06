@@ -7,7 +7,7 @@ import java.util.List;
  * A weapon that can be added to a ship.
  * @author Alex
  */
-public class Weapon extends ShipyardBuyable {
+public class Weapon implements ShipyardBuyable {
     /**
      * The weapon type.
      */
@@ -16,6 +16,10 @@ public class Weapon extends ShipyardBuyable {
      * The weapon name.
      */
     private String name;
+    /**
+     * The price of the weapon.
+     */
+    private int price;
     /**
      * The weapon damage.
      */
@@ -47,43 +51,23 @@ public class Weapon extends ShipyardBuyable {
         switch (ptype) {
             case PULSE:
                 name = "Pulse";
-                setPrice(100);
+                price = 100;
                 damage = 100;
                 break;
             case BEAM:
                 name = "Beam";
-                setPrice(200);
+                price = 200;
                 damage = 300;
                 break;
             case MILITARY:
                 name = "Military";
-                setPrice(300);
+                price = 300;
                 damage = 500;
                 break;
             default:
                 break;
         }
         this.type = ptype;
-    }
-    
-    @Override
-    public boolean hasFreeSlots(Ship ship) {
-        return ship.getWeaponSlots() > ship.getWeapons().size();
-    }
-
-    @Override
-    public List getShipItems(Ship ship) {
-        return ship.getWeapons();
-    }
-    
-    @Override
-    public static List getDefaultItems() {
-        ArrayList<Weapon> weapons = new ArrayList<>(WeaponType.values().length);
-        for (WeaponType atype: WeaponType.values()) {
-            Weapon weapon = new Weapon(atype);
-            weapons.add(weapon);
-        }
-        return weapons;
     }
     
     /**
@@ -108,5 +92,38 @@ public class Weapon extends ShipyardBuyable {
      */
     public WeaponType getType() {
         return type;
+    }
+    
+    @Override
+    public int getPrice() {
+        return price;
+    }
+    
+    @Override
+    public boolean hasFreeSlots(Ship ship) {
+        return ship.getWeaponSlots() > ship.getWeapons().size();
+    }
+    
+    @Override
+    public boolean hasSufficientTechLevel(Planet planet) {
+        return true;
+    }
+
+    @Override
+    public List getShipItems(Ship ship) {
+        return ship.getWeapons();
+    }
+    
+    /**
+     * Get the list of default weapons.
+     * @return the list of weapons
+     */
+    public static List getDefaultWeapons() {
+        ArrayList<Weapon> weapons = new ArrayList<>(WeaponType.values().length);
+        for (WeaponType atype: WeaponType.values()) {
+            Weapon weapon = new Weapon(atype);
+            weapons.add(weapon);
+        }
+        return weapons;
     }
 }

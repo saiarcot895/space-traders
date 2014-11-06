@@ -1,12 +1,9 @@
 package hyenas;
 
-import hyenas.Models.Gadget;
 import hyenas.Models.Planet;
 import hyenas.Models.Player;
-import hyenas.Models.Shield;
 import hyenas.Models.Ship;
 import hyenas.Models.ShipyardBuyable;
-import hyenas.Models.Weapon;
 import hyenas.UI.AlertPane;
 import hyenas.UI.AlertPane.AlertPaneType;
 import hyenas.UI.ShipInfoPane;
@@ -202,6 +199,10 @@ public class ShipyardController implements Initializable {
         playerShipTable.getSelectionModel().clearSelection();
         centerPane.setCenter(playerShipTable);
         
+        if (currentTableView != null) {
+            currentTableView.getSelectionModel().clearSelection();
+        }
+        
         if (shipyardTab.getType() == ShipyardTabType.SHIPS) {
             currentTableView = shipsTable;
         } else if (shipyardTab.getType() == ShipyardTabType.WEAPONS) {
@@ -226,84 +227,34 @@ public class ShipyardController implements Initializable {
     public void buyItem(ActionEvent e) {
         ShipyardTab shipyardTab = (ShipyardTab) tabPane.getSelectionModel()
                 .getSelectedItem();
-        if (shipyardTab.getType() == ShipyardTabType.WEAPONS) {
-            buyWeapon();
-        }
-        else if (shipyardTab.getType() == ShipyardTabType.SHIELDS) {
-            buyShield();
-        }
-        else if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
-            buyGadget();
-        }
-        else if (shipyardTab.getType() == ShipyardTabType.SHIPS) {
+        if (shipyardTab.getType() == ShipyardTabType.SHIPS) {
             buyShip();
-        }
-        infoPane.updateInfo();
-        updatePlayerShipTable();
-    }
-
-    /**
-     * Buy a weapon.
-     */
-    public void buyWeapon() {
-        Player player = Player.getInstance();
-        ShipyardBuyable item = (ShipyardBuyable) currentTableView.getSelectionModel().getSelectedItem();
-        if (item.hasFreeSlots(ship)) {
-            if (player.getCredits() >= item.getPrice()) {
-                item.getShipItems(ship).add(item);
-                player.setCredits(player.getCredits() - item.getPrice());
-                
-                HyenasLoader.getInstance().getConnectionManager()
-                        .getWeaponsTable().addRow((Weapon) item, ship);
-            }
-            else {
-                displayInsufficientCreditsAlert();
-            }
         } else {
-            displayAlert("No Weapon Slot", "There are no more slots for weapons on your ship");
-        }
-    }
+            ShipyardBuyable item = (ShipyardBuyable) currentTableView.getSelectionModel().getSelectedItem();
+            Player player = Player.getInstance();
+            if (item.hasFreeSlots(ship)) {
+                Planet planet = player.getCurrentPlanet();
+                if (item.hasSufficientTechLevel(planet)) {
+                    if (player.getCredits() >= item.getPrice()) {
+                        item.getShipItems(ship).add(item);
+                        player.setCredits(player.getCredits() - item.getPrice());
 
-    /**
-     * Buy a shield.
-     */
-    public void buyShield() {
-        Player player = Player.getInstance();
-        Shield item = (Shield) currentTableView.getSelectionModel().getSelectedItem();
-        if (ship.getShieldSlots() > ship.getShields().size()) {
-            if (player.getCredits() >= item.getPrice()) {
-                ship.getShields().add(item);
-                player.setCredits(player.getCredits() - item.getPrice());
-            }
-            else {
-                displayInsufficientCreditsAlert();
-            }
-        } else {
-            displayAlert("No Shield Slot", "There are no more slots for shields on your ship");
-        }
-    }
-
-    /**
-     * Buy a gadget.
-     */
-    public void buyGadget() {
-        Player player = Player.getInstance();
-        Planet planet = player.getCurrentPlanet();
-        Gadget item = (Gadget) currentTableView.getSelectionModel().getSelectedItem();
-        if (ship.getGadgetSlots() > ship.getGadgets().size())    {
-            if (planet.getTechLevel().ordinal() >= item.getMinTechLevel()) {
-                if (player.getCredits() >= item.getPrice()) {
-                    ship.getGadgets().add(item);
-                    player.setCredits(player.getCredits() - item.getPrice());
+//                    TODO: Update adding to database
+//                    HyenasLoader.getInstance().getConnectionManager()
+//                            .getWeaponsTable().addRow((ShipyardBuyable) item, ship);
+                    } else {
+                        displayInsufficientCreditsAlert();
+                    }
                 } else {
-                    displayInsufficientCreditsAlert();
+                    displayAlert("Insufficient Tech Level", "This planet doesn't have the tech level to sell this item.");
                 }
             } else {
-                displayAlert("Insufficient Tech Level", "This planet doesn't have the tech level to sell this item.");
+                displayAlert("No Slots", "There are no available slots for this item on your ship.");
             }
-        } else {
-            displayAlert("No Gadget Slot", "There are no more slots for gadgets on your ship");
         }
+        
+        infoPane.updateInfo();
+        updatePlayerShipTable();
     }
 
     /**
@@ -334,36 +285,23 @@ public class ShipyardController implements Initializable {
     public void sellItem(ActionEvent e) {
         ShipyardTab shipyardTab = (ShipyardTab) tabPane.getSelectionModel()
                 .getSelectedItem();
-        Player player = Player.getInstance();
-        if (shipyardTab.getType() == ShipyardTabType.WEAPONS) {
-            Weapon item = (Weapon) playerShipTable.getSelectionModel().getSelectedItem();
-            boolean removed = ship.getWeapons().remove(item);
-            if (removed) {
-                player.setCredits(player.getCredits() + item.getPrice());
-            } else {
-                displayAlert("No Weapon", "You do not have a weapon of this type on your ship.");
-            }
-        }
-        else if (shipyardTab.getType() == ShipyardTabType.SHIELDS) {
-            Shield item = (Shield) playerShipTable.getSelectionModel().getSelectedItem();
-            boolean removed = ship.getShields().remove(item);
-            if (removed) {
-                player.setCredits(player.getCredits() + item.getPrice());
-            } else {
-                displayAlert("No Shield", "You do not have a shield of this type on your ship.");
-            }
-        }
-        else if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
-            Gadget item = (Gadget) playerShipTable.getSelectionModel().getSelectedItem();
-            boolean removed = ship.getGadgets().remove(item);
-            if (removed) {
-                player.setCredits(player.getCredits() + item.getPrice());
-            } else {
-                displayAlert("No Gadget", "You do not have a gadget of this type on your ship.");
-            }
-        } else if (shipyardTab.getType() == ShipyardTabType.SHIPS) {
+        
+        if (shipyardTab.getType() == ShipyardTabType.SHIPS) {
             displayAlert("You can't sell your ship", "Your ship is automatically sold when you buy a new ship.");
+        } else {
+            Player player = Player.getInstance();
+            
+            ShipyardBuyable item = (ShipyardBuyable) playerShipTable.getSelectionModel().getSelectedItem();
+            boolean removed = item.getShipItems(ship).remove(item);
+            if (removed) {
+                player.setCredits(player.getCredits() + item.getPrice());
+            } else {
+                displayAlert("No Item", "You do not have an item of this type on your ship.");
+            }
+            
+//            TODO: Remove item from database
         }
+        
         infoPane.updateInfo();
         updatePlayerShipTable();
     }

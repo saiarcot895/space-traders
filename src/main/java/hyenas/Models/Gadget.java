@@ -1,5 +1,6 @@
 package hyenas.Models;
 
+import hyenas.Models.Planet.PlanetTechLevel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * A gadget that can be added to a ship.
  * @author Alex
  */
-public class Gadget {
+public class Gadget implements ShipyardBuyable {
     /**
      * The gadget type.
      */
@@ -23,7 +24,7 @@ public class Gadget {
     /**
      * The min tech level require to purchase.
      */
-    private int minTechLevel;
+    private PlanetTechLevel minTechLevel;
     
     /**
      * A GadgetType, used to distinguish between the types of gadget.
@@ -65,32 +66,32 @@ public class Gadget {
             case EXTRA_CARGO:
                 name = "Extra Cargo";
                 price = 100;
-                minTechLevel = 0;
+                minTechLevel = PlanetTechLevel.PREAGRICULTURE;
                 break;
             case NAVIGATION_SYSTEM:
                 name = "Navigation System";
                 price = 200;
-                minTechLevel = 3;
+                minTechLevel = PlanetTechLevel.MEDIEVAL;
                 break;
             case AUTO_REPAIR_SYSTEM:
                 name = "Auto-Repair System";
                 price = 300;
-                minTechLevel = 3;
+                minTechLevel = PlanetTechLevel.MEDIEVAL;
                 break;
             case TARGETING_SYSTEM:
                 name = "Targeting System";
                 price = 300;
-                minTechLevel = 3;
+                minTechLevel = PlanetTechLevel.RENAISSANCE;
                 break;
             case CLOAKING_DEVICE:
                 name = "Cloaking Device";
                 price = 1000;
-                minTechLevel = 7;
+                minTechLevel = PlanetTechLevel.POSTINDUSTRIAL;
                 break;
             case ESCAPE_POD:
                 name = "Escape Pod";
                 price = 200;
-                minTechLevel = 0;
+                minTechLevel = PlanetTechLevel.PREAGRICULTURE;
                 break;
             default:
                 break;
@@ -115,19 +116,31 @@ public class Gadget {
     }
     
     /**
-     * Get the price of the gadget.
-     * @return price the price of the gadget
-     */
-    public int getPrice()    {
-        return price;
-    }
-    
-    /**
      * Get the minimum required tech level.
      * @return minTechLevel the min tech level
      */
     public int getMinTechLevel()    {
-        return minTechLevel;
+        return minTechLevel.ordinal();
+    }
+    
+    @Override
+    public int getPrice()    {
+        return price;
+    }
+    
+    @Override
+    public boolean hasFreeSlots(Ship ship) {
+        return ship.getGadgetSlots() > ship.getGadgets().size();
+    }
+
+    @Override
+    public boolean hasSufficientTechLevel(Planet planet) {
+        return planet.getTechLevel().ordinal() >= minTechLevel.ordinal();
+    }
+
+    @Override
+    public List getShipItems(Ship ship) {
+        return ship.getGadgets();
     }
     
     /**
