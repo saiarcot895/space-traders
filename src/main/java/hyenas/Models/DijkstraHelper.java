@@ -27,12 +27,12 @@ public class DijkstraHelper {
     }
     
     /**
-     * Get the distance between two systems according to Djikstra's algorithm.
+     * Get the distance between two systems according to Dijkstra's algorithm.
      * @param start starting system
      * @param goal ending system
      * @return distance between the two systems on the graph
      */
-    public static double getDjikstraDistance(SolarSystem start, SolarSystem goal) {
+    public static double getDijkstraDistance(SolarSystem start, SolarSystem goal) {
         Queue<ABPair<SolarSystem, Double>> distances = new PriorityQueue<>(
                 (ABPair<SolarSystem, Double> o1, ABPair<SolarSystem, Double> o2)
                         -> (int) (o1.getB() - o2.getB()));

@@ -288,7 +288,7 @@ public class Player {
             return true;
         }
         double fuel = ship.getFuel();
-        double distance = DijkstraHelper.getDjikstraDistance(currentSystem, solarSystem);
+        double distance = DijkstraHelper.getDijkstraDistance(currentSystem, solarSystem);
         if (distance == -1) {
             return false;
         }

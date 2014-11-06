@@ -412,7 +412,7 @@ public class MapUIController implements Initializable {
             // If the player wants to 'travel' to their current system, take them to the system view
             HyenasLoader.getInstance().goToSystemScreen();
         } else {
-            double distance = DijkstraHelper.getDjikstraDistance(currentSystem, solarSystem);
+            double distance = DijkstraHelper.getDijkstraDistance(currentSystem, solarSystem);
             if (distance == -1) {
                 throw new RuntimeException("Unconnected node!!!");
             }
