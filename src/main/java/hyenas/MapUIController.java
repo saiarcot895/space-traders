@@ -1,6 +1,7 @@
 package hyenas;
 
 import hyenas.Models.ABPair;
+import hyenas.Models.DijkstraHelper;
 import hyenas.Models.Galaxy;
 import hyenas.Models.Journey;
 import hyenas.Models.Planet;
@@ -20,12 +21,9 @@ import hyenas.database.PlanetTable;
 import hyenas.database.PlayerTable;
 import hyenas.database.SolarSystemTable;
 import java.net.URL;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -69,7 +67,6 @@ public class MapUIController implements Initializable {
     private static final String CURRENT_PLANET_STYLE_CLASS = "currentPlanet";
     
     
-    
     /**
      * The map UI controller current journey. For use in case player encounters
      * random event
@@ -88,10 +85,6 @@ public class MapUIController implements Initializable {
      */
     private PlayerTable playerTable;
     /**
-     * The solar system info pane size.
-     */
-    private static final int INFO_PANE_SIZE = 200;
-    /**
      * The scroll pane padding. Prevents solar systems from being too close to
      * edge.
      */
@@ -109,6 +102,7 @@ public class MapUIController implements Initializable {
         ssTable = HyenasLoader.getInstance().getConnectionManager()
                 .getSolarSystemTable();
         
+        Player player = Player.getInstance();
         Map<String, SolarSystem> solarSystems = Galaxy.getInstance().getSolarSystems();
         Set<String> solarSystemIDs = solarSystems.keySet();
         solarSystemIDs.stream().map((solarSystemID) -> {
@@ -116,7 +110,6 @@ public class MapUIController implements Initializable {
             }).map((SolarSystem solarSystem) -> {
                     SolarSystemButton button = new SolarSystemButton();
                     button.setupForMapUI(solarSystem);
-                    Player player = Player.getInstance();
                     SolarSystem currentSystem = player.getCurrentSystem();
                     if (currentSystem == solarSystem) {
                         button.getStyleClass().add(CURRENT_PLANET_STYLE_CLASS);
@@ -130,36 +123,17 @@ public class MapUIController implements Initializable {
                             String solarSystemID1 = button1.getId();
                             SolarSystem solarSystem1 = Galaxy.getInstance().getSolarSystemForName(solarSystemID1);
 
-                            SolarSystemInfoPane newPane = new SolarSystemInfoPane();
-                            newPane.setPrefSize(INFO_PANE_SIZE, INFO_PANE_SIZE);
-                            newPane.setupForSolarSystem(solarSystem1);
+                            SolarSystemInfoPane systemInfoPane = new SolarSystemInfoPane();
+                            systemInfoPane.setupForSolarSystem(solarSystem1);
 
                             EventHandler<ActionEvent> travelEvent = (ActionEvent e1) -> {
                                 travelToSystem(solarSystem1, button1);
                             };
-                            newPane.getTravelButton().setOnAction(travelEvent);
-                            newPane.getTravelButton().setDisable(!canTravelToSystem(solarSystem1));
+                            systemInfoPane.getTravelButton().setOnAction(travelEvent);
+                            systemInfoPane.getTravelButton().setDisable(!player.canTravelToSystem(solarSystem1));
 
-                            // Ensures entire pane stays in view region
-                            int x = solarSystem1.getX() + 40;
-                            int y = solarSystem1.getY() - (INFO_PANE_SIZE / 2);
-                            if (x > UIHelper.GALAXY_SIZE - INFO_PANE_SIZE) {
-                                x = (int) UIHelper.GALAXY_SIZE - INFO_PANE_SIZE;
-                            }
-                            if (y < 0) {
-                                y = 0;
-                            }
-                            if (y > UIHelper.GALAXY_SIZE - INFO_PANE_SIZE) {
-                                y = UIHelper.GALAXY_SIZE - INFO_PANE_SIZE;
-                            }
-                            if (x < solarSystem1.getX()) {
-                                x = solarSystem1.getX() - (INFO_PANE_SIZE + 20);
-                            }
-
-                            scrollPane.setInfoPane(newPane);
-                            scrollContentPane.getChildren().addAll(newPane);
-                            newPane.setLayoutX(x);
-                            newPane.setLayoutY(y);
+                            scrollPane.setInfoPane(systemInfoPane);
+                            scrollContentPane.getChildren().addAll(systemInfoPane);
                         };
                         button.setOnAction(event);
                         return button;
@@ -168,7 +142,6 @@ public class MapUIController implements Initializable {
                         });
 
         List<SolarSystem> solarSystemValues = new LinkedList<>(solarSystems.values());
-        Player player = Player.getInstance();
         Map<SolarSystem, List<ABPair<SolarSystem, Double>>> distances =
                 Galaxy.getInstance().getDistances();
 
@@ -201,7 +174,7 @@ public class MapUIController implements Initializable {
                 for (int j = i; j < solarSystemValues.size(); j++) {
                     SolarSystem solarSystem2 = solarSystemValues.get(j);
 
-                    double distance = getDistance(solarSystem1, solarSystem2);
+                    double distance = DijkstraHelper.getDistance(solarSystem1, solarSystem2);
                     if (solarSystem1 != player.getCurrentSystem()
                             && solarSystem2 != player.getCurrentSystem()) {
                         if (distance >= 400) {
@@ -259,15 +232,6 @@ public class MapUIController implements Initializable {
             }
         }
 
-        /*int counter = 0;
-        counter = solarSystemValues.parallelStream()
-                .filter((solarSystem) -> (!distances.containsKey(solarSystem)))
-                .map((solarSystem) -> {
-                    Galaxy.getInstance().getSolarSystems().remove(solarSystem.getSystemName());
-                    return solarSystem;
-                }).map((_item) -> 1).reduce(counter, Integer::sum);
-        System.out.println(counter + " items removed");*/
-
         double x = currentSolarSystemButton.getLayoutX();
         double y = currentSolarSystemButton.getLayoutY();
 
@@ -302,119 +266,61 @@ public class MapUIController implements Initializable {
         eventPane.getActionButton().setText(event.getActionButtonText());
         eventPane.getCloseButton().setText(event.getCancelButtonText());
 
+        AlertPane resultPane = new AlertPane(AlertPaneType.ONEBUTTON);
+
         EventHandler<ActionEvent> actionEvent = (ActionEvent e1) -> {
             boolean success = event.performAction();
-            String resultText = event.getActionResultText();
-            switch (eventType) {
-                case POLICE:
-                    break;
-                case TRADER:
-                    break;
-                case PIRATE:
-                    SolarSystem solarSystem = currentJourney.getDestinationSolarSystem();
-                    if (!success) {
-                        Player player = Player.getInstance();
-                        Ship ship = player.getShip();
-                        // Deduct fuel for half the journey
-                        ship.setFuel(ship.getFuel() - (currentJourney.getDistance() / 2));
-                        solarSystem = currentJourney.getStartingSolarSystem();
-                    }
-                    
-                    resultText = resultText + solarSystem.getSystemName() + ". ";
-                    break;
-            }
-            AlertPane resultPane = new AlertPane(AlertPaneType.ONEBUTTON);
-            resultPane.setMessageText(resultText);
-            
-            EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
-                switch (eventType) {
-                    case POLICE:
-                    case TRADER:
-                        makeJourney(currentJourney);
-                        break;
-                    case PIRATE:
-                        if (success) {
-                            makeJourney(currentJourney);
-                        }
-                        break;
+            if (eventType == RandomEventType.PIRATE) {
+                SolarSystem solarSystem = currentJourney.getDestinationSolarSystem();
+                if (!success) {
+                    Ship ship = Player.getInstance().getShip();
+                    // Deduct fuel for half the journey
+                    ship.setFuel(ship.getFuel() - (currentJourney.getDistance() / 2));
+                    solarSystem = currentJourney.getStartingSolarSystem();
                 }
-                
-                anchorPane.getChildren().remove(resultPane);
-                
-                Player player = Player.getInstance();
-                playerTable = HyenasLoader.getInstance().getConnectionManager()
-                        .getPlayerTable();
-                playerTable.update(player, null);
-                HyenasLoader.getInstance().getConnectionManager().getShipTable()
-                        .update(player.getShip(), player);
-            };
-            resultPane.getCloseButton().setOnAction(closeAction);
-            playerInfoPane.updateInfo();
-            anchorPane.getChildren().remove(eventPane);
-            anchorPane.getChildren().add(resultPane);
+            }
+            resultPane.setMessageText(event.getActionResultText());
+            showResultAlertPane(eventPane, resultPane, success);
         };
         eventPane.getActionButton().setOnAction(actionEvent);
         
         EventHandler<ActionEvent> cancelEvent = (ActionEvent e1) -> {
             boolean success = event.performCancel();
-            String resultText = event.getCancelResultText();
-            switch (eventType) {
-                case POLICE:
-                    if (!success) {
-                        Player player = Player.getInstance();
-                        Ship ship = player.getShip();
-                        // Deduct fuel for half the journey
-                        ship.setFuel(ship.getFuel() - (currentJourney.getDistance() / 2));
-                    }
-                    break;
-                case TRADER:
-                    makeJourney(currentJourney);
-                    break;
-                case PIRATE:
-                    if (!success) {
-                        Player player = Player.getInstance();
-                        Ship ship = player.getShip();
-                        // Deduct fuel for half the journey
-                        ship.setFuel(ship.getFuel() - (currentJourney.getDistance() / 2));
-                        resultText = resultText + currentJourney.getStartingSolarSystem().getSystemName() + ".";
-                    }
-                    break;
-            }
-            AlertPane resultPane = new AlertPane(AlertPaneType.ONEBUTTON);
-            resultPane.setMessageText(resultText);
-            
-            EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
-                switch (eventType) {
-                    case POLICE:
-                    case PIRATE:
-                        if (success) {
-                            makeJourney(currentJourney);
-                        }
-                        break;
-                    case TRADER:
-                        makeJourney(currentJourney);
-                        break;
+            if (eventType == RandomEventType.PIRATE || eventType == RandomEventType.POLICE) {
+                if (!success) {
+                    Ship ship = Player.getInstance().getShip();
+                    // Deduct fuel for half the journey
+                    ship.setFuel(ship.getFuel() - (currentJourney.getDistance() / 2));
                 }
-                
-                anchorPane.getChildren().remove(resultPane);
-                
-                Player player = Player.getInstance();
-                playerTable = HyenasLoader.getInstance().getConnectionManager()
-                        .getPlayerTable();
-                playerTable.update(player, null);
-                HyenasLoader.getInstance().getConnectionManager().getShipTable()
-                        .update(player.getShip(), player);
-            };
-            resultPane.getCloseButton().setOnAction(closeAction);
-            playerInfoPane.updateInfo();
-            anchorPane.getChildren().remove(eventPane);
-            anchorPane.getChildren().add(resultPane);
+            } else if (eventType == RandomEventType.TRADER) {
+                makeJourney(currentJourney);
+            }
+            resultPane.setMessageText(event.getCancelResultText());
+            showResultAlertPane(eventPane, resultPane, success);
         };
         eventPane.getCloseButton().setOnAction(cancelEvent);
-        
         anchorPane.getChildren().add(eventPane);
-        
         Galaxy.getInstance().setLocationsSet(true);
+    }
+
+    /**
+     * Displays the random event result alert pane.
+     * @param eventPane the random event pane
+     * @param resultPane the result alert pane to display
+     * @param success whether the random event succeeded
+     */
+    private void showResultAlertPane(AlertPane eventPane, AlertPane resultPane, boolean success) {
+        EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
+            if (success) {
+                makeJourney(currentJourney);
+            }
+            anchorPane.getChildren().remove(resultPane);
+            updateDatabase();
+        };
+        resultPane.getCloseButton().setOnAction(closeAction);
+        playerInfoPane.updateInfo();
+        anchorPane.getChildren().remove(eventPane);
+        anchorPane.getChildren().add(resultPane);
     }
     
     /**
@@ -457,6 +363,17 @@ public class MapUIController implements Initializable {
         }
         return false;
     }
+
+    /**
+     * Updates the database.
+     */
+    private void updateDatabase() {
+        Player player = Player.getInstance();
+        HyenasLoader.getInstance().getConnectionManager()
+                .getPlayerTable().update(player, null);
+        HyenasLoader.getInstance().getConnectionManager().getShipTable()
+                .update(player.getShip(), player);
+    }
     
     /**
      * Completes a journey by moving the player, deducting fuel, and setting the
@@ -495,7 +412,7 @@ public class MapUIController implements Initializable {
             // If the player wants to 'travel' to their current system, take them to the system view
             HyenasLoader.getInstance().goToSystemScreen();
         } else {
-            double distance = getDjikstraDistance(currentSystem, solarSystem);
+            double distance = DijkstraHelper.getDjikstraDistance(currentSystem, solarSystem);
             if (distance == -1) {
                 throw new RuntimeException("Unconnected node!!!");
             }
@@ -520,79 +437,4 @@ public class MapUIController implements Initializable {
         Player.getInstance().setState(false);
         HyenasLoader.getInstance().goToHomeScreen();
     }
-
-    /**
-     * Check to see if the player can travel to the solar system.
-     * @param solarSystem system to travel to
-     * @return true if the player can travel there; otherwise, false
-     */
-    private boolean canTravelToSystem(SolarSystem solarSystem) {
-        Player player = Player.getInstance();
-        SolarSystem currentSystem = player.getCurrentSystem();
-        if (currentSystem == solarSystem) {
-            return true;
-        }
-        double fuel = player.getShip().getFuel();
-        double distance = getDjikstraDistance(currentSystem, solarSystem);
-        if (distance == -1) {
-            return false;
-        }
-        return (fuel > distance);
-    }
-
-    /**
-     * Get the linear distance between two systems.
-     * @param system1 starting system
-     * @param system2 ending system
-     * @return distance between the two systems
-     */
-    private double getDistance(SolarSystem system1, SolarSystem system2) {
-        int x1 = system1.getX();
-        int y1 = system1.getY();
-        int x2 = system2.getX();
-        int y2 = system2.getY();
-        return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
-    }
-
-    /**
-     * Get the distance between two systems according to Djikstra's algorithm.
-     * @param start starting system
-     * @param goal ending system
-     * @return distance between the two systems on the graph
-     */
-    private double getDjikstraDistance(SolarSystem start, SolarSystem goal) {
-        Queue<ABPair<SolarSystem, Double>> distances = new PriorityQueue<>(
-                (ABPair<SolarSystem, Double> o1, ABPair<SolarSystem, Double> o2)
-                        -> (int) (o1.getB() - o2.getB()));
-        Map<SolarSystem, List<ABPair<SolarSystem, Double>>> adjList = Galaxy
-                .getInstance().getDistances();
-
-        if (!adjList.containsKey(start)) {
-            return -1;
-        }
-        distances.add(new ABPair<>(start, 0.0));
-
-        Set<SolarSystem> visited = new HashSet<>();
-
-        while (!distances.isEmpty()) {
-            ABPair<SolarSystem, Double> node = distances.remove();
-            if (node.getA().equals(goal)) {
-                return node.getB();
-            }
-
-            if (!visited.contains(node.getA())) {
-                visited.add(node.getA());
-                List<ABPair<SolarSystem, Double>> neighbors = adjList.get(node.getA());
-                if (neighbors != null) {
-                    adjList.get(node.getA()).parallelStream().forEach((neighbor) -> {
-                            double alternateDistance = node.getB() + neighbor.getB();
-                            distances.add(new ABPair<>(neighbor.getA(), alternateDistance));
-                        });
-                }
-            }
-        }
-
-        return -1;
-    }
-
 }

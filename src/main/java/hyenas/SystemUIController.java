@@ -7,7 +7,6 @@ import hyenas.UI.AlertPane;
 import hyenas.UI.UIHelper;
 import hyenas.UI.PlanetButton;
 import hyenas.UI.HoverPane;
-import hyenas.UI.PlayerInfoPane;
 import hyenas.UI.SolarSystemImageView;
 import java.awt.Dimension;
 import java.net.URL;
@@ -27,13 +26,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.StrokeType;
 
 /**
- * FXML Controller class for the system ui
+ * FXML Controller class for the system UI.
  *
  * @author Brian
  */
@@ -58,7 +56,7 @@ public class SystemUIController implements Initializable {
      */
     private HoverPane planetNamePane;
     /**
-     * The system UI controller animation timer for repeating the planet
+     * The system UI controller animation timer for repeating the planet.
      * orbit animation.
      */
     private Timer animationTimer;
@@ -66,6 +64,10 @@ public class SystemUIController implements Initializable {
      * The system UI controller planet map.
      */
     private Map<Planet, PlanetButton> planetMap = new HashMap<>();
+    /**
+     * The CSS style class for current planet.
+     */
+    private static final String CURRENT_PLANET_STYLE_CLASS = "currentPlanet";
     
     @Override
     public void initialize(URL url, ResourceBundle rb)  {
@@ -92,14 +94,11 @@ public class SystemUIController implements Initializable {
         
         planetNamePane = new HoverPane();
         
-        for(Planet planet : planets)  {
+        for (Planet planet : planets) {
             PlanetButton button = new PlanetButton();
             button.setupForPlanet(planet);
-            // button.relocate(systemCenterX + planet.getOrbitRadius() - (button.getPrefWidth() / 2.0), systemCenterY);
             button.setLayoutX(systemCenterX + planet.getOrbitRadius() - (button.getPrefWidth() / 2.0) - 10);
-            button.setLayoutY(systemCenterY - 10);
-            
-            
+            button.setLayoutY(systemCenterY - 10);            
             planetMap.put(planet, button);
             
             Circle circle = new Circle(systemCenterX, systemCenterY, planet.getOrbitRadius());
@@ -109,8 +108,8 @@ public class SystemUIController implements Initializable {
             circle.setFill(Color.TRANSPARENT);
             circle.setDisable(true);
 
-            if(currentPlanet == planet) {
-                button.getStyleClass().add("currentPlanet");
+            if (currentPlanet == planet) {
+                button.getStyleClass().add(CURRENT_PLANET_STYLE_CLASS);
                 currentPlanetButton = button;
             }
             
@@ -129,7 +128,7 @@ public class SystemUIController implements Initializable {
             });
 
             EventHandler<ActionEvent> event = (ActionEvent e) -> {
-                Button button1 = (Button)e.getSource();
+                Button button1 = (Button) e.getSource();
                 setCurrentPlanetButton(button1);
                 Player player = Player.getInstance();
                 player.setCurrentPlanet(planet);
@@ -138,6 +137,13 @@ public class SystemUIController implements Initializable {
             systemPane.getChildren().addAll(circle, button);
         }
         
+        startPlanetAnimation();
+    }
+
+    /**
+     * Begins planets animation about orbit.
+     */
+    private void startPlanetAnimation() {
         int delay = 0;
         int period = 50;
 
@@ -171,8 +177,8 @@ public class SystemUIController implements Initializable {
                                 newTheta = curTheta - deltaTheta;
                             }
                             
-                            double newDeltaX = radius*Math.cos(newTheta);
-                            double newDeltaY = radius*Math.sin(newTheta);
+                            double newDeltaX = radius * Math.cos(newTheta);
+                            double newDeltaY = radius * Math.sin(newTheta);
 
                             double newX = sysX + newDeltaX;
                             double newY = sysY + newDeltaY;
@@ -187,17 +193,17 @@ public class SystemUIController implements Initializable {
     }
 
     /**
-     * Sets current planet button
+     * Sets current planet button.
      * @param button the current planet button
      */
     private void setCurrentPlanetButton(Button button)  {
-        currentPlanetButton.getStyleClass().remove("currentPlanet");
-        button.getStyleClass().add("currentPlanet");
+        currentPlanetButton.getStyleClass().remove(CURRENT_PLANET_STYLE_CLASS);
+        button.getStyleClass().add(CURRENT_PLANET_STYLE_CLASS);
         currentPlanetButton = button;
     }
     
     /**
-     * Changes screens to marketplace
+     * Changes screens to marketplace.
      * @param e unused
      */
     public void goToMarketplace(ActionEvent e) {
@@ -207,7 +213,7 @@ public class SystemUIController implements Initializable {
     }
     
     /**
-     * Changes screens to map ui
+     * Changes screens to map ui.
      * @param e unused
      */
     public void goBack(ActionEvent e) {
@@ -217,7 +223,7 @@ public class SystemUIController implements Initializable {
     }
     
     /**
-     * Changes screens to settings
+     * Changes screens to settings.
      * @param e unused
      */
     public void goToSettings(ActionEvent e) {
@@ -227,7 +233,7 @@ public class SystemUIController implements Initializable {
     }
     
     /**
-     * Changes screens to shipyard assuming planet has high enough tech level
+     * Changes screens to shipyard assuming planet has high enough tech level.
      * @param e unused
      */
     public void goToShipyard(ActionEvent e) {
@@ -244,8 +250,8 @@ public class SystemUIController implements Initializable {
     }
     
     /**
-     * Convenience method for displaying alert
-     * @param title
+     * Convenience method for displaying alert.
+     * @param title the title of the alert
      * @param message the message to display on the label
      */
     private void displayAlert(String title, String message) {

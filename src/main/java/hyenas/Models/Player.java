@@ -277,4 +277,21 @@ public class Player {
     public void setState(boolean pstate) {
         this.state = pstate;
     }
+    
+    /**
+     * Check to see if the player can travel to the solar system.
+     * @param solarSystem system to travel to
+     * @return true if the player can travel there; otherwise, false
+     */
+    public boolean canTravelToSystem(SolarSystem solarSystem) {
+        if (currentSystem == solarSystem) {
+            return true;
+        }
+        double fuel = ship.getFuel();
+        double distance = DijkstraHelper.getDjikstraDistance(currentSystem, solarSystem);
+        if (distance == -1) {
+            return false;
+        }
+        return (fuel > distance);
+    }
 }

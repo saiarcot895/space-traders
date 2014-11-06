@@ -7,7 +7,7 @@ import java.util.List;
  * A weapon that can be added to a ship.
  * @author Alex
  */
-public class Weapon {
+public class Weapon extends ShipyardBuyable {
     /**
      * The weapon type.
      */
@@ -16,10 +16,6 @@ public class Weapon {
      * The weapon name.
      */
     private String name;
-    /**
-     * The weapon price.
-     */
-    private int price;
     /**
      * The weapon damage.
      */
@@ -51,17 +47,17 @@ public class Weapon {
         switch (ptype) {
             case PULSE:
                 name = "Pulse";
-                price = 100;
+                setPrice(100);
                 damage = 100;
                 break;
             case BEAM:
                 name = "Beam";
-                price = 200;
+                setPrice(200);
                 damage = 300;
                 break;
             case MILITARY:
                 name = "Military";
-                price = 300;
+                setPrice(300);
                 damage = 500;
                 break;
             default:
@@ -70,20 +66,32 @@ public class Weapon {
         this.type = ptype;
     }
     
+    @Override
+    public boolean hasFreeSlots(Ship ship) {
+        return ship.getWeaponSlots() > ship.getWeapons().size();
+    }
+
+    @Override
+    public List getShipItems(Ship ship) {
+        return ship.getWeapons();
+    }
+    
+    @Override
+    public static List getDefaultItems() {
+        ArrayList<Weapon> weapons = new ArrayList<>(WeaponType.values().length);
+        for (WeaponType atype: WeaponType.values()) {
+            Weapon weapon = new Weapon(atype);
+            weapons.add(weapon);
+        }
+        return weapons;
+    }
+    
     /**
      * Get the name of the weapon.
      * @return the name of the weapon
      */
     public String getName() {
         return name;
-    }
-    
-    /**
-     * Get the price of the weapon.
-     * @return the price of the weapon
-     */
-    public int getPrice()    {
-        return price;
     }
     
     /**
@@ -100,18 +108,5 @@ public class Weapon {
      */
     public WeaponType getType() {
         return type;
-    }
-    
-    /**
-     * Get the list of default buyable weapons.
-     * @return the list of weapons
-     */
-    public static List<Weapon> getDefaultWeapons() {
-        ArrayList<Weapon> weapons = new ArrayList<>(WeaponType.values().length);
-        for (WeaponType type: WeaponType.values()) {
-            Weapon weapon = new Weapon(type);
-            weapons.add(weapon);
-        }
-        return weapons;
     }
 }

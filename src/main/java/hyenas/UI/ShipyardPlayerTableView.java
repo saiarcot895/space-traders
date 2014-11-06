@@ -24,7 +24,7 @@ public class ShipyardPlayerTableView extends TableView {
      */
     private ShipyardTabType type;
     /**
-     * The shipyard items tab type. Corresponds with a shipyard tab.
+     * The name property value for use with populating column.
      */
     private static final String NAME_PROPERTY_VALUE = "name";
     

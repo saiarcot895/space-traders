@@ -67,6 +67,14 @@ public class MarketController implements Initializable {
      */
     @FXML
     private Label titleLabel;
+    /**
+     * The name property value for use with populating column.
+     */
+    private static final String NAME_PROPERTY_VALUE = "name";
+    /**
+     * The current quantity property value for use with populating column.
+     */
+    private static final String CURRENT_QUANTITY_PROPERTY_VALUE = "currentQuantity";
     
     /**
      * Fuel Pane class for viewing the price of fuel and buying fuel.
@@ -130,10 +138,10 @@ public class MarketController implements Initializable {
         TableColumn priceCol = new MarketTableColumn("Price");
         TableColumn contitionsCol = new MarketTableColumn("Conditions");
         wareCol.setCellValueFactory(
-            new PropertyValueFactory<>("name")
+            new PropertyValueFactory<>(NAME_PROPERTY_VALUE)
         );
         availableCol.setCellValueFactory(
-            new PropertyValueFactory<>("currentQuantity")
+            new PropertyValueFactory<>(CURRENT_QUANTITY_PROPERTY_VALUE)
         );
         priceCol.setCellValueFactory(
             new PropertyValueFactory<>("currentPrice")
@@ -150,13 +158,13 @@ public class MarketController implements Initializable {
         playerTable.setPrefHeight(400.0);
         playerTable.setPrefWidth(202.0);
         playerTable.setEditable(false);
-        TableColumn playerWareCol = new MarketTableColumn("Ware");
-        TableColumn cargoCol = new MarketTableColumn("Cargo");
+        TableColumn playerWareCol = new MarketTableColumn("Your Ware");
+        TableColumn cargoCol = new MarketTableColumn("Your Cargo");
         playerWareCol.setCellValueFactory(
-            new PropertyValueFactory<Ware, String>("name")
+            new PropertyValueFactory<Ware, String>(NAME_PROPERTY_VALUE)
         );
         cargoCol.setCellValueFactory(
-            new PropertyValueFactory<Ware, Integer>("currentQuantity")
+            new PropertyValueFactory<Ware, Integer>(CURRENT_QUANTITY_PROPERTY_VALUE)
         );
         
         updatePlayerTable();

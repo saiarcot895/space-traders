@@ -23,12 +23,17 @@ public class SolarSystemInfoPane extends AnchorPane {
      * The solar system info pane's travel button.
      */
     private Button travelButton;
+    /**
+     * The solar system info pane size.
+     */
+    private static final int INFO_PANE_SIZE = 200;
 
     /**
      * Initializer for solar system Pane.
      */
     public SolarSystemInfoPane() {
         getStyleClass().add("alertPane");
+        setPrefSize(INFO_PANE_SIZE, INFO_PANE_SIZE);
 
         systemNameLabel = new AlertPaneMessageLabel("System:");
         AnchorPane.setTopAnchor(systemNameLabel, 10.0);
@@ -55,6 +60,31 @@ public class SolarSystemInfoPane extends AnchorPane {
     public void setupForSolarSystem(SolarSystem solarSystem) {
         systemNameLabel.setText("System: " + solarSystem.getSystemName());
         numPlanetsLabel.setText("Planets: " + solarSystem.getPlanets().size());
+        setInfoPaneCoordinates(solarSystem);
+    }
+    
+    /**
+     * Sets proper layout coordinates for a given solar system.
+     * @param solarSystem the solar system
+     */
+    private void setInfoPaneCoordinates(SolarSystem solarSystem) {
+        // Ensures entire pane stays in view region
+        int x = solarSystem.getX() + 40;
+        int y = solarSystem.getY() - (INFO_PANE_SIZE / 2);
+        if (x > UIHelper.GALAXY_SIZE - INFO_PANE_SIZE) {
+            x = (int) UIHelper.GALAXY_SIZE - INFO_PANE_SIZE;
+        }
+        if (y < 0) {
+            y = 0;
+        }
+        if (y > UIHelper.GALAXY_SIZE - INFO_PANE_SIZE) {
+            y = UIHelper.GALAXY_SIZE - INFO_PANE_SIZE;
+        }
+        if (x < solarSystem.getX()) {
+            x = solarSystem.getX() - (INFO_PANE_SIZE + 20);
+        }
+        setLayoutX(x);
+        setLayoutY(y);
     }
     
     /**

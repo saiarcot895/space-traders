@@ -178,11 +178,11 @@ public class RandomEvent {
                 boolean success = rand.nextBoolean();
                 Ship ship = player.getShip();
                 if (success) {
-                    actionResultText = "You successfully fend off the pirates. Your ship is slightly damaged, but you continue to ";
+                    actionResultText = "You successfully fend off the pirates. Your ship is slightly damaged, but you continue to your destination.";
                     double newhealth = ship.getHealth() * .9;
                     ship.setHealth(newhealth);
                 } else {
-                    actionResultText = "You unsuccessfully fend of the pirates and they steal some credits. Your ship has been severely damaged, so you head back to ";
+                    actionResultText = "You unsuccessfully fend of the pirates and they steal some credits. Your ship has been severely damaged, so you head back to where you came from.";
                     double newhealth = ship.getHealth() * .5;
                     ship.setHealth(newhealth);
                     player.setCredits(player.getCredits() - 50);
@@ -221,7 +221,7 @@ public class RandomEvent {
                 if (successful) {
                     cancelResultText = "You successfully outmaneuver the pirates and continue to the planet.";
                 } else {
-                    cancelResultText = "You fail to outmaneuver the pirates and with your ship half damaged, you head back to ";
+                    cancelResultText = "You fail to outmaneuver the pirates and with your ship half damaged, you return to where you came from.";
                     double newhealth = ship.getHealth() * .5;
                     ship.setHealth(newhealth);
                 }

@@ -76,8 +76,8 @@ public class SolarSystemButton extends Button {
     private Point getCoordinates() {
         Random rand = new Random();
         // Adds padding, so no button is too close to edge
-        int x = 20 + rand.nextInt(UIHelper.GALAXY_SIZE - 20);
-        int y = 20 + rand.nextInt(UIHelper.GALAXY_SIZE - 20);
+        int x = 20 + rand.nextInt(UIHelper.GALAXY_SIZE - 50);
+        int y = 20 + rand.nextInt(UIHelper.GALAXY_SIZE - 50);
 
         Point coordinates = new Point(x, y);
         return coordinates;

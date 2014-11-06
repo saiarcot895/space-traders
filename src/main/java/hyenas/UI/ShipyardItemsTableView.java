@@ -27,8 +27,8 @@ public class ShipyardItemsTableView extends TableView {
      * @param ptype the tab type
      */
     public ShipyardItemsTableView(ShipyardTabType ptype) {
-        setupTableForType(type);
         this.type = ptype;
+        setupTableForType(type);
         setEditable(false);
     }
     

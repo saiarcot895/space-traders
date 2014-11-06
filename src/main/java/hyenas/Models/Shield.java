@@ -7,7 +7,7 @@ import java.util.List;
  * A shield that can be added to a ship.
  * @author Alex
  */
-public class Shield {
+public class Shield extends ShipyardBuyable {
     /**
      * The shield type.
      */
@@ -16,10 +16,6 @@ public class Shield {
      * The shield name.
      */
     private String name;
-    /**
-     * The shield price.
-     */
-    private int price;
     /**
      * The shield strength.
      */
@@ -63,38 +59,58 @@ public class Shield {
         switch (ptype) {
             case CIVILIAN_ENERGY:
                 name = "Civilian Energy";
-                price = 100;
+                setPrice(100);
                 strength = 100;
                 break;
             case MILITIA_ENERGY:
                 name = "Militia Energy";
-                price = 200;
+                setPrice(200);
                 strength = 200;
                 break;
             case MILITARY_ENERGY:
                 name = "Military Energy";
-                price = 300;
+                setPrice(300);
                 strength = 400;
                 break;
             case CIVILIAN_REFLECTIVE:
                 name = "Civilian Reflective";
-                price = 400;
+                setPrice(400);
                 strength = 600;
                 break;
             case MILITIA_REFLECTIVE:
                 name = "Militia Reflective";
-                price = 500;
+                setPrice(500);
                 strength = 800;
                 break;
             case MILITARY_REFLECTIVE:
                 name = "Military Reflective";
-                price = 600;
+                setPrice(600);
                 strength = 1000;
                 break;
             default:
                 break;
         }
         this.type = ptype;
+    }
+    
+    @Override
+    public boolean hasFreeSlots(Ship ship) {
+        return ship.getShieldSlots() > ship.getShields().size();
+    }
+
+    @Override
+    public List getShipItems(Ship ship) {
+        return ship.getShields();
+    }
+    
+    @Override
+    public static List<Shield> getDefaultItems() {
+        ArrayList<Shield> shields = new ArrayList<>(ShieldType.values().length);
+        for (ShieldType type: ShieldType.values()) {
+            Shield shield = new Shield(type);
+            shields.add(shield);
+        }
+        return shields;
     }
     
     /**
@@ -114,31 +130,10 @@ public class Shield {
     }
     
     /**
-     * Get the price of the shield.
-     * @return the price of the shield
-     */
-    public int getPrice() {
-        return price;
-    }
-    
-    /**
      * Get the strength of the shield.
      * @return the strength of the shield
      */
     public int getStrength() {
         return strength;
-    }
-    
-    /**
-     * Get the list of default buyable shields.
-     * @return the list of shields
-     */
-    public static List<Shield> getDefaultShields() {
-        ArrayList<Shield> shields = new ArrayList<>(ShieldType.values().length);
-        for (ShieldType type: ShieldType.values()) {
-            Shield shield = new Shield(type);
-            shields.add(shield);
-        }
-        return shields;
     }
 }
