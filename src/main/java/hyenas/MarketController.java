@@ -1,4 +1,3 @@
-
 package hyenas;
 
 import hyenas.Models.Planet;
@@ -70,13 +69,20 @@ public class MarketController implements Initializable {
     private Label titleLabel;
     
     /**
-     * Fuel Pane class for viewing the price of fuel and buying fuel
+     * Fuel Pane class for viewing the price of fuel and buying fuel.
      */
     private class FuelPane extends BorderPane {
+        /**
+         * The fuel pane fuel button.
+         */
         private Button fuelButton;
+        /**
+         * The fuel pane fuel cost label.
+         */
         private Label fuelCostLabel;
-        /*
-         * Initializes an instance of FuelPane and sets up labels and buttons
+        
+        /**
+         * Initializes an instance of FuelPane and sets up labels and buttons.
          */
         public FuelPane() {
             getStyleClass().add("alertPane");
@@ -139,7 +145,7 @@ public class MarketController implements Initializable {
         updatePlanetTable();
         planetTable.getColumns().addAll(wareCol, availableCol, priceCol, contitionsCol);
         planetTable.getSelectionModel().selectedItemProperty().addListener(
-            (observable, oldValue, newValue) -> setSelectedBuyWare((Ware)newValue));
+            (observable, oldValue, newValue) -> setSelectedBuyWare((Ware) newValue));
         
         playerTable.setPrefHeight(400.0);
         playerTable.setPrefWidth(202.0);
@@ -156,7 +162,7 @@ public class MarketController implements Initializable {
         updatePlayerTable();
         playerTable.getColumns().addAll(playerWareCol, cargoCol);
         playerTable.getSelectionModel().selectedItemProperty().addListener(
-            (observable, oldValue, newValue) -> setSelectedSellWare((Ware)newValue));
+            (observable, oldValue, newValue) -> setSelectedSellWare((Ware) newValue));
         
         Pane emptyLeftTablePane = new Pane();
         emptyLeftTablePane.setPrefWidth(150.0);
@@ -199,7 +205,7 @@ public class MarketController implements Initializable {
     }
     
     /**
-     * Updates player table in database
+     * Updates player table in database.
      */
     private void updatePlayerTable() {
         ObservableList<Ware> currentItems = playerTable.getItems();
@@ -213,7 +219,7 @@ public class MarketController implements Initializable {
     }
     
     /**
-     * Updates planet table in database
+     * Updates planet table in database.
      */
     private void updatePlanetTable() {
         ObservableList<Ware> currentItems = planetTable.getItems();
@@ -225,8 +231,8 @@ public class MarketController implements Initializable {
     }
 
     /**
-     * Handles buying of an item, checks for edge cases
-     * @param e, unused
+     * Handles buying of an item, checks for edge cases.
+     * @param e unused
      */
     public void buyItem(ActionEvent e) {
         removeAlert();
@@ -253,7 +259,7 @@ public class MarketController implements Initializable {
                     displayAlert("Ship Cargo Full", "There is no room on your ship for more items.");
                 }
             } else {
-                displayAlert("Insufficient Credits", "You don't have enough credits to purchase this item.");
+                displayInsufficientCreditsAlert();
             }
         } else {
             displayAlert("No Items Remaining", "The planet has run out of this item.");
@@ -261,8 +267,16 @@ public class MarketController implements Initializable {
     }
     
     /**
-     * Handles selling of an item
-     * @param e, unused
+     * Displays an alert for use when the player has insufficient credits to
+     * purchase an item.
+     */
+    private void displayInsufficientCreditsAlert() {
+        displayAlert("Insufficient Credits", "You don't have enough credits to purchase this item.");
+    }
+    
+    /**
+     * Handles selling of an item.
+     * @param e unused
      */
     public void sellItem(ActionEvent e) {
         removeAlert();
@@ -294,9 +308,9 @@ public class MarketController implements Initializable {
     }
     
     /**
-     * Displays an alert
-     * @param title, the alert title
-     * @param message, the alert message
+     * Displays an alert.
+     * @param title the alert title
+     * @param message the alert message
      */
     private void displayAlert(String title, String message) {
         AlertPane alertPane = new AlertPane(AlertPaneType.ONEBUTTON);
@@ -310,9 +324,7 @@ public class MarketController implements Initializable {
     }
     
     /**
-     * Displays an alert
-     * @param title, the alert title
-     * @param message, the alert message
+     * Removes (hides) an alert.
      */
     private void removeAlert() {
         List children = anchorPane.getChildren();
@@ -322,8 +334,8 @@ public class MarketController implements Initializable {
     }
     
     /**
-     * Sets the selected ware to sell
-     * @param ware, the ware to sell
+     * Sets the selected ware to sell.
+     * @param ware the ware to sell
      */
     private void setSelectedSellWare(Ware ware) {
         if (ware == null) {
@@ -339,8 +351,8 @@ public class MarketController implements Initializable {
     }
     
     /**
-     * Sets the selected ware to buy
-     * @param ware, the ware to buy
+     * Sets the selected ware to buy.
+     * @param ware the ware to buy
      */
     private void setSelectedBuyWare(Ware ware) {
         if (ware == null) {
@@ -355,11 +367,14 @@ public class MarketController implements Initializable {
         }
     }
     
-    private final double FUEL_INCREMENT = 10.0;
+    /**
+     * The amount of fuel to buy at a time.
+     */
+    private static final double FUEL_INCREMENT = 10.0;
     
     /**
-     * Handles buying fuel
-     * @param e, unused
+     * Handles buying fuel.
+     * @param e unused
      */
     public void buyFuel(ActionEvent e) {
         Player player = Player.getInstance();
@@ -385,7 +400,7 @@ public class MarketController implements Initializable {
                 player.setCredits(credits - totalFuelCost);
                 ship.setFuel(newFuel);
             } else {
-                displayAlert("Insufficient Credits", "You don't have enough credits to purchase this item.");
+                displayInsufficientCreditsAlert();
             }
         } else {
             displayAlert("Ship Full", "Your ship can't carry any more fuel.");
@@ -405,8 +420,8 @@ public class MarketController implements Initializable {
     }
     
     /**
-     * Changes to system screen
-     * @param e, unused
+     * Changes to system screen.
+     * @param e unused
      */
     public void goBack(ActionEvent e) {
         HyenasLoader.getInstance().goToSystemScreen();

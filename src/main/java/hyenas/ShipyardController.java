@@ -28,7 +28,6 @@ import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 /**
@@ -193,11 +192,11 @@ public class ShipyardController implements Initializable {
     }
     
     /**
-     * Change the tab
+     * Change the tab.
      * @param tab new tab to display
      */
     public void setupForTabChange(Tab tab) {
-        ShipyardTab shipyardTab = (ShipyardTab)tab;
+        ShipyardTab shipyardTab = (ShipyardTab) tab;
         playerShipTable.setupTableForType(shipyardTab.getType());
         playerShipTable.getSelectionModel().clearSelection();
         centerPane.setCenter(playerShipTable);
@@ -228,9 +227,9 @@ public class ShipyardController implements Initializable {
                 .getSelectedItem();
         Player player = Player.getInstance();
         if (shipyardTab.getType() == ShipyardTabType.WEAPONS) {
-            Weapon item = (Weapon)currentTableView.getSelectionModel().getSelectedItem();
-            if(ship.getWeaponSlots() > ship.getWeapons().size()) {
-                if(player.getCredits() >= item.getPrice()) {
+            Weapon item = (Weapon) currentTableView.getSelectionModel().getSelectedItem();
+            if (ship.getWeaponSlots() > ship.getWeapons().size()) {
+                if (player.getCredits() >= item.getPrice()) {
                     ship.getWeapons().add(item);
                     player.setCredits(player.getCredits() - item.getPrice());
                     
@@ -238,21 +237,21 @@ public class ShipyardController implements Initializable {
                             .getWeaponsTable().addRow(item, ship);
                 }
                 else {
-                    displayAlert("Not Enough Credits", "You don't have enough credits to afford that.");
+                    displayInsufficientCreditsAlert();
                 }
             } else {
                 displayAlert("No Weapon Slot", "There are no more slots for weapons on your ship");
             }
         }
         else if (shipyardTab.getType() == ShipyardTabType.SHIELDS) {
-            Shield item = (Shield)currentTableView.getSelectionModel().getSelectedItem();
-            if(ship.getShieldSlots() > ship.getShields().size())    {
-                if(player.getCredits() >= item.getPrice()) {
+            Shield item = (Shield) currentTableView.getSelectionModel().getSelectedItem();
+            if (ship.getShieldSlots() > ship.getShields().size()) {
+                if (player.getCredits() >= item.getPrice()) {
                     ship.getShields().add(item);
                     player.setCredits(player.getCredits() - item.getPrice());
                 }
                 else {
-                    displayAlert("Not Enough Credits", "You don't have enough credits to afford that.");
+                    displayInsufficientCreditsAlert();
                 }
             } else {
                 displayAlert("No Shield Slot", "There are no more slots for shields on your ship");
@@ -260,14 +259,14 @@ public class ShipyardController implements Initializable {
         }
         else if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
             Planet planet = player.getCurrentPlanet();
-            Gadget item = (Gadget)currentTableView.getSelectionModel().getSelectedItem();
+            Gadget item = (Gadget) currentTableView.getSelectionModel().getSelectedItem();
             if (ship.getGadgetSlots() > ship.getGadgets().size())    {
                 if (planet.getTechLevel().ordinal() >= item.getMinTechLevel()) {
                     if (player.getCredits() >= item.getPrice()) {
                         ship.getGadgets().add(item);
                         player.setCredits(player.getCredits() - item.getPrice());
                     } else {
-                        displayAlert("Not Enough Credits", "You don't have enough credits to afford that.");
+                        displayInsufficientCreditsAlert();
                     }
                 } else {
                     displayAlert("Insufficient Tech Level", "This planet doesn't have the tech level to sell this item.");
@@ -277,7 +276,7 @@ public class ShipyardController implements Initializable {
             }
         }
         else if (shipyardTab.getType() == ShipyardTabType.SHIPS) {
-            Ship item = (Ship)currentTableView.getSelectionModel().getSelectedItem();
+            Ship item = (Ship) currentTableView.getSelectionModel().getSelectedItem();
             if (item.getShipType() != ship.getShipType()) {
                 int currentShipValue = (int) (ship.getPrice() * .8);
                 if (player.getCredits() + currentShipValue >= item.getPrice()) {
@@ -286,7 +285,7 @@ public class ShipyardController implements Initializable {
                     ship = item;
                     player.setCredits(credits + currentShipValue - item.getPrice());
                 } else {
-                    displayAlert("Not Enough Credits", "You don't have enough credits to afford that.");
+                    displayInsufficientCreditsAlert();
                 }
             } else {
                 displayAlert("You already have this ship", "It doesn't make sense to buy a ship you already own.");
@@ -305,7 +304,7 @@ public class ShipyardController implements Initializable {
                 .getSelectedItem();
         Player player = Player.getInstance();
         if (shipyardTab.getType() == ShipyardTabType.WEAPONS) {
-            Weapon item = (Weapon)playerShipTable.getSelectionModel().getSelectedItem();
+            Weapon item = (Weapon) playerShipTable.getSelectionModel().getSelectedItem();
             boolean removed = ship.getWeapons().remove(item);
             if (removed) {
                 player.setCredits(player.getCredits() + item.getPrice());
@@ -314,7 +313,7 @@ public class ShipyardController implements Initializable {
             }
         }
         else if (shipyardTab.getType() == ShipyardTabType.SHIELDS) {
-            Shield item = (Shield)playerShipTable.getSelectionModel().getSelectedItem();
+            Shield item = (Shield) playerShipTable.getSelectionModel().getSelectedItem();
             boolean removed = ship.getShields().remove(item);
             if (removed) {
                 player.setCredits(player.getCredits() + item.getPrice());
@@ -323,7 +322,7 @@ public class ShipyardController implements Initializable {
             }
         }
         else if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
-            Gadget item = (Gadget)playerShipTable.getSelectionModel().getSelectedItem();
+            Gadget item = (Gadget) playerShipTable.getSelectionModel().getSelectedItem();
             boolean removed = ship.getGadgets().remove(item);
             if (removed) {
                 player.setCredits(player.getCredits() + item.getPrice());
@@ -347,7 +346,7 @@ public class ShipyardController implements Initializable {
     }
     
     /**
-     * Return to the system screen
+     * Return to the system screen.
      * @param e unused
      */
     public void goBack(ActionEvent e) {
@@ -355,7 +354,7 @@ public class ShipyardController implements Initializable {
     }
     
     /**
-     * Display an alert message
+     * Display an alert message.
      * @param title title of the message
      * @param message message itself
      */
@@ -368,5 +367,13 @@ public class ShipyardController implements Initializable {
         };
         alertPane.getCloseButton().setOnAction(closeAction);
         anchorPane.getChildren().add(alertPane);
+    }
+    
+    /**
+     * Displays an alert for use when the player has insufficient credits to
+     * purchase an item.
+     */
+    private void displayInsufficientCreditsAlert() {
+        displayAlert("Insufficient Credits", "You don't have enough credits to afford that.");
     }
 }
