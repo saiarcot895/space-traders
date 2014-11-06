@@ -122,6 +122,18 @@ public class AlertPane extends BorderPane {
     }
     
     /**
+     * Initializes an AlertPane with a given title and message.
+     * @param ptype the alert pane type
+     * @param title the title of the alert
+     * @param message the message of the alert
+     */
+    public AlertPane(AlertPaneType ptype, String title, String message) {
+        this(ptype);
+        setTitleText(title);
+        setMessageText(message);
+    }
+    
+    /**
      * Initializes an AlertPane and creates required label/button elements.
      * @param ptype the alert pane type
      */

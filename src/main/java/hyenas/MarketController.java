@@ -2,12 +2,12 @@ package hyenas;
 
 import hyenas.Models.Planet;
 import hyenas.Models.Player;
-import hyenas.Models.Ship;
 import hyenas.Models.Ware;
 import hyenas.UI.AlertPane;
 import hyenas.UI.AlertPane.AlertPaneType;
+import hyenas.UI.MaketTableView;
+import hyenas.UI.MaketTableView.MarketTableType;
 import hyenas.UI.MarketInfoPane;
-import hyenas.UI.MarketTableColumn;
 import hyenas.UI.StandardButton;
 import java.net.URL;
 import java.util.List;
@@ -21,17 +21,13 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 /**
- * FXML Controller class for marketplace
+ * FXML Controller class for marketplace.
  * @author Alex
  */
 public class MarketController implements Initializable {
@@ -42,11 +38,11 @@ public class MarketController implements Initializable {
     /**
      * The market controller planet table view.
      */
-    private TableView planetTable = new TableView();
+    private MaketTableView planetTable = new MaketTableView(MarketTableType.PLANET);
     /**
      * The market controller player table view.
      */
-    private TableView playerTable = new TableView();
+    private MaketTableView playerTable = new MaketTableView(MarketTableType.PLAYER);
     /**
      * The market controller info pane.
      */
@@ -67,14 +63,6 @@ public class MarketController implements Initializable {
      */
     @FXML
     private Label titleLabel;
-    /**
-     * The name property value for use with populating column.
-     */
-    private static final String NAME_PROPERTY_VALUE = "name";
-    /**
-     * The current quantity property value for use with populating column.
-     */
-    private static final String CURRENT_QUANTITY_PROPERTY_VALUE = "currentQuantity";
     
     /**
      * Fuel Pane class for viewing the price of fuel and buying fuel.
@@ -132,51 +120,22 @@ public class MarketController implements Initializable {
         planetTable.setPrefHeight(400.0);
         planetTable.setPrefWidth(350.0);
         planetTable.setEditable(false);
-        
-        TableColumn wareCol = new MarketTableColumn("Ware");
-        TableColumn availableCol = new MarketTableColumn("Available");
-        TableColumn priceCol = new MarketTableColumn("Price");
-        TableColumn contitionsCol = new MarketTableColumn("Conditions");
-        wareCol.setCellValueFactory(
-            new PropertyValueFactory<>(NAME_PROPERTY_VALUE)
-        );
-        availableCol.setCellValueFactory(
-            new PropertyValueFactory<>(CURRENT_QUANTITY_PROPERTY_VALUE)
-        );
-        priceCol.setCellValueFactory(
-            new PropertyValueFactory<>("currentPrice")
-        );
-        contitionsCol.setCellValueFactory(
-            new PropertyValueFactory<>("currentCondition")
-        );
-        
-        updatePlanetTable();
-        planetTable.getColumns().addAll(wareCol, availableCol, priceCol, contitionsCol);
-        planetTable.getSelectionModel().selectedItemProperty().addListener(
-            (observable, oldValue, newValue) -> setSelectedBuyWare((Ware) newValue));
-        
         playerTable.setPrefHeight(400.0);
         playerTable.setPrefWidth(202.0);
         playerTable.setEditable(false);
-        TableColumn playerWareCol = new MarketTableColumn("Your Ware");
-        TableColumn cargoCol = new MarketTableColumn("Your Cargo");
-        playerWareCol.setCellValueFactory(
-            new PropertyValueFactory<Ware, String>(NAME_PROPERTY_VALUE)
-        );
-        cargoCol.setCellValueFactory(
-            new PropertyValueFactory<Ware, Integer>(CURRENT_QUANTITY_PROPERTY_VALUE)
-        );
         
+        updatePlanetTable();
+        planetTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> setSelectedBuyWare((Ware) newValue));
         updatePlayerTable();
-        playerTable.getColumns().addAll(playerWareCol, cargoCol);
         playerTable.getSelectionModel().selectedItemProperty().addListener(
-            (observable, oldValue, newValue) -> setSelectedSellWare((Ware) newValue));
+                (observable, oldValue, newValue) -> setSelectedSellWare((Ware) newValue));
         
-        Pane emptyLeftTablePane = new Pane();
+        BorderPane emptyLeftTablePane = new BorderPane();
         emptyLeftTablePane.setPrefWidth(150.0);
         tablesPane.setLeft(emptyLeftTablePane);
         
-        Pane emptyBottomTablePane = new Pane();
+        BorderPane emptyBottomTablePane = new BorderPane();
         emptyBottomTablePane.setPrefHeight(150.0);
         tablesPane.setBottom(emptyBottomTablePane);
         
@@ -201,7 +160,7 @@ public class MarketController implements Initializable {
         sellButton.setOnAction(sellEvent);
         
         
-        FuelPane fuelPane = new FuelPane();
+        BorderPane fuelPane = new FuelPane();
         rightBox.getChildren().addAll(infoPane, fuelPane);
         borderPane.setRight(rightBox);
         
@@ -220,8 +179,7 @@ public class MarketController implements Initializable {
         currentItems.removeAll(currentItems);
         
         Player player = Player.getInstance();
-        Ship ship = player.getShip();
-        List<Ware> playerWares = ship.getWares();
+        List<Ware> playerWares = player.getShip().getWares();
         ObservableList<Ware> playerTableData = FXCollections.observableArrayList(playerWares);
         playerTable.setItems(playerTableData);
     }
@@ -249,12 +207,10 @@ public class MarketController implements Initializable {
         Player player = Player.getInstance();
         int credits = player.getCredits();
         
-        
         int currentQuantity = ware.getCurrentQuantity();
         if (currentQuantity > 0) {
             if (price <= credits) {
-                Ship ship = player.getShip();
-                boolean success = ship.addCargo(ware);
+                boolean success = player.getShip().addCargo(ware);
                 if (success) {
                     int newCredits = credits - price;
                     player.setCredits(newCredits);
@@ -296,8 +252,7 @@ public class MarketController implements Initializable {
             int techLevel = planet.getTechLevel().ordinal();
             int minTechLevelToUse = ware.getMinimumTechLevelToUse();
             if (minTechLevelToUse <= techLevel) {
-                Ship ship = player.getShip();
-                ship.removeCargo(ware);
+                player.getShip().removeCargo(ware);
                 planet.addWare(ware);
 
                 int sellValue = (int) (ware.getBasePrice() * .8);
@@ -321,9 +276,7 @@ public class MarketController implements Initializable {
      * @param message the alert message
      */
     private void displayAlert(String title, String message) {
-        AlertPane alertPane = new AlertPane(AlertPaneType.ONEBUTTON);
-        alertPane.setTitleText(title);
-        alertPane.setMessageText(message);
+        AlertPane alertPane = new AlertPane(AlertPaneType.ONEBUTTON, title, message);
         EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
             anchorPane.getChildren().remove(alertPane);
         };
@@ -386,13 +339,12 @@ public class MarketController implements Initializable {
      */
     public void buyFuel(ActionEvent e) {
         Player player = Player.getInstance();
-        Ship ship = player.getShip();
         int fuelCost = planet.getFuelCost();
         
         int credits = player.getCredits();
         
-        double fuel = ship.getFuel();
-        double maxFuel = ship.getMaxFuel();
+        double fuel = player.getShip().getFuel();
+        double maxFuel = player.getShip().getMaxFuel();
         double fuelNeeded = maxFuel - fuel;
 
         if (fuelNeeded > 0) {
@@ -406,7 +358,7 @@ public class MarketController implements Initializable {
 
             if (credits >= totalFuelCost) {
                 player.setCredits(credits - totalFuelCost);
-                ship.setFuel(newFuel);
+                player.getShip().setFuel(newFuel);
             } else {
                 displayInsufficientCreditsAlert();
             }
@@ -415,21 +367,11 @@ public class MarketController implements Initializable {
         }
         
         infoPane.updateInfo();
-        
-        
-        // if (fuelCount == player.getShip().getMaxFuel() || creditCount < fuelCost) {
-
-        //     //TODO display message saying that they have hit limit on fuel
-        // }
-        // fuelCount++;
-        // creditCount -= fuelCost;
-        // fuelLeft.setText(String.format("%.0f", fuelCount));
-        // currentCredits.setText("" + creditCount);
     }
     
     /**
      * Changes to system screen.
-     * @param e unused
+     * @param e unused action trigger
      */
     public void goBack(ActionEvent e) {
         HyenasLoader.getInstance().goToSystemScreen();

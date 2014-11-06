@@ -130,8 +130,7 @@ public class SystemUIController implements Initializable {
             EventHandler<ActionEvent> event = (ActionEvent e) -> {
                 Button button1 = (Button) e.getSource();
                 setCurrentPlanetButton(button1);
-                Player player = Player.getInstance();
-                player.setCurrentPlanet(planet);
+                Player.getInstance().setCurrentPlanet(planet);
             };
             button.setOnAction(event);
             systemPane.getChildren().addAll(circle, button);
@@ -237,8 +236,7 @@ public class SystemUIController implements Initializable {
      * @param e unused
      */
     public void goToShipyard(ActionEvent e) {
-        Player player = Player.getInstance();
-        Planet planet = player.getCurrentPlanet();
+        Planet planet = Player.getInstance().getCurrentPlanet();
         
         if (planet.hasShipyard()) {
             HyenasLoader.getInstance().goToShipyard();

@@ -325,9 +325,7 @@ public class ShipyardController implements Initializable {
      * @param message message itself
      */
     private void displayAlert(String title, String message) {
-        AlertPane alertPane = new AlertPane(AlertPaneType.ONEBUTTON);
-        alertPane.setTitleText(title);
-        alertPane.setMessageText(message);
+        AlertPane alertPane = new AlertPane(AlertPaneType.ONEBUTTON, title, message);
         EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
             anchorPane.getChildren().remove(alertPane);
         };
