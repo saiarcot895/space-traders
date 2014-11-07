@@ -212,7 +212,6 @@ public class MapUIController implements Initializable {
         };
         eventPane.getCloseButton().setOnAction(cancelEvent);
         anchorPane.getChildren().add(eventPane);
-        Galaxy.getInstance().setLocationsSet(true);
     }
 
     /**

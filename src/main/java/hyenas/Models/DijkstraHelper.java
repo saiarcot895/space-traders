@@ -158,6 +158,7 @@ public class DijkstraHelper {
 
             HyenasLoader.getInstance().getConnectionManager()
                     .commitTransaction();
+            Galaxy.getInstance().setLocationsSet(true);
         }
     }
     
