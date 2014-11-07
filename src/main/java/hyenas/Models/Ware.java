@@ -121,120 +121,188 @@ public class Ware {
      * Sets the initial default values for a Ware.
      */
     private void setUp() {
-        switch(good) {
+        switch (good) {
             case WATER:
-                name = "Water";
-                minimumTechLevelToProduce = 0;
-                minimumTechLevelToUse = 0;
-                techLevelProduction = 2;
-                basePrice = 30;
-                priceIncreasePerLevel = 3;
-                variance = 4;
-                spaceTradeMinPrice = 30;
-                spaceTradeMaxPrice = 50;
+                setupWater();
                 break;
             case FURS:
-                name = "Furs";
-                minimumTechLevelToProduce = 0;
-                minimumTechLevelToUse = 0;
-                techLevelProduction = 0;
-                basePrice = 250;
-                priceIncreasePerLevel = 10;
-                variance = 10;
-                spaceTradeMinPrice = 230;
-                spaceTradeMaxPrice = 280;
+                setupFurs();
                 break;
             case FOOD:
-                name = "Food";
-                minimumTechLevelToProduce = 1;
-                minimumTechLevelToUse = 0;
-                techLevelProduction = 1;
-                basePrice = 100;
-                priceIncreasePerLevel = 5;
-                variance = 5;
-                spaceTradeMinPrice = 90;
-                spaceTradeMaxPrice = 160;
+                setupFood();
                 break;
             case ORE:
-                name = "Ore";
-                minimumTechLevelToProduce = 2;
-                minimumTechLevelToUse = 2;
-                techLevelProduction = 3;
-                basePrice = 350;
-                priceIncreasePerLevel = 20;
-                variance = 10;
-                spaceTradeMinPrice = 350;
-                spaceTradeMaxPrice = 420;
+                setupOre();
                 break;
             case GAMES:
-                name = "Games";
-                minimumTechLevelToProduce = 3;
-                minimumTechLevelToUse = 1;
-                techLevelProduction = 6;
-                basePrice = 250;
-                priceIncreasePerLevel = -10;
-                variance = 5;
-                spaceTradeMinPrice = 160;
-                spaceTradeMaxPrice = 270;
+                setupGames();
                 break;
             case FIREARMS:
-                name = "Firearms";
-                minimumTechLevelToProduce = 3;
-                minimumTechLevelToUse = 1;
-                techLevelProduction = 5;
-                basePrice = 1250;
-                priceIncreasePerLevel = -75;
-                variance = 100;
-                spaceTradeMinPrice = 600;
-                spaceTradeMaxPrice = 1100;
+                setupFirearms();
                 break;
             case MEDICINE:
-                name = "Medicine";
-                minimumTechLevelToProduce = 4;
-                minimumTechLevelToUse = 1;
-                techLevelProduction = 6;
-                basePrice = 650;
-                priceIncreasePerLevel = -20;
-                variance = 10;
-                spaceTradeMinPrice = 400;
-                spaceTradeMaxPrice = 700;
+                setupMedicine();
                 break;
             case MACHINES:
-                name = "Machines";
-                minimumTechLevelToProduce = 4;
-                minimumTechLevelToUse = 3;
-                techLevelProduction = 5;
-                basePrice = 900;
-                priceIncreasePerLevel = -30;
-                variance = 5;
-                spaceTradeMinPrice = 600;
-                spaceTradeMaxPrice = 800;
+                setupMachines();
                 break;
             case NARCOTICS:
-                name = "Narcotics";
-                minimumTechLevelToProduce = 5;
-                minimumTechLevelToUse = 0;
-                techLevelProduction = 5;
-                basePrice = 3500;
-                priceIncreasePerLevel = -125;
-                variance = 150;
-                spaceTradeMinPrice = 2000;
-                spaceTradeMaxPrice = 3000;
+                setupNarcotics();
                 break;
             case ROBOTS:
-                name = "Robots";
-                minimumTechLevelToProduce = 6;
-                minimumTechLevelToUse = 4;
-                techLevelProduction = 7;
-                basePrice = 5000;
-                priceIncreasePerLevel = -150;
-                variance = 100;
-                spaceTradeMinPrice = 3500;
-                spaceTradeMaxPrice = 5000;
-                break;
-            default:
+                setupRobots();
                 break;
         }
+    }
+
+    /**
+     * Sets up the water ware.
+     */
+    private void setupWater() {
+        name = "Water";
+        minimumTechLevelToProduce = 0;
+        minimumTechLevelToUse = 0;
+        techLevelProduction = 2;
+        basePrice = 30;
+        priceIncreasePerLevel = 3;
+        variance = 4;
+        spaceTradeMinPrice = 30;
+        spaceTradeMaxPrice = 50;
+    }
+
+    /**
+     * Sets up the furs ware.
+     */
+    private void setupFurs() {
+        name = "Furs";
+        minimumTechLevelToProduce = 0;
+        minimumTechLevelToUse = 0;
+        techLevelProduction = 0;
+        basePrice = 250;
+        priceIncreasePerLevel = 10;
+        variance = 10;
+        spaceTradeMinPrice = 230;
+        spaceTradeMaxPrice = 280;
+    }
+
+    /**
+     * Sets up the food ware.
+     */
+    private void setupFood() {
+        name = "Food";
+        minimumTechLevelToProduce = 1;
+        minimumTechLevelToUse = 0;
+        techLevelProduction = 1;
+        basePrice = 100;
+        priceIncreasePerLevel = 5;
+        variance = 5;
+        spaceTradeMinPrice = 90;
+        spaceTradeMaxPrice = 160;
+    }
+
+    /**
+     * Sets up the ore ware.
+     */
+    private void setupOre() {
+        name = "Ore";
+        minimumTechLevelToProduce = 2;
+        minimumTechLevelToUse = 2;
+        techLevelProduction = 3;
+        basePrice = 350;
+        priceIncreasePerLevel = 20;
+        variance = 10;
+        spaceTradeMinPrice = 350;
+        spaceTradeMaxPrice = 420;
+    }
+
+    /**
+     * Sets up the games ware.
+     */
+    private void setupGames() {
+        name = "Games";
+        minimumTechLevelToProduce = 3;
+        minimumTechLevelToUse = 1;
+        techLevelProduction = 6;
+        basePrice = 250;
+        priceIncreasePerLevel = -10;
+        variance = 5;
+        spaceTradeMinPrice = 160;
+        spaceTradeMaxPrice = 270;
+    }
+
+    /**
+     * Sets up the firearms ware.
+     */
+    private void setupFirearms() {
+        name = "Firearms";
+        minimumTechLevelToProduce = 3;
+        minimumTechLevelToUse = 1;
+        techLevelProduction = 5;
+        basePrice = 1250;
+        priceIncreasePerLevel = -75;
+        variance = 100;
+        spaceTradeMinPrice = 600;
+        spaceTradeMaxPrice = 1100;
+    }
+
+    /**
+     * Sets up the medicine ware.
+     */
+    private void setupMedicine() {
+        name = "Medicine";
+        minimumTechLevelToProduce = 4;
+        minimumTechLevelToUse = 1;
+        techLevelProduction = 6;
+        basePrice = 650;
+        priceIncreasePerLevel = -20;
+        variance = 10;
+        spaceTradeMinPrice = 400;
+        spaceTradeMaxPrice = 700;
+    }
+
+    /**
+     * Sets up the machines ware.
+     */
+    private void setupMachines() {
+        name = "Machines";
+        minimumTechLevelToProduce = 4;
+        minimumTechLevelToUse = 3;
+        techLevelProduction = 5;
+        basePrice = 900;
+        priceIncreasePerLevel = -30;
+        variance = 5;
+        spaceTradeMinPrice = 600;
+        spaceTradeMaxPrice = 800;
+    }
+
+    /**
+     * Sets up the narcotics ware.
+     */
+    private void setupNarcotics() {
+        name = "Narcotics";
+        minimumTechLevelToProduce = 5;
+        minimumTechLevelToUse = 0;
+        techLevelProduction = 5;
+        basePrice = 3500;
+        priceIncreasePerLevel = -125;
+        variance = 150;
+        spaceTradeMinPrice = 2000;
+        spaceTradeMaxPrice = 3000;
+    }
+
+    /**
+     * Sets up the robots ware.
+     */
+    private void setupRobots() {
+        name = "Robots";
+        minimumTechLevelToProduce = 6;
+        minimumTechLevelToUse = 4;
+        techLevelProduction = 7;
+        basePrice = 5000;
+        priceIncreasePerLevel = -150;
+        variance = 100;
+        spaceTradeMinPrice = 3500;
+        spaceTradeMaxPrice = 5000;
     }
 
     /**

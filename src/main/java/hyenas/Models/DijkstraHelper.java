@@ -11,7 +11,6 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -166,6 +165,7 @@ public class DijkstraHelper {
      * Adds the Dijsktra lines between solar systems.
      * @param solarSystemValues the solar system values.
      * @param distances the solar system distances
+     * @param pane the pane to add the lines to
      */
     public static void addDijkstraLines(List<SolarSystem> solarSystemValues,
             Map<SolarSystem, List<ABPair<SolarSystem, Double>>> distances, Pane pane) {
@@ -187,7 +187,7 @@ public class DijkstraHelper {
      * Creates a line between two solar systems.
      * @param solarSystem1 the first solar system
      * @param solarSystem2 the second solar system
-     * @param pane the pane to add the lines to 
+     * @param pane the pane to add the lines to
      */
     private static void createLine(SolarSystem solarSystem1,
             SolarSystem solarSystem2, Pane pane) {

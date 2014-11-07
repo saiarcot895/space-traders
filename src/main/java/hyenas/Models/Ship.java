@@ -102,107 +102,156 @@ public class Ship {
      * A ShipType, used to distinguish between the types of ships.
      */
     public enum ShipType {
+        /**
+         * The flea ship (most basic).
+         */
         FLEA,
+        /**
+         * The gnat ship (basic).
+         */
         GNAT,
+        /**
+         * The firefly ship (standard).
+         */
         FIREFLY,
+        /**
+         * The mostquito ship (advanced).
+         */
         MOSQUITO,
+        /**
+         * The bumblebee ship (very advanced).
+         */
         BUMBLEBEE,
     }
 
     /**
      * Initializes an instance of Ship, sets default values based on the type.
-     * @param type, the type of ship
+     * @param ptype the type of ship
      */
-    public Ship(ShipType type) {
-        switch (type) {
+    public Ship(ShipType ptype) {
+        switch (ptype) {
             case FLEA:
-                name = "Flea";
-                maxFuel = 700.0;
-                fuel = maxFuel;
-                minTechLevel = 0;
-                price = 100;
-                hullStrength = 25;
-                currentHull = hullStrength;
-                repairCost = 0;
-                maxHealth = 5000.0;
-                health = maxHealth;
-                weaponSlots = 0;
-                shieldSlots = 0;
-                gadgetSlots = 0;
-                crewSlots = 0;
-                cargoSlots = 5;
+                setupFlea();
                 break;
             case GNAT:
-                name = "Gnat";
-                maxFuel = 2500.0;
-                fuel = maxFuel;
-                minTechLevel = 0;
-                price = 500;
-                hullStrength = 100;
-                currentHull = hullStrength;
-                repairCost = 0;
-                maxHealth = 2000.0;
-                health = maxHealth;
-                weaponSlots = 1;
-                shieldSlots = 0;
-                gadgetSlots = 1;
-                crewSlots = 1;
-                cargoSlots = 15;
+                setupGnat();
                 break;
             case FIREFLY:
-                name = "Firefly";
-                maxFuel = 4000.0;
-                fuel = maxFuel;
-                minTechLevel = 0;
-                price = 1000;
-                hullStrength = 300;
-                currentHull = hullStrength;
-                repairCost = 0;
-                maxHealth = 5000.0;
-                health = maxHealth;
-                weaponSlots = 1;
-                shieldSlots = 1;
-                gadgetSlots = 1;
-                crewSlots = 1;
-                cargoSlots = 20;
+                setupFirefly();
                 break;
             case MOSQUITO:
-                name = "Mosquito";
-                maxFuel = 5000.0;
-                fuel = maxFuel;
-                minTechLevel = 0;
-                price = 4000;
-                hullStrength = 400;
-                currentHull = hullStrength;
-                repairCost = 0;
-                maxHealth = 5000.0;
-                health = maxHealth;
-                weaponSlots = 2;
-                shieldSlots = 2;
-                gadgetSlots = 1;
-                crewSlots = 2;
-                cargoSlots = 15;
+                setupMosquito();
                 break;
             case BUMBLEBEE:
-                name = "Bumblebee";
-                maxFuel = 8000.0;
-                fuel = maxFuel;
-                minTechLevel = 0;
-                price = 10000;
-                hullStrength = 500;
-                currentHull = hullStrength;
-                repairCost = 0;
-                maxHealth = 5000.0;
-                health = maxHealth;
-                weaponSlots = 3;
-                shieldSlots = 3;
-                gadgetSlots = 2;
-                crewSlots = 3;
-                cargoSlots = 25;
+                setupBumblebee();
                 break;
-            default: break;
         }
-        this.type = type;
+        this.type = ptype;
+    }
+
+    /**
+     * Sets up the flea ship.
+     */
+    private void setupFlea() {
+        name = "Flea";
+        maxFuel = 700.0;
+        fuel = maxFuel;
+        minTechLevel = 0;
+        price = 100;
+        hullStrength = 25;
+        currentHull = hullStrength;
+        repairCost = 0;
+        maxHealth = 5000.0;
+        health = maxHealth;
+        weaponSlots = 0;
+        shieldSlots = 0;
+        gadgetSlots = 0;
+        crewSlots = 0;
+        cargoSlots = 5;
+    }
+
+    /**
+     * Sets up the gnat ship.
+     */
+    private void setupGnat() {
+        name = "Gnat";
+        maxFuel = 2500.0;
+        fuel = maxFuel;
+        minTechLevel = 0;
+        price = 500;
+        hullStrength = 100;
+        currentHull = hullStrength;
+        repairCost = 0;
+        maxHealth = 2000.0;
+        health = maxHealth;
+        weaponSlots = 1;
+        shieldSlots = 0;
+        gadgetSlots = 1;
+        crewSlots = 1;
+        cargoSlots = 15;
+    }
+
+    /**
+     * Sets up the firefly ship.
+     */
+    private void setupFirefly() {
+        name = "Firefly";
+        maxFuel = 4000.0;
+        fuel = maxFuel;
+        minTechLevel = 0;
+        price = 1000;
+        hullStrength = 300;
+        currentHull = hullStrength;
+        repairCost = 0;
+        maxHealth = 5000.0;
+        health = maxHealth;
+        weaponSlots = 1;
+        shieldSlots = 1;
+        gadgetSlots = 1;
+        crewSlots = 1;
+        cargoSlots = 20;
+    }
+
+    /**
+     * Sets up the mosquito ship.
+     */
+    private void setupMosquito() {
+        name = "Mosquito";
+        maxFuel = 5000.0;
+        fuel = maxFuel;
+        minTechLevel = 0;
+        price = 4000;
+        hullStrength = 400;
+        currentHull = hullStrength;
+        repairCost = 0;
+        maxHealth = 5000.0;
+        health = maxHealth;
+        weaponSlots = 2;
+        shieldSlots = 2;
+        gadgetSlots = 1;
+        crewSlots = 2;
+        cargoSlots = 15;
+    }
+
+    /**
+     * Sets up the bumblebee ship.
+     */
+    private void setupBumblebee() {
+        name = "Bumblebee";
+        maxFuel = 8000.0;
+        fuel = maxFuel;
+        minTechLevel = 0;
+        price = 10000;
+        hullStrength = 500;
+        currentHull = hullStrength;
+        repairCost = 0;
+        maxHealth = 5000.0;
+        health = maxHealth;
+        weaponSlots = 3;
+        shieldSlots = 3;
+        gadgetSlots = 2;
+        crewSlots = 3;
+        cargoSlots = 25;
     }
     
     /**
@@ -215,10 +264,10 @@ public class Ship {
     
     /**
      * Set the Ship's type.
-     * @param type the ship type
+     * @param ptype the ship type
      */
-    public void setShipType(ShipType type) {
-        this.type = type;
+    public void setShipType(ShipType ptype) {
+        this.type = ptype;
     }
     
     /**
@@ -318,7 +367,7 @@ public class Ship {
     }
     
     /**
-     * Get the ship's wares (the ship's cargo in a tradeable form)
+     * Get the ship's wares (the ship's cargo in a tradeable form).
      * @return the ship's wares
      */
     public List<Ware> getWares() {
@@ -327,23 +376,23 @@ public class Ship {
         List<Ware> defaultWares = Ware.defaultWares();
         List<Ware> shipCargo = getCargo();
         defaultWares.stream().forEach((ware) -> {
-            Good good = ware.getGood();
-            int count = 0;
-            count = shipCargo.stream().map((cargoWare) -> 
-                    cargoWare.getGood()).filter((cargoGood) -> 
-                            (good == cargoGood)).map
-                                ((_item) -> 1).reduce(count, Integer::sum);
-            ware.setCurrentQuantity(count);
-        });
+                Good good = ware.getGood();
+                int count = 0;
+                count = shipCargo.stream().map((cargoWare) -> 
+                        cargoWare.getGood()).filter((cargoGood) -> 
+                                (good == cargoGood)).map
+                                    ((item) -> 1).reduce(count, Integer::sum);
+                ware.setCurrentQuantity(count);
+            });
         return defaultWares;
     }
 
     /**
      * Add a ware to the ship's cargo. Returns true if successfully added
-     * (there was enough free cargo space)
+     * (there was enough free cargo space).
      * 
-     * @param ware, the ware to add to the ship's cargo
-     * @return whether the ware was added successfully
+     * @param ware the ware to add to the ship's cargo
+     * @return true if the ware was successfully added; false otherwise
      */
     public boolean addCargo(Ware ware) {
         // Only allow cargo to be added if there is space
@@ -356,10 +405,10 @@ public class Ship {
     }
     
     /**
-     * Removes the first occurrence of a given ware from the ship's cargo
+     * Removes the first occurrence of a given ware from the ship's cargo.
      * 
-     * @param toRemove, the ware to remove from the ship's cargo
-     * @return true if the ware was found and removed
+     * @param toRemove the ware to remove from the ship's cargo
+     * @return true if the ware was found and removed; false otherwise
      */
     public boolean removeCargo(Ware toRemove) {
         for (Ware ware: cargo) {
@@ -371,7 +420,7 @@ public class Ship {
     }
     
     /**
-     * Get the ship's fuel
+     * Get the ship's fuel.
      * @return the ship's fuel
      */
     public double getFuel() {
@@ -379,15 +428,15 @@ public class Ship {
     }
 
     /**
-     * Set the ship's fuel
-     * @param fuel, the ship's fuel
+     * Set the ship's fuel.
+     * @param pfuel the ship's fuel
      */
-    public void setFuel(double fuel) {
-        this.fuel = fuel;
+    public void setFuel(double pfuel) {
+        this.fuel = pfuel;
     }
 
     /**
-     * Get the ship's max fuel
+     * Get the ship's max fuel.
      * @return the ship's max fuel
      */
     public double getMaxFuel() {
@@ -395,7 +444,7 @@ public class Ship {
     }
     
     /**
-     * Get the ship's health
+     * Get the ship's health.
      * @return the ship's health
      */
     public double getHealth() {
@@ -403,11 +452,11 @@ public class Ship {
     }
     
     /**
-     * Set the ship's health
-     * @param health
+     * Set the ship's health.
+     * @param phealth the ship health
      */
-    public void setHealth(double health) {
-        this.health = health;
+    public void setHealth(double phealth) {
+        this.health = phealth;
     }
     
     /**

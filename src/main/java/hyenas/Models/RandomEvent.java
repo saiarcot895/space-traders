@@ -73,7 +73,7 @@ public class RandomEvent {
      * eventType.
      */
     private void setUp() {
-        switch(eventType) {
+        switch (eventType) {
             case POLICE:
                 name = "Police";
                 description = "You've been stopped by police!";
@@ -164,7 +164,7 @@ public class RandomEvent {
      */
     public boolean performAction() {
         Player player = Player.getInstance();
-        switch(eventType) {
+        switch (eventType) {
             case POLICE:
                 player.setCredits(player.getCredits() - 50);
                 actionResultText = "You pay the fine and are deducted 50 credits.";
@@ -201,7 +201,7 @@ public class RandomEvent {
      */
     public boolean performCancel() {
         Player player = Player.getInstance();
-        switch(eventType) {
+        switch (eventType) {
             case POLICE:
                 Random rand = new Random();
                 boolean success = rand.nextBoolean();
