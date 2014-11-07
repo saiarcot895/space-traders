@@ -44,5 +44,4 @@ public class SolarSystemScrollPane extends ScrollPane {
         ((Pane) getContent()).getChildren().remove(this.infoPane);
         this.infoPane = infoPane;
     }
-
 }
