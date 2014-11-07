@@ -29,19 +29,19 @@ public class SolarSystemScrollPane extends ScrollPane {
         setPrefSize(screenSize.getWidth(), screenSize.getHeight());
 
         setOnMousePressed((Event event) -> {
-            if (infoPane != null) {
-                ((Pane) getContent()).getChildren().remove(infoPane);
-                infoPane = null;
-            }
-        });
+                if (infoPane != null) {
+                    ((Pane) getContent()).getChildren().remove(infoPane);
+                    infoPane = null;
+                }
+            });
     }
     
     /**
-     * Sets the info pane for the scroll pane
-     * @param infoPane the info pane
+     * Sets the info pane for the scroll pane.
+     * @param pinfoPane the info pane
      */
-    public void setInfoPane(SolarSystemInfoPane infoPane) {
+    public void setInfoPane(SolarSystemInfoPane pinfoPane) {
         ((Pane) getContent()).getChildren().remove(this.infoPane);
-        this.infoPane = infoPane;
+        this.infoPane = pinfoPane;
     }
 }

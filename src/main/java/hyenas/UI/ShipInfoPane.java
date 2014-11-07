@@ -117,19 +117,19 @@ public class ShipInfoPane extends BorderPane {
     }
     
     /**
-     * Get the buy button.
-     * @return the buy button
-     */
-    public Button getBuyButton() {
-        return buyButton;
-    }
-    
-    /**
      * Get the sell button.
      * @return the sell button
      */
     public Button getSellButton() {
         return sellButton;
+    }
+    
+    /**
+     * Get the buy button.
+     * @return the buy button
+     */
+    public Button getBuyButton() {
+        return buyButton;
     }
     
     /**

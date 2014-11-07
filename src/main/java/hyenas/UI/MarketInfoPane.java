@@ -93,18 +93,16 @@ public class MarketInfoPane extends BorderPane {
         bottomBox.setPrefWidth(300.0);
         bottomBox.setPrefHeight(85.0);
         buyButton = new StandardButton("Buy");
-        buyButton.setDisable(true);
-        
         sellButton = new StandardButton("Sell");
         sellButton.setDisable(true);
+        buyButton.setDisable(true);
         
         BorderPane buyPane = new BorderPane();
-        buyPane.setCenter(buyButton);
         BorderPane sellPane = new BorderPane();
+        buyPane.setCenter(buyButton);
         sellPane.setCenter(sellButton);
         bottomBox.setTop(buyPane);
         bottomBox.setBottom(sellPane);
-        
         
         setLeft(leftBox);
         setCenter(rightBox);
