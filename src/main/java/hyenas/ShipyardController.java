@@ -236,8 +236,17 @@ public class ShipyardController implements Initializable {
                         player.setCredits(player.getCredits() - item.getPrice());
 
 //                    TODO: Update adding to database
-//                    HyenasLoader.getInstance().getConnectionManager()
-//                            .getWeaponsTable().addRow((ShipyardBuyable) item, ship);
+                    
+                        if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
+//                            HyenasLoader.getInstance().getConnectionManager()
+//                            .getGadgetsTable().addRow(item, ship);
+                        } else if (shipyardTab.getType() == ShipyardTabType.WEAPONS) {
+//                            HyenasLoader.getInstance().getConnectionManager()
+//                            .getWeaponsTable().addRow(item, ship);
+                        } else if (shipyardTab.getType() == ShipyardTabType.SHIELDS) {
+//                            HyenasLoader.getInstance().getConnectionManager()
+//                            .getShieldsTable().addRow(item, ship);
+                        }
                     } else {
                         displayInsufficientCreditsAlert();
                     }
@@ -296,6 +305,13 @@ public class ShipyardController implements Initializable {
             }
             
 //            TODO: Remove item from database
+            if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
+                
+            } else if (shipyardTab.getType() == ShipyardTabType.WEAPONS) {
+                
+            } else if (shipyardTab.getType() == ShipyardTabType.SHIELDS) {
+                
+            }
         }
         
         infoPane.updateInfo();
