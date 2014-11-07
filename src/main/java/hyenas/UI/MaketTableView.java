@@ -10,10 +10,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class MaketTableView extends TableView {
     /**
-     * The market table type.
-     */
-    private MarketTableType type;
-    /**
      * The name property value for use with populating column.
      */
     private static final String NAME_PROPERTY_VALUE = "name";
@@ -77,6 +73,5 @@ public class MaketTableView extends TableView {
                 break;
             }
         }
-        this.type = ptype;
     }
 }
