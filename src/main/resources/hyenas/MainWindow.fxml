@@ -12,9 +12,9 @@
 <AnchorPane fx:id="anchorPane" prefHeight="170.0" prefWidth="640.0" styleClass="default-background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hyenas.MainWindowController">
     <children>
         <Label fx:id="titleLabel" styleClass="title-label" text="Space Traders" alignment="CENTER"></Label>
-        <Button fx:id="newGameButton" defaultButton="true" mnemonicParsing="false" onAction="#onNewGameClicked" text="New Game" />
-        <Button fx:id="continueButton" mnemonicParsing="false" onAction="#continueGame" text="Continue" />
-        <Button fx:id="settingsButton" mnemonicParsing="false" onAction="#onSettingsClicked" text="Settings" />
-        <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeGame" text="Close" />
+        <Button fx:id="newGameButton" styleClass="standard-button-big" defaultButton="true" mnemonicParsing="false" onAction="#onNewGameClicked" text="New Game" />
+        <Button fx:id="continueButton" styleClass="standard-button-big" mnemonicParsing="false" onAction="#continueGame" text="Continue" />
+        <Button fx:id="settingsButton" styleClass="standard-button-big" mnemonicParsing="false" onAction="#onSettingsClicked" text="Settings" />
+        <Button fx:id="closeButton" styleClass="standard-button-big" mnemonicParsing="false" onAction="#closeGame" text="Close" />
     </children>
 </AnchorPane>
