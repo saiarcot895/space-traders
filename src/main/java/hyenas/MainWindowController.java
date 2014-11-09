@@ -30,11 +30,6 @@ public class MainWindowController implements Initializable {
     @FXML
     private Button newGameButton;
     /**
-     * The main window controller settings button label.
-     */
-    @FXML
-    private Button settingsButton;
-    /**
      * The main window controller continue button label.
      */
     @FXML
@@ -71,13 +66,8 @@ public class MainWindowController implements Initializable {
         AnchorPane.setLeftAnchor(continueButton, buttonPadding);
         AnchorPane.setRightAnchor(continueButton, buttonPadding);
 
-        settingsButton.setFont(buttonFont);
-        AnchorPane.setTopAnchor(settingsButton, 450.0);
-        AnchorPane.setLeftAnchor(settingsButton, buttonPadding);
-        AnchorPane.setRightAnchor(settingsButton, buttonPadding);
-
         closeButton.setFont(buttonFont);
-        AnchorPane.setTopAnchor(closeButton, 550.0);
+        AnchorPane.setTopAnchor(closeButton, 450.0);
         AnchorPane.setLeftAnchor(closeButton, buttonPadding);
         AnchorPane.setRightAnchor(closeButton, buttonPadding);
     }
