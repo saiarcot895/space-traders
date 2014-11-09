@@ -87,9 +87,9 @@ public class ItemsTable implements Table<List<Ware>, Void> {
                 Good good = Good.values()[itemsInfo.getInt(1)];
                 int quantity = itemsInfo.getInt(2);
                 
-                Ware ware = new Ware(good);
-                ware.setCurrentQuantity(quantity);
-                ship.getCargo().add(ware);
+                for (int i = 0; i < quantity; i++) {
+                    ship.getCargo().add(new Ware(good));
+                }
             }
         } catch (SQLException e) {
             Logger.getLogger(ItemsTable.class.getName()).

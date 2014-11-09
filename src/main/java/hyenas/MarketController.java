@@ -9,6 +9,10 @@ import hyenas.UI.MaketTableView;
 import hyenas.UI.MaketTableView.MarketTableType;
 import hyenas.UI.MarketInfoPane;
 import hyenas.UI.StandardButton;
+import hyenas.database.ConnectionManager;
+import hyenas.database.ItemsTable;
+import hyenas.database.PlayerTable;
+import hyenas.database.ShipTable;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -215,6 +219,13 @@ public class MarketController implements Initializable {
                     int newCredits = credits - price;
                     player.setCredits(newCredits);
                     ware.setCurrentQuantity(--currentQuantity);
+                    
+                    ConnectionManager connectionManager = HyenasLoader.getInstance().getConnectionManager();
+                    PlayerTable playerDataTable = connectionManager.getPlayerTable();
+                    ItemsTable itemsTable = connectionManager.getItemTable();
+
+                    playerDataTable.update(player, null);
+                    itemsTable.update(player.getShip().getWares(), null);
 
                     infoPane.updateInfo();
                     updatePlanetTable();
@@ -258,6 +269,13 @@ public class MarketController implements Initializable {
                 int sellValue = (int) (ware.getBasePrice() * .8);
                 int credits = player.getCredits();
                 player.setCredits(credits + sellValue);
+                
+                ConnectionManager connectionManager = HyenasLoader.getInstance().getConnectionManager();
+                PlayerTable playerDataTable = connectionManager.getPlayerTable();
+                ItemsTable itemsTable = connectionManager.getItemTable();
+                
+                playerDataTable.update(player, null);
+                itemsTable.update(player.getShip().getWares(), null);
 
                 infoPane.updateInfo();
                 updatePlanetTable();
@@ -359,6 +377,13 @@ public class MarketController implements Initializable {
             if (credits >= totalFuelCost) {
                 player.setCredits(credits - totalFuelCost);
                 player.getShip().setFuel(newFuel);
+                
+                ConnectionManager connectionManager = HyenasLoader.getInstance().getConnectionManager();
+                PlayerTable playerDataTable = connectionManager.getPlayerTable();
+                ShipTable shipTable = connectionManager.getShipTable();
+                
+                playerDataTable.update(player, null);
+                shipTable.update(player.getShip(), player);
             } else {
                 displayInsufficientCreditsAlert();
             }

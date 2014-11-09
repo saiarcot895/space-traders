@@ -163,8 +163,8 @@ public class HyenasLoader extends Application {
         connectionManager.getSolarSystemTable().loadTable();
         connectionManager.getPlanetTable().loadTable();
         connectionManager.getPlayerTable().loadTable();
-        connectionManager.getItemTable().loadTable();
         connectionManager.getShipTable().loadTable();
+        connectionManager.getItemTable().loadTable();
         connectionManager.getWeaponsTable().loadTable();
         goToMapScreen();
     }
