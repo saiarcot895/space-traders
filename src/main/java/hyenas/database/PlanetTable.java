@@ -11,10 +11,22 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * This class manages the Planet table in the database, and allows getting
+ * and updating information in the table.
+ * @author Saikrishna Arcot
+ */
 public class PlanetTable implements Table<Planet, SolarSystem> {
 
+    /**
+     * Connection to the database.
+     */
     private final Connection conn;
 
+    /**
+     * Create the planet table manager.
+     * @param connArgs connection to the database
+     */
     public PlanetTable(Connection connArgs) {
         this.conn = connArgs;
     }
@@ -77,15 +89,9 @@ public class PlanetTable implements Table<Planet, SolarSystem> {
             stmt.setInt(5, planet.getTechLevel().ordinal());
             stmt.setInt(6, planet.getPlanetType().ordinal());
 
-            PreparedStatement systemStatement = conn.prepareStatement(
-                    "SELECT ID FROM SolarSystem WHERE Name = ?");
-            systemStatement.setString(1, system.getSystemName());
-            ResultSet systemIDResultSet = systemStatement.executeQuery();
-            if (!systemIDResultSet.next()) {
-                throw new IllegalArgumentException();
-            }
+            int solarSystemId = getSolarSystemResultSet(system);
 
-            stmt.setInt(7, systemIDResultSet.getInt(1));
+            stmt.setInt(7, solarSystemId);
             stmt.executeUpdate();
             // Id & ssid are generated based on how the System is generated.
         } catch (SQLException e) {
@@ -106,15 +112,9 @@ public class PlanetTable implements Table<Planet, SolarSystem> {
             stmt.setInt(4, planet.getTechLevel().ordinal());
             stmt.setInt(5, planet.getPlanetType().ordinal());
 
-            PreparedStatement systemStatement = conn.prepareStatement(
-                    "SELECT ID FROM SolarSystem WHERE Name = ?");
-            systemStatement.setString(1, system.getSystemName());
-            ResultSet systemIDResultSet = systemStatement.executeQuery();
-            if (!systemIDResultSet.next()) {
-                throw new IllegalArgumentException();
-            }
+            int solarSystemId = getSolarSystemResultSet(system);
 
-            stmt.setInt(6, systemIDResultSet.getInt(1));
+            stmt.setInt(6, solarSystemId);
             stmt.setString(7, planet.getPlanetName());
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -129,21 +129,32 @@ public class PlanetTable implements Table<Planet, SolarSystem> {
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM Planet "
                     + "WHERE SSID = ? AND Name = ?");
 
-            PreparedStatement systemStatement = conn.prepareStatement(
-                    "SELECT ID FROM SolarSystem WHERE Name = ?");
-            systemStatement.setString(1, system.getSystemName());
-            ResultSet systemIDResultSet = systemStatement.executeQuery();
-            if (!systemIDResultSet.next()) {
-                throw new IllegalArgumentException();
-            }
+            int solarSystemId = getSolarSystemResultSet(system);
 
-            stmt.setInt(1, systemIDResultSet.getInt(1));
+            stmt.setInt(1, solarSystemId);
             stmt.setString(2, planet.getPlanetName());
             stmt.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(PlanetTable.class.getName()).
                     log(Level.SEVERE, null, e);
         }
+    }
+
+    /**
+     * Get the Solar System ID of the given solar system object.
+     * @param system solar system to get the ID of
+     * @return ID of the solar system
+     * @throws SQLException 
+     */
+    private int getSolarSystemResultSet(SolarSystem system) throws SQLException {
+        PreparedStatement systemStatement = conn.prepareStatement(
+                "SELECT ID FROM SolarSystem WHERE Name = ?");
+        systemStatement.setString(1, system.getSystemName());
+        ResultSet systemIDResultSet = systemStatement.executeQuery();
+        if (!systemIDResultSet.next()) {
+            throw new IllegalArgumentException();
+        }
+        return systemIDResultSet.getInt(1);
     }
 
     @Override

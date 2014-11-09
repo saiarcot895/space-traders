@@ -10,10 +10,22 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * This class manages the Solar System table in the database, and allows getting
+ * and updating information in the table.
+ * @author Saikrishna Arcot
+ */
 public class SolarSystemTable implements Table<SolarSystem, Void> {
 
+    /**
+     * Connection to the database.
+     */
     private final Connection conn;
 
+    /**
+     * Create the solar system table manager.
+     * @param connArgs connection to the database
+     */
     public SolarSystemTable(Connection connArgs) {
         this.conn = connArgs;
     }

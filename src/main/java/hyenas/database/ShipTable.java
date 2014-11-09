@@ -10,21 +10,38 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * This class manages the Ship table in the database, and allows getting
+ * and updating information in the table.
+ * @author Saikrishna Arcot
+ */
 public class ShipTable implements Table<Ship, Player> {
 
+    /**
+     * Connection to the database.
+     */
     private final Connection conn;
     
+    /**
+     * Prepared statement for getting the player ID.
+     */
+    private PreparedStatement sysStmt;
+
+    /**
+     * Create the ship table manager.
+     * @param connArgs connection to the database
+     */
     public ShipTable(Connection connArgs) {
         this.conn = connArgs;
+        try {
+            sysStmt = conn.prepareStatement("SELECT ID FROM Players WHERE Name = ?");
+        } catch (SQLException ex) {
+            Logger.getLogger(ShipTable.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Override
     public void createTable() {
-        // name (type) string, int upkeep (UK), <- Wat?
-        // double fuel, <- (Can be NULL because India)
-        // double health, int SID <- Ship Id to reference
-        // double shield
-        // the other tables related to ship
         String create = "CREATE TABLE IF NOT EXISTS Ship "
                 + "(ID INTEGER NOT NULL, " + "Type VARCHAR(20) NOT NULL, "
                 + "Fuel DOUBLE NOT NULL, " + "Health DOUBLE NOT NULL, "
@@ -44,24 +61,33 @@ public class ShipTable implements Table<Ship, Player> {
             String query = "INSERT INTO Ship "
                     + "(Type, Fuel, Health, Player) VALUES(?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, ship.getName());
-            stmt.setDouble(2, ship.getFuel());
-            stmt.setDouble(3, ship.getHealth());
-            
-            PreparedStatement sysStmt = conn.prepareStatement(
-                    "SELECT ID FROM Players WHERE Name = ?");
-            sysStmt.setString(1, player.getName());
-            ResultSet shipIDResultSet = sysStmt.executeQuery();
-            if (!shipIDResultSet.next()) {
-                throw new IllegalArgumentException();
-            }
-            
-            stmt.setInt(4, shipIDResultSet.getInt(1));
-            stmt.executeUpdate();
+            fillAndRunUpdate(stmt, ship, player);
         } catch (SQLException e) {
             Logger.getLogger(ShipTable.class.getName()).
                     log(Level.SEVERE, null, e);
         }
+    }
+
+    /**
+     * Fill all parameters to the SQL query with values from the player object.
+     * @param stmt Prepared statement to fill
+     * @param ship ship object to use in reading data
+     * @param player player object to use in reading data
+     * @throws SQLException if an error in the database occurred in updating the information
+     */
+    private void fillAndRunUpdate(PreparedStatement stmt, Ship ship, Player player) throws SQLException {
+        stmt.setString(1, ship.getName());
+        stmt.setDouble(2, ship.getFuel());
+        stmt.setDouble(3, ship.getHealth());
+        
+        sysStmt.setString(1, player.getName());
+        ResultSet shipIDResultSet = sysStmt.executeQuery();
+        if (!shipIDResultSet.next()) {
+            throw new IllegalArgumentException();
+        }
+        
+        stmt.setInt(4, shipIDResultSet.getInt(1));
+        stmt.executeUpdate();
     }
 
     @Override
@@ -70,20 +96,7 @@ public class ShipTable implements Table<Ship, Player> {
             String query = "UPDATE Ship "
                     + "SET Type = ?, Fuel = ?, Health = ? WHERE Player = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, ship.getName());
-            stmt.setDouble(2, ship.getFuel());
-            stmt.setDouble(3, ship.getHealth());
-            
-            PreparedStatement sysStmt = conn.prepareStatement(
-                    "SELECT ID FROM Players WHERE Name = ?");
-            sysStmt.setString(1, player.getName());
-            ResultSet shipIDResultSet = sysStmt.executeQuery();
-            if (!shipIDResultSet.next()) {
-                throw new IllegalArgumentException();
-            }
-            
-            stmt.setInt(4, shipIDResultSet.getInt(1));
-            stmt.executeUpdate();
+            fillAndRunUpdate(stmt, ship, player);
         } catch (SQLException e) {
             Logger.getLogger(ShipTable.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -98,8 +111,6 @@ public class ShipTable implements Table<Ship, Player> {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, ship.getName());
             
-            PreparedStatement sysStmt = conn.prepareStatement(
-                    "SELECT ID FROM Players WHERE Name = ?");
             sysStmt.setString(1, player.getName());
             ResultSet shipIDResultSet = sysStmt.executeQuery();
             if (!shipIDResultSet.next()) {

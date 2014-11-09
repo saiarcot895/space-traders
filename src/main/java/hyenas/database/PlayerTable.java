@@ -11,10 +11,22 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * This class manages the Player table in the database, and allows getting
+ * and updating information in the table.
+ * @author Saikrishna Arcot
+ */
 public class PlayerTable implements Table<Player, Void> {
 
+    /**
+     * Connection to the database.
+     */
     private final Connection conn;
 
+    /**
+     * Create the player table manager.
+     * @param connArgs connection to the database
+     */
     public PlayerTable(Connection connArgs) {
         this.conn = connArgs;
     }
@@ -47,30 +59,7 @@ public class PlayerTable implements Table<Player, Void> {
                     + "(Name, Points, Engineer, Pilot, Fighter, Investor, "
                     + "Trader, Credits, SSID) "
                     + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            stmt.setString(1, player.getName());
-            stmt.setInt(2, player.getPoints());
-            stmt.setInt(3, player.getEngineerSkill());
-            stmt.setInt(4, player.getPilotSkill());
-            stmt.setInt(5, player.getFighterSkill());
-            stmt.setInt(6, player.getInvestorSkill());
-            stmt.setInt(7, player.getTraderSkill());
-            stmt.setInt(8, player.getCredits());
-            
-            if (player.getCurrentSystem() != null) {
-                PreparedStatement solarSystemStmt = conn.prepareStatement("SELECT ID "
-                    + "FROM SolarSystem WHERE Name = ?");
-                solarSystemStmt.setString(1, player.getCurrentSystem().getSystemName());
-                ResultSet solarSystemResult = solarSystemStmt.executeQuery();
-                if (solarSystemResult.next()) {
-                    stmt.setInt(9, solarSystemResult.getInt(1));
-                } else {
-                    stmt.setNull(9, java.sql.Types.INTEGER);
-                }
-            } else {
-                stmt.setNull(9, java.sql.Types.INTEGER);
-            }
-            
-            stmt.executeUpdate();
+            fillAndRunUpdate(stmt, player);
         } catch (SQLException e) {
             Logger.getLogger(PlayerTable.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -84,34 +73,44 @@ public class PlayerTable implements Table<Player, Void> {
                     + "SET Name = ?, Points = ?, Engineer = ?, Pilot = ?, "
                     + "Fighter = ?, Investor = ?, Trader = ?, Credits = ?,"
                     + "SSID = ? ");
-            stmt.setString(1, player.getName());
-            stmt.setInt(2, player.getPoints());
-            stmt.setInt(3, player.getEngineerSkill());
-            stmt.setInt(4, player.getPilotSkill());
-            stmt.setInt(5, player.getFighterSkill());
-            stmt.setInt(6, player.getInvestorSkill());
-            stmt.setInt(7, player.getTraderSkill());
-            stmt.setInt(8, player.getCredits());
-            
-            if (player.getCurrentSystem() != null) {
-                PreparedStatement solarSystemStmt = conn.prepareStatement("SELECT ID "
-                    + "FROM SolarSystem WHERE Name = ?");
-                solarSystemStmt.setString(1, player.getCurrentSystem().getSystemName());
-                ResultSet solarSystemResult = solarSystemStmt.executeQuery();
-                if (solarSystemResult.next()) {
-                    stmt.setInt(9, solarSystemResult.getInt(1));
-                } else {
-                    stmt.setNull(9, java.sql.Types.INTEGER);
-                }
-            } else {
-                stmt.setNull(9, java.sql.Types.INTEGER);
-            }
-            
-            stmt.executeUpdate();
+            fillAndRunUpdate(stmt, player);
         } catch (SQLException e) {
             Logger.getLogger(PlayerTable.class.getName()).
                     log(Level.SEVERE, null, e);
         }
+    }
+
+    /**
+     * Fill all parameters to the SQL query with values from the player object.
+     * @param stmt Prepared statement to fill
+     * @param player player object to use
+     * @throws SQLException if an error in the database occurred in updating the information
+     */
+    private void fillAndRunUpdate(PreparedStatement stmt, Player player) throws SQLException {
+        stmt.setString(1, player.getName());
+        stmt.setInt(2, player.getPoints());
+        stmt.setInt(3, player.getEngineerSkill());
+        stmt.setInt(4, player.getPilotSkill());
+        stmt.setInt(5, player.getFighterSkill());
+        stmt.setInt(6, player.getInvestorSkill());
+        stmt.setInt(7, player.getTraderSkill());
+        stmt.setInt(8, player.getCredits());
+        
+        if (player.getCurrentSystem() != null) {
+            PreparedStatement solarSystemStmt = conn.prepareStatement("SELECT ID "
+                    + "FROM SolarSystem WHERE Name = ?");
+            solarSystemStmt.setString(1, player.getCurrentSystem().getSystemName());
+            ResultSet solarSystemResult = solarSystemStmt.executeQuery();
+            if (solarSystemResult.next()) {
+                stmt.setInt(9, solarSystemResult.getInt(1));
+            } else {
+                stmt.setNull(9, java.sql.Types.INTEGER);
+            }
+        } else {
+            stmt.setNull(9, java.sql.Types.INTEGER);
+        }
+        
+        stmt.executeUpdate();
     }
     
     @Override
