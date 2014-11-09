@@ -71,7 +71,7 @@ public class Player {
         SolarSystem[] solarSystems = Galaxy.getInstance().getSolarSystems().values().toArray(new SolarSystem[0]);
         currentSystem = solarSystems[rand.nextInt(solarSystems.length)];
         currentPlanet = currentSystem.getPlanets().get(0);
-        credits = 750;
+        credits = 2000;
         state = false;
     }
 
