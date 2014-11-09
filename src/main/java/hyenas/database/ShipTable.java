@@ -21,11 +21,6 @@ public class ShipTable implements Table<Ship, Player> {
      * Connection to the database.
      */
     private final Connection conn;
-    
-    /**
-     * Prepared statement for getting the player ID.
-     */
-    private PreparedStatement sysStmt;
 
     /**
      * Create the ship table manager.
@@ -33,11 +28,6 @@ public class ShipTable implements Table<Ship, Player> {
      */
     public ShipTable(Connection connArgs) {
         this.conn = connArgs;
-        try {
-            sysStmt = conn.prepareStatement("SELECT ID FROM Players WHERE Name = ?");
-        } catch (SQLException ex) {
-            Logger.getLogger(ShipTable.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     @Override
@@ -80,6 +70,7 @@ public class ShipTable implements Table<Ship, Player> {
         stmt.setDouble(2, ship.getFuel());
         stmt.setDouble(3, ship.getHealth());
         
+        PreparedStatement sysStmt = conn.prepareStatement("SELECT ID FROM Players WHERE Name = ?");
         sysStmt.setString(1, player.getName());
         ResultSet shipIDResultSet = sysStmt.executeQuery();
         if (!shipIDResultSet.next()) {
@@ -111,6 +102,7 @@ public class ShipTable implements Table<Ship, Player> {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, ship.getName());
             
+            PreparedStatement sysStmt = conn.prepareStatement("SELECT ID FROM Players WHERE Name = ?");
             sysStmt.setString(1, player.getName());
             ResultSet shipIDResultSet = sysStmt.executeQuery();
             if (!shipIDResultSet.next()) {
