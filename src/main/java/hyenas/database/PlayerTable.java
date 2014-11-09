@@ -45,8 +45,8 @@ public class PlayerTable implements Table<Player, Void> {
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Players "
                     + "(Name, Points, Engineer, Pilot, Fighter, Investor, "
-                    + "Trader, Credits) "
-                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+                    + "Trader, Credits, SSID) "
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, player.getName());
             stmt.setInt(2, player.getPoints());
             stmt.setInt(3, player.getEngineerSkill());
@@ -55,6 +55,21 @@ public class PlayerTable implements Table<Player, Void> {
             stmt.setInt(6, player.getInvestorSkill());
             stmt.setInt(7, player.getTraderSkill());
             stmt.setInt(8, player.getCredits());
+            
+            if (player.getCurrentSystem() != null) {
+                PreparedStatement solarSystemStmt = conn.prepareStatement("SELECT ID "
+                    + "FROM SolarSystem WHERE Name = ?");
+                solarSystemStmt.setString(1, player.getCurrentSystem().getSystemName());
+                ResultSet solarSystemResult = solarSystemStmt.executeQuery();
+                if (solarSystemResult.next()) {
+                    stmt.setInt(9, solarSystemResult.getInt(1));
+                } else {
+                    stmt.setNull(9, java.sql.Types.INTEGER);
+                }
+            } else {
+                stmt.setNull(9, java.sql.Types.INTEGER);
+            }
+            
             stmt.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(PlayerTable.class.getName()).
@@ -67,7 +82,8 @@ public class PlayerTable implements Table<Player, Void> {
         try {
             PreparedStatement stmt = conn.prepareStatement("UPDATE Players "
                     + "SET Name = ?, Points = ?, Engineer = ?, Pilot = ?, "
-                    + "Fighter = ?, Investor = ?, Trader = ?, Credits = ? ");
+                    + "Fighter = ?, Investor = ?, Trader = ?, Credits = ?,"
+                    + "SSID = ? ");
             stmt.setString(1, player.getName());
             stmt.setInt(2, player.getPoints());
             stmt.setInt(3, player.getEngineerSkill());
@@ -76,6 +92,21 @@ public class PlayerTable implements Table<Player, Void> {
             stmt.setInt(6, player.getInvestorSkill());
             stmt.setInt(7, player.getTraderSkill());
             stmt.setInt(8, player.getCredits());
+            
+            if (player.getCurrentSystem() != null) {
+                PreparedStatement solarSystemStmt = conn.prepareStatement("SELECT ID "
+                    + "FROM SolarSystem WHERE Name = ?");
+                solarSystemStmt.setString(1, player.getCurrentSystem().getSystemName());
+                ResultSet solarSystemResult = solarSystemStmt.executeQuery();
+                if (solarSystemResult.next()) {
+                    stmt.setInt(9, solarSystemResult.getInt(1));
+                } else {
+                    stmt.setNull(9, java.sql.Types.INTEGER);
+                }
+            } else {
+                stmt.setNull(9, java.sql.Types.INTEGER);
+            }
+            
             stmt.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(PlayerTable.class.getName()).
