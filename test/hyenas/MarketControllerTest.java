@@ -29,39 +29,13 @@ public class MarketControllerTest {
     public static void tearDownClass() {
     }
     
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     * Test of initialize method, of class MarketController.
-     */
-    @Test
-    public void testInitialize() {
-        System.out.println("initialize");
-        URL url = null;
-        ResourceBundle rb = null;
-        MarketController instance = new MarketController();
-        instance.initialize(url, rb);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
     /**
      * Test of buyItem method, of class MarketController.
      */
     @Test
     public void testBuyItem() {
         System.out.println("buyItem");
-        ActionEvent e = null;
-        MarketController instance = new MarketController();
-        instance.buyItem(e);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
