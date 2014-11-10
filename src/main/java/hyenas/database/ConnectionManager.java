@@ -12,16 +12,41 @@ import java.util.logging.Logger;
  * @author saikrishna
  */
 public class ConnectionManager {
+    /**
+     * The connection variable to link to the database.
+     */
     private Connection conn;
-
+    /**
+     * The address of the host server of the database server.
+     */
     private final String host;
-
+    /**
+     * The player table in the database.
+     */
     private PlayerTable playerTable;
+    /**
+     * The planet table in the database.
+     */
     private PlanetTable planetTable;
+    /**
+     * The items table in the database.
+     */
     private ItemsTable itemTable;
+    /**
+     * The solar system table in the database.
+     */
     private SolarSystemTable solarSystemTable;
+    /**
+     * The ship table in the database.
+     */
     private ShipTable shipTable;
+    /**
+     * The gadgets table in the database.
+     */
     private GadgetsTable gadgetsTable;
+    /**
+     * The weapons table in the database.
+     */
     private WeaponsTable weaponsTable;
     
     /**

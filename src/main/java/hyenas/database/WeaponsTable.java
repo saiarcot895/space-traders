@@ -11,10 +11,21 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * The weapons table.
+ * @author Abhishek
+ */
 public class WeaponsTable implements Table<Weapon, Ship> {
 
+    /**
+     * The address of the host server of the database server.
+     */
     private final Connection conn;
 
+    /**
+     * Initializes a connection manager.
+     * @param connArgs 
+     */
     public WeaponsTable(Connection connArgs) {
         this.conn = connArgs;
     }

@@ -9,10 +9,21 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * The gadget table.
+ * @author Abhishek
+ */
 public class GadgetsTable implements Table<Gadget, Ship> {
 
+    /**
+     * The connection variable to link to the database server.
+     */
     private final Connection conn;
 
+    /**
+     * Initializes a connection manager.
+     * @param connArgs 
+     */
     public GadgetsTable(Connection connArgs) {
         this.conn = connArgs;
     }
@@ -59,7 +70,7 @@ public class GadgetsTable implements Table<Gadget, Ship> {
     
     @Override
     public void update(Gadget item, Ship parent) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("TODO."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
