@@ -151,6 +151,7 @@ public class SystemUIController implements Initializable {
             @Override
             public void run() {
                 Platform.runLater(new Runnable() {
+                    @Override
                     public void run() {
                         for (Planet planet : planetMap.keySet()) {
                             PlanetButton button = planetMap.get(planet);

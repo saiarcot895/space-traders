@@ -177,7 +177,7 @@ public class MarketController implements Initializable {
      */
     private void updatePlayerTableView() {
         ObservableList<Ware> currentItems = playerTable.getItems();
-        currentItems.removeAll(currentItems);
+        currentItems.clear();
         
         Player player = Player.getInstance();
         List<Ware> playerWares = player.getShip().getWares();
@@ -190,7 +190,7 @@ public class MarketController implements Initializable {
      */
     private void updatePlanetTableView() {
         ObservableList<Ware> currentItems = planetTable.getItems();
-        currentItems.removeAll(currentItems);
+        currentItems.clear();
         
         List<Ware> wares = planet.getWares();
         ObservableList<Ware> planetTableData = FXCollections.observableArrayList(wares);

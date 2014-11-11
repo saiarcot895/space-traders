@@ -129,7 +129,7 @@ public class MarketInfoPane extends BorderPane {
     /**
      * Updates the info in the pane.
      */
-    public void updateInfo() {
+    public final void updateInfo() {
         Player player = Player.getInstance();
         Planet planet = player.getCurrentPlanet();
         Ship ship = player.getShip();

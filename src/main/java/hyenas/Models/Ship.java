@@ -1,5 +1,6 @@
 package hyenas.Models;
 
+import hyenas.Models.Planet.PlanetTechLevel;
 import hyenas.Models.Ware.Good;
 import java.util.List;
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public class Ship {
     /**
      * The min tech level required to obtain the ship.
      */
-    private int minTechLevel;
+    private PlanetTechLevel minTechLevel;
     /**
      * The ship price.
      */
@@ -152,7 +153,7 @@ public class Ship {
         name = "Flea";
         maxFuel = 700.0;
         fuel = maxFuel;
-        minTechLevel = 0;
+        minTechLevel = PlanetTechLevel.MEDIEVAL;
         price = 100;
         hullStrength = 25;
         currentHull = hullStrength;
@@ -173,7 +174,7 @@ public class Ship {
         name = "Gnat";
         maxFuel = 2500.0;
         fuel = maxFuel;
-        minTechLevel = 0;
+        minTechLevel = PlanetTechLevel.MEDIEVAL;
         price = 500;
         hullStrength = 100;
         currentHull = hullStrength;
@@ -194,7 +195,7 @@ public class Ship {
         name = "Firefly";
         maxFuel = 4000.0;
         fuel = maxFuel;
-        minTechLevel = 0;
+        minTechLevel = PlanetTechLevel.RENAISSANCE;
         price = 1000;
         hullStrength = 300;
         currentHull = hullStrength;
@@ -215,7 +216,7 @@ public class Ship {
         name = "Mosquito";
         maxFuel = 5000.0;
         fuel = maxFuel;
-        minTechLevel = 0;
+        minTechLevel = PlanetTechLevel.RENAISSANCE;
         price = 4000;
         hullStrength = 400;
         currentHull = hullStrength;
@@ -236,7 +237,7 @@ public class Ship {
         name = "Bumblebee";
         maxFuel = 8000.0;
         fuel = maxFuel;
-        minTechLevel = 0;
+        minTechLevel = PlanetTechLevel.EARLYINDUSTRIAL;
         price = 10000;
         hullStrength = 500;
         currentHull = hullStrength;
@@ -469,6 +470,30 @@ public class Ship {
      */
     public int getPrice() {
         return price;
+    }
+    
+    /**
+     * Get the min tech level required for selling.
+     * @return the min tech level the ship
+     */
+    public PlanetTechLevel getMinTechLevel() {
+        return minTechLevel;
+    }
+    
+    /**
+     * Get the currentHull.
+     * @return the current hull
+     */
+    public int getCurrentHull() {
+        return currentHull;
+    }
+    
+    /**
+     * Get the repair cost.
+     * @return the repair cost
+     */
+    public int getRepairCost() {
+        return repairCost;
     }
     
     /**

@@ -215,10 +215,7 @@ public class AllocationController implements Initializable {
      * @return true if input is valid; false otherwise
      */
     private boolean validInput() {
-        if (name.getText().length() == 0) {
-            return false;
-        }
-        return true;
+        return name.getText().length() != 0;
     }
     
     /**

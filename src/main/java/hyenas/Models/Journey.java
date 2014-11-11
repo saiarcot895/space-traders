@@ -1,5 +1,6 @@
 package hyenas.Models;
 
+import hyenas.UI.SolarSystemButton;
 import javafx.scene.control.Button;
 
 /**
@@ -22,7 +23,7 @@ public class Journey {
     /**
      * The journey destination solar system button.
      */
-    private Button destinationSystemButton;
+    private SolarSystemButton destinationSystemButton;
     /**
      * The journey distance.
      */
@@ -37,7 +38,7 @@ public class Journey {
      * @param pdistance the distance between starting and destination
      */
     public Journey(SolarSystem starting, SolarSystem destination, Button
-            startingButton, Button destinationButton, double pdistance) {
+            startingButton, SolarSystemButton destinationButton, double pdistance) {
         startingSolarSystem = starting;
         destinationSolarSystem = destination;
         startingSystemButton = startingButton;
@@ -73,7 +74,7 @@ public class Journey {
      * Getter for destination solar system button.
      * @return destinationSystemButton the destination system button
      */
-    public Button getDestinationSystemButton() {
+    public SolarSystemButton getDestinationSystemButton() {
         return destinationSystemButton;
     }
     

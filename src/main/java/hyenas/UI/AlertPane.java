@@ -124,25 +124,23 @@ public class AlertPane extends BorderPane {
     /**
      * Initializes an AlertPane with a given title and message.
      * @param ptype the alert pane type
-     * @param title the title of the alert
-     * @param message the message of the alert
      */
-    public AlertPane(AlertPaneType ptype, String title, String message) {
-        this(ptype);
-        setTitleText(title);
-        setMessageText(message);
+    public AlertPane(AlertPaneType ptype) {
+        this(ptype, "", "");
     }
     
     /**
      * Initializes an AlertPane and creates required label/button elements.
      * @param ptype the alert pane type
+     * @param title the title of the alert
+     * @param message the message of the alert
      */
-    public AlertPane(AlertPaneType ptype) {
+    public AlertPane(AlertPaneType ptype, String title, String message) {
         this.type = ptype;
         setPrefSize(ALERT_PANE_WIDTH, ALERT_PANE_HEIGHT);
         getStyleClass().add("alertPane");
 
-        titleLabel = new AlertPaneTitleLabel();
+        titleLabel = new AlertPaneTitleLabel(title);
         titleLabel.setWrapText(true);
         titleLabel.setStyle("-fx-padding: 5 0 0 0;");
         BorderPane titlePane = new BorderPane();
@@ -150,11 +148,16 @@ public class AlertPane extends BorderPane {
         titlePane.setPrefHeight(10.0);
         setTop(titlePane);
         
-        messageLabel = new AlertPaneMessageLabel();
+        messageLabel = new AlertPaneMessageLabel(message);
         messageLabel.setWrapText(true);
         messageLabel.setPrefHeight(88.0);
         messageLabel.setStyle("-fx-padding: 0 10 0 10;");
         setCenter(messageLabel);
+        
+        if (titleLabel.getText().length() == 0) {
+            setCenter(null);
+            setTop(messageLabel);
+        }
         
         if (type == AlertPaneType.ONEBUTTON) {
             closeButton = new StandardButton(DEFAULT_CLOSE_TEXT, StandardButtonType.SMALL);
