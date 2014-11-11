@@ -59,6 +59,11 @@ public class ShipTest {
         testShipAgainstDefaults(Ship.ShipType.MOSQUITO, ship);
     }
 
+    /**
+     * assertEquals ship's variables to those of a default ship of the same type
+     * @param type
+     * @param ship 
+     */
     private void testShipAgainstDefaults(Ship.ShipType type, Ship ship)   {
         Ship def = new Ship(type);
         assertEquals(def.getName(), ship.getName());
@@ -195,6 +200,12 @@ public class ShipTest {
         //TODO as with testGetWeaponSlots()
     }
 
+    /**
+     * Compares 2 lists of Wares by comparing the Good variable of the contents
+     * @param list1, 1st list to compare
+     * @param list2, 2nd list to compare
+     * @return boolean, if the 2 lists have the same types of wares
+     */
     private boolean compareWareLists(List<Ware> list1, List<Ware> list2)    {
         if (list1.size() != list2.size())    {
             return false;
