@@ -21,6 +21,14 @@ public class SolarSystemTable implements Table<SolarSystem, Void> {
      * Connection to the database.
      */
     private final Connection conn;
+    
+    /**
+     * The SQL query needed to create the table.
+     */
+    private static final String CREATE_QUERY = "CREATE TABLE IF NOT EXISTS SolarSystem "
+            + "(ID INTEGER NOT NULL, " + "Name VARCHAR(20) NOT NULL, "
+            + "XPoint INTEGER NOT NULL, " + "YPoint INTEGER NOT NULL, "
+            + "PRIMARY KEY (ID))";
 
     /**
      * Create the solar system table manager.
@@ -32,12 +40,8 @@ public class SolarSystemTable implements Table<SolarSystem, Void> {
 
     @Override
     public void createTable() {
-        String create = "CREATE TABLE IF NOT EXISTS SolarSystem "
-                + "(ID INTEGER NOT NULL, " + "Name VARCHAR(20) NOT NULL, "
-                + "XPoint INTEGER NOT NULL, " + "YPoint INTEGER NOT NULL, "
-                + "PRIMARY KEY (ID))";
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(create);
+            stmt.executeUpdate(CREATE_QUERY);
         } catch (SQLException e) {
             Logger.getLogger(SolarSystemTable.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -51,12 +55,8 @@ public class SolarSystemTable implements Table<SolarSystem, Void> {
      * @return true if table is created, false otherwise
      */
     public boolean createTableTest() {
-        String create = "CREATE TABLE IF NOT EXISTS SolarSystem "
-                + "(ID INTEGER NOT NULL, " + "Name VARCHAR(20) NOT NULL, "
-                + "XPoint INTEGER NOT NULL, " + "YPoint INTEGER NOT NULL, "
-                + "PRIMARY KEY (ID))";
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(create);
+            stmt.executeUpdate(CREATE_QUERY);
             return true;
         } catch (SQLException e) {
             Logger.getLogger(SolarSystemTable.class.getName()).

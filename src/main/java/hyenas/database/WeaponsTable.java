@@ -21,6 +21,15 @@ public class WeaponsTable implements Table<Weapon, Ship> {
      * The address of the host server of the database server.
      */
     private final Connection conn;
+    
+    /**
+     * The SQL query needed to create the table.
+     */
+    private static final String CREATE_QUERY = "CREATE TABLE IF NOT EXISTS Weapons "
+            + "(ID INTEGER NOT NULL, "
+            + "Ship INTEGER NOT NULL, "
+            + "PRIMARY KEY (ID), FOREIGN KEY (Ship) "
+            + "REFERENCES Ship (ID))";
 
     /**
      * Initializes a connection manager.
@@ -32,13 +41,8 @@ public class WeaponsTable implements Table<Weapon, Ship> {
     
     @Override
     public void createTable() {
-        String create = "CREATE TABLE IF NOT EXISTS Weapons "
-                + "(ID INTEGER NOT NULL, "
-                + "Ship INTEGER NOT NULL, "
-                + "PRIMARY KEY (ID), FOREIGN KEY (Ship) "
-                + "REFERENCES Ship (ID))";
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(create);
+            stmt.executeUpdate(CREATE_QUERY);
         } catch (SQLException e) {
             Logger.getLogger(WeaponsTable.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -52,13 +56,8 @@ public class WeaponsTable implements Table<Weapon, Ship> {
      * @return true if table is created, false otherwise
      */
     public boolean createTableTest() {
-        String create = "CREATE TABLE IF NOT EXISTS Weapons "
-                + "(ID INTEGER NOT NULL, "
-                + "Ship INTEGER NOT NULL, "
-                + "PRIMARY KEY (ID), FOREIGN KEY (Ship) "
-                + "REFERENCES Ship (ID))";
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(create);
+            stmt.executeUpdate(CREATE_QUERY);
             return true;
         } catch (SQLException e) {
             Logger.getLogger(WeaponsTable.class.getName()).
@@ -69,9 +68,19 @@ public class WeaponsTable implements Table<Weapon, Ship> {
     
     @Override
     public void addRow(Weapon weapon, Ship ship) {
-        String info = "INSERT INTO Weapons "
+        String query = "INSERT INTO Weapons "
                     + "VALUES(?, ?)";
-        try (PreparedStatement stmt = conn.prepareStatement(info);
+        doAddOrDeleteCommand(query, ship, weapon);
+    }
+
+    /**
+     * Make a INSERT and DELETE SQL query, and execute it.
+     * @param query query to run
+     * @param ship ship data to use
+     * @param weapon weapon data to use
+     */
+    private void doAddOrDeleteCommand(String query, Ship ship, Weapon weapon) {
+        try (PreparedStatement stmt = conn.prepareStatement(query);
                 PreparedStatement sysStmt = conn.prepareStatement(
                         "SELECT ID FROM Ship WHERE Name = ?")) {
             sysStmt.setString(1, ship.getName());
@@ -99,23 +108,7 @@ public class WeaponsTable implements Table<Weapon, Ship> {
     public void remove(Weapon weapon, Ship ship) {
         String info = "DELETE FROM Weapons "
                 + "WHERE ID = ? AND Ship = ?)";
-        try (PreparedStatement stmt = conn.prepareStatement(info);
-                PreparedStatement sysStmt = conn.prepareStatement(
-                        "SELECT ID FROM Ship WHERE Name = ?")) {
-            sysStmt.setString(1, ship.getName());
-            try (ResultSet shipIDResultSet = sysStmt.executeQuery()) {
-                if (!shipIDResultSet.next()) {
-                    throw new IllegalArgumentException();
-                }
-                
-                stmt.setInt(1, weapon.getType().ordinal());
-                stmt.setInt(2, shipIDResultSet.getInt(1));
-                stmt.execute();
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(WeaponsTable.class.getName()).
-                    log(Level.SEVERE, null, e);
-        }
+        doAddOrDeleteCommand(info, ship, weapon);
     }
     
     @Override
