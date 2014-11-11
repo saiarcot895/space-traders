@@ -10,9 +10,6 @@ import hyenas.UI.MaketTableView.MarketTableType;
 import hyenas.UI.MarketInfoPane;
 import hyenas.UI.StandardButton;
 import hyenas.database.ConnectionManager;
-import hyenas.database.ItemsTable;
-import hyenas.database.PlayerTable;
-import hyenas.database.ShipTable;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -128,10 +125,10 @@ public class MarketController implements Initializable {
         playerTable.setPrefWidth(202.0);
         playerTable.setEditable(false);
         
-        updatePlanetTable();
+        updatePlanetTableView();
         planetTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> setSelectedBuyWare((Ware) newValue));
-        updatePlayerTable();
+        updatePlayerTableView();
         playerTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> setSelectedSellWare((Ware) newValue));
         
@@ -176,9 +173,9 @@ public class MarketController implements Initializable {
     }
     
     /**
-     * Updates player table in database.
+     * Updates player table view.
      */
-    private void updatePlayerTable() {
+    private void updatePlayerTableView() {
         ObservableList<Ware> currentItems = playerTable.getItems();
         currentItems.removeAll(currentItems);
         
@@ -189,9 +186,9 @@ public class MarketController implements Initializable {
     }
     
     /**
-     * Updates planet table in database.
+     * Updates planet table view.
      */
-    private void updatePlanetTable() {
+    private void updatePlanetTableView() {
         ObservableList<Ware> currentItems = planetTable.getItems();
         currentItems.removeAll(currentItems);
         
@@ -220,16 +217,11 @@ public class MarketController implements Initializable {
                     player.setCredits(newCredits);
                     ware.setCurrentQuantity(--currentQuantity);
                     
-                    ConnectionManager connectionManager = HyenasLoader.getInstance().getConnectionManager();
-                    PlayerTable playerDataTable = connectionManager.getPlayerTable();
-                    ItemsTable itemsTable = connectionManager.getItemTable();
-
-                    playerDataTable.update(player, null);
-                    itemsTable.update(player.getShip().getWares(), null);
+                    updateDatabase();
 
                     infoPane.updateInfo();
-                    updatePlanetTable();
-                    updatePlayerTable();
+                    updatePlanetTableView();
+                    updatePlayerTableView();
                 } else {
                     displayAlert("Ship Cargo Full", "There is no room on your ship for more items.");
                 }
@@ -270,22 +262,27 @@ public class MarketController implements Initializable {
                 int credits = player.getCredits();
                 player.setCredits(credits + sellValue);
                 
-                ConnectionManager connectionManager = HyenasLoader.getInstance().getConnectionManager();
-                PlayerTable playerDataTable = connectionManager.getPlayerTable();
-                ItemsTable itemsTable = connectionManager.getItemTable();
-                
-                playerDataTable.update(player, null);
-                itemsTable.update(player.getShip().getWares(), null);
+                updateDatabase();
 
                 infoPane.updateInfo();
-                updatePlanetTable();
-                updatePlayerTable();
+                updatePlanetTableView();
+                updatePlayerTableView();
             } else {
                 displayAlert("Insufficient Tech Level", "The planet doesn't want to buy an item it can't use yet.");
             }
         } else {
             displayAlert("No Items", "You don't have any of this item to sell.");
         }
+    }
+    
+    /**
+     * Updates the player and items database.
+     */
+    private void updateDatabase() {
+        Player player = Player.getInstance();
+        ConnectionManager connectionManager = HyenasLoader.getInstance().getConnectionManager();
+        connectionManager.getPlayerTable().update(player, null);
+        connectionManager.getItemTable().update(player.getShip().getWares(), null);
     }
     
     /**
@@ -379,11 +376,8 @@ public class MarketController implements Initializable {
                 player.getShip().setFuel(newFuel);
                 
                 ConnectionManager connectionManager = HyenasLoader.getInstance().getConnectionManager();
-                PlayerTable playerDataTable = connectionManager.getPlayerTable();
-                ShipTable shipTable = connectionManager.getShipTable();
-                
-                playerDataTable.update(player, null);
-                shipTable.update(player.getShip(), player);
+                connectionManager.getPlayerTable().update(player, null);
+                connectionManager.getShipTable().update(player.getShip(), player);
             } else {
                 displayInsufficientCreditsAlert();
             }
