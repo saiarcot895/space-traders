@@ -46,10 +46,10 @@ public class SolarSystemTable implements Table<SolarSystem, Void> {
 
     @Override
     public void addRow(SolarSystem solarSystem, Void unused) {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO "
+        String query = "INSERT INTO "
                     + "SolarSystem (Name, XPoint, YPoint) "
-                    + "VALUES(?, ?, ?)");
+                    + "VALUES(?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, solarSystem.getSystemName());
             stmt.setInt(2, solarSystem.getX());
             stmt.setInt(3, solarSystem.getY());
@@ -63,10 +63,10 @@ public class SolarSystemTable implements Table<SolarSystem, Void> {
 
     @Override
     public void update(SolarSystem solarSystem, Void unused) {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("UPDATE "
-                    + "SolarSystem SET XPoint = ?, YPoint = ? "
-                    + "WHERE Name = ?");
+        String query = "UPDATE "
+                + "SolarSystem SET XPoint = ?, YPoint = ? "
+                + "WHERE Name = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, solarSystem.getX());
             stmt.setInt(2, solarSystem.getY());
             stmt.setString(3, solarSystem.getSystemName());
@@ -79,9 +79,8 @@ public class SolarSystemTable implements Table<SolarSystem, Void> {
 
     @Override
     public void remove(SolarSystem solarSystem, Void unused) {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("DELETE FROM "
-                    + "SolarSystem WHERE Name = ?");
+        try (PreparedStatement stmt = conn.prepareStatement("DELETE FROM "
+                    + "SolarSystem WHERE Name = ?")) {
             stmt.setString(1, solarSystem.getSystemName());
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -92,17 +91,17 @@ public class SolarSystemTable implements Table<SolarSystem, Void> {
     
     @Override
     public void loadTable() {
-        try {
-            Statement stmt = conn.createStatement();
-            ResultSet solarSystems = stmt.executeQuery("SELECT * FROM [SolarSystem]");
-            while (solarSystems.next()) {
-                String systemName = solarSystems.getString(2);
-                SolarSystem solarSystem = Galaxy.getInstance()
-                        .getSolarSystemForName(systemName);
-                if (solarSystem != null) {
-                    solarSystem.getPlanets().clear();
-                    solarSystem.setX(solarSystems.getInt(3));
-                    solarSystem.setY(solarSystems.getInt(4));
+        try (Statement stmt = conn.createStatement()) {
+            try (ResultSet solarSystems = stmt.executeQuery("SELECT * FROM [SolarSystem]")) {
+                while (solarSystems.next()) {
+                    String systemName = solarSystems.getString(2);
+                    SolarSystem solarSystem = Galaxy.getInstance()
+                            .getSolarSystemForName(systemName);
+                    if (solarSystem != null) {
+                        solarSystem.getPlanets().clear();
+                        solarSystem.setX(solarSystems.getInt(3));
+                        solarSystem.setY(solarSystems.getInt(4));
+                    }
                 }
             }
             Galaxy.getInstance().setLocationsSet(true);

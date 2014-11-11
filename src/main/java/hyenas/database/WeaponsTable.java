@@ -47,22 +47,21 @@ public class WeaponsTable implements Table<Weapon, Ship> {
 
     @Override
     public void addRow(Weapon weapon, Ship ship) {
-        try {
-            String info = "INSERT INTO Weapons "
+        String info = "INSERT INTO Weapons "
                     + "VALUES(?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(info);
-            
-            PreparedStatement sysStmt = conn.prepareStatement(
-                    "SELECT ID FROM Ship WHERE Name = ?");
+        try (PreparedStatement stmt = conn.prepareStatement(info);
+                PreparedStatement sysStmt = conn.prepareStatement(
+                        "SELECT ID FROM Ship WHERE Name = ?")) {
             sysStmt.setString(1, ship.getName());
-            ResultSet shipIDResultSet = sysStmt.executeQuery();
-            if (!shipIDResultSet.next()) {
-                throw new IllegalArgumentException();
+            try (ResultSet shipIDResultSet = sysStmt.executeQuery()) {
+                if (!shipIDResultSet.next()) {
+                    throw new IllegalArgumentException();
+                }
+                
+                stmt.setInt(1, weapon.getType().ordinal());
+                stmt.setInt(2, shipIDResultSet.getInt(1));
+                stmt.execute();
             }
-
-            stmt.setInt(1, weapon.getType().ordinal());
-            stmt.setInt(2, shipIDResultSet.getInt(1));
-            stmt.execute();
         } catch (SQLException e) {
             Logger.getLogger(WeaponsTable.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -76,22 +75,21 @@ public class WeaponsTable implements Table<Weapon, Ship> {
 
     @Override
     public void remove(Weapon weapon, Ship ship) {
-        try {
-            String info = "DELETE FROM Weapons "
-                    + "WHERE ID = ? AND Ship = ?)";
-            PreparedStatement stmt = conn.prepareStatement(info);
-            
-            PreparedStatement sysStmt = conn.prepareStatement(
-                    "SELECT ID FROM Ship WHERE Name = ?");
+        String info = "DELETE FROM Weapons "
+                + "WHERE ID = ? AND Ship = ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(info);
+                PreparedStatement sysStmt = conn.prepareStatement(
+                        "SELECT ID FROM Ship WHERE Name = ?")) {
             sysStmt.setString(1, ship.getName());
-            ResultSet shipIDResultSet = sysStmt.executeQuery();
-            if (!shipIDResultSet.next()) {
-                throw new IllegalArgumentException();
+            try (ResultSet shipIDResultSet = sysStmt.executeQuery()) {
+                if (!shipIDResultSet.next()) {
+                    throw new IllegalArgumentException();
+                }
+                
+                stmt.setInt(1, weapon.getType().ordinal());
+                stmt.setInt(2, shipIDResultSet.getInt(1));
+                stmt.execute();
             }
-
-            stmt.setInt(1, weapon.getType().ordinal());
-            stmt.setInt(2, shipIDResultSet.getInt(1));
-            stmt.execute();
         } catch (SQLException e) {
             Logger.getLogger(WeaponsTable.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -100,15 +98,15 @@ public class WeaponsTable implements Table<Weapon, Ship> {
     
     @Override
     public void loadTable() {
-        try {
-            Statement stmt = conn.createStatement();
+        try (Statement stmt = conn.createStatement()) {
             String query = "SELECT ID, Ship FROM Weapons";
-            ResultSet shipInfo = stmt.executeQuery(query);
-            while (shipInfo.next()) {
-                Weapon.WeaponType weaponType = Weapon.WeaponType.values()[
-                        shipInfo.getInt(1)];
-                Weapon weapon = new Weapon(weaponType);
-                Player.getInstance().getShip().getWeapons().add(weapon);
+            try (ResultSet shipInfo = stmt.executeQuery(query)) {
+                while (shipInfo.next()) {
+                    Weapon.WeaponType weaponType = Weapon.WeaponType.values()[
+                            shipInfo.getInt(1)];
+                    Weapon weapon = new Weapon(weaponType);
+                    Player.getInstance().getShip().getWeapons().add(weapon);
+                }
             }
         } catch (SQLException e) {
             Logger.getLogger(ShipTable.class.getName()).

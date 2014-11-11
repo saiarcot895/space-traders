@@ -54,11 +54,11 @@ public class PlayerTable implements Table<Player, Void> {
 
     @Override
     public void addRow(Player player, Void unused) {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Players "
+        String query = "INSERT INTO Players "
                     + "(Name, Points, Engineer, Pilot, Fighter, Investor, "
                     + "Trader, Credits, SSID) "
-                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
             fillAndRunUpdate(stmt, player);
         } catch (SQLException e) {
             Logger.getLogger(PlayerTable.class.getName()).
@@ -68,11 +68,11 @@ public class PlayerTable implements Table<Player, Void> {
     
     @Override
     public void update(Player player, Void parent) {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("UPDATE Players "
+        String query = "UPDATE Players "
                     + "SET Name = ?, Points = ?, Engineer = ?, Pilot = ?, "
                     + "Fighter = ?, Investor = ?, Trader = ?, Credits = ?,"
-                    + "SSID = ? ");
+                    + "SSID = ? ";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
             fillAndRunUpdate(stmt, player);
         } catch (SQLException e) {
             Logger.getLogger(PlayerTable.class.getName()).
@@ -97,14 +97,16 @@ public class PlayerTable implements Table<Player, Void> {
         stmt.setInt(8, player.getCredits());
         
         if (player.getCurrentSystem() != null) {
-            PreparedStatement solarSystemStmt = conn.prepareStatement("SELECT ID "
-                    + "FROM SolarSystem WHERE Name = ?");
-            solarSystemStmt.setString(1, player.getCurrentSystem().getSystemName());
-            ResultSet solarSystemResult = solarSystemStmt.executeQuery();
-            if (solarSystemResult.next()) {
-                stmt.setInt(9, solarSystemResult.getInt(1));
-            } else {
-                stmt.setNull(9, java.sql.Types.INTEGER);
+            try (PreparedStatement solarSystemStmt = conn.prepareStatement("SELECT ID "
+                        + "FROM SolarSystem WHERE Name = ?")) {
+                solarSystemStmt.setString(1, player.getCurrentSystem().getSystemName());
+                ResultSet solarSystemResult = solarSystemStmt.executeQuery();
+                if (solarSystemResult.next()) {
+                    stmt.setInt(9, solarSystemResult.getInt(1));
+                } else {
+                    stmt.setNull(9, java.sql.Types.INTEGER);
+                }
+                solarSystemResult.close();
             }
         } else {
             stmt.setNull(9, java.sql.Types.INTEGER);
@@ -115,9 +117,8 @@ public class PlayerTable implements Table<Player, Void> {
     
     @Override
     public void remove(Player player, Void unused) {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("DELETE FROM "
-                    + "Players WHERE Name = ?");
+        try (PreparedStatement stmt = conn.prepareStatement("DELETE FROM "
+                    + "Players WHERE Name = ?")) {
             stmt.setString(1, player.getName());
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -132,8 +133,7 @@ public class PlayerTable implements Table<Player, Void> {
      */
     @Override
     public void loadTable() {
-        try {
-            Statement stmt = conn.createStatement();
+        try (Statement stmt = conn.createStatement()) {
             ResultSet playerInfo = stmt.executeQuery("SELECT Players.Name,"
                     + " Players.Points, Players.Engineer, Players.Pilot,"
                     + " Players.Investor, Players.Fighter, Players.Trader,"
@@ -142,7 +142,9 @@ public class PlayerTable implements Table<Player, Void> {
                     + " INNER JOIN SolarSystem"
                     + " ON Players.SSID = SolarSystem.ID");
 
-            playerInfo.next();
+            if (!playerInfo.next()) {
+                throw new IllegalStateException();
+            }
             Player player = Player.getInstance();
             player.setName(playerInfo.getString(1));
             player.setPoints(playerInfo.getInt(2));
@@ -157,6 +159,8 @@ public class PlayerTable implements Table<Player, Void> {
                     playerInfo.getString(9));
             player.setCurrentSystem(system);
             player.setCurrentPlanet(system.getPlanets().get(0));
+            
+            playerInfo.close();
         } catch (SQLException e) {
             Logger.getLogger(PlayerTable.class.getName()).
                     log(Level.SEVERE, null, e);

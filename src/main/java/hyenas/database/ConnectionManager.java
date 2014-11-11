@@ -63,7 +63,9 @@ public class ConnectionManager {
     public void openConnection() {
         try {
             conn = DriverManager.getConnection(host);
-            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+            try (Statement pragmaKeysStatement = conn.createStatement()) {
+                pragmaKeysStatement.execute("PRAGMA foreign_keys = ON");
+            }
             
             playerTable = new PlayerTable(conn);
             planetTable = new PlanetTable(conn);
@@ -103,8 +105,7 @@ public class ConnectionManager {
      * Begins a transaction with the database.
      */
     public void beginTransaction() {
-        try {
-            Statement stmt = conn.createStatement();
+        try (Statement stmt = conn.createStatement()) {
             stmt.execute("BEGIN TRANSACTION");
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).
@@ -116,8 +117,7 @@ public class ConnectionManager {
      * Commits a transaction to the database.
      */
     public void commitTransaction() {
-        try {
-            Statement stmt = conn.createStatement();
+        try (Statement stmt = conn.createStatement()) {
             stmt.execute("COMMIT TRANSACTION");
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).

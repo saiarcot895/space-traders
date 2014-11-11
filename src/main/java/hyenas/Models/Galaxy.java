@@ -24,7 +24,7 @@ public class Galaxy {
     /**
      * The common galaxy instance. For use with singleton.
      */
-    private static Galaxy instance;
+    private static volatile Galaxy instance;
 
     /**
      * Initializes an instance of Galaxy, sets initial values.

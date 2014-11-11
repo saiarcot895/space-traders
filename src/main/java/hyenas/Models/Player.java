@@ -59,7 +59,7 @@ public class Player {
     /**
      * The common player instance. For use with singleton.
      */
-    private static Player instance;
+    private static volatile Player instance;
 
     /**
      * Initializes an instance of Player, sets initial values.
@@ -68,7 +68,8 @@ public class Player {
         // KEEP PRIVATE - use getInstance instead
         ship = new Ship(ShipType.FLEA);
         Random rand = new Random();
-        SolarSystem[] solarSystems = Galaxy.getInstance().getSolarSystems().values().toArray(new SolarSystem[0]);
+        SolarSystem[] solarSystems = Galaxy.getInstance().getSolarSystems().values()
+                .toArray(new SolarSystem[Galaxy.getInstance().getSolarSystems().values().size()]);
         currentSystem = solarSystems[rand.nextInt(solarSystems.length)];
         currentPlanet = currentSystem.getPlanets().get(0);
         credits = 2000;

@@ -18,10 +18,6 @@ public class Ship {
      */
     private String name;
     /**
-     * Whether the ship has insurance.
-     */
-    private boolean insurance;
-    /**
      * The ship number of weapon slots.
      */
     private int weaponSlots;

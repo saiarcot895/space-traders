@@ -20,7 +20,7 @@ public class SolarSystemButton extends Button {
     /**
      * The solar system button's CSS style class.
      */
-    private final String styleClass = "planet";
+    private static final String styleClass = "planet";
 
     /**
      * Sets up the button for the given system in the map UI.

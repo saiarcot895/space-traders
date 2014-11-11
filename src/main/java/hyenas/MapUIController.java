@@ -303,7 +303,11 @@ public class MapUIController implements Initializable {
 
         journey.getStartingSystemButton().getStyleClass().remove(CURRENT_PLANET_STYLE_CLASS);
         journey.getDestinationSystemButton().getStyleClass().add(CURRENT_PLANET_STYLE_CLASS);
-        currentSolarSystemButton = (SolarSystemButton) journey.getDestinationSystemButton();
+        if (journey.getDestinationSystemButton() instanceof SolarSystemButton) {
+            currentSolarSystemButton = (SolarSystemButton) journey.getDestinationSystemButton();
+        } else {
+            throw new RuntimeException("Unexpected object");
+        }
 
         HyenasLoader.getInstance().goToSystemScreen();
     }

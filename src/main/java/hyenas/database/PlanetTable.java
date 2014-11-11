@@ -33,8 +33,7 @@ public class PlanetTable implements Table<Planet, SolarSystem> {
     
     @Override
     public void loadTable() {
-        try {
-            Statement stmt = conn.createStatement();
+        try (Statement stmt = conn.createStatement()) {
             ResultSet planets = stmt.executeQuery("SELECT Planet.Name,"
                     + " Planet.Radius, Planet.ClockwiseOrbit, Planet.Size,"
                     + " Planet.Tech, Planet.Type, SolarSystem.Name"
@@ -53,6 +52,7 @@ public class PlanetTable implements Table<Planet, SolarSystem> {
 
                 solarSystem.getPlanets().add(planet);
             }
+            planets.close();
         } catch (SQLException e) {
             Logger.getLogger(PlanetTable.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -78,10 +78,9 @@ public class PlanetTable implements Table<Planet, SolarSystem> {
 
     @Override
     public void addRow(Planet planet, SolarSystem system) {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Planet "
+        try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO Planet "
                     + "(Name, Radius, ClockwiseOrbit, Size, "
-                    + "Tech, Type, SSID) VALUES(?, ?, ?, ?, ?, ?, ?)");
+                    + "Tech, Type, SSID) VALUES(?, ?, ?, ?, ?, ?, ?)")) {
             stmt.setString(1, planet.getPlanetName());
             stmt.setInt(2, planet.getOrbitRadius());
             stmt.setBoolean(3, planet.isClockwiseOrbit());
@@ -102,10 +101,9 @@ public class PlanetTable implements Table<Planet, SolarSystem> {
 
     @Override
     public void update(Planet planet, SolarSystem system) {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("UPDATE Planet "
+        try (PreparedStatement stmt = conn.prepareStatement("UPDATE Planet "
                     + "SET Radius = ?, ClockwiseOrbit = ?, Size = ?, "
-                    + "Tech = ?, Type = ? WHERE SSID = ? AND Name = ?");
+                    + "Tech = ?, Type = ? WHERE SSID = ? AND Name = ?")) {
             stmt.setInt(1, planet.getOrbitRadius());
             stmt.setBoolean(2, planet.isClockwiseOrbit());
             stmt.setDouble(3, planet.getSize());
@@ -125,10 +123,8 @@ public class PlanetTable implements Table<Planet, SolarSystem> {
 
     @Override
     public void remove(Planet planet, SolarSystem system) {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("DELETE FROM Planet "
-                    + "WHERE SSID = ? AND Name = ?");
-
+        try (PreparedStatement stmt = conn.prepareStatement("DELETE FROM Planet "
+                    + "WHERE SSID = ? AND Name = ?")) {
             int solarSystemId = getSolarSystemResultSet(system);
 
             stmt.setInt(1, solarSystemId);
@@ -147,14 +143,18 @@ public class PlanetTable implements Table<Planet, SolarSystem> {
      * @throws SQLException 
      */
     private int getSolarSystemResultSet(SolarSystem system) throws SQLException {
-        PreparedStatement systemStatement = conn.prepareStatement(
-                "SELECT ID FROM SolarSystem WHERE Name = ?");
-        systemStatement.setString(1, system.getSystemName());
-        ResultSet systemIDResultSet = systemStatement.executeQuery();
-        if (!systemIDResultSet.next()) {
-            throw new IllegalArgumentException();
+        try (PreparedStatement systemStatement = conn.prepareStatement(
+                    "SELECT ID FROM SolarSystem WHERE Name = ?")) {
+            systemStatement.setString(1, system.getSystemName());
+            try (ResultSet systemIDResultSet = systemStatement.executeQuery()) {
+                if (!systemIDResultSet.next()) {
+                    systemIDResultSet.close();
+                    throw new IllegalArgumentException();
+                }
+                systemIDResultSet.close();
+                return systemIDResultSet.getInt(1);
+            }
         }
-        return systemIDResultSet.getInt(1);
     }
 
     @Override

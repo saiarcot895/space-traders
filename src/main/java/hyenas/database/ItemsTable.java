@@ -49,9 +49,8 @@ public class ItemsTable implements Table<List<Ware>, Void> {
 
     @Override
     public void addRow(List<Ware> wares, Void unused) {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Items "
-                    + "(ItemID, Quantity, Player) VALUES(?, ?, ?)");
+        try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO Items "
+                    + "(ItemID, Quantity, Player) VALUES(?, ?, ?)")) {
             for (Ware ware : wares) {
                 stmt.setInt(1, ware.getGood().ordinal());
                 stmt.setInt(2, ware.getCurrentQuantity());
@@ -71,9 +70,8 @@ public class ItemsTable implements Table<List<Ware>, Void> {
 
     @Override
     public void remove(List<Ware> wares, Void unused) {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("DELETE FROM Items "
-                    + "WHERE ItemID = ?");
+        try (PreparedStatement stmt = conn.prepareStatement("DELETE FROM Items "
+                    + "WHERE ItemID = ?")) {
             for (Ware ware : wares) {
                 stmt.setInt(1, ware.getGood().ordinal());
                 stmt.executeUpdate();
@@ -86,8 +84,7 @@ public class ItemsTable implements Table<List<Ware>, Void> {
 
     @Override
     public void loadTable() {
-        try {
-            Statement stmt = conn.createStatement();
+        try (Statement stmt = conn.createStatement()) {
             ResultSet itemsInfo = stmt.executeQuery("SELECT ItemID,"
                     + " Quantity FROM Items");
 
@@ -100,6 +97,7 @@ public class ItemsTable implements Table<List<Ware>, Void> {
                     ship.getCargo().add(new Ware(good));
                 }
             }
+            itemsInfo.close();
         } catch (SQLException e) {
             Logger.getLogger(ItemsTable.class.getName()).
                     log(Level.SEVERE, null, e);

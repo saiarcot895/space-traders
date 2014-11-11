@@ -23,7 +23,7 @@ public class GadgetsTable implements Table<Gadget, Ship> {
 
     /**
      * Initializes a connection manager.
-     * @param connArgs 
+     * @param connArgs connection to the database
      */
     public GadgetsTable(Connection connArgs) {
         this.conn = connArgs;
@@ -56,21 +56,23 @@ public class GadgetsTable implements Table<Gadget, Ship> {
 
     @Override
     public void addRow(Gadget item, Ship ship) {
-        try {
-            String info = "INSERT INTO Gadgets (GadgetID, Ship) "
+        String info = "INSERT INTO Gadgets (GadgetID, Ship) "
                     + "VALUES(?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(info);
+        try (PreparedStatement stmt = conn.prepareStatement(info)) {
             stmt.setInt(1, item.getType().ordinal());
             
-            PreparedStatement sysStmt = conn.prepareStatement("SELECT ID FROM Ship WHERE Type = ?");
-            sysStmt.setInt(1, ship.getShipType().ordinal());
-            ResultSet shipIDResultSet = sysStmt.executeQuery();
-            if (!shipIDResultSet.next()) {
-                throw new IllegalArgumentException();
+            ResultSet shipIDResultSet = null;
+            try (PreparedStatement sysStmt = conn.prepareStatement("SELECT ID FROM Ship WHERE Type = ?")) {
+                sysStmt.setInt(1, ship.getShipType().ordinal());
+                shipIDResultSet = sysStmt.executeQuery();
+                if (!shipIDResultSet.next()) {
+                    throw new IllegalArgumentException();
+                }
             }
             
             stmt.setInt(2, shipIDResultSet.getInt(1));
             stmt.execute();
+            shipIDResultSet.close();
         } catch (SQLException e) {
             Logger.getLogger(GadgetsTable.class.getName()).
                     log(Level.SEVERE, null, e);

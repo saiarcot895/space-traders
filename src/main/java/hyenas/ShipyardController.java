@@ -191,7 +191,12 @@ public class ShipyardController implements Initializable {
      * @param tab new tab to display
      */
     public void setupForTabChange(Tab tab) {
-        ShipyardTab shipyardTab = (ShipyardTab) tab;
+        ShipyardTab shipyardTab = null;
+        if (tab instanceof ShipyardTab) {
+            shipyardTab = (ShipyardTab) tab;
+        } else {
+            return;
+        }
         playerShipTable.setupTableForType(shipyardTab.getType());
         playerShipTable.getSelectionModel().clearSelection();
         centerPane.setCenter(playerShipTable);
@@ -237,7 +242,7 @@ public class ShipyardController implements Initializable {
 
 //                    TODO: Update adding to database
                     
-                        if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
+                        /*if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
 //                            HyenasLoader.getInstance().getConnectionManager()
 //                            .getGadgetsTable().addRow(item, ship);
                         } else if (shipyardTab.getType() == ShipyardTabType.WEAPONS) {
@@ -246,7 +251,7 @@ public class ShipyardController implements Initializable {
                         } else if (shipyardTab.getType() == ShipyardTabType.SHIELDS) {
 //                            HyenasLoader.getInstance().getConnectionManager()
 //                            .getShieldsTable().addRow(item, ship);
-                        }
+                        }*/
                     } else {
                         displayInsufficientCreditsAlert();
                     }
@@ -305,13 +310,13 @@ public class ShipyardController implements Initializable {
             }
             
 //            TODO: Remove item from database
-            if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
+            /*if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
                 
             } else if (shipyardTab.getType() == ShipyardTabType.WEAPONS) {
                 
             } else if (shipyardTab.getType() == ShipyardTabType.SHIELDS) {
                 
-            }
+            }*/
         }
         
         infoPane.updateInfo();
