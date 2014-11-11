@@ -135,7 +135,7 @@ public class ShipInfoPane extends BorderPane {
     /**
      * Updates the info in the pane.
      */
-    public void updateInfo() {
+    public final void updateInfo() {
         Player player = Player.getInstance();
         Ship ship = player.getShip();
         

@@ -42,7 +42,7 @@ public class ShipyardPlayerTableView extends TableView {
      * Sets up the table for a given tab type.
      * @param ptype the tab type
      */
-    public void setupTableForType(ShipyardTabType ptype) {
+    public final void setupTableForType(ShipyardTabType ptype) {
         Player player = Player.getInstance();
         Ship ship = player.getShip();
         switch (ptype) {

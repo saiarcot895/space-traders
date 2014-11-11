@@ -103,4 +103,20 @@ public class ShipyardTab extends Tab {
     public String getPlaceholder() {
         return placeholder;
     }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof ShipyardTab)) {
+            return false;
+        }
+        if (o == this) {
+            return true;
+        }
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

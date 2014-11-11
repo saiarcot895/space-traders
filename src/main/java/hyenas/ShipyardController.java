@@ -193,7 +193,7 @@ public class ShipyardController implements Initializable {
      * @param tab new tab to display
      */
     public void setupForTabChange(Tab tab) {
-        ShipyardTab shipyardTab = null;
+        ShipyardTab shipyardTab;
         if (tab instanceof ShipyardTab) {
             shipyardTab = (ShipyardTab) tab;
         } else {
