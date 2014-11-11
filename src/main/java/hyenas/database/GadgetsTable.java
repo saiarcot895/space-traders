@@ -83,7 +83,7 @@ public class GadgetsTable implements Table<Gadget, Ship> {
         try (PreparedStatement stmt = conn.prepareStatement(info)) {
             stmt.setInt(1, item.getType().ordinal());
             
-            ResultSet shipIDResultSet = null;
+            ResultSet shipIDResultSet;
             try (PreparedStatement sysStmt = conn.prepareStatement("SELECT ID FROM Ship WHERE Type = ?")) {
                 sysStmt.setInt(1, ship.getShipType().ordinal());
                 shipIDResultSet = sysStmt.executeQuery();
