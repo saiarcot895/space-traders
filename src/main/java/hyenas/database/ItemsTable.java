@@ -13,10 +13,21 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * The items table.
+ * @author Abhishek
+ */
 public class ItemsTable implements Table<List<Ware>, Void> {
 
+    /**
+     * The address of the host server of the database server.
+     */
     private final Connection conn;
 
+    /**
+     * Initializes a connection manager.
+     * @param connArgs 
+     */
     public ItemsTable(Connection connArgs) {
         this.conn = connArgs;
     }
@@ -41,8 +52,7 @@ public class ItemsTable implements Table<List<Ware>, Void> {
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Items "
                     + "(ItemID, Quantity, Player) VALUES(?, ?, ?)");
-            for (int i = 0; i < wares.size(); i++) {
-                Ware ware = wares.get(i);
+            for (Ware ware : wares) {
                 stmt.setInt(1, ware.getGood().ordinal());
                 stmt.setInt(2, ware.getCurrentQuantity());
                 stmt.setInt(3, 1); // Change to dynamic
@@ -64,8 +74,7 @@ public class ItemsTable implements Table<List<Ware>, Void> {
         try {
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM Items "
                     + "WHERE ItemID = ?");
-            for (int i = 0; i < wares.size(); i++) {
-                Ware ware = wares.get(i);
+            for (Ware ware : wares) {
                 stmt.setInt(1, ware.getGood().ordinal());
                 stmt.executeUpdate();
             }

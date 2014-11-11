@@ -240,18 +240,13 @@ public class MapUIController implements Initializable {
      */
     private boolean randomEventOccurred() {
         Random rand = new Random();
-//        int roll = rand.nextInt(5);
-        // TODO: change back
-        int roll = 1 + rand.nextInt(2); // Guaratees an event to happen
-        RandomEventType eventType;
+        int roll = rand.nextInt(5);
         
         if (roll == 1) {
             handleRandomEvent(RandomEventType.PIRATE);
             return true;
         } else if (roll == 2) {
-//            handleRandomEvent(RandomEventType.TRADER);
-            // TODO: change back
-            handleRandomEvent(RandomEventType.POLICE);
+            handleRandomEvent(RandomEventType.TRADER);
             return true;
         } else if (roll == 3) {
             handleRandomEvent(RandomEventType.POLICE);

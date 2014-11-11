@@ -10,10 +10,21 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * The gadget table.
+ * @author Abhishek
+ */
 public class GadgetsTable implements Table<Gadget, Ship> {
 
+    /**
+     * The connection variable to link to the database server.
+     */
     private final Connection conn;
 
+    /**
+     * Initializes a connection manager.
+     * @param connArgs 
+     */
     public GadgetsTable(Connection connArgs) {
         this.conn = connArgs;
     }
