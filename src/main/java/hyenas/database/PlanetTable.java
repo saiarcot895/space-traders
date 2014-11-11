@@ -176,7 +176,6 @@ public class PlanetTable implements Table<Planet, SolarSystem> {
                     systemIDResultSet.close();
                     throw new IllegalArgumentException();
                 }
-                systemIDResultSet.close();
                 return systemIDResultSet.getInt(1);
             }
         }
