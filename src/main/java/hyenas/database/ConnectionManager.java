@@ -134,7 +134,9 @@ public class ConnectionManager {
     public void openSolarSystemConnection() {
         try {
             conn = DriverManager.getConnection(host);
-            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+            try (Statement pragmaKeysStatement = conn.createStatement()) {
+                pragmaKeysStatement.execute("PRAGMA foreign_keys = ON");
+            }
             solarSystemTable = new SolarSystemTable(conn);
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).
@@ -149,7 +151,9 @@ public class ConnectionManager {
     public void openGadgetsConnection() {
         try {
             conn = DriverManager.getConnection(host);
-            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+            try (Statement pragmaKeysStatement = conn.createStatement()) {
+                pragmaKeysStatement.execute("PRAGMA foreign_keys = ON");
+            }
             gadgetsTable = new GadgetsTable(conn);
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).
@@ -164,7 +168,9 @@ public class ConnectionManager {
     public void openItemConnection() {
         try {
             conn = DriverManager.getConnection(host);
-            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+            try (Statement pragmaKeysStatement = conn.createStatement()) {
+                pragmaKeysStatement.execute("PRAGMA foreign_keys = ON");
+            }
             itemTable = new ItemsTable(conn);
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).
@@ -179,7 +185,9 @@ public class ConnectionManager {
     public void openPlanetConnection() {
         try {
             conn = DriverManager.getConnection(host);
-            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+            try (Statement pragmaKeysStatement = conn.createStatement()) {
+                pragmaKeysStatement.execute("PRAGMA foreign_keys = ON");
+            }
             planetTable = new PlanetTable(conn);
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).
@@ -194,7 +202,9 @@ public class ConnectionManager {
     public void openPlayerConnection() {
         try {
             conn = DriverManager.getConnection(host);
-            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+            try (Statement pragmaKeysStatement = conn.createStatement()) {
+                pragmaKeysStatement.execute("PRAGMA foreign_keys = ON");
+            }
             playerTable = new PlayerTable(conn);
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).
@@ -209,7 +219,9 @@ public class ConnectionManager {
     public void openShipConnection() {
         try {
             conn = DriverManager.getConnection(host);
-            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+            try (Statement pragmaKeysStatement = conn.createStatement()) {
+                pragmaKeysStatement.execute("PRAGMA foreign_keys = ON");
+            }
             shipTable = new ShipTable(conn);
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).
@@ -224,7 +236,9 @@ public class ConnectionManager {
     public void openWeaponsConnection() {
         try {
             conn = DriverManager.getConnection(host);
-            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+            try (Statement pragmaKeysStatement = conn.createStatement()) {
+                pragmaKeysStatement.execute("PRAGMA foreign_keys = ON");
+            }
             weaponsTable = new WeaponsTable(conn);
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).

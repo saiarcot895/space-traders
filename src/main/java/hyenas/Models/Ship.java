@@ -66,25 +66,9 @@ public class Ship {
      */
     private double maxFuel;
     /**
-     * The min tech level required to obtain the ship.
-     */
-    private int minTechLevel;
-    /**
      * The ship price.
      */
     private int price;
-    /**
-     * The ship current hull.
-     */
-    private int currentHull;
-    /**
-     * The ship hull strength.
-     */
-    private int hullStrength;
-    /**
-     * The ship repair cost.
-     */
-    private int repairCost;
     /**
      * The ship health.
      */
@@ -152,11 +136,7 @@ public class Ship {
         name = "Flea";
         maxFuel = 700.0;
         fuel = maxFuel;
-        minTechLevel = 0;
         price = 100;
-        hullStrength = 25;
-        currentHull = hullStrength;
-        repairCost = 0;
         maxHealth = 5000.0;
         health = maxHealth;
         weaponSlots = 0;
@@ -173,11 +153,7 @@ public class Ship {
         name = "Gnat";
         maxFuel = 2500.0;
         fuel = maxFuel;
-        minTechLevel = 0;
         price = 500;
-        hullStrength = 100;
-        currentHull = hullStrength;
-        repairCost = 0;
         maxHealth = 2000.0;
         health = maxHealth;
         weaponSlots = 1;
@@ -194,11 +170,7 @@ public class Ship {
         name = "Firefly";
         maxFuel = 4000.0;
         fuel = maxFuel;
-        minTechLevel = 0;
         price = 1000;
-        hullStrength = 300;
-        currentHull = hullStrength;
-        repairCost = 0;
         maxHealth = 5000.0;
         health = maxHealth;
         weaponSlots = 1;
@@ -215,11 +187,7 @@ public class Ship {
         name = "Mosquito";
         maxFuel = 5000.0;
         fuel = maxFuel;
-        minTechLevel = 0;
         price = 4000;
-        hullStrength = 400;
-        currentHull = hullStrength;
-        repairCost = 0;
         maxHealth = 5000.0;
         health = maxHealth;
         weaponSlots = 2;
@@ -236,11 +204,7 @@ public class Ship {
         name = "Bumblebee";
         maxFuel = 8000.0;
         fuel = maxFuel;
-        minTechLevel = 0;
         price = 10000;
-        hullStrength = 500;
-        currentHull = hullStrength;
-        repairCost = 0;
         maxHealth = 5000.0;
         health = maxHealth;
         weaponSlots = 3;
