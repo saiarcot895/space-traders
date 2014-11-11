@@ -29,18 +29,14 @@ public class CreateTableTest {
         conn = new ConnectionManager(host);
         /* Create the table */
         /* Assert to check if they were made */
-        if (conn != null) {
-            boolean created;
-            conn.openSolarSystemConnection();
-            created = conn.getSolarSystemTable().createTableTest();
-            Assert.assertTrue(created);
-            if (!created) {
-                Assert.fail("SolarSystem was not created.");
-            } else {
-                System.out.println("SolarSystem created.");
-            }
+        boolean created;
+        conn.openSolarSystemConnection();
+        created = conn.getSolarSystemTable().createTableTest();
+        Assert.assertTrue(created);
+        if (!created) {
+            Assert.fail("SolarSystem was not created.");
         } else {
-            Assert.fail("Connection failed.");
+            System.out.println("SolarSystem created.");
         }
     }
     
@@ -53,18 +49,14 @@ public class CreateTableTest {
         conn = new ConnectionManager(host);
         /* Create the table */
         /* Assert to check if they were made */
-        if (conn != null) {
-            boolean created;
-            conn.openGadgetsConnection();
-            created = conn.getGadgetsTable().createTableTest();
-            Assert.assertTrue(created);
-            if (!created) {
-                Assert.fail("GadgetsTable was not created.");
-            } else {
-                System.out.println("GadgetsTable created.");
-            }
+        boolean created;
+        conn.openGadgetsConnection();
+        created = conn.getGadgetsTable().createTableTest();
+        Assert.assertTrue(created);
+        if (!created) {
+            Assert.fail("GadgetsTable was not created.");
         } else {
-            Assert.fail("Connection failed.");
+            System.out.println("GadgetsTable created.");
         }
     }
     
@@ -77,18 +69,14 @@ public class CreateTableTest {
         conn = new ConnectionManager(host);
         /* Create the table */
         /* Assert to check if they were made */
-        if (conn != null) {
-            boolean created;
-            conn.openItemConnection();
-            created = conn.getItemsTable().createTableTest();
-            Assert.assertTrue(created);
-            if (!created) {
-                Assert.fail("ItemsTable was not created.");
-            } else {
-                System.out.println("ItemsTable created.");
-            }
+        boolean created;
+        conn.openItemConnection();
+        created = conn.getItemsTable().createTableTest();
+        Assert.assertTrue(created);
+        if (!created) {
+            Assert.fail("ItemsTable was not created.");
         } else {
-            Assert.fail("Connection failed.");
+            System.out.println("ItemsTable created.");
         }
     }
     
@@ -101,18 +89,14 @@ public class CreateTableTest {
         conn = new ConnectionManager(host);
         /* Create the table */
         /* Assert to check if they were made */
-        if (conn != null) {
-            boolean created;
-            conn.openPlanetConnection();
-            created = conn.getPlanetTable().createTableTest();
-            Assert.assertTrue(created);
-            if (!created) {
-                Assert.fail("PlanetTable was not created.");
-            } else {
-                System.out.println("PlanetTable created.");
-            }
+        boolean created;
+        conn.openPlanetConnection();
+        created = conn.getPlanetTable().createTableTest();
+        Assert.assertTrue(created);
+        if (!created) {
+            Assert.fail("PlanetTable was not created.");
         } else {
-            Assert.fail("Connection failed.");
+            System.out.println("PlanetTable created.");
         }
     }
     
@@ -125,18 +109,14 @@ public class CreateTableTest {
         conn = new ConnectionManager(host);
         /* Create the table */
         /* Assert to check if they were made */
-        if (conn != null) {
-            boolean created;
-            conn.openPlayerConnection();
-            created = conn.getPlayerTable().createTableTest();
-            Assert.assertTrue(created);
-            if (!created) {
-                Assert.fail("PlayerTable was not created.");
-            } else {
-                System.out.println("PlayerTable created.");
-            }
+        boolean created;
+        conn.openPlayerConnection();
+        created = conn.getPlayerTable().createTableTest();
+        Assert.assertTrue(created);
+        if (!created) {
+            Assert.fail("PlayerTable was not created.");
         } else {
-            Assert.fail("Connection failed.");
+            System.out.println("PlayerTable created.");
         }
     }
     
@@ -149,18 +129,14 @@ public class CreateTableTest {
         conn = new ConnectionManager(host);
         /* Create the table */
         /* Assert to check if they were made */
-        if (conn != null) {
-            boolean created;
-            conn.openShipConnection();
-            created = conn.getShipTable().createTableTest();
-            Assert.assertTrue(created);
-            if (!created) {
-                Assert.fail("ShipTable was not created.");
-            } else {
-                System.out.println("ShipTable created.");
-            }
+        boolean created;
+        conn.openShipConnection();
+        created = conn.getShipTable().createTableTest();
+        Assert.assertTrue(created);
+        if (!created) {
+            Assert.fail("ShipTable was not created.");
         } else {
-            Assert.fail("Connection failed.");
+            System.out.println("ShipTable created.");
         }
     }
     
@@ -173,18 +149,14 @@ public class CreateTableTest {
         conn = new ConnectionManager(host);
         /* Create the table */
         /* Assert to check if they were made */
-        if (conn != null) {
-            boolean created;
-            conn.openWeaponsConnection();
-            created = conn.getWeaponsTable().createTableTest();
-            Assert.assertTrue(created);
-            if (!created) {
-                Assert.fail("WeaponsTable was not created.");
-            } else {
-                System.out.println("WeaponsTable created.");
-            }
+        boolean created;
+        conn.openWeaponsConnection();
+        created = conn.getWeaponsTable().createTableTest();
+        Assert.assertTrue(created);
+        if (!created) {
+            Assert.fail("WeaponsTable was not created.");
         } else {
-            Assert.fail("Connection failed.");
+            System.out.println("WeaponsTable created.");
         }
     }
 }
