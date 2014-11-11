@@ -37,29 +37,6 @@ public class ShipTest {
     }
 
     /**
-     * Test of setShipType method, of class Ship.
-     */
-    @Test
-    public void testSetShipType() {
-        Ship ship = new Ship(Ship.ShipType.BUMBLEBEE);
-        ship.setShipType(Ship.ShipType.BUMBLEBEE);
-        assertEquals(Ship.ShipType.BUMBLEBEE, ship.getShipType());
-        testShipAgainstDefaults(Ship.ShipType.BUMBLEBEE, ship);
-        ship.setShipType(Ship.ShipType.FIREFLY);
-        assertEquals(Ship.ShipType.FIREFLY, ship.getShipType());
-        testShipAgainstDefaults(Ship.ShipType.FIREFLY, ship);
-        ship.setShipType(Ship.ShipType.FLEA);
-        assertEquals(Ship.ShipType.FLEA, ship.getShipType());
-        testShipAgainstDefaults(Ship.ShipType.FLEA, ship);
-        ship.setShipType(Ship.ShipType.GNAT);
-        assertEquals(Ship.ShipType.GNAT, ship.getShipType());
-        testShipAgainstDefaults(Ship.ShipType.GNAT, ship);
-        ship.setShipType(Ship.ShipType.MOSQUITO);
-        assertEquals(Ship.ShipType.MOSQUITO, ship.getShipType());
-        testShipAgainstDefaults(Ship.ShipType.MOSQUITO, ship);
-    }
-
-    /**
      * assertEquals ship's variables to those of a default ship of the same type
      * @param type
      * @param ship 
