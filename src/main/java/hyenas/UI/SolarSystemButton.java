@@ -20,7 +20,7 @@ public class SolarSystemButton extends Button {
     /**
      * The solar system button's CSS style class.
      */
-    private static final String styleClass = "planet";
+    private static final String STYLE_CLASS = "planet";
 
     /**
      * Sets up the button for the given system in the map UI.
@@ -37,7 +37,7 @@ public class SolarSystemButton extends Button {
         setLayoutY(solarSystem.getY());
         setId(solarSystem.getSystemName());
         setMnemonicParsing(false);
-        getStyleClass().add(styleClass);
+        getStyleClass().add(STYLE_CLASS);
     }
 
     /**
@@ -47,7 +47,7 @@ public class SolarSystemButton extends Button {
     public void setupForSystemUI(SolarSystem solarSystem) {
         setUpSystemImage(solarSystem, SYSTEM_UI_SIZE_FACTOR);
         setMnemonicParsing(false);
-        getStyleClass().add(styleClass);
+        getStyleClass().add(STYLE_CLASS);
     }
     
     /**

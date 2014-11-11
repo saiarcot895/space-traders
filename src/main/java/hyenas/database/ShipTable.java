@@ -25,7 +25,7 @@ public class ShipTable implements Table<Ship, Player> {
     /**
      * The SQL query needed to create the table.
      */
-    private static final String createQuery = "CREATE TABLE IF NOT EXISTS Ship "
+    private static final String CREATE_QUERY = "CREATE TABLE IF NOT EXISTS Ship "
             + "(ID INTEGER NOT NULL, " + "Type INTEGER NOT NULL, "
             + "Fuel DOUBLE NOT NULL, " + "Health DOUBLE NOT NULL, "
             + "Player INTEGER NOT NULL, " + "PRIMARY KEY (ID), "
@@ -42,7 +42,7 @@ public class ShipTable implements Table<Ship, Player> {
     @Override
     public void createTable() {
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(createQuery);
+            stmt.executeUpdate(CREATE_QUERY);
         } catch (SQLException e) {
             Logger.getLogger(ShipTable.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -57,7 +57,7 @@ public class ShipTable implements Table<Ship, Player> {
      */
     public boolean createTableTest() {
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(createQuery);
+            stmt.executeUpdate(CREATE_QUERY);
             return true;
         } catch (SQLException e) {
             Logger.getLogger(ShipTable.class.getName()).

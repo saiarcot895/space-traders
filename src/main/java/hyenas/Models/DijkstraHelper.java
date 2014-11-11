@@ -148,8 +148,8 @@ public class DijkstraHelper {
             for (SolarSystem ss : solarSystemValues) {
                 ssTable.addRow(ss, null);
                 ss.getPlanets().stream().forEach((planet) -> {
-                    planetTable.addRow(planet, ss);
-                });
+                        planetTable.addRow(planet, ss);
+                    });
             }
 
             HyenasLoader.getInstance().getConnectionManager().getPlayerTable()
