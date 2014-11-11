@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  * The main application driver class.
  * @author Alex
  */
-public class HyenasLoader extends Application {
+public final class HyenasLoader extends Application {
     /**
      * The common hyenas loader instance. For use with singleton.
      */
