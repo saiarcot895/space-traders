@@ -43,7 +43,28 @@ public class SolarSystemTable implements Table<SolarSystem, Void> {
                     log(Level.SEVERE, null, e);
         }
     }
-
+    
+    /**
+     * Test that the SolarSystem table is created based 
+     * on the SQL query and connection.
+     * Used for JUnit testing of above method for validation.
+     * @return true if table is created, false otherwise
+     */
+    public boolean createTableTest() {
+        String create = "CREATE TABLE IF NOT EXISTS SolarSystem "
+                + "(ID INTEGER NOT NULL, " + "Name VARCHAR(20) NOT NULL, "
+                + "XPoint INTEGER NOT NULL, " + "YPoint INTEGER NOT NULL, "
+                + "PRIMARY KEY (ID))";
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(create);
+            return true;
+        } catch (SQLException e) {
+            Logger.getLogger(SolarSystemTable.class.getName()).
+                    log(Level.SEVERE, null, e);
+            return false;
+        }
+    }
+    
     @Override
     public void addRow(SolarSystem solarSystem, Void unused) {
         try {

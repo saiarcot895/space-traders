@@ -76,6 +76,34 @@ public class PlanetTable implements Table<Planet, SolarSystem> {
         }
     }
 
+/**************************************************************************/
+    
+    /**
+     * Test that the Planet table is created based 
+     * on the SQL query and connection.
+     * Used for JUnit testing of above method for validation.
+     * @return true if table is created, false otherwise
+     */
+    public boolean createTableTest() {
+        String create = "CREATE TABLE IF NOT EXISTS Planet "
+                + "(ID INTEGER NOT NULL, " + "Name VARCHAR(20) NOT NULL, "
+                + "Radius INTEGER NOT NULL, "
+                + "ClockwiseOrbit BOOLEAN NOT NULL, " + "Size DOUBLE NOT NULL, "
+                + "Tech INTEGER NOT NULL, " + "Type INTEGER NOT NULL, "
+                + "SSID INTEGER, " + "PRIMARY KEY (ID), "
+                + "FOREIGN KEY (SSID) REFERENCES SolarSystem (ID))";
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(create);
+            return true;
+        } catch (SQLException e) {
+            Logger.getLogger(PlanetTable.class.getName()).
+                    log(Level.SEVERE, null, e);
+            return false;
+        }
+    }
+    
+/**************************************************************************/
+
     @Override
     public void addRow(Planet planet, SolarSystem system) {
         try {

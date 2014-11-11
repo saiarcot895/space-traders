@@ -52,7 +52,29 @@ public class GadgetsTable implements Table<Gadget, Ship> {
                     log(Level.SEVERE, null, e);
         }
     }
-
+    
+    /**
+     * Test that the Gadgets table is created based 
+     * on the SQL query and connection.
+     * Used for JUnit testing of above method for validation.
+     * @return true if table is created, false otherwise
+     */
+    public boolean createTableTest() {
+        String create = "CREATE TABLE IF NOT EXISTS Gadgets "
+                + "(ID INTEGER NOT NULL, Name VARCHAR(20), "
+                + "Property INTEGER, " + "Ship INTEGER, "
+                + "PRIMARY KEY (ID), FOREIGN KEY (Ship) "
+                + "REFERENCES Ship (ID))";
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(create);
+            return true;
+        } catch (SQLException e) {
+            Logger.getLogger(GadgetsTable.class.getName()).
+                    log(Level.SEVERE, null, e);
+            return false;
+        }
+    }
+    
     @Override
     public void addRow(Gadget item, Ship parent) {
         try {

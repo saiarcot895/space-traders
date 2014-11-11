@@ -46,7 +46,29 @@ public class ItemsTable implements Table<List<Ware>, Void> {
                     log(Level.SEVERE, null, e);
         }
     }
-
+    
+    /**
+     * Test that the Items table is created based 
+     * on the SQL query and connection.
+     * Used for JUnit testing of above method for validation.
+     * @return true if table is created, false otherwise
+     */
+    public boolean createTableTest() {
+        String create = "CREATE TABLE IF NOT EXISTS Items "
+                + "(ItemID INTEGER NOT NULL, "
+                + "Quantity INTEGER NOT NULL, " + "Player INTEGER NOT NULL, "
+                + "PRIMARY KEY (ItemID) ON CONFLICT REPLACE, "
+                + "FOREIGN KEY (Player) REFERENCES Players (ID))";
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(create);
+            return true;
+        } catch (SQLException e) {
+            Logger.getLogger(ItemsTable.class.getName()).
+                    log(Level.SEVERE, null, e);
+            return false;
+        }
+    }
+    
     @Override
     public void addRow(List<Ware> wares, Void unused) {
         try {

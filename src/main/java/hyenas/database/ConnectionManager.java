@@ -124,6 +124,115 @@ public class ConnectionManager {
                     log(Level.SEVERE, null, e);
         }
     }
+
+/**************************************************************************/
+    
+    /**
+     * Open SolarSystem table connection to database.
+     * Used for JUnit testing purposes.
+     */
+    public void openSolarSystemConnection() {
+        try {
+            conn = DriverManager.getConnection(host);
+            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+            solarSystemTable = new SolarSystemTable(conn);
+        } catch (SQLException e) {
+            Logger.getLogger(ConnectionManager.class.getName()).
+                    log(Level.SEVERE, null, e);
+        }
+    }
+    
+    /**
+     * Open Gadgets table connection to database.
+     * Used for JUnit testing purposes.
+     */
+    public void openGadgetsConnection() {
+        try {
+            conn = DriverManager.getConnection(host);
+            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+            gadgetsTable = new GadgetsTable(conn);
+        } catch (SQLException e) {
+            Logger.getLogger(ConnectionManager.class.getName()).
+                    log(Level.SEVERE, null, e);
+        }
+    }
+    
+    /**
+     * Open Items table connection to database.
+     * Used for JUnit testing purposes.
+     */
+    public void openItemConnection() {
+        try {
+            conn = DriverManager.getConnection(host);
+            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+            itemTable = new ItemsTable(conn);
+        } catch (SQLException e) {
+            Logger.getLogger(ConnectionManager.class.getName()).
+                    log(Level.SEVERE, null, e);
+        }
+    }
+    
+    /**
+     * Open Planet table connection to database.
+     * Used for JUnit testing purposes.
+     */
+    public void openPlanetConnection() {
+        try {
+            conn = DriverManager.getConnection(host);
+            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+            planetTable = new PlanetTable(conn);
+        } catch (SQLException e) {
+            Logger.getLogger(ConnectionManager.class.getName()).
+                    log(Level.SEVERE, null, e);
+        }
+    }
+    
+    /**
+     * Open Player table connection to database.
+     * Used for JUnit testing purposes.
+     */
+    public void openPlayerConnection() {
+        try {
+            conn = DriverManager.getConnection(host);
+            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+            playerTable = new PlayerTable(conn);
+        } catch (SQLException e) {
+            Logger.getLogger(ConnectionManager.class.getName()).
+                    log(Level.SEVERE, null, e);
+        }
+    }
+    
+    /**
+     * Open Ship connection to database.
+     * Used for JUnit testing purposes.
+     */
+    public void openShipConnection() {
+        try {
+            conn = DriverManager.getConnection(host);
+            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+            shipTable = new ShipTable(conn);
+        } catch (SQLException e) {
+            Logger.getLogger(ConnectionManager.class.getName()).
+                    log(Level.SEVERE, null, e);
+        }
+    }
+    
+    /**
+     * Open Weapons table connection to database.
+     * Used for JUnit testing purposes.
+     */
+    public void openWeaponsConnection() {
+        try {
+            conn = DriverManager.getConnection(host);
+            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+            weaponsTable = new WeaponsTable(conn);
+        } catch (SQLException e) {
+            Logger.getLogger(ConnectionManager.class.getName()).
+                    log(Level.SEVERE, null, e);
+        }
+    }
+    
+/**************************************************************************/
     
     /**
      * Get the solar system table.
@@ -153,7 +262,7 @@ public class ConnectionManager {
      * Get the item table.
      * @return the item table
      */
-    public ItemsTable getItemTable() {
+    public ItemsTable getItemsTable() {
         return itemTable;
     }
 

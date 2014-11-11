@@ -52,7 +52,7 @@ public class HyenasLoader extends Application {
         connectionManager.getSolarSystemTable().createTable();
         connectionManager.getPlanetTable().createTable();
         connectionManager.getPlayerTable().createTable();
-        connectionManager.getItemTable().createTable();
+        connectionManager.getItemsTable().createTable();
         connectionManager.getShipTable().createTable();
         connectionManager.getGadgetsTable().createTable();
         connectionManager.getWeaponsTable().createTable();
@@ -84,7 +84,7 @@ public class HyenasLoader extends Application {
         connectionManager.getWeaponsTable().clearTable();
         connectionManager.getGadgetsTable().clearTable();
         connectionManager.getShipTable().clearTable();
-        connectionManager.getItemTable().clearTable();
+        connectionManager.getItemsTable().clearTable();
         connectionManager.getPlayerTable().clearTable();
         connectionManager.getPlanetTable().clearTable();
         connectionManager.getSolarSystemTable().clearTable();
@@ -164,7 +164,7 @@ public class HyenasLoader extends Application {
         connectionManager.getPlanetTable().loadTable();
         connectionManager.getPlayerTable().loadTable();
         connectionManager.getShipTable().loadTable();
-        connectionManager.getItemTable().loadTable();
+        connectionManager.getItemsTable().loadTable();
         connectionManager.getWeaponsTable().loadTable();
         goToMapScreen();
     }
