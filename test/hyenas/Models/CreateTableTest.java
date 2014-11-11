@@ -16,6 +16,11 @@ public class CreateTableTest {
     ConnectionManager conn;
     
     /**
+     * boolean assertion
+     */
+    boolean created;
+    
+    /**
      * Database server host.
      */
     String host = "jdbc:sqlite:database.db";
@@ -28,8 +33,7 @@ public class CreateTableTest {
     public void testCreateSolarSystemTable() {
         conn = new ConnectionManager(host);
         /* Create the table */
-        /* Assert to check if they were made */
-        boolean created;
+        /* Assert to check if it was made */
         conn.openSolarSystemConnection();
         created = conn.getSolarSystemTable().createTableTest();
         Assert.assertTrue(created);
@@ -48,8 +52,7 @@ public class CreateTableTest {
     public void testCreateGadgetsTable() {
         conn = new ConnectionManager(host);
         /* Create the table */
-        /* Assert to check if they were made */
-        boolean created;
+        /* Assert to check if it was made */
         conn.openGadgetsConnection();
         created = conn.getGadgetsTable().createTableTest();
         Assert.assertTrue(created);
@@ -68,8 +71,7 @@ public class CreateTableTest {
     public void testCreateItemsTable() {
         conn = new ConnectionManager(host);
         /* Create the table */
-        /* Assert to check if they were made */
-        boolean created;
+        /* Assert to check if it was made */
         conn.openItemConnection();
         created = conn.getItemsTable().createTableTest();
         Assert.assertTrue(created);
@@ -88,8 +90,7 @@ public class CreateTableTest {
     public void testCreatePlanetTable() {
         conn = new ConnectionManager(host);
         /* Create the table */
-        /* Assert to check if they were made */
-        boolean created;
+        /* Assert to check if it was made */
         conn.openPlanetConnection();
         created = conn.getPlanetTable().createTableTest();
         Assert.assertTrue(created);
@@ -108,8 +109,7 @@ public class CreateTableTest {
     public void testCreatePlayerTable() {
         conn = new ConnectionManager(host);
         /* Create the table */
-        /* Assert to check if they were made */
-        boolean created;
+        /* Assert to check if it was made */
         conn.openPlayerConnection();
         created = conn.getPlayerTable().createTableTest();
         Assert.assertTrue(created);
@@ -128,8 +128,7 @@ public class CreateTableTest {
     public void testCreateShipTable() {
         conn = new ConnectionManager(host);
         /* Create the table */
-        /* Assert to check if they were made */
-        boolean created;
+        /* Assert to check if it was made */
         conn.openShipConnection();
         created = conn.getShipTable().createTableTest();
         Assert.assertTrue(created);
@@ -148,8 +147,7 @@ public class CreateTableTest {
     public void testCreateWeaponsTable() {
         conn = new ConnectionManager(host);
         /* Create the table */
-        /* Assert to check if they were made */
-        boolean created;
+        /* Assert to check if it was made */
         conn.openWeaponsConnection();
         created = conn.getWeaponsTable().createTableTest();
         Assert.assertTrue(created);
