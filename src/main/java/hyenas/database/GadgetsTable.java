@@ -20,6 +20,15 @@ public class GadgetsTable implements Table<Gadget, Ship> {
      * The connection variable to link to the database server.
      */
     private final Connection conn;
+    
+    /**
+     * The SQL query needed to create the table.
+     */
+    private static final String CREATE_QUERY = "CREATE TABLE IF NOT EXISTS Gadgets "
+            + "(ID INTEGER NOT NULL, GadgetID INTEGER, "
+            + "Ship INTEGER, "
+            + "PRIMARY KEY (ID), FOREIGN KEY (Ship) "
+            + "REFERENCES Ship (ID))";
 
     /**
      * Initializes a connection manager.
@@ -41,13 +50,9 @@ public class GadgetsTable implements Table<Gadget, Ship> {
         // 2 -> Increase shields (Random value)
         // 3 -> Increase Weapon Damage (all)
         
-        String create = "CREATE TABLE IF NOT EXISTS Gadgets "
-                + "(ID INTEGER NOT NULL, GadgetID INTEGER, "
-                + "Ship INTEGER, "
-                + "PRIMARY KEY (ID), FOREIGN KEY (Ship) "
-                + "REFERENCES Ship (ID))";
+        
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(create);
+            stmt.executeUpdate(CREATE_QUERY);
         } catch (SQLException e) {
             Logger.getLogger(GadgetsTable.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -61,13 +66,8 @@ public class GadgetsTable implements Table<Gadget, Ship> {
      * @return true if table is created, false otherwise
      */
     public boolean createTableTest() {
-        String create = "CREATE TABLE IF NOT EXISTS Gadgets "
-                + "(ID INTEGER NOT NULL, Name VARCHAR(20), "
-                + "Property INTEGER, " + "Ship INTEGER, "
-                + "PRIMARY KEY (ID), FOREIGN KEY (Ship) "
-                + "REFERENCES Ship (ID))";
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(create);
+            stmt.executeUpdate(CREATE_QUERY);
             return true;
         } catch (SQLException e) {
             Logger.getLogger(GadgetsTable.class.getName()).

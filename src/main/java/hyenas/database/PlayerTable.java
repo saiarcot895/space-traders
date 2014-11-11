@@ -22,6 +22,18 @@ public class PlayerTable implements Table<Player, Void> {
      * Connection to the database.
      */
     private final Connection conn;
+    
+    /**
+     * The SQL query needed to create the table.
+     */
+    private static final String CREATE_QUERY = "CREATE TABLE IF NOT EXISTS Players "
+            + "(ID INTEGER NOT NULL, " + "Name VARCHAR(20) NOT NULL, "
+            + "Points INTEGER NOT NULL, " + "Engineer INTEGER NOT NULL, "
+            + "Pilot INTEGER NOT NULL, " + "Investor INTEGER NOT NULL, "
+            + "Fighter INTEGER NOT NULL, " + "Trader INTEGER NOT NULL, "
+            + "Credits INTEGER, " + "SSID INTEGER, "
+            + "PRIMARY KEY (ID), "
+            + "FOREIGN KEY (SSID) REFERENCES SolarSystem (ID))";
 
     /**
      * Create the player table manager.
@@ -36,16 +48,8 @@ public class PlayerTable implements Table<Player, Void> {
      */
     @Override
     public void createTable() {
-        String create = "CREATE TABLE IF NOT EXISTS Players "
-                + "(ID INTEGER NOT NULL, " + "Name VARCHAR(20) NOT NULL, "
-                + "Points INTEGER NOT NULL, " + "Engineer INTEGER NOT NULL, "
-                + "Pilot INTEGER NOT NULL, " + "Investor INTEGER NOT NULL, "
-                + "Fighter INTEGER NOT NULL, " + "Trader INTEGER NOT NULL, "
-                + "Credits INTEGER, " + "SSID INTEGER, "
-                + "PRIMARY KEY (ID), "
-                + "FOREIGN KEY (SSID) REFERENCES SolarSystem (ID))";
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(create);
+            stmt.executeUpdate(CREATE_QUERY);
         } catch (SQLException e) {
             Logger.getLogger(PlayerTable.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -59,16 +63,8 @@ public class PlayerTable implements Table<Player, Void> {
      * @return true if table is created, false otherwise
      */
     public boolean createTableTest() {
-        String create = "CREATE TABLE IF NOT EXISTS Players "
-                + "(ID INTEGER NOT NULL, " + "Name VARCHAR(20) NOT NULL, "
-                + "Points INTEGER NOT NULL, " + "Engineer INTEGER NOT NULL, "
-                + "Pilot INTEGER NOT NULL, " + "Investor INTEGER NOT NULL, "
-                + "Fighter INTEGER NOT NULL, " + "Trader INTEGER NOT NULL, "
-                + "Credits INTEGER, " + "SSID INTEGER, "
-                + "PRIMARY KEY (ID), "
-                + "FOREIGN KEY (SSID) REFERENCES SolarSystem (ID))";
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(create);
+            stmt.executeUpdate(CREATE_QUERY);
             return true;
         } catch (SQLException e) {
             Logger.getLogger(PlayerTable.class.getName()).

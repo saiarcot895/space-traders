@@ -23,6 +23,15 @@ public class ItemsTable implements Table<List<Ware>, Void> {
      * The address of the host server of the database server.
      */
     private final Connection conn;
+    
+    /**
+     * The SQL query needed to create the table.
+     */
+    private static final String CREATE_QUERY = "CREATE TABLE IF NOT EXISTS Items "
+            + "(ItemID INTEGER NOT NULL, "
+            + "Quantity INTEGER NOT NULL, " + "Player INTEGER NOT NULL, "
+            + "PRIMARY KEY (ItemID) ON CONFLICT REPLACE, "
+            + "FOREIGN KEY (Player) REFERENCES Players (ID))";
 
     /**
      * Initializes a connection manager.
@@ -34,13 +43,8 @@ public class ItemsTable implements Table<List<Ware>, Void> {
 
     @Override
     public void createTable() {
-        String create = "CREATE TABLE IF NOT EXISTS Items "
-                + "(ItemID INTEGER NOT NULL, "
-                + "Quantity INTEGER NOT NULL, " + "Player INTEGER NOT NULL, "
-                + "PRIMARY KEY (ItemID) ON CONFLICT REPLACE, "
-                + "FOREIGN KEY (Player) REFERENCES Players (ID))";
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(create);
+            stmt.executeUpdate(CREATE_QUERY);
         } catch (SQLException e) {
             Logger.getLogger(ItemsTable.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -54,13 +58,8 @@ public class ItemsTable implements Table<List<Ware>, Void> {
      * @return true if table is created, false otherwise
      */
     public boolean createTableTest() {
-        String create = "CREATE TABLE IF NOT EXISTS Items "
-                + "(ItemID INTEGER NOT NULL, "
-                + "Quantity INTEGER NOT NULL, " + "Player INTEGER NOT NULL, "
-                + "PRIMARY KEY (ItemID) ON CONFLICT REPLACE, "
-                + "FOREIGN KEY (Player) REFERENCES Players (ID))";
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(create);
+            stmt.executeUpdate(CREATE_QUERY);
             return true;
         } catch (SQLException e) {
             Logger.getLogger(ItemsTable.class.getName()).

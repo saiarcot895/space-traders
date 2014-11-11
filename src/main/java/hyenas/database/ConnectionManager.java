@@ -63,9 +63,7 @@ public class ConnectionManager {
     public void openConnection() {
         try {
             conn = DriverManager.getConnection(host);
-            try (Statement pragmaKeysStatement = conn.createStatement()) {
-                pragmaKeysStatement.execute("PRAGMA foreign_keys = ON");
-            }
+            enableForeignKeyChecks();
             
             playerTable = new PlayerTable(conn);
             planetTable = new PlanetTable(conn);
@@ -134,9 +132,7 @@ public class ConnectionManager {
     public void openSolarSystemConnection() {
         try {
             conn = DriverManager.getConnection(host);
-            try (Statement pragmaKeysStatement = conn.createStatement()) {
-                pragmaKeysStatement.execute("PRAGMA foreign_keys = ON");
-            }
+            enableForeignKeyChecks();
             solarSystemTable = new SolarSystemTable(conn);
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).
@@ -151,9 +147,7 @@ public class ConnectionManager {
     public void openGadgetsConnection() {
         try {
             conn = DriverManager.getConnection(host);
-            try (Statement pragmaKeysStatement = conn.createStatement()) {
-                pragmaKeysStatement.execute("PRAGMA foreign_keys = ON");
-            }
+            enableForeignKeyChecks();
             gadgetsTable = new GadgetsTable(conn);
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).
@@ -168,9 +162,7 @@ public class ConnectionManager {
     public void openItemConnection() {
         try {
             conn = DriverManager.getConnection(host);
-            try (Statement pragmaKeysStatement = conn.createStatement()) {
-                pragmaKeysStatement.execute("PRAGMA foreign_keys = ON");
-            }
+            enableForeignKeyChecks();
             itemTable = new ItemsTable(conn);
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).
@@ -185,9 +177,7 @@ public class ConnectionManager {
     public void openPlanetConnection() {
         try {
             conn = DriverManager.getConnection(host);
-            try (Statement pragmaKeysStatement = conn.createStatement()) {
-                pragmaKeysStatement.execute("PRAGMA foreign_keys = ON");
-            }
+            enableForeignKeyChecks();
             planetTable = new PlanetTable(conn);
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).
@@ -202,9 +192,7 @@ public class ConnectionManager {
     public void openPlayerConnection() {
         try {
             conn = DriverManager.getConnection(host);
-            try (Statement pragmaKeysStatement = conn.createStatement()) {
-                pragmaKeysStatement.execute("PRAGMA foreign_keys = ON");
-            }
+            enableForeignKeyChecks();
             playerTable = new PlayerTable(conn);
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).
@@ -219,9 +207,7 @@ public class ConnectionManager {
     public void openShipConnection() {
         try {
             conn = DriverManager.getConnection(host);
-            try (Statement pragmaKeysStatement = conn.createStatement()) {
-                pragmaKeysStatement.execute("PRAGMA foreign_keys = ON");
-            }
+            enableForeignKeyChecks();
             shipTable = new ShipTable(conn);
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).
@@ -236,13 +222,22 @@ public class ConnectionManager {
     public void openWeaponsConnection() {
         try {
             conn = DriverManager.getConnection(host);
-            try (Statement pragmaKeysStatement = conn.createStatement()) {
-                pragmaKeysStatement.execute("PRAGMA foreign_keys = ON");
-            }
+            enableForeignKeyChecks();
             weaponsTable = new WeaponsTable(conn);
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).
                     log(Level.SEVERE, null, e);
+        }
+    }
+
+    /**
+     * Tell the database to check that foreign key columns are valid and that
+     * those constraints are met.
+     * @throws SQLException if an error occurs in the database.
+     */
+    private void enableForeignKeyChecks() throws SQLException {
+        try (Statement pragmaKeysStatement = conn.createStatement()) {
+            pragmaKeysStatement.execute("PRAGMA foreign_keys = ON");
         }
     }
     

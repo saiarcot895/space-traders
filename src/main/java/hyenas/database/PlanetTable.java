@@ -22,6 +22,17 @@ public class PlanetTable implements Table<Planet, SolarSystem> {
      * Connection to the database.
      */
     private final Connection conn;
+    
+    /**
+     * The SQL query needed to create the table.
+     */
+    private static final String CREATE_QUERY = "CREATE TABLE IF NOT EXISTS Planet "
+            + "(ID INTEGER NOT NULL, " + "Name VARCHAR(20) NOT NULL, "
+            + "Radius INTEGER NOT NULL, "
+            + "ClockwiseOrbit BOOLEAN NOT NULL, " + "Size DOUBLE NOT NULL, "
+            + "Tech INTEGER NOT NULL, " + "Type INTEGER NOT NULL, "
+            + "SSID INTEGER, " + "PRIMARY KEY (ID), "
+            + "FOREIGN KEY (SSID) REFERENCES SolarSystem (ID))";
 
     /**
      * Create the planet table manager.
@@ -61,15 +72,8 @@ public class PlanetTable implements Table<Planet, SolarSystem> {
 
     @Override
     public void createTable() {
-        String create = "CREATE TABLE IF NOT EXISTS Planet "
-                + "(ID INTEGER NOT NULL, " + "Name VARCHAR(20) NOT NULL, "
-                + "Radius INTEGER NOT NULL, "
-                + "ClockwiseOrbit BOOLEAN NOT NULL, " + "Size DOUBLE NOT NULL, "
-                + "Tech INTEGER NOT NULL, " + "Type INTEGER NOT NULL, "
-                + "SSID INTEGER, " + "PRIMARY KEY (ID), "
-                + "FOREIGN KEY (SSID) REFERENCES SolarSystem (ID))";
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(create);
+            stmt.executeUpdate(CREATE_QUERY);
         } catch (SQLException e) {
             Logger.getLogger(PlanetTable.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -85,15 +89,8 @@ public class PlanetTable implements Table<Planet, SolarSystem> {
      * @return true if table is created, false otherwise
      */
     public boolean createTableTest() {
-        String create = "CREATE TABLE IF NOT EXISTS Planet "
-                + "(ID INTEGER NOT NULL, " + "Name VARCHAR(20) NOT NULL, "
-                + "Radius INTEGER NOT NULL, "
-                + "ClockwiseOrbit BOOLEAN NOT NULL, " + "Size DOUBLE NOT NULL, "
-                + "Tech INTEGER NOT NULL, " + "Type INTEGER NOT NULL, "
-                + "SSID INTEGER, " + "PRIMARY KEY (ID), "
-                + "FOREIGN KEY (SSID) REFERENCES SolarSystem (ID))";
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(create);
+            stmt.executeUpdate(CREATE_QUERY);
             return true;
         } catch (SQLException e) {
             Logger.getLogger(PlanetTable.class.getName()).

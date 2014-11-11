@@ -21,6 +21,15 @@ public class ShipTable implements Table<Ship, Player> {
      * Connection to the database.
      */
     private final Connection conn;
+    
+    /**
+     * The SQL query needed to create the table.
+     */
+    private static final String createQuery = "CREATE TABLE IF NOT EXISTS Ship "
+            + "(ID INTEGER NOT NULL, " + "Type INTEGER NOT NULL, "
+            + "Fuel DOUBLE NOT NULL, " + "Health DOUBLE NOT NULL, "
+            + "Player INTEGER NOT NULL, " + "PRIMARY KEY (ID), "
+            + "FOREIGN KEY (Player) REFERENCES Players (ID))";
 
     /**
      * Create the ship table manager.
@@ -32,13 +41,8 @@ public class ShipTable implements Table<Ship, Player> {
     
     @Override
     public void createTable() {
-        String create = "CREATE TABLE IF NOT EXISTS Ship "
-                + "(ID INTEGER NOT NULL, " + "Type INTEGER NOT NULL, "
-                + "Fuel DOUBLE NOT NULL, " + "Health DOUBLE NOT NULL, "
-                + "Player INTEGER NOT NULL, " + "PRIMARY KEY (ID), "
-                + "FOREIGN KEY (Player) REFERENCES Players (ID))";
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(create);
+            stmt.executeUpdate(createQuery);
         } catch (SQLException e) {
             Logger.getLogger(ShipTable.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -52,13 +56,8 @@ public class ShipTable implements Table<Ship, Player> {
      * @return true if table is created, false otherwise
      */
     public boolean createTableTest() {
-        String create = "CREATE TABLE IF NOT EXISTS Ship "
-                + "(ID INTEGER NOT NULL, " + "Type VARCHAR(20) NOT NULL, "
-                + "Fuel DOUBLE NOT NULL, " + "Health DOUBLE NOT NULL, "
-                + "Player INTEGER NOT NULL, " + "PRIMARY KEY (ID), "
-                + "FOREIGN KEY (Player) REFERENCES Players (ID))";
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(create);
+            stmt.executeUpdate(createQuery);
             return true;
         } catch (SQLException e) {
             Logger.getLogger(ShipTable.class.getName()).
