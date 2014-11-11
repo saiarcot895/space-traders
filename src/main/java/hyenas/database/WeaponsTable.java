@@ -45,6 +45,28 @@ public class WeaponsTable implements Table<Weapon, Ship> {
         }
     }
 
+    /**
+     * Test that the Weapons table is created based 
+     * on the SQL query and connection.
+     * Used for JUnit testing of above method for validation.
+     * @return true if table is created, false otherwise
+     */
+    public boolean createTableTest() {
+        String create = "CREATE TABLE IF NOT EXISTS Weapons "
+                + "(ID INTEGER NOT NULL, "
+                + "Ship INTEGER NOT NULL, "
+                + "PRIMARY KEY (ID), FOREIGN KEY (Ship) "
+                + "REFERENCES Ship (ID))";
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(create);
+            return true;
+        } catch (SQLException e) {
+            Logger.getLogger(WeaponsTable.class.getName()).
+                    log(Level.SEVERE, null, e);
+            return false;
+        }
+    }
+    
     @Override
     public void addRow(Weapon weapon, Ship ship) {
         String info = "INSERT INTO Weapons "

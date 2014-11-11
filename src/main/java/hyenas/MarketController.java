@@ -282,7 +282,7 @@ public class MarketController implements Initializable {
         Player player = Player.getInstance();
         ConnectionManager connectionManager = HyenasLoader.getInstance().getConnectionManager();
         connectionManager.getPlayerTable().update(player, null);
-        connectionManager.getItemTable().update(player.getShip().getWares(), null);
+        connectionManager.getItemsTable().update(player.getShip().getWares(), null);
     }
     
     /**

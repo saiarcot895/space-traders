@@ -45,6 +45,28 @@ public class ShipTable implements Table<Ship, Player> {
         }
     }
 
+    /**
+     * Test that the Ship table is created based 
+     * on the SQL query and connection.
+     * Used for JUnit testing of above method for validation.
+     * @return true if table is created, false otherwise
+     */
+    public boolean createTableTest() {
+        String create = "CREATE TABLE IF NOT EXISTS Ship "
+                + "(ID INTEGER NOT NULL, " + "Type VARCHAR(20) NOT NULL, "
+                + "Fuel DOUBLE NOT NULL, " + "Health DOUBLE NOT NULL, "
+                + "Player INTEGER NOT NULL, " + "PRIMARY KEY (ID), "
+                + "FOREIGN KEY (Player) REFERENCES Players (ID))";
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(create);
+            return true;
+        } catch (SQLException e) {
+            Logger.getLogger(ShipTable.class.getName()).
+                    log(Level.SEVERE, null, e);
+            return false;
+        }
+    }
+    
     @Override
     public void addRow(Ship ship, Player player) {
         String query = "INSERT INTO Ship "

@@ -51,7 +51,32 @@ public class PlayerTable implements Table<Player, Void> {
                     log(Level.SEVERE, null, e);
         }
     }
-
+    
+    /**
+     * Test that the Player table is created based 
+     * on the SQL query and connection.
+     * Used for JUnit testing of above method for validation.
+     * @return true if table is created, false otherwise
+     */
+    public boolean createTableTest() {
+        String create = "CREATE TABLE IF NOT EXISTS Players "
+                + "(ID INTEGER NOT NULL, " + "Name VARCHAR(20) NOT NULL, "
+                + "Points INTEGER NOT NULL, " + "Engineer INTEGER NOT NULL, "
+                + "Pilot INTEGER NOT NULL, " + "Investor INTEGER NOT NULL, "
+                + "Fighter INTEGER NOT NULL, " + "Trader INTEGER NOT NULL, "
+                + "Credits INTEGER, " + "SSID INTEGER, "
+                + "PRIMARY KEY (ID), "
+                + "FOREIGN KEY (SSID) REFERENCES SolarSystem (ID))";
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(create);
+            return true;
+        } catch (SQLException e) {
+            Logger.getLogger(PlayerTable.class.getName()).
+                    log(Level.SEVERE, null, e);
+            return false;
+        }
+    }
+    
     @Override
     public void addRow(Player player, Void unused) {
         String query = "INSERT INTO Players "
