@@ -62,8 +62,8 @@ public class ShipTest {
     private void testShipAgainstDefaults(Ship.ShipType type, Ship ship)   {
         Ship def = new Ship(type);
         assertEquals(def.getName(), ship.getName());
-        assertEquals(def.getMaxFuel(), ship.getMaxFuel());
-        assertEquals(def.getMaxHealth(), ship.getMaxHealth());
+        assertEquals(def.getMaxFuel(), ship.getMaxFuel(), 0);
+        assertEquals(def.getMaxHealth(), ship.getMaxHealth(), 0);
         assertEquals(def.getMinTechLevel(), ship.getMinTechLevel());
         assertEquals(def.getPrice(), ship.getPrice());
         assertEquals(def.getWeaponSlots(), ship.getWeaponSlots());
@@ -256,7 +256,7 @@ public class ShipTest {
         //Water, Water, Water, Water, Water
         //remove each Water and assert after each
         for (int i = 0; i < ship.getCargoSlots(); i++)   {
-            expectedCargo.remove(new Ware(Ware.Good.WATER));
+            expectedCargo.remove(0);
             ship.removeCargo(new Ware(Ware.Good.WATER));
             assertTrue(compareWareLists(ship.getCargo(), expectedCargo));
         }

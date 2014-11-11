@@ -237,6 +237,23 @@ public class Ship {
      * @param ptype the ship type
      */
     public void setShipType(ShipType ptype) {
+        switch (ptype) {
+            case FLEA:
+                setupFlea();
+                break;
+            case GNAT:
+                setupGnat();
+                break;
+            case FIREFLY:
+                setupFirefly();
+                break;
+            case MOSQUITO:
+                setupMosquito();
+                break;
+            case BUMBLEBEE:
+                setupBumblebee();
+                break;
+        }
         this.type = ptype;
     }
     
