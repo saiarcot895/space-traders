@@ -33,7 +33,7 @@ public class ShipTable implements Table<Ship, Player> {
     @Override
     public void createTable() {
         String create = "CREATE TABLE IF NOT EXISTS Ship "
-                + "(ID INTEGER NOT NULL, " + "Type VARCHAR(20) NOT NULL, "
+                + "(ID INTEGER NOT NULL, " + "Type INTEGER NOT NULL, "
                 + "Fuel DOUBLE NOT NULL, " + "Health DOUBLE NOT NULL, "
                 + "Player INTEGER NOT NULL, " + "PRIMARY KEY (ID), "
                 + "FOREIGN KEY (Player) REFERENCES Players (ID))";
@@ -66,7 +66,7 @@ public class ShipTable implements Table<Ship, Player> {
      * @throws SQLException if an error in the database occurred in updating the information
      */
     private void fillAndRunUpdate(PreparedStatement stmt, Ship ship, Player player) throws SQLException {
-        stmt.setString(1, ship.getName());
+        stmt.setInt(1, ship.getShipType().ordinal());
         stmt.setDouble(2, ship.getFuel());
         stmt.setDouble(3, ship.getHealth());
         
@@ -100,7 +100,7 @@ public class ShipTable implements Table<Ship, Player> {
             String query = "DELETE FROM Ship "
                     + "WHERE Type = ? AND Player = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, ship.getName());
+            stmt.setInt(1, ship.getShipType().ordinal());
             
             PreparedStatement sysStmt = conn.prepareStatement("SELECT ID FROM Players WHERE Name = ?");
             sysStmt.setString(1, player.getName());
@@ -129,8 +129,7 @@ public class ShipTable implements Table<Ship, Player> {
             ResultSet shipInfo = stmt.executeQuery(query);
             shipInfo.next();
             
-            Player.getInstance().setShip(new Ship(Ship.ShipType
-                    .valueOf(shipInfo.getString(1).toUpperCase())));
+            Player.getInstance().setShip(new Ship(Ship.ShipType.values()[shipInfo.getInt(1)]));
             Player.getInstance().getShip().setFuel(shipInfo.getDouble(2));
             Player.getInstance().getShip().setHealth(shipInfo.getDouble(3));
         } catch (SQLException e) {

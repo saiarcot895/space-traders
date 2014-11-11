@@ -4,6 +4,7 @@ import hyenas.Models.Gadget;
 import hyenas.Models.Ship;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -30,8 +31,8 @@ public class GadgetsTable implements Table<Gadget, Ship> {
         // 3 -> Increase Weapon Damage (all)
         
         String create = "CREATE TABLE IF NOT EXISTS Gadgets "
-                + "(ID INTEGER NOT NULL, Name VARCHAR(20), "
-                + "Property INTEGER, " + "Ship INTEGER, "
+                + "(ID INTEGER NOT NULL, GadgetID INTEGER, "
+                + "Ship INTEGER, "
                 + "PRIMARY KEY (ID), FOREIGN KEY (Ship) "
                 + "REFERENCES Ship (ID))";
         try (Statement stmt = conn.createStatement()) {
@@ -43,14 +44,22 @@ public class GadgetsTable implements Table<Gadget, Ship> {
     }
 
     @Override
-    public void addRow(Gadget item, Ship parent) {
+    public void addRow(Gadget item, Ship ship) {
         try {
-            String info = "INSERT INTO Gadgets (Name, Property, GID) "
-                    + "VALUES(NULL, NULL, NULL)";
+            String info = "INSERT INTO Gadgets (GadgetID, Ship) "
+                    + "VALUES(?, ?)";
             PreparedStatement stmt = conn.prepareStatement(info);
-            // TODO: Get Gadget Type (initially NULL)
-            // TODO: Get Property (initially NULL)
-            // TODO: Match the SID to ship ID
+            stmt.setInt(1, item.getType().ordinal());
+            
+            PreparedStatement sysStmt = conn.prepareStatement("SELECT ID FROM Ship WHERE Type = ?");
+            sysStmt.setInt(1, ship.getShipType().ordinal());
+            ResultSet shipIDResultSet = sysStmt.executeQuery();
+            if (!shipIDResultSet.next()) {
+                throw new IllegalArgumentException();
+            }
+            
+            stmt.setInt(2, shipIDResultSet.getInt(1));
+            stmt.execute();
         } catch (SQLException e) {
             Logger.getLogger(GadgetsTable.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -59,7 +68,7 @@ public class GadgetsTable implements Table<Gadget, Ship> {
     
     @Override
     public void update(Gadget item, Ship parent) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
