@@ -99,7 +99,7 @@ public class PlanetTable implements Table<Planet, SolarSystem> {
         }
     }
     
-/**************************************************************************/
+// **************************************************************************
 
     @Override
     public void addRow(Planet planet, SolarSystem system) {
