@@ -79,15 +79,15 @@ public class ShipTest {
     @Test
     public void testGetName() {
         Ship ship = new Ship(Ship.ShipType.BUMBLEBEE);
-        assertEquals(ship.getName(), "BUMBLEBEE");
+        assertEquals(ship.getName(), "Bumblebee");
         ship = new Ship(Ship.ShipType.FIREFLY);
-        assertEquals(ship.getName(), "FIREFLY");
+        assertEquals(ship.getName(), "Firefly");
         ship = new Ship(Ship.ShipType.FLEA);
-        assertEquals(ship.getName(), "FLEA");
+        assertEquals(ship.getName(), "Flea");
         ship = new Ship(Ship.ShipType.GNAT);
-        assertEquals(ship.getName(), "GNAT");
+        assertEquals(ship.getName(), "Gnat");
         ship = new Ship(Ship.ShipType.MOSQUITO);
-        assertEquals(ship.getName(), "MOSQUITO");
+        assertEquals(ship.getName(), "Mosquito");
     }
 
     /**
@@ -217,26 +217,26 @@ public class ShipTest {
         //Empty list
         assertTrue(ship.addCargo(new Ware(Ware.Good.WATER)));
         expectedCargo.add(new Ware(Ware.Good.WATER));
-        compareWareLists(ship.getCargo(), expectedCargo);
+        assertTrue(compareWareLists(ship.getCargo(), expectedCargo));
         //Water
         assertTrue(ship.addCargo(new Ware(Ware.Good.WATER)));
         expectedCargo.add(new Ware(Ware.Good.WATER));
-        compareWareLists(ship.getCargo(), expectedCargo);
+        assertTrue(compareWareLists(ship.getCargo(), expectedCargo));
         //Water, Water
         assertTrue(ship.addCargo(new Ware(Ware.Good.WATER)));
         expectedCargo.add(new Ware(Ware.Good.WATER));
-        compareWareLists(ship.getCargo(), expectedCargo);
+        assertTrue(compareWareLists(ship.getCargo(), expectedCargo));
         //Water, Water, Water
         assertTrue(ship.addCargo(new Ware(Ware.Good.WATER)));
         expectedCargo.add(new Ware(Ware.Good.WATER));
-        compareWareLists(ship.getCargo(), expectedCargo);
+        assertTrue(compareWareLists(ship.getCargo(), expectedCargo));
         //Water, Water, Water, Water
         assertTrue(ship.addCargo(new Ware(Ware.Good.WATER)));
         expectedCargo.add(new Ware(Ware.Good.WATER));
-        compareWareLists(ship.getCargo(), expectedCargo);
+        assertTrue(compareWareLists(ship.getCargo(), expectedCargo));
         //Water, Water, Water, Water, Water
         assertFalse(ship.addCargo(new Ware(Ware.Good.WATER)));
-        compareWareLists(ship.getCargo(), expectedCargo);
+        assertTrue(compareWareLists(ship.getCargo(), expectedCargo));
         //Water, Water, Water, Water, Water
     }
 
@@ -252,13 +252,13 @@ public class ShipTest {
             expectedCargo.add(new Ware(Ware.Good.WATER));
             ship.addCargo(new Ware(Ware.Good.WATER));
         }
-        compareWareLists(ship.getCargo(), expectedCargo);
+        assertTrue(compareWareLists(ship.getCargo(), expectedCargo));
         //Water, Water, Water, Water, Water
         //remove each Water and assert after each
         for (int i = 0; i < ship.getCargoSlots(); i++)   {
             expectedCargo.remove(new Ware(Ware.Good.WATER));
             ship.removeCargo(new Ware(Ware.Good.WATER));
-            assertTrue(ship.getCargo().equals(expectedCargo));
+            assertTrue(compareWareLists(ship.getCargo(), expectedCargo));
         }
         assertTrue(ship.getCargo().isEmpty());
     }
