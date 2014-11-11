@@ -145,12 +145,11 @@ public class DijkstraHelper {
             PlanetTable planetTable = HyenasLoader.getInstance()
                     .getConnectionManager().getPlanetTable();
 
-            for (int i = 0; i < solarSystemValues.size(); i++) {
-                SolarSystem ss = solarSystemValues.get(i);
+            for (SolarSystem ss : solarSystemValues) {
                 ssTable.addRow(ss, null);
                 ss.getPlanets().stream().forEach((planet) -> {
-                        planetTable.addRow(planet, ss);
-                    });
+                    planetTable.addRow(planet, ss);
+                });
             }
 
             HyenasLoader.getInstance().getConnectionManager().getPlayerTable()

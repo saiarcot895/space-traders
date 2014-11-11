@@ -491,54 +491,6 @@ public class Planet {
     }
     
     /**
-     * Represents a good affected by either the Planet's Type, or a PlanetEvent.
-     */
-    private class AffectedGood {
-        /**
-         * The good that is affected.
-         */
-        private Good good;
-        /**
-         * Whether or not the price is increased.
-         */
-        private boolean increasedPrice;
-        /**
-         * Text when a good is abundant.
-         */
-        private static final String ABUNDANT_TEXT = "Abundant";
-        /**
-         * Text when a good is scarce.
-         */
-        private static final String SCARCE_TEXT = "Scarce";
-        
-        /**
-         * Initializes AffectedGood instance.
-         * @param pgood the Good type
-         * @param pincreasedPrice whether the affected good price increases
-         */
-        public AffectedGood(Good pgood, boolean pincreasedPrice) {
-            this.good = pgood;
-            this.increasedPrice = pincreasedPrice;
-        }
-        
-        /**
-         * Getter for the good.
-         * @return the Good type
-         */
-        public Good getGood() {
-            return good;
-        }
-        
-        /**
-         * Getter for whether the price is increased.
-         * @return true if the price is increased; false otherwise
-         */
-        public boolean isIncreasedPrice() {
-            return increasedPrice;
-        }
-    }
-    
-    /**
      * Returns AffectedGood of which good is affected due to the planet's type
      * as well as how the price of the good is affected.
      * 

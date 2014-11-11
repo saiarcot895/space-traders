@@ -6,7 +6,7 @@ import java.util.Random;
  * A Mercenary that can be hired and added to a ship.
  * @author Alex
  */
-class Mercenary {
+public class Mercenary {
     /**
      * The mercenary name.
      */

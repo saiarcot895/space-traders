@@ -1,5 +1,6 @@
 package hyenas.Models;
 
+import hyenas.Models.Planet.PlanetTechLevel;
 import hyenas.Models.Ware.Good;
 import java.util.List;
 import java.util.ArrayList;
@@ -65,6 +66,10 @@ public class Ship {
      * The ship max fuel.
      */
     private double maxFuel;
+    /**
+     * The min tech level required to obtain the ship.
+     */
+    private PlanetTechLevel minTechLevel;
     /**
      * The ship price.
      */
@@ -136,6 +141,7 @@ public class Ship {
         name = "Flea";
         maxFuel = 700.0;
         fuel = maxFuel;
+        minTechLevel = PlanetTechLevel.MEDIEVAL;
         price = 100;
         maxHealth = 5000.0;
         health = maxHealth;
@@ -153,6 +159,7 @@ public class Ship {
         name = "Gnat";
         maxFuel = 2500.0;
         fuel = maxFuel;
+        minTechLevel = PlanetTechLevel.MEDIEVAL;
         price = 500;
         maxHealth = 2000.0;
         health = maxHealth;
@@ -170,6 +177,7 @@ public class Ship {
         name = "Firefly";
         maxFuel = 4000.0;
         fuel = maxFuel;
+        minTechLevel = PlanetTechLevel.RENAISSANCE;
         price = 1000;
         maxHealth = 5000.0;
         health = maxHealth;
@@ -187,6 +195,7 @@ public class Ship {
         name = "Mosquito";
         maxFuel = 5000.0;
         fuel = maxFuel;
+        minTechLevel = PlanetTechLevel.RENAISSANCE;
         price = 4000;
         maxHealth = 5000.0;
         health = maxHealth;
@@ -204,6 +213,7 @@ public class Ship {
         name = "Bumblebee";
         maxFuel = 8000.0;
         fuel = maxFuel;
+        minTechLevel = PlanetTechLevel.EARLYINDUSTRIAL;
         price = 10000;
         maxHealth = 5000.0;
         health = maxHealth;
@@ -433,6 +443,14 @@ public class Ship {
      */
     public int getPrice() {
         return price;
+    }
+    
+    /**
+     * Get the min tech level required for selling.
+     * @return the min tech level the ship
+     */
+    public PlanetTechLevel getMinTechLevel() {
+        return minTechLevel;
     }
     
     /**
