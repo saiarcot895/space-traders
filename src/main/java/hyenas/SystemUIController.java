@@ -147,6 +147,7 @@ public class SystemUIController implements Initializable {
         int period = 50;
 
         animationTimer = new Timer();
+        animationTimer.setDaemon(true);
         animationTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
