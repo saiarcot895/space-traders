@@ -40,6 +40,24 @@ public class AlertPane extends BorderPane {
     private Button closeButton;
     
     /**
+     * Combat alert pane's pulse button
+     */
+    @FXML
+    private Button pulseButton;
+    
+    /**
+     * Combat alert pane's beam button
+     */
+    @FXML
+    private Button beamButton;
+    
+    /**
+     * Combat alert pane's missile button
+     */
+    @FXML
+    private Button missileButton;
+    
+    /**
      * The alert pane's type.
      */
     private AlertPaneType type;
@@ -76,7 +94,11 @@ public class AlertPane extends BorderPane {
         /**
          * An alert with a loading indicator and close button.
          */
-        LOADING
+        LOADING,
+        /**
+         * 
+         */
+        FIGHTBUTTONS
     }
     
     /**
@@ -188,6 +210,24 @@ public class AlertPane extends BorderPane {
             progressPane.setCenter(progressBar);
             setBottom(progressPane);
         }
+        else if (type == AlertPaneType.FIGHTBUTTONS)    {
+            setPrefSize(ALERT_PANE_WIDTH, ALERT_PANE_HEIGHT+40);
+            pulseButton = new StandardButton("Fire Pulse \n"
+                    + "Weapons", StandardButtonType.SMALL);
+            AnchorPane.setBottomAnchor(pulseButton, 5.0+5+StandardButton.SMALL_PREF_HEIGHT);
+            AnchorPane.setLeftAnchor(pulseButton, 41.0);
+            beamButton = new StandardButton("Fire Beam \n"
+                    + "Weapons", StandardButtonType.SMALL);
+            AnchorPane.setBottomAnchor(beamButton, 5.0+5+StandardButton.SMALL_PREF_HEIGHT);
+            AnchorPane.setRightAnchor(beamButton, 41.0);
+            missileButton = new StandardButton("Fire Missile \n"
+                    + "Weapons", StandardButtonType.SMALL);
+            AnchorPane.setBottomAnchor(missileButton, 5.0);
+            AnchorPane.setLeftAnchor(missileButton, 41.0);
+            closeButton = new StandardButton(DEFAULT_CLOSE_TEXT, StandardButtonType.SMALL);
+            AnchorPane.setBottomAnchor(closeButton, 5.0);
+            AnchorPane.setRightAnchor(closeButton, 41.0);
+        }
         
         setLayoutX((UIHelper.getScreenSize().getWidth() / 2) - (getPrefWidth() / 2));
         setLayoutY((UIHelper.getScreenSize().getHeight() / 2) - (getPrefHeight() / 2));
@@ -229,5 +269,29 @@ public class AlertPane extends BorderPane {
      */
     public Button getCloseButton() {
         return closeButton;
+    }
+    
+    /**
+     * Get the alert pane's pulse button
+     * @return the pulse button
+     */
+    public Button getPulseButton()  {
+        return pulseButton;
+    }
+    
+    /**
+     * Get the alert pane's beam button
+     * @return the beam button
+     */
+    public Button getBeamButton()  {
+        return beamButton;
+    }
+    
+    /**
+     * Get the alert pane's missile button
+     * @return the missile button
+     */
+    public Button getMissileButton()    {
+        return missileButton;
     }
 }

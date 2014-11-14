@@ -39,6 +39,10 @@ public class Ship {
      */
     private int cargoSlots;
     /**
+     * base value for cargo slots
+     */
+    private int baseCargo;
+    /**
      * The ship weapons.
      */
     private List<Weapon> weapons = new ArrayList<>();
@@ -82,6 +86,16 @@ public class Ship {
      * The ship max health.
      */
     private double maxHealth;
+    
+    /**
+     * The ship shield strength
+     */
+    private double shieldStrength;
+    
+    /**
+     * The ship max shield strength
+     */
+    private double maxShieldStrength;
     
     /**
      * A ShipType, used to distinguish between the types of ships.
@@ -150,6 +164,9 @@ public class Ship {
         gadgetSlots = 0;
         crewSlots = 0;
         cargoSlots = 5;
+        baseCargo = 5;
+        shieldStrength = 0;
+        maxShieldStrength = 0;
     }
 
     /**
@@ -168,6 +185,9 @@ public class Ship {
         gadgetSlots = 1;
         crewSlots = 1;
         cargoSlots = 15;
+        baseCargo = 15;
+        shieldStrength = 0;
+        maxShieldStrength = 0;
     }
 
     /**
@@ -183,9 +203,13 @@ public class Ship {
         health = maxHealth;
         weaponSlots = 1;
         shieldSlots = 1;
+        shields.add(new Shield(Shield.ShieldType.CIVILIAN_ENERGY));
         gadgetSlots = 1;
         crewSlots = 1;
         cargoSlots = 20;
+        baseCargo = 20;
+        shieldStrength = 100;
+        maxShieldStrength = 100;
     }
 
     /**
@@ -201,9 +225,14 @@ public class Ship {
         health = maxHealth;
         weaponSlots = 2;
         shieldSlots = 2;
+        shields.add(new Shield(Shield.ShieldType.CIVILIAN_ENERGY));
+        shields.add(new Shield(Shield.ShieldType.CIVILIAN_ENERGY));
         gadgetSlots = 1;
         crewSlots = 2;
         cargoSlots = 15;
+        baseCargo = 15;
+        shieldStrength = 200;
+        maxShieldStrength = 200;
     }
 
     /**
@@ -219,11 +248,36 @@ public class Ship {
         health = maxHealth;
         weaponSlots = 3;
         shieldSlots = 3;
+        shields.add(new Shield(Shield.ShieldType.CIVILIAN_ENERGY));
+        shields.add(new Shield(Shield.ShieldType.CIVILIAN_ENERGY));
+        shields.add(new Shield(Shield.ShieldType.CIVILIAN_ENERGY));
         gadgetSlots = 2;
         crewSlots = 3;
         cargoSlots = 25;
+        baseCargo = 25;
+        shieldStrength = 300;
+        maxShieldStrength = 300;
     }
-    
+
+    /**
+     * update variables in Ship after modifying gadgets or shields
+     */
+    public void updateShip()    {
+        cargoSlots = baseCargo;
+        for (Gadget gadget : gadgets) {
+            if(gadget.getType() == Gadget.GadgetType.EXTRA_CARGO)  {
+                cargoSlots = cargoSlots + 5;
+            }
+        }
+        maxShieldStrength = 0;
+        for (Shield shield : shields)    {
+            maxShieldStrength = maxShieldStrength + shield.getStrength();
+            if(shieldStrength > maxShieldStrength)  {
+                shieldStrength = maxShieldStrength;
+            }
+        }
+    }
+
     /**
      * Get the ShipType.
      * @return the ship type
@@ -254,6 +308,30 @@ public class Ship {
      */
     public int getShieldSlots() {
         return shieldSlots;
+    }
+    
+    /**
+     * Get the current shield strength
+     * @return shieldStrength
+     */
+    public double getShieldStrength()  {
+        return shieldStrength;
+    }
+    
+    /**
+     * Set the current shield strength
+     * @param strength value to set shield strength to
+     */
+    public void setShieldStrength(double strength)  {
+        shieldStrength = strength;
+    }
+    
+    /**
+     * Get the ship's max shield strength based on shields
+     * @return maxShieldStrength
+     */
+    public double getMaxShieldStrength()    {
+        return maxShieldStrength;
     }
     
     /**
