@@ -21,26 +21,30 @@ public class Weapon implements ShipyardBuyable {
      */
     private int price;
     /**
-     * The weapon damage.
+     * The weapon damage to ships.
      */
-    private int damage;
+    private int shipDamage;
+    /**
+     * The weapon damage to shields.
+     */
+    private int shieldDamage;
     
     /**
      * A WeaponType, used to distinguish between the types of weapon.
      */
     public enum WeaponType {
         /**
-         * Pulse weapon (Weakest).
+         * Pulse weapon (avg v shields, avg v hull).
          */
         PULSE,
         /**
-         * Beam weapon (Medium strength).
+         * Beam weapon (strong v shields, weak v hull).
          */
         BEAM,
         /**
-         * Military weapon (Strongest).
+         * missile weapon (strong v hull, weak v shields).
          */
-        MILITARY,
+        MISSILE,
     }
     
     /**
@@ -52,17 +56,20 @@ public class Weapon implements ShipyardBuyable {
             case PULSE:
                 name = "Pulse";
                 price = 100;
-                damage = 100;
+                shipDamage = 100;
+                shieldDamage = 100;
                 break;
             case BEAM:
                 name = "Beam";
                 price = 200;
-                damage = 300;
+                shieldDamage = 300;
+                shipDamage = 50;
                 break;
-            case MILITARY:
-                name = "Military";
+            case MISSILE:
+                name = "Missile";
                 price = 300;
-                damage = 500;
+                shipDamage = 300;
+                shieldDamage = 50;
                 break;
             default:
                 break;
@@ -79,11 +86,19 @@ public class Weapon implements ShipyardBuyable {
     }
     
     /**
-     * Get the damage of the weapon.
-     * @return the damage of the weapon
+     * Get the damage of the weapon to health.
+     * @return the damage of the weapon to health
      */
-    public int getDamage()    {
-        return damage;
+    public int getShipDamage()    {
+        return shipDamage;
+    }
+    
+    /**
+     * Get the damage of the weapon to shields
+     * @return the damage of the weapon to shields
+     */
+    public int getShieldDamage()    {
+        return shieldDamage;
     }
 
     /**

@@ -242,6 +242,7 @@ public class ShipyardController implements Initializable {
                         if (player.getCredits() >= item.getPrice()) {
                             item.getShipItems(ship).add(item);
                             player.setCredits(player.getCredits() - item.getPrice());
+                            player.getShip().updateShip();
 
 //                    TODO: Update adding to database
 
