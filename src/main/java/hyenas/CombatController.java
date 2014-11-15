@@ -1,5 +1,6 @@
 package hyenas;
 
+import hyenas.Models.Gadget;
 import hyenas.Models.Player;
 import hyenas.Models.Ship;
 import hyenas.Models.Weapon;
@@ -23,37 +24,66 @@ import javafx.scene.layout.AnchorPane;
 
 public class CombatController implements Initializable {
 
+    /**
+     * label displaying the player's current health
+     */
     @FXML
     private Label playerHealth;
-    
+
+    /**
+     * label displaying the player's current shields
+     */
     @FXML
     private Label playerShields;
 
+    /**
+     * label displaying the enemy's current health
+     */
     @FXML
     private Label enemyHealth;
-    
+
+    /**
+     * label displaying the enemy's current shields
+     */
     @FXML
     private Label enemyShields;
 
+    /**
+     * button to click to pick a weapon and attack
+     */
     @FXML
     private Button fight;
 
+    /**
+     * button to click to attempt to flee the fight
+     */
     @FXML
-    private Button run;
+    private Button flee;
 
+    /**
+     * button to click to use a gadget in the fight
+     */
     @FXML
     private Button gadget;
 
     private Ship playerShip;
 
     private Ship enemyShip;
-    
+
     @FXML
     private AnchorPane anchorPane;
+
+    private boolean stealthed;
+    
+    private int targeters;
+    
+    private int timesStealthed;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         playerShip = Player.getInstance().getShip();
+        stealthed = false;
+        timesStealthed = 0;
         Random rand = new Random();
         int randomInt = rand.nextInt(Ship.getDefaultShips().size());
         //enemy ship type is completely random
@@ -68,9 +98,89 @@ public class CombatController implements Initializable {
                  + playerShip.getMaxShieldStrength());
         enemyHealth.setText(enemyShip.getHealth() + "/"
                  + enemyShip.getMaxHealth());
-
+        enemyShields.setText(enemyShip.getShieldStrength() + "/"
+                 + enemyShip.getMaxShieldStrength());
+        targeters = 0;
+        for (Gadget g : playerShip.getGadgets())   {
+            if(g.getType() == Gadget.GadgetType.TARGETING_SYSTEM)
+                targeters++;
+        }
     }
 
+    public void onGadget(ActionEvent e) {
+        boolean found = false;
+        for (Gadget gadget : playerShip.getGadgets())   {
+            if(gadget.getType() == Gadget.GadgetType.CLOAKING_DEVICE && timesStealthed < 3)   {
+                found = true;
+                break;
+            }
+        }
+        if(found)  {
+            AlertPane alertPane = new AlertPane(AlertPane.AlertPaneType.TWOBUTTONS,
+                "Gadgets", "Pick a gadget.");
+            alertPane.getActionButton().setText("Cloaking Device");
+            EventHandler<ActionEvent> stealthAction = (ActionEvent e2) -> {
+                anchorPane.getChildren().remove(alertPane);
+                stealthed = true;
+            };
+            EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
+                anchorPane.getChildren().remove(alertPane);
+            };
+            alertPane.getActionButton().setOnAction(stealthAction);
+            alertPane.getCloseButton().setOnAction(closeAction);
+            anchorPane.getChildren().add(alertPane);
+        }
+        else    {
+            AlertPane alertPane = new AlertPane(AlertPane.AlertPaneType.ONEBUTTON,
+                "Invalid", "You don't have any useable gadgets.");
+            EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
+                anchorPane.getChildren().remove(alertPane);
+            };
+            alertPane.getCloseButton().setOnAction(closeAction);
+            anchorPane.getChildren().add(alertPane);
+        }
+    }
+
+    /**
+     * ActionListener for "flee" button in main combat screen
+     * @param e Action Trigger
+     */
+    public void onFlee(ActionEvent e)   {
+        int fleeChance = (enemyShip.getWeaponSlots()
+                + enemyShip.getShieldSlots())*10
+                + Player.getInstance().getPilotSkill()*5;
+        Random rand = new Random();
+        if(rand.nextInt(100) < fleeChance)  {
+            AlertPane alertPane = new AlertPane(AlertPane.AlertPaneType.ONEBUTTON,
+                "Success", "You've successfully fled the " + enemyShip.getShipType() + ".");
+            EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
+                anchorPane.getChildren().remove(alertPane);
+                successfullyFled();
+            };
+            alertPane.getCloseButton().setOnAction(closeAction);
+            anchorPane.getChildren().add(alertPane);
+        }
+        else    {
+            AlertPane alertPane = new AlertPane(AlertPane.AlertPaneType.ONEBUTTON,
+                "Failure", "You've failed to flee the " + enemyShip.getShipType() + ".");
+            EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
+                anchorPane.getChildren().remove(alertPane);
+                if(!stealthed)
+                    attackPlayer();
+            };
+            alertPane.getCloseButton().setOnAction(closeAction);
+            anchorPane.getChildren().add(alertPane);
+        }
+    }
+
+    private void successfullyFled()  {
+        //TODO
+    }
+
+    /**
+     * ActionListener for "fight" button in main combat screen
+     * @param e Action Trigger
+     */
     public void onFight(ActionEvent e)  {
         AlertPane alertPane = new AlertPane(AlertPane.AlertPaneType.FIGHTBUTTONS,
                 "Attack", "How would you like to attack?");
@@ -81,21 +191,24 @@ public class CombatController implements Initializable {
             boolean damageDealt = pulseAttack();
             if(damageDealt) {
                 anchorPane.getChildren().remove(alertPane);
-                attackPlayer();
+                if(!stealthed)
+                    attackPlayer();
             }
         };
         EventHandler<ActionEvent> beamAction = (ActionEvent e2) -> {
             boolean damageDealt = beamAttack();
             if(damageDealt) {
                 anchorPane.getChildren().remove(alertPane);
-                attackPlayer();
+                if(!stealthed)
+                    attackPlayer();
             }
         };
         EventHandler<ActionEvent> missileAction = (ActionEvent e2) -> {
             boolean damageDealt = missileAttack();
             if(damageDealt) {
                 anchorPane.getChildren().remove(alertPane);
-                attackPlayer();
+                if(!stealthed)
+                    attackPlayer();
             }
         };
         alertPane.getPulseButton().setOnAction(pulseAction);
@@ -109,7 +222,7 @@ public class CombatController implements Initializable {
      * Enemy calculates potential damage of the 3 weapon groups and picks the
      * most effective. The player is then attacked by the selected weapon group.
      */
-    public void attackPlayer()  {
+    private void attackPlayer()  {
         double damagePulse = 0;
         double damageBeam = 0;
         double damageMissile = 0;
@@ -175,12 +288,12 @@ public class CombatController implements Initializable {
         alertPane.getCloseButton().setOnAction(closeAction);
         anchorPane.getChildren().add(alertPane);
     }
-    
+
     /**
      * calculate and deal damage from the user's missile weaponry
      * @return whether or not there were missile weapons on the player ship
      */
-    public boolean missileAttack()  {
+    private boolean missileAttack()  {
         double damage = 0;
         if (enemyShip.getShieldStrength() > 0)    {
             for (Weapon weapon : playerShip.getWeapons())    {
@@ -202,6 +315,7 @@ public class CombatController implements Initializable {
                 return false;
             }
         }
+        damage += (targeters + Player.getInstance().getFighterSkill()) * 10;
         if (enemyShip.getShieldStrength() < damage)  {
             damage = damage - enemyShip.getShieldStrength();
             enemyShip.setShieldStrength(0);
@@ -218,7 +332,7 @@ public class CombatController implements Initializable {
      * calculate and deal damage from the user's beam weaponry
      * @return whether or not there were beam weapons on the player ship
      */
-    public boolean beamAttack()   {
+    private boolean beamAttack()   {
         double damage = 0;
         if (enemyShip.getShieldStrength() > 0)    {
             for (Weapon weapon : playerShip.getWeapons())    {
@@ -240,6 +354,7 @@ public class CombatController implements Initializable {
                 return false;
             }
         }
+        damage += (targeters + Player.getInstance().getFighterSkill()) * 10;
         if (enemyShip.getShieldStrength() < damage)  {
             damage = damage - enemyShip.getShieldStrength();
             enemyShip.setShieldStrength(0);
@@ -254,9 +369,10 @@ public class CombatController implements Initializable {
 
     /**
      * calculate and deal damage from the user's pulse weaponry
+     * calculation includes gadgets and fighter skill
      * @return whether or not there were pulse weapons on the player ship
      */
-    public boolean pulseAttack()   {
+    private boolean pulseAttack()   {
         double damage = 0;
         if (enemyShip.getShieldStrength() > 0)    {
             for (Weapon weapon : playerShip.getWeapons())    {
@@ -278,6 +394,7 @@ public class CombatController implements Initializable {
                 return false;
             }
         }
+        damage += (targeters + Player.getInstance().getFighterSkill()) * 10;
         if (enemyShip.getShieldStrength() < damage)  {
             damage = damage - enemyShip.getShieldStrength();
             enemyShip.setShieldStrength(0);
