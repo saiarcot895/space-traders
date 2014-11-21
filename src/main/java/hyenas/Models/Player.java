@@ -88,6 +88,25 @@ public class Player {
     }
 
     /**
+     * For if the player's ship dies
+     */
+    public void death() {
+        boolean escapePod = false;
+        for (Gadget gadget : ship.getGadgets())  {
+            if (gadget.getType() == Gadget.GadgetType.ESCAPE_POD)    {
+                escapePod = true;
+                break;
+            }
+        }
+        if (escapePod)  {
+            ship = new Ship(ShipType.GNAT);
+        }
+        else    {
+            instance = new Player();
+        }
+    }
+
+    /**
      * Get player's name.
      * @return the name of the player
      */

@@ -198,6 +198,11 @@ public class CombatController implements Initializable {
                     enemyHealth.setText("0/0");
                     //TODO leave the combat screen
                 }
+                if(playerShip.getHealth() <= 0) {
+                    playerHealth.setText("0/0");
+                    Player.getInstance().death();
+                    //TODO leave combat screen
+                }
             }
         };
         EventHandler<ActionEvent> beamAction = (ActionEvent e2) -> {
@@ -211,6 +216,11 @@ public class CombatController implements Initializable {
                     enemyHealth.setText("0/0");
                     //TODO leave the combat screen
                 }
+                if(playerShip.getHealth() <= 0) {
+                    playerHealth.setText("0/0");
+                    Player.getInstance().death();
+                    //TODO leave combat screen
+                }
             }
         };
         EventHandler<ActionEvent> missileAction = (ActionEvent e2) -> {
@@ -223,6 +233,11 @@ public class CombatController implements Initializable {
                 else if(enemyShip.getHealth() <= 0) {
                     enemyHealth.setText("0/0");
                     //TODO leave the combat screen
+                }
+                if(playerShip.getHealth() <= 0) {
+                    playerHealth.setText("0/0");
+                    Player.getInstance().death();
+                    //TODO leave combat screen
                 }
             }
         };
