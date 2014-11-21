@@ -74,9 +74,9 @@ public class CombatController implements Initializable {
     private AnchorPane anchorPane;
 
     private boolean stealthed;
-    
+
     private int targeters;
-    
+
     private int timesStealthed;
 
     @Override
@@ -191,24 +191,39 @@ public class CombatController implements Initializable {
             boolean damageDealt = pulseAttack();
             if(damageDealt) {
                 anchorPane.getChildren().remove(alertPane);
-                if(!stealthed)
+                if(!stealthed && enemyShip.getHealth() > 0) {
                     attackPlayer();
+                }
+                else if(enemyShip.getHealth() <= 0) {
+                    enemyHealth.setText("0/0");
+                    //TODO leave the combat screen
+                }
             }
         };
         EventHandler<ActionEvent> beamAction = (ActionEvent e2) -> {
             boolean damageDealt = beamAttack();
             if(damageDealt) {
                 anchorPane.getChildren().remove(alertPane);
-                if(!stealthed)
+                if(!stealthed && enemyShip.getHealth() > 0) {
                     attackPlayer();
+                }
+                else if(enemyShip.getHealth() <= 0) {
+                    enemyHealth.setText("0/0");
+                    //TODO leave the combat screen
+                }
             }
         };
         EventHandler<ActionEvent> missileAction = (ActionEvent e2) -> {
             boolean damageDealt = missileAttack();
             if(damageDealt) {
                 anchorPane.getChildren().remove(alertPane);
-                if(!stealthed)
+                if(!stealthed && enemyShip.getHealth() > 0) {
                     attackPlayer();
+                }
+                else if(enemyShip.getHealth() <= 0) {
+                    enemyHealth.setText("0/0");
+                    //TODO leave the combat screen
+                }
             }
         };
         alertPane.getPulseButton().setOnAction(pulseAction);
