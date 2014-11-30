@@ -1,8 +1,11 @@
 package hyenas;
 
+import hyenas.Models.Gadget;
 import hyenas.Models.Player;
+import hyenas.Models.Shield;
 import hyenas.Models.Ship;
 import hyenas.Models.ShipyardBuyable;
+import hyenas.Models.Weapon;
 import hyenas.UI.AlertPane;
 import hyenas.UI.AlertPane.AlertPaneType;
 import hyenas.UI.ShipInfoPane;
@@ -244,18 +247,16 @@ public class ShipyardController implements Initializable {
                             player.setCredits(player.getCredits() - item.getPrice());
                             player.getShip().updateShip();
 
-//                    TODO: Update adding to database
-
-                        /*if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
-//                            HyenasLoader.getInstance().getConnectionManager()
-//                            .getGadgetsTable().addRow(item, ship);
-                        } else if (shipyardTab.getType() == ShipyardTabType.WEAPONS) {
-//                            HyenasLoader.getInstance().getConnectionManager()
-//                            .getWeaponsTable().addRow(item, ship);
-                        } else if (shipyardTab.getType() == ShipyardTabType.SHIELDS) {
-//                            HyenasLoader.getInstance().getConnectionManager()
-//                            .getShieldsTable().addRow(item, ship);
-                            }*/
+                            if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
+                                HyenasLoader.getInstance().getConnectionManager()
+                                        .getGadgetsTable().addRow((Gadget) item, ship);
+                            } else if (shipyardTab.getType() == ShipyardTabType.WEAPONS) {
+                                HyenasLoader.getInstance().getConnectionManager()
+                                        .getWeaponsTable().addRow((Weapon) item, ship);
+                            } else if (shipyardTab.getType() == ShipyardTabType.SHIELDS) {
+                                HyenasLoader.getInstance().getConnectionManager()
+                                        .getShieldsTable().addRow((Shield) item, ship);
+                            }
                         } else {
                             displayInsufficientCreditsAlert();
                         }
@@ -285,6 +286,11 @@ public class ShipyardController implements Initializable {
                     player.setShip(item);
                     ship = item;
                     player.setCredits(credits + currentShipValue - item.getPrice());
+                    
+                    HyenasLoader.getInstance().getConnectionManager()
+                            .getPlayerTable().update(player, null);
+                    HyenasLoader.getInstance().getConnectionManager().getShipTable()
+                            .update(item, player);
                 } else {
                     displayInsufficientCreditsAlert();
                 }
@@ -314,15 +320,17 @@ public class ShipyardController implements Initializable {
             } else {
                 displayAlert("No Item", "You do not have an item of this type on your ship.");
             }
-            
-//            TODO: Remove item from database
-            /*if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
-                
+
+            if (shipyardTab.getType() == ShipyardTabType.GADGETS) {
+                HyenasLoader.getInstance().getConnectionManager()
+                        .getGadgetsTable().remove((Gadget) item, ship);
             } else if (shipyardTab.getType() == ShipyardTabType.WEAPONS) {
-                
+                HyenasLoader.getInstance().getConnectionManager()
+                        .getWeaponsTable().remove((Weapon) item, ship);
             } else if (shipyardTab.getType() == ShipyardTabType.SHIELDS) {
-                
-            }*/
+                HyenasLoader.getInstance().getConnectionManager()
+                        .getShieldsTable().remove((Shield) item, ship);
+            }
         }
         
         infoPane.updateInfo();

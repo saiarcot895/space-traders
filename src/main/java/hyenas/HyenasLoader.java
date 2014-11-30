@@ -56,6 +56,7 @@ public final class HyenasLoader extends Application {
         connectionManager.getShipTable().createTable();
         connectionManager.getGadgetsTable().createTable();
         connectionManager.getWeaponsTable().createTable();
+        connectionManager.getShieldsTable().createTable();
 
         this.stage = pstage;
         stage.setFullScreen(true);
@@ -81,6 +82,7 @@ public final class HyenasLoader extends Application {
      * Changes screens to the allocation screen and resets all the tables.
      */
     public void goToAllocationScreen() {
+        connectionManager.getShieldsTable().clearTable();
         connectionManager.getWeaponsTable().clearTable();
         connectionManager.getGadgetsTable().clearTable();
         connectionManager.getShipTable().clearTable();
@@ -163,9 +165,11 @@ public final class HyenasLoader extends Application {
         connectionManager.getSolarSystemTable().loadTable();
         connectionManager.getPlanetTable().loadTable();
         connectionManager.getPlayerTable().loadTable();
-        connectionManager.getShipTable().loadTable();
         connectionManager.getItemsTable().loadTable();
+        connectionManager.getShipTable().loadTable();
+        connectionManager.getGadgetsTable().loadTable();
         connectionManager.getWeaponsTable().loadTable();
+        connectionManager.getShieldsTable().loadTable();
         goToMapScreen();
     }
 

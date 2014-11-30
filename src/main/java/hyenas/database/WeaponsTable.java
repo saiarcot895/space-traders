@@ -82,8 +82,8 @@ public class WeaponsTable implements Table<Weapon, Ship> {
     private void doAddOrDeleteCommand(String query, Ship ship, Weapon weapon) {
         try (PreparedStatement stmt = conn.prepareStatement(query);
                 PreparedStatement sysStmt = conn.prepareStatement(
-                        "SELECT ID FROM Ship WHERE Name = ?")) {
-            sysStmt.setString(1, ship.getName());
+                        "SELECT ID FROM Ship WHERE Type = ?")) {
+            sysStmt.setInt(1, ship.getShipType().ordinal());
             try (ResultSet shipIDResultSet = sysStmt.executeQuery()) {
                 if (!shipIDResultSet.next()) {
                     throw new IllegalArgumentException();
@@ -107,7 +107,7 @@ public class WeaponsTable implements Table<Weapon, Ship> {
     @Override
     public void remove(Weapon weapon, Ship ship) {
         String info = "DELETE FROM Weapons "
-                + "WHERE ID = ? AND Ship = ?)";
+                + "WHERE ID = ? AND Ship = ?";
         doAddOrDeleteCommand(info, ship, weapon);
     }
     
@@ -124,7 +124,7 @@ public class WeaponsTable implements Table<Weapon, Ship> {
                 }
             }
         } catch (SQLException e) {
-            Logger.getLogger(ShipTable.class.getName()).
+            Logger.getLogger(WeaponsTable.class.getName()).
                     log(Level.SEVERE, null, e);
         }
     }

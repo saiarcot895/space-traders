@@ -48,6 +48,10 @@ public class ConnectionManager {
      * The weapons table in the database.
      */
     private WeaponsTable weaponsTable;
+    /**
+     * The shields table in the database.
+     */
+    private ShieldsTable shieldsTable;
     
     /**
      * Initializes a connection manager.
@@ -72,6 +76,7 @@ public class ConnectionManager {
             shipTable = new ShipTable(conn);
             gadgetsTable = new GadgetsTable(conn);
             weaponsTable = new WeaponsTable(conn);
+            shieldsTable = new ShieldsTable(conn);
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -93,6 +98,7 @@ public class ConnectionManager {
             shipTable = null;
             gadgetsTable = null;
             weaponsTable = null;
+            shieldsTable = null;
         } catch (SQLException e) {
             Logger.getLogger(ConnectionManager.class.getName()).
                     log(Level.SEVERE, null, e);
@@ -297,5 +303,13 @@ public class ConnectionManager {
      */
     public WeaponsTable getWeaponsTable() {
         return weaponsTable;
+    }
+    
+    /**
+     * Get the shields table.
+     * @return the shields table
+     */
+    public ShieldsTable getShieldsTable() {
+        return shieldsTable;
     }
 }
