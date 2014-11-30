@@ -33,5 +33,5 @@ public interface ShipyardBuyable {
      * @param ship the ship to get the items from
      * @return the list of corresponding items
      */
-    List getShipItems(Ship ship);
+    List<ShipyardBuyable> getShipItems(Ship ship);
 }
