@@ -21,6 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 /**
  *
@@ -76,6 +77,8 @@ public class CombatController implements Initializable {
     @FXML
     private VBox centerPane;
     
+    @FXML
+    private Label titleLabel;
     
     private ShipInfoPane playerInfoPane;
     private ShipInfoPane enemyInfoPane;
@@ -88,6 +91,10 @@ public class CombatController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Font titleFont = Font.loadFont(HyenasLoader.class.getResource("/hyenas/fonts/BlenderPro-Book.otf").toExternalForm(), 40);
+        titleLabel.setFont(titleFont);
+        titleLabel.setStyle("-fx-text-fill: rgba(0,231,255, .9); -fx-effect: dropshadow( gaussian, rgba(0,0,0,1), 0,0,2,2);");
+        
         Random rand = new Random();
         int randomInt = rand.nextInt(Ship.getDefaultShips().size());
         //enemy ship type is completely random
@@ -119,9 +126,21 @@ public class CombatController implements Initializable {
         enemyHealth = enemyInfoPane.getShipHealthLabel();
         enemyShields = enemyInfoPane.getShipShieldStrengthLabel();
         
+        VBox youBox = new VBox();
+        Label youLabel = new Label("You:");
+        BorderPane youPane = new BorderPane();
+        youPane.setCenter(youLabel);
+        youBox.getChildren().addAll(youPane, playerInfoPane);
+        
+        VBox enemyBox = new VBox();
+        Label enemyLabel = new Label("Enemy:");
+        BorderPane enemyPane = new BorderPane();
+        enemyPane.setCenter(enemyLabel);
+        enemyBox.getChildren().addAll(enemyPane, enemyInfoPane);
+        
         Pane spacingPane = new Pane();
         spacingPane.setPrefWidth(100);
-        hbox.getChildren().addAll(playerInfoPane, spacingPane, enemyInfoPane);
+        hbox.getChildren().addAll(youBox, spacingPane, enemyBox);
         BorderPane borderPane = new BorderPane();
         borderPane.setPrefHeight(300);
         borderPane.setCenter(hbox);
@@ -129,6 +148,8 @@ public class CombatController implements Initializable {
         Pane rightPane = new Pane();
         leftPane.setPrefWidth(350);
         rightPane.setPrefWidth(350);
+        playerInfoPane.setPrefHeight(350);
+        enemyInfoPane.setPrefHeight(350);
         borderPane.setLeft(leftPane);
         borderPane.setRight(rightPane);
         centerPane.getChildren().add(borderPane);

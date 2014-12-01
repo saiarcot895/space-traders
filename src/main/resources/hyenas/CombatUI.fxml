@@ -16,16 +16,15 @@
                         <Pane prefHeight="70.0"></Pane>
                     </top>
                     <center>
-
+                        <Label fx:id="titleLabel" text="Combat"></Label>
                     </center>
                 </BorderPane>
                 
                 <VBox fx:id="centerPane" prefHeight="500">
-                    <Button fx:id="flee" text="Flee" onAction="#onFlee" styleClass="standard-button"></Button>
-                    <!-- <center><BorderPane fx:id="tablePane"></BorderPane></center> -->
+                    
                 </VBox>
             </children>
         </VBox>
-        <!-- <Button fx:id="backButton" styleClass="standard-button" prefHeight="37.0" prefWidth="143.0" mnemonicParsing="false" onAction="#goBack" text="Back" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" /> -->
+        <Button fx:id="flee" styleClass="standard-button" prefHeight="37.0" prefWidth="143.0" mnemonicParsing="false" onAction="#onFlee" text="Flee" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />
     </children>
 </AnchorPane>
