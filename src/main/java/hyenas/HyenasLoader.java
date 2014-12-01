@@ -137,6 +137,13 @@ public final class HyenasLoader extends Application {
     }
     
     /**
+     * Changes screens to the Shipyard screen.
+     */
+    public void goToStockMarket() {
+        loadScreen("StockMarketUI.fxml");
+    }    
+    
+    /**
      * Changes screens to the Combat screen.
      */
     public void goToCombat() {

@@ -3,6 +3,7 @@ package hyenas.Models;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * A Galaxy that contains solar systems.
@@ -25,7 +26,13 @@ public class Galaxy {
      * The common galaxy instance. For use with singleton.
      */
     private static volatile Galaxy instance;
-
+ 
+    /**
+     * The companies in the galaxy.
+     */
+    //private Map<String, Company> companies;
+    private List<Company> companies;
+    
     /**
      * Initializes an instance of Galaxy, sets initial values.
      */
@@ -33,6 +40,7 @@ public class Galaxy {
         distances = new HashMap<>();
         locationSet = false;
         setupSolarSystems();
+        setupCompanies();
     }
 
     /**
@@ -181,8 +189,8 @@ public class Galaxy {
             SolarSystem solarSystem = new SolarSystem(systemName);
             solarSystems.put(systemName, solarSystem);
         }
-    }
-
+    }    
+    
     /**
      * Get the solar systems in the galaxy.
      * @return Array of solar systems in the galaxy
@@ -222,5 +230,49 @@ public class Galaxy {
      */
     public void setLocationsSet(boolean plocationSet) {
         this.locationSet = plocationSet;
+    }
+    
+    /**
+     * Sets up the galaxy's companies.
+     */
+    private void setupCompanies() {
+        final String[] companyNames = new String[] {
+            "Supergreen",
+            "Sailgreen",
+            "Labzone",
+            "Stimholding",
+            "Icegreen",
+            "Jobholding",
+            "Zotholding",
+            "retechi",
+            "Newfan",
+            "Vaiacorporation",
+            "Phystechno",
+            "Kincone",
+            "Viazone",
+            "Lanesailice",
+            "Damway",
+            "Treeapjob",
+            "treszone",
+            "Joyin",
+            "Subtouch",
+            "Highphase",
+            "Newtech"
+        };
+
+        companies = new ArrayList<>();
+
+        for (String companyName : companyNames) {
+            Company company = new Company(companyName);
+            companies.add(company);
+        }
+    }
+
+     /**
+     * Gets the galaxy's companies.
+     * @return a list containing the companies
+     */
+    public List<Company> getCompanies() {
+        return this.companies;
     }
 }
