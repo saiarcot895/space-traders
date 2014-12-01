@@ -306,6 +306,13 @@ public class MapUIController implements Initializable {
         }
         ship.setHealth(ship.getHealth() + repairUnits * journey.getDistance());
         ship.setShieldStrength(ship.getHealth() + journey.getDistance());
+        if(ship.getHealth() > ship.getMaxHealth())    {
+            ship.setHealth(ship.getMaxHealth());
+        }
+        if(ship.getShieldStrength() > ship.getMaxShieldStrength())    {
+            ship.setShieldStrength(ship.getMaxShieldStrength());
+        }
+        
         
         SolarSystem destination = journey.getDestinationSolarSystem();
         player.setCurrentSystem(destination);
