@@ -233,7 +233,7 @@ public class CombatController implements Initializable {
     }
 
     private void successfullyFled()  {
-        //TODO
+        HyenasLoader.getInstance().goToMapScreen();
     }
 
     /**
@@ -255,12 +255,6 @@ public class CombatController implements Initializable {
                 }
                 else if(enemyShip.getHealth() <= 0) {
                     enemyHealth.setText("0/0");
-                    //TODO inform player w/ alert, leave the combat screen
-                }
-                if(playerShip.getHealth() <= 0) {
-                    playerHealth.setText("0/0");
-                    Player.getInstance().death();
-                    //TODO inform player w/ alert, leave the combat screen
                 }
             }
             anchorPane.getChildren().remove(alertPane);
@@ -274,12 +268,6 @@ public class CombatController implements Initializable {
                 }
                 else if(enemyShip.getHealth() <= 0) {
                     enemyHealth.setText("0/0");
-                    //TODO inform player w/ alert, leave the combat screen
-                }
-                if(playerShip.getHealth() <= 0) {
-                    playerHealth.setText("0/0");
-                    Player.getInstance().death();
-                    //TODO inform player w/ alert, leave the combat screen
                 }
             }
             anchorPane.getChildren().remove(alertPane);
@@ -291,14 +279,8 @@ public class CombatController implements Initializable {
                 if(!stealthed && enemyShip.getHealth() > 0) {
                     attackPlayer();
                 }
-                else if(enemyShip.getHealth() <= 0) {
+                if(enemyShip.getHealth() <= 0) {
                     enemyHealth.setText("0/0");
-                    //TODO inform player w/ alert, leave the combat screen
-                }
-                if(playerShip.getHealth() <= 0) {
-                    playerHealth.setText("0/0");
-                    Player.getInstance().death();
-                    //TODO inform player w/ alert, leave the combat screen
                 }
             }
             anchorPane.getChildren().remove(alertPane);
@@ -378,6 +360,18 @@ public class CombatController implements Initializable {
                 + " from their " + weaponGroup + ".");
         EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
             anchorPane.getChildren().remove(alertPane);
+            if(playerShip.getHealth() <= 0) {
+                playerHealth.setText("0/0");
+                AlertPane losePane = new AlertPane(AlertPane.AlertPaneType.ONEBUTTON,
+                    "Defeat", "You've been destroyed by the " + enemyShip.getShipType() + ".");
+                EventHandler<ActionEvent> loseAction = (ActionEvent e3) -> {
+                    anchorPane.getChildren().remove(alertPane);
+                    Player.getInstance().death();
+                    HyenasLoader.getInstance().goToMapScreen();
+                };
+                losePane.getCloseButton().setOnAction(loseAction);
+                anchorPane.getChildren().add(losePane);
+            }
         };
         alertPane.getCloseButton().setOnAction(closeAction);
         anchorPane.getChildren().add(alertPane);
@@ -421,6 +415,20 @@ public class CombatController implements Initializable {
         enemyShip.setHealth(enemyShip.getHealth() - damage);
         enemyHealth.setText(""+enemyShip.getHealth());
         enemyShields.setText(""+enemyShip.getShieldStrength());
+        if(enemyShip.getHealth() <= 0) {
+            AlertPane winPane = new AlertPane(AlertPane.AlertPaneType.ONEBUTTON,
+                "Victory", "You've destroyed the " + enemyShip.getShipType()
+                + " and get a bounty of "
+                + (enemyShip.getWeaponSlots()+enemyShip.getShieldSlots())*10 + ".");
+            EventHandler<ActionEvent> winAction = (ActionEvent e3) -> {
+                anchorPane.getChildren().remove(winPane);
+                Player.getInstance().setCredits(Player.getInstance().getCredits()
+                        +(enemyShip.getWeaponSlots()+enemyShip.getShieldSlots())*10);
+                HyenasLoader.getInstance().goToMapScreen();
+            };
+            winPane.getCloseButton().setOnAction(winAction);
+            anchorPane.getChildren().add(winPane);
+        }
         return true;
     }
 
@@ -462,6 +470,20 @@ public class CombatController implements Initializable {
         enemyShip.setHealth(enemyShip.getHealth() - damage);
         enemyHealth.setText(""+enemyShip.getHealth());
         enemyShields.setText(""+enemyShip.getShieldStrength());
+        if(enemyShip.getHealth() <= 0) {
+            AlertPane winPane = new AlertPane(AlertPane.AlertPaneType.ONEBUTTON,
+                "Victory", "You've destroyed the " + enemyShip.getShipType()
+                + " and get a bounty of "
+                + (enemyShip.getWeaponSlots()+enemyShip.getShieldSlots())*10 + ".");
+            EventHandler<ActionEvent> winAction = (ActionEvent e3) -> {
+                anchorPane.getChildren().remove(winPane);
+                Player.getInstance().setCredits(Player.getInstance().getCredits()
+                        +(enemyShip.getWeaponSlots()+enemyShip.getShieldSlots())*10);
+                HyenasLoader.getInstance().goToMapScreen();
+            };
+            winPane.getCloseButton().setOnAction(winAction);
+            anchorPane.getChildren().add(winPane);
+        }
         return true;
     }
 
@@ -504,6 +526,20 @@ public class CombatController implements Initializable {
         enemyShip.setHealth(enemyShip.getHealth() - damage);
         enemyHealth.setText(""+enemyShip.getHealth());
         enemyShields.setText(""+enemyShip.getShieldStrength());
+        if(enemyShip.getHealth() <= 0) {
+            AlertPane winPane = new AlertPane(AlertPane.AlertPaneType.ONEBUTTON,
+                "Victory", "You've destroyed the " + enemyShip.getShipType()
+                + " and get a bounty of "
+                + (enemyShip.getWeaponSlots()+enemyShip.getShieldSlots())*10 + ".");
+            EventHandler<ActionEvent> winAction = (ActionEvent e3) -> {
+                anchorPane.getChildren().remove(winPane);
+                Player.getInstance().setCredits(Player.getInstance().getCredits()
+                        +(enemyShip.getWeaponSlots()+enemyShip.getShieldSlots())*10);
+                HyenasLoader.getInstance().goToMapScreen();
+            };
+            winPane.getCloseButton().setOnAction(winAction);
+            anchorPane.getChildren().add(winPane);
+        }
         return true;
     }
 }
