@@ -2,6 +2,7 @@ package hyenas;
 
 import hyenas.Models.ABPair;
 import hyenas.Models.DijkstraHelper;
+import hyenas.Models.Gadget;
 import hyenas.Models.Galaxy;
 import hyenas.Models.Journey;
 import hyenas.Models.Planet;
@@ -287,7 +288,7 @@ public class MapUIController implements Initializable {
     
     /**
      * Completes a journey by moving the player, deducting fuel, and setting the
-     * current system and planet.
+     * current system and planet. Also repairs ship if the user has the correct module
      * @param journey the journey the player wishes to make
      */
     private void makeJourney(Journey journey) {
@@ -296,6 +297,22 @@ public class MapUIController implements Initializable {
         
         double startingFuel = ship.getFuel();
         ship.setFuel(startingFuel - journey.getDistance());
+        
+        int repairUnits = 0;
+        for (Gadget gadget : ship.getGadgets())  {
+            if(gadget.getType() == Gadget.GadgetType.AUTO_REPAIR_SYSTEM)    {
+                repairUnits++;
+            }
+        }
+        ship.setHealth(ship.getHealth() + repairUnits * journey.getDistance());
+        ship.setShieldStrength(ship.getHealth() + 4*journey.getDistance());
+        if(ship.getHealth() > ship.getMaxHealth())    {
+            ship.setHealth(ship.getMaxHealth());
+        }
+        if(ship.getShieldStrength() > ship.getMaxShieldStrength())    {
+            ship.setShieldStrength(ship.getMaxShieldStrength());
+        }
+        
         
         SolarSystem destination = journey.getDestinationSolarSystem();
         player.setCurrentSystem(destination);
