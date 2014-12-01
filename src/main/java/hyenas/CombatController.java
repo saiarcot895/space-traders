@@ -96,10 +96,10 @@ public class CombatController implements Initializable {
         titleLabel.setStyle("-fx-text-fill: rgba(0,231,255, .9); -fx-effect: dropshadow( gaussian, rgba(0,0,0,1), 0,0,2,2);");
         
         Random rand = new Random();
-        int randomInt = rand.nextInt(Ship.getDefaultShips().size());
-        //enemy ship type is completely random
+        int randomInt = rand.nextInt(Ship.getDefaultShips().size()-1);
+        //enemy ship type is completely random, but never fight a flea
         enemyShip = new Ship(Ship.getDefaultShips().
-                get(randomInt).getShipType());
+                get(randomInt+1).getShipType());
         for (int i = 0; i < enemyShip.getWeaponSlots(); i++)    {
             enemyShip.getWeapons().add(new Weapon(Weapon.WeaponType.PULSE));
         }
@@ -371,6 +371,8 @@ public class CombatController implements Initializable {
             damage = 0;
         }
         playerShip.setHealth(playerShip.getHealth() - damage);
+        playerHealth.setText(""+playerShip.getHealth());
+        playerShields.setText(""+playerShip.getShieldStrength());
         AlertPane alertPane = new AlertPane(AlertPane.AlertPaneType.ONEBUTTON,
                 "Damage Received", "You've taken " + dealtDamage
                 + " from their " + weaponGroup + ".");
@@ -417,6 +419,8 @@ public class CombatController implements Initializable {
             damage = 0;
         }
         enemyShip.setHealth(enemyShip.getHealth() - damage);
+        enemyHealth.setText(""+enemyShip.getHealth());
+        enemyShields.setText(""+enemyShip.getShieldStrength());
         return true;
     }
 
@@ -456,6 +460,8 @@ public class CombatController implements Initializable {
             damage = 0;
         }
         enemyShip.setHealth(enemyShip.getHealth() - damage);
+        enemyHealth.setText(""+enemyShip.getHealth());
+        enemyShields.setText(""+enemyShip.getShieldStrength());
         return true;
     }
 
@@ -496,6 +502,8 @@ public class CombatController implements Initializable {
             damage = 0;
         }
         enemyShip.setHealth(enemyShip.getHealth() - damage);
+        enemyHealth.setText(""+enemyShip.getHealth());
+        enemyShields.setText(""+enemyShip.getShieldStrength());
         return true;
     }
 }
