@@ -285,10 +285,22 @@ public class CombatController implements Initializable {
             }
             anchorPane.getChildren().remove(alertPane);
         };
-        alertPane.getPulseButton().setOnAction(pulseAction);
-        alertPane.getBeamButton().setOnAction(beamAction);
-        alertPane.getMissileButton().setOnAction(missileAction);
-        alertPane.getCloseButton().setOnAction(closeAction);
+        
+        Button pulseButton = alertPane.getPulseButton();
+        Button beamButton = alertPane.getBeamButton();
+        Button missileButton = alertPane.getMissileButton();
+        Button closeButton = alertPane.getCloseButton();
+        
+        pulseButton.setOnAction(pulseAction);
+        beamButton.setOnAction(beamAction);
+        missileButton.setOnAction(missileAction);
+        closeButton.setOnAction(closeAction);
+        
+        Ship ship = Player.getInstance().getShip();
+        pulseButton.setDisable(!ship.hasWeaponType(Weapon.WeaponType.PULSE));
+        beamButton.setDisable(!ship.hasWeaponType(Weapon.WeaponType.BEAM));
+        missileButton.setDisable(!ship.hasWeaponType(Weapon.WeaponType.MISSILE));
+        
         anchorPane.getChildren().add(alertPane);
     }
     

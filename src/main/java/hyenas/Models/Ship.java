@@ -525,7 +525,7 @@ public class Ship {
     
     /**
      * Get the list of default buyable ships.
-     * @return ships, the list of ships
+     * @return ships the list of ships
      */
     public static List<Ship> getDefaultShips() {
         ArrayList<Ship> ships = new ArrayList<>(ShipType.values().length);
@@ -534,5 +534,19 @@ public class Ship {
             ships.add(ship);
         }
         return ships;
+    }
+    
+    /**
+     * Get whether the ship has a weapon of a given type weapon.
+     * @param type the type of weapon
+     * @return true if the ship has a missile weapon; false otherwise
+     */
+    public boolean hasWeaponType(Weapon.WeaponType type) {
+        for (Weapon weapon : getWeapons()) {
+            if (weapon.getType() == type) {
+                return true;
+            }
+        }
+        return false;
     }
 }
