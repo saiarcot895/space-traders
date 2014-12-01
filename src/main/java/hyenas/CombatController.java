@@ -530,7 +530,7 @@ public class CombatController implements Initializable {
             AlertPane winPane = new AlertPane(AlertPane.AlertPaneType.ONEBUTTON,
                 "Victory", "You've destroyed the " + enemyShip.getShipType()
                 + " and get a bounty of "
-                + (enemyShip.getWeaponSlots()+enemyShip.getShieldSlots())*10 + ".");
+                + (enemyShip.getWeaponSlots()+enemyShip.getShieldSlots())*100 + ".");
             EventHandler<ActionEvent> winAction = (ActionEvent e3) -> {
                 anchorPane.getChildren().remove(winPane);
                 Player.getInstance().setCredits(Player.getInstance().getCredits()
