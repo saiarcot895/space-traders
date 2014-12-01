@@ -182,18 +182,7 @@ public class MapUIController implements Initializable {
         AlertPane resultPane = new AlertPane(AlertPaneType.ONEBUTTON);
 
         EventHandler<ActionEvent> actionEvent = (ActionEvent e1) -> {
-            boolean success = event.performAction();
-            if (eventType == RandomEventType.PIRATE) {
-                SolarSystem solarSystem = currentJourney.getDestinationSolarSystem();
-                if (!success) {
-                    Ship ship = Player.getInstance().getShip();
-                    // Deduct fuel for half the journey
-                    ship.setFuel(ship.getFuel() - (currentJourney.getDistance() / 2));
-                    solarSystem = currentJourney.getStartingSolarSystem();
-                }
-            }
-            resultPane.setMessageText(event.getActionResultText());
-            showResultAlertPane(eventPane, resultPane, success);
+            HyenasLoader.getInstance().goToCombat();
         };
         eventPane.getActionButton().setOnAction(actionEvent);
         

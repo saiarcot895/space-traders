@@ -176,11 +176,6 @@ public class AlertPane extends BorderPane {
         messageLabel.setStyle("-fx-padding: 0 10 0 10;");
         setCenter(messageLabel);
         
-        if (titleLabel.getText().length() == 0) {
-            setCenter(null);
-            setTop(messageLabel);
-        }
-        
         if (type == AlertPaneType.ONEBUTTON) {
             closeButton = new StandardButton(DEFAULT_CLOSE_TEXT, StandardButtonType.SMALL);
             

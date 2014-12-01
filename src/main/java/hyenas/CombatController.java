@@ -24,7 +24,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 /**
- *
+ * Controller for combat.
  * @author Brian Surber
  */
 
@@ -32,7 +32,7 @@ import javafx.scene.text.Font;
 public class CombatController implements Initializable {
 
     /**
-     * label displaying the player's current health
+     * label displaying the player's current health.
      */
     private Label playerHealth;
 
