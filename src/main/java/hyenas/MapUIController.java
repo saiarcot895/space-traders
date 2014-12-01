@@ -305,7 +305,7 @@ public class MapUIController implements Initializable {
             }
         }
         ship.setHealth(ship.getHealth() + repairUnits * journey.getDistance());
-        ship.setShieldStrength(ship.getHealth() + journey.getDistance());
+        ship.setShieldStrength(ship.getHealth() + 4*journey.getDistance());
         if(ship.getHealth() > ship.getMaxHealth())    {
             ship.setHealth(ship.getMaxHealth());
         }
