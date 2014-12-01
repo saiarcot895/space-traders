@@ -137,6 +137,13 @@ public final class HyenasLoader extends Application {
     }
     
     /**
+     * Changes screens to the Combat screen.
+     */
+    public void goToCombat() {
+        loadScreen("CombatUI.fxml");
+    }
+    
+    /**
      * Loads a given screen and catches errors if necessary.
      * @param screen the screen to load
      */
@@ -179,14 +186,6 @@ public final class HyenasLoader extends Application {
     public void closeGame() {
         // In the main menu the game should not be connected to the database!
         connectionManager.closeConnection();
-        
-//        closeConnection(conn);
-//        try {
-//            // close application
-//            stop(stage);
-//        } catch (Exception ex) {
-//            Logger.getLogger(HyenasLoader.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
 /**********************************************************************/

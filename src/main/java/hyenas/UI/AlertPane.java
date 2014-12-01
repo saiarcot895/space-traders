@@ -214,19 +214,24 @@ public class AlertPane extends BorderPane {
             setPrefSize(ALERT_PANE_WIDTH, ALERT_PANE_HEIGHT+40);
             pulseButton = new StandardButton("Fire Pulse \n"
                     + "Weapons", StandardButtonType.SMALL);
-            AnchorPane.setBottomAnchor(pulseButton, 5.0+5+StandardButton.SMALL_PREF_HEIGHT);
-            AnchorPane.setLeftAnchor(pulseButton, 41.0);
+            AnchorPane.setBottomAnchor(pulseButton, 5.0+30+StandardButton.SMALL_PREF_HEIGHT);
+            AnchorPane.setLeftAnchor(pulseButton, 30.0);
             beamButton = new StandardButton("Fire Beam \n"
                     + "Weapons", StandardButtonType.SMALL);
-            AnchorPane.setBottomAnchor(beamButton, 5.0+5+StandardButton.SMALL_PREF_HEIGHT);
-            AnchorPane.setRightAnchor(beamButton, 41.0);
+            AnchorPane.setBottomAnchor(beamButton, 5.0+30+StandardButton.SMALL_PREF_HEIGHT);
+            AnchorPane.setRightAnchor(beamButton, 30.0);
             missileButton = new StandardButton("Fire Missile \n"
                     + "Weapons", StandardButtonType.SMALL);
-            AnchorPane.setBottomAnchor(missileButton, 5.0);
-            AnchorPane.setLeftAnchor(missileButton, 41.0);
+            AnchorPane.setBottomAnchor(missileButton, 20.0);
+            AnchorPane.setLeftAnchor(missileButton, 30.0);
             closeButton = new StandardButton(DEFAULT_CLOSE_TEXT, StandardButtonType.SMALL);
-            AnchorPane.setBottomAnchor(closeButton, 5.0);
-            AnchorPane.setRightAnchor(closeButton, 41.0);
+            AnchorPane.setBottomAnchor(closeButton, 20.0);
+            AnchorPane.setRightAnchor(closeButton, 30.0);
+            
+            AnchorPane buttonPane = new AnchorPane();
+            buttonPane.setPrefHeight(80.0);
+            buttonPane.getChildren().addAll(pulseButton, beamButton, missileButton, closeButton);
+            setBottom(buttonPane);
         }
         
         setLayoutX((UIHelper.getScreenSize().getWidth() / 2) - (getPrefWidth() / 2));

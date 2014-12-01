@@ -101,7 +101,8 @@ public class MainWindowController implements Initializable {
      * @param e unused
      */
     public void closeGame(ActionEvent e) {
-        System.exit(0);
+//        System.exit(0);
+        HyenasLoader.getInstance().goToCombat();
     }
 
 }

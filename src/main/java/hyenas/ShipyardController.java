@@ -9,6 +9,7 @@ import hyenas.Models.Weapon;
 import hyenas.UI.AlertPane;
 import hyenas.UI.AlertPane.AlertPaneType;
 import hyenas.UI.ShipInfoPane;
+import hyenas.UI.ShipInfoPane.ShipInfoPaneType;
 import hyenas.UI.ShipyardItemsTableView;
 import hyenas.UI.ShipyardPlayerTableView;
 import hyenas.UI.ShipyardTab.ShipyardTabType;
@@ -134,7 +135,7 @@ public class ShipyardController implements Initializable {
         gadgetsTable.getSelectionModel().selectedItemProperty().addListener(
             (observable, oldValue, newValue) -> setSelectedBuyItem(newValue));
         
-        infoPane = new ShipInfoPane();
+        infoPane = new ShipInfoPane(ShipInfoPaneType.SHIPYARD);
         Button buyButton = infoPane.getBuyButton();
         EventHandler<ActionEvent> buyEvent = (ActionEvent e) -> {
             buyItem(e);
@@ -267,7 +268,8 @@ public class ShipyardController implements Initializable {
                     displayAlert("No Slots", "There are no available slots for this item on your ship.");
                 }
             }
-            infoPane.updateInfo();
+            Player player = Player.getInstance();
+            infoPane.updateInfo(player, player.getShip());
             updatePlayerShipTable();
         }
     }
@@ -332,8 +334,8 @@ public class ShipyardController implements Initializable {
                         .getShieldsTable().remove((Shield) item, ship);
             }
         }
-        
-        infoPane.updateInfo();
+        Player player = Player.getInstance();
+        infoPane.updateInfo(player, player.getShip());
         updatePlayerShipTable();
     }
     

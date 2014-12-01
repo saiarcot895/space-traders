@@ -88,7 +88,7 @@ public class Player {
     }
 
     /**
-     * For if the player's ship dies
+     * For if the player's ship dies.
      */
     public void death() {
         boolean escapePod = false;

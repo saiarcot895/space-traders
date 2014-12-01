@@ -5,6 +5,8 @@ import hyenas.Models.Player;
 import hyenas.Models.Ship;
 import hyenas.Models.Weapon;
 import hyenas.UI.AlertPane;
+import hyenas.UI.ShipInfoPane;
+import hyenas.UI.ShipInfoPane.ShipInfoPaneType;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -15,6 +17,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -27,31 +33,26 @@ public class CombatController implements Initializable {
     /**
      * label displaying the player's current health
      */
-    @FXML
     private Label playerHealth;
 
     /**
      * label displaying the player's current shields
      */
-    @FXML
     private Label playerShields;
 
     /**
      * label displaying the enemy's current health
      */
-    @FXML
     private Label enemyHealth;
 
     /**
      * label displaying the enemy's current shields
      */
-    @FXML
     private Label enemyShields;
 
     /**
      * button to click to pick a weapon and attack
      */
-    @FXML
     private Button fight;
 
     /**
@@ -63,7 +64,6 @@ public class CombatController implements Initializable {
     /**
      * button to click to use a gadget in the fight
      */
-    @FXML
     private Button gadget;
 
     private Ship playerShip;
@@ -72,6 +72,13 @@ public class CombatController implements Initializable {
 
     @FXML
     private AnchorPane anchorPane;
+    
+    @FXML
+    private VBox centerPane;
+    
+    
+    private ShipInfoPane playerInfoPane;
+    private ShipInfoPane enemyInfoPane;
 
     private boolean stealthed;
 
@@ -81,9 +88,6 @@ public class CombatController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        playerShip = Player.getInstance().getShip();
-        stealthed = false;
-        timesStealthed = 0;
         Random rand = new Random();
         int randomInt = rand.nextInt(Ship.getDefaultShips().size());
         //enemy ship type is completely random
@@ -92,14 +96,48 @@ public class CombatController implements Initializable {
         for (int i = 0; i < enemyShip.getWeaponSlots(); i++)    {
             enemyShip.getWeapons().add(new Weapon(Weapon.WeaponType.PULSE));
         }
-        playerHealth.setText(playerShip.getHealth() + "/"
-                 + playerShip.getMaxHealth());
-        playerShields.setText(playerShip.getShieldStrength()+ "/"
-                 + playerShip.getMaxShieldStrength());
-        enemyHealth.setText(enemyShip.getHealth() + "/"
-                 + enemyShip.getMaxHealth());
-        enemyShields.setText(enemyShip.getShieldStrength() + "/"
-                 + enemyShip.getMaxShieldStrength());
+        
+        HBox hbox = new HBox();
+        
+        playerInfoPane = new ShipInfoPane(ShipInfoPaneType.COMBAT);
+        Player player = Player.getInstance();
+        playerInfoPane.updateInfo(player, player.getShip());
+        fight = playerInfoPane.getBuyButton();
+        gadget = playerInfoPane.getSellButton();
+        fight.setText("Fight");
+        gadget.setText("Gadget");
+        fight.addEventHandler(ActionEvent.ACTION, event -> onFight(event));
+        gadget.addEventHandler(ActionEvent.ACTION, event -> onGadget(event));
+        fight.setDisable(false);
+        gadget.setDisable(false);
+                
+        enemyInfoPane = new ShipInfoPane(ShipInfoPaneType.COMBAT);
+        enemyInfoPane.updateInfo(null, enemyShip);
+        
+        playerHealth = playerInfoPane.getShipHealthLabel();
+        playerShields = playerInfoPane.getShipShieldStrengthLabel();
+        enemyHealth = enemyInfoPane.getShipHealthLabel();
+        enemyShields = enemyInfoPane.getShipShieldStrengthLabel();
+        
+        Pane spacingPane = new Pane();
+        spacingPane.setPrefWidth(100);
+        hbox.getChildren().addAll(playerInfoPane, spacingPane, enemyInfoPane);
+        BorderPane borderPane = new BorderPane();
+        borderPane.setPrefHeight(300);
+        borderPane.setCenter(hbox);
+        Pane leftPane = new Pane();
+        Pane rightPane = new Pane();
+        leftPane.setPrefWidth(350);
+        rightPane.setPrefWidth(350);
+        borderPane.setLeft(leftPane);
+        borderPane.setRight(rightPane);
+        centerPane.getChildren().add(borderPane);
+        
+        enemyInfoPane.getChildren().removeAll(enemyInfoPane.getSellButton(), enemyInfoPane.getBuyButton());
+        
+        playerShip = Player.getInstance().getShip();
+        stealthed = false;
+        timesStealthed = 0;
         targeters = 0;
         for (Gadget g : playerShip.getGadgets())   {
             if(g.getType() == Gadget.GadgetType.TARGETING_SYSTEM)
@@ -196,14 +234,15 @@ public class CombatController implements Initializable {
                 }
                 else if(enemyShip.getHealth() <= 0) {
                     enemyHealth.setText("0/0");
-                    //TODO leave the combat screen
+                    //TODO inform player w/ alert, leave the combat screen
                 }
                 if(playerShip.getHealth() <= 0) {
                     playerHealth.setText("0/0");
                     Player.getInstance().death();
-                    //TODO leave combat screen
+                    //TODO inform player w/ alert, leave the combat screen
                 }
             }
+            anchorPane.getChildren().remove(alertPane);
         };
         EventHandler<ActionEvent> beamAction = (ActionEvent e2) -> {
             boolean damageDealt = beamAttack();
@@ -214,14 +253,15 @@ public class CombatController implements Initializable {
                 }
                 else if(enemyShip.getHealth() <= 0) {
                     enemyHealth.setText("0/0");
-                    //TODO leave the combat screen
+                    //TODO inform player w/ alert, leave the combat screen
                 }
                 if(playerShip.getHealth() <= 0) {
                     playerHealth.setText("0/0");
                     Player.getInstance().death();
-                    //TODO leave combat screen
+                    //TODO inform player w/ alert, leave the combat screen
                 }
             }
+            anchorPane.getChildren().remove(alertPane);
         };
         EventHandler<ActionEvent> missileAction = (ActionEvent e2) -> {
             boolean damageDealt = missileAttack();
@@ -232,14 +272,15 @@ public class CombatController implements Initializable {
                 }
                 else if(enemyShip.getHealth() <= 0) {
                     enemyHealth.setText("0/0");
-                    //TODO leave the combat screen
+                    //TODO inform player w/ alert, leave the combat screen
                 }
                 if(playerShip.getHealth() <= 0) {
                     playerHealth.setText("0/0");
                     Player.getInstance().death();
-                    //TODO leave combat screen
+                    //TODO inform player w/ alert, leave the combat screen
                 }
             }
+            anchorPane.getChildren().remove(alertPane);
         };
         alertPane.getPulseButton().setOnAction(pulseAction);
         alertPane.getBeamButton().setOnAction(beamAction);
