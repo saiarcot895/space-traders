@@ -233,7 +233,7 @@ public class CombatController implements Initializable {
     }
 
     private void successfullyFled()  {
-        //TODO
+        HyenasLoader.getInstance().goToMapScreen();
     }
 
     /**
