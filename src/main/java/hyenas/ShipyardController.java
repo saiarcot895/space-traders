@@ -293,6 +293,8 @@ public class ShipyardController implements Initializable {
                             .getPlayerTable().update(player, null);
                     HyenasLoader.getInstance().getConnectionManager().getShipTable()
                             .update(item, player);
+                    infoPane.updateInfo(player, player.getShip());
+                    updatePlayerShipTable();
                 } else {
                     displayInsufficientCreditsAlert();
                 }
