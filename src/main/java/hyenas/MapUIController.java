@@ -182,7 +182,13 @@ public class MapUIController implements Initializable {
         AlertPane resultPane = new AlertPane(AlertPaneType.ONEBUTTON);
 
         EventHandler<ActionEvent> actionEvent = (ActionEvent e1) -> {
-            HyenasLoader.getInstance().goToCombat();
+            if (eventType == RandomEventType.PIRATE) {
+                HyenasLoader.getInstance().goToCombat();
+            } else {
+                boolean success = event.performAction();
+                resultPane.setMessageText(event.getActionResultText());
+                showResultAlertPane(eventPane, resultPane, success);
+            }
         };
         eventPane.getActionButton().setOnAction(actionEvent);
         

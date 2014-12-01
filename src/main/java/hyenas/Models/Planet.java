@@ -1,5 +1,6 @@
 package hyenas.Models;
 
+import hyenas.Models.Government.GovernmentType;
 import hyenas.Models.Ware.Good;
 import hyenas.UI.UIHelper;
 import java.util.ArrayList;
@@ -47,6 +48,10 @@ public class Planet {
      * The planet wares.
      */
     private List<Ware> wares;
+    /**
+     * The planet government.
+     */
+    private Government government;
     
     /**
      * A PlanetTechType, used to distinguish between the types of planets.
@@ -196,9 +201,14 @@ public class Planet {
         int randPlanetTech = rand.nextInt(PlanetTechLevel.values().length);
         techLevel = PlanetTechLevel.values()[randPlanetTech];
         color = UIHelper.randomColorString();
+        
         int randPlanetType = rand.nextInt(PlanetType.values().length);
         type = PlanetType.values()[randPlanetType];
         event = PlanetEvent.NONE;
+        
+        int randGovernmentType = rand.nextInt(GovernmentType.values().length);
+        GovernmentType governmentType = GovernmentType.values()[randGovernmentType];
+        government = new Government(governmentType);
     }
     
     /**
@@ -466,6 +476,7 @@ public class Planet {
             }
             
             int price = basePrice + (ware.getPriceIncreasePerLevel() * (techLevel.ordinal() - ware.getMinimumTechLevelToProduce())) + variance;
+            price = (int) (price * (1 + getGovernment().getTaxRate()));
             ware.setCurrentPrice(price);
             ware.setCurrentQuantity(quantity);
             producedWares.add(ware);
@@ -608,5 +619,13 @@ public class Planet {
         } else {
             return fuelCost;
         }
+    }
+    
+    /**
+     * Gets the government.
+     * @return government the government of the planet
+     */
+    public Government getGovernment() {
+        return government;
     }
 }
