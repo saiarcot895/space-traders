@@ -1,6 +1,7 @@
 package hyenas;
 
 import hyenas.Models.ABPair;
+import hyenas.Models.Company;
 import hyenas.Models.DijkstraHelper;
 import hyenas.Models.Galaxy;
 import hyenas.Models.Journey;
@@ -296,6 +297,11 @@ public class MapUIController implements Initializable {
         
         double startingFuel = ship.getFuel();
         ship.setFuel(startingFuel - journey.getDistance());
+        
+        List<Company> companies = Galaxy.getInstance().getCompanies();
+        for (Company company : companies) {
+            company.setPrice(company.calculateNewPrice());
+        }
         
         SolarSystem destination = journey.getDestinationSolarSystem();
         player.setCurrentSystem(destination);

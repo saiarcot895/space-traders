@@ -109,7 +109,7 @@ public class StockMarketController implements Initializable {
         
         borderPane.setPadding(new Insets(40));
         BorderPane.setMargin(marketTable, new Insets(50, 50, 50, 20));
-        BorderPane.setMargin(rightBox, new Insets(50, 0, 0, 0));
+        BorderPane.setMargin(rightBox, new Insets(50, 0, 0, 0));      
     }
     
     /**
