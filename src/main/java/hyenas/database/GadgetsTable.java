@@ -118,14 +118,14 @@ public class GadgetsTable implements Table<Gadget, Ship> {
                 if (!shipIDResultSet.next()) {
                     throw new IllegalArgumentException();
                 }
+                stmt.setInt(2, shipIDResultSet.getInt(1));
             }
             
-            stmt.setInt(2, shipIDResultSet.getInt(1));
             stmt.execute();
             shipIDResultSet.close();
         } catch (SQLException e) {
             Logger.getLogger(GadgetsTable.class.getName()).
-                    log(Level.SEVERE, null, e);
+                    log(Level.SEVERE, "Query: " + info, e);
         }
     }
     

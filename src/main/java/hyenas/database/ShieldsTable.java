@@ -93,14 +93,14 @@ public class ShieldsTable implements Table<Shield, Ship> {
                 if (!shipIDResultSet.next()) {
                     throw new IllegalArgumentException();
                 }
+                stmt.setInt(2, shipIDResultSet.getInt(1));
             }
             
-            stmt.setInt(2, shipIDResultSet.getInt(1));
             stmt.execute();
             shipIDResultSet.close();
         } catch (SQLException e) {
             Logger.getLogger(ShieldsTable.class.getName()).
-                    log(Level.SEVERE, null, e);
+                    log(Level.SEVERE, "Query: " + info, e);
         }
     }
     

@@ -95,7 +95,7 @@ public class WeaponsTable implements Table<Weapon, Ship> {
             }
         } catch (SQLException e) {
             Logger.getLogger(WeaponsTable.class.getName()).
-                    log(Level.SEVERE, null, e);
+                    log(Level.SEVERE, "Query: " + query, e);
         }
     }
 
