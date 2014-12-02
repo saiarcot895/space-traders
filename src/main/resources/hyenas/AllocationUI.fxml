@@ -164,7 +164,11 @@
                                     </center>
                                 </BorderPane>
 
-
+                                <BorderPane>
+                                    <center>
+                                        <Button fx:id="create" styleClass="standard-button" prefHeight="37.0" prefWidth="143.0" mnemonicParsing="false" onAction="#create" text="Confirm" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+                                    </center>
+                                </BorderPane>
                                 
                             </children>
                         </VBox>
@@ -175,8 +179,7 @@
             <left><Pane prefWidth="450"></Pane></left>
             <bottom>
                 <AnchorPane prefHeight="60.0">
-                    <Button fx:id="goBack" styleClass="standard-button" prefHeight="37.0" prefWidth="143.0" mnemonicParsing="false" onAction="#goBack" text="Back" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />
-                    <Button fx:id="create" styleClass="standard-button" prefHeight="37.0" prefWidth="143.0" mnemonicParsing="false" onAction="#create" text="Confirm" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+                    <Button fx:id="goBack" styleClass="standard-button" prefHeight="37.0" prefWidth="143.0" mnemonicParsing="false" onAction="#goBack" text="Cancel" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />
                 </AnchorPane>
             </bottom>
         </BorderPane>
