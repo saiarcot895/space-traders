@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import hyenas.Models.Player;
 import hyenas.Models.Ware;
+import hyenas.UI.AlertPane;
 import hyenas.UI.MaketTableView;
 import hyenas.UI.MarketInfoPane;
 import java.util.List;
@@ -19,6 +20,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
@@ -49,6 +51,11 @@ public class StockMarketController implements Initializable {
      * The market controller info pane.
      */
     private MarketInfoPane infoPane;
+    /**
+     * The market controller main anchor pane.
+     */
+    @FXML
+    private AnchorPane anchorPane;
     
     /**
      * The market controller border pane.
@@ -66,9 +73,6 @@ public class StockMarketController implements Initializable {
         marketTable.setPrefHeight(400.0);
         marketTable.setPrefWidth(350.0);
         marketTable.setEditable(false);
-        //playerTable.setPrefHeight(400.0);
-        //playerTable.setPrefWidth(202.0);
-        //playerTable.setEditable(false);
         
         updateMarketTableView();
         marketTable.getSelectionModel().selectedItemProperty().addListener(
@@ -83,7 +87,6 @@ public class StockMarketController implements Initializable {
         tablesPane.setBottom(emptyBottomTablePane);
         
         tablesPane.setCenter(marketTable);
-        //tablesPane.setRight(playerTable);
         borderPane.setCenter(tablesPane);
         
         VBox rightBox = new VBox();
@@ -106,21 +109,8 @@ public class StockMarketController implements Initializable {
         
         borderPane.setPadding(new Insets(40));
         BorderPane.setMargin(marketTable, new Insets(50, 50, 50, 20));
-        //BorderPane.setMargin(playerTable, new Insets(50, 20, 50, 20));
         BorderPane.setMargin(rightBox, new Insets(50, 0, 0, 0));
     }
-    
-    /**
-     * Updates planet table view.
-     */
-   // private void updateMarketTableView() {
-   //     ObservableList<Company> currentItems = marketTable.getItems();
-   //     currentItems.clear();
-    //    
-     //   List<Company> companies = Galaxy.getInstance().getCompanies();
-      //  ObservableList<Company> marketTableData = FXCollections.observableArrayList(companies);
-       // marketTable.setItems(marketTableData);
-  //  }
     
     /**
      * Sets the selected company to buy/sell.
@@ -145,23 +135,21 @@ public class StockMarketController implements Initializable {
      * @param e unused
      */
     public void sellStock(ActionEvent e) {
+        removeAlert();
         Company company = (Company) marketTable.getSelectionModel().getSelectedItem();
         Player player = Player.getInstance();
-        int own = player.getStockAmount(company.getName());
+        int own = company.getPlayerAmount();
         int price = company.getPrice();
         int credits = player.getCredits();
         int remaining = company.getTotalStocks() - own;
         if (own > 0) {
-            player.changeStockAmount(company.getName(), own - 1);
             player.setCredits(credits + price);
             company.setPlayerAmount(company.getPlayerAmount() - 1);
             company.setAvailable(company.getAvailable() + 1);
             infoPane.updateInfo();
             updateMarketTableView();
-            // update view;
-            // remaining amount of company shares = company.getTotalStocks() - player.getStockAmount(company.getName)
         } else {
-            // some display about not having stocks of that company
+            displayAlert("No Shares", "You don't have any of shares of this company to sell.");
         }
     }
     
@@ -182,6 +170,7 @@ public class StockMarketController implements Initializable {
      * @param e unused
      */
     public void buyStock(ActionEvent e) {
+        removeAlert();
         Company company = (Company) marketTable.getSelectionModel().getSelectedItem();// change this
         Player player = Player.getInstance();
         int own = company.getPlayerAmount();
@@ -190,22 +179,42 @@ public class StockMarketController implements Initializable {
         int remaining = company.getAvailable();
         if (remaining > 0) {
             if (credits >= price) {
-                player.changeStockAmount(company.getName(), own + 1);
                 player.setCredits(credits - price);
                 company.setPlayerAmount(company.getPlayerAmount() + 1);
                 company.setAvailable(company.getAvailable() - 1);
                 infoPane.updateInfo();
                 updateMarketTableView();
-                // update view
-                // remaining amount of company shares = company.getTotalStocks() - player.getStockAmount(company.getName)
             } else {
-                // error not enough money
+                displayAlert("Insufficient Credits", "You don't have enough credits.");
             }   
         } else {
-            // some display error saying there are no more shares left to buy
+            displayAlert("No Shares Remaining", "There are no shares of this company available for purchase");
         }
     }
     
+    /**
+     * Displays an alert.
+     * @param title the alert title
+     * @param message the alert message
+     */
+    private void displayAlert(String title, String message) {
+        AlertPane alertPane = new AlertPane(AlertPane.AlertPaneType.ONEBUTTON, title, message);
+        EventHandler<ActionEvent> closeAction = (ActionEvent e2) -> {
+            anchorPane.getChildren().remove(alertPane);
+        };
+        alertPane.getCloseButton().setOnAction(closeAction);
+        anchorPane.getChildren().add(alertPane);
+    }
+    
+    /**
+     * Removes (hides) an alert.
+     */
+    private void removeAlert() {
+        List children = anchorPane.getChildren();
+        if (children.size() > 1) {
+            children.remove(children.get(1));
+        }
+    }
     /**
      * Changes to system screen.
      * @param e unused action trigger

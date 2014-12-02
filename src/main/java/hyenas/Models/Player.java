@@ -62,10 +62,6 @@ public class Player {
      * The common player instance. For use with singleton.
      */
     private static volatile Player instance;
-    /**
-     * The stocks owned by the player.
-     */
-    private Map<String, Integer> ownedStocks;
 
     /**
      * Initializes an instance of Player, sets initial values.
@@ -80,7 +76,6 @@ public class Player {
         currentPlanet = currentSystem.getPlanets().get(0);
         credits = 2000;
         state = false;
-        ownedStocks = new HashMap<String, Integer>();
     }
 
     /**
@@ -320,17 +315,5 @@ public class Player {
             return false;
         }
         return (fuel > distance);
-    }
-    
-    public Integer getStockAmount(String companyName) {
-        Integer amount = ownedStocks.get(companyName);
-        if (null == amount) {
-            return 0;
-        }
-        return amount;
-    }
-    
-    public void changeStockAmount(String companyName, int newAmount) {
-        ownedStocks.put(companyName, newAmount);
     }
 }
