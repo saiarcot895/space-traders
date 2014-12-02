@@ -28,6 +28,7 @@ public class ShipTable implements Table<Ship, Player> {
     private static final String CREATE_QUERY = "CREATE TABLE IF NOT EXISTS Ship "
             + "(ID INTEGER NOT NULL, " + "Type INTEGER NOT NULL, "
             + "Fuel DOUBLE NOT NULL, " + "Health DOUBLE NOT NULL, "
+            + "ShieldStrength DOUBLE NOT NULL, "
             + "Player INTEGER NOT NULL, " + "PRIMARY KEY (ID), "
             + "FOREIGN KEY (Player) REFERENCES Players (ID))";
 
@@ -69,7 +70,7 @@ public class ShipTable implements Table<Ship, Player> {
     @Override
     public void addRow(Ship ship, Player player) {
         String query = "INSERT INTO Ship "
-                + "(Type, Fuel, Health, Player) VALUES(?, ?, ?, ?)";
+                + "(Type, Fuel, Health, ShieldStrength, Player) VALUES(?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             fillAndRunUpdate(stmt, ship, player);
         } catch (SQLException e) {
@@ -89,6 +90,7 @@ public class ShipTable implements Table<Ship, Player> {
         stmt.setInt(1, ship.getShipType().ordinal());
         stmt.setDouble(2, ship.getFuel());
         stmt.setDouble(3, ship.getHealth());
+        stmt.setDouble(4, ship.getShieldStrength());
         
         try (PreparedStatement sysStmt = conn.prepareStatement("SELECT ID FROM Players WHERE Name = ?")) {
             sysStmt.setString(1, player.getName());
@@ -97,7 +99,7 @@ public class ShipTable implements Table<Ship, Player> {
                     throw new IllegalArgumentException();
                 }
                 
-                stmt.setInt(4, shipIDResultSet.getInt(1));
+                stmt.setInt(5, shipIDResultSet.getInt(1));
                 stmt.executeUpdate();
             }
         }
@@ -106,7 +108,7 @@ public class ShipTable implements Table<Ship, Player> {
     @Override
     public void update(Ship ship, Player player) {
         String query = "UPDATE Ship "
-                + "SET Type = ?, Fuel = ?, Health = ? WHERE Player = ?";
+                + "SET Type = ?, Fuel = ?, Health = ?, ShieldStrength = ? WHERE Player = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             fillAndRunUpdate(stmt, ship, player);
         } catch (SQLException e) {
@@ -146,7 +148,7 @@ public class ShipTable implements Table<Ship, Player> {
         try (Statement stmt = conn.createStatement()) {
             String query = 
                 "SELECT Ship.Type, " + "Ship.Fuel, "
-                + "Ship.Health, Players.Name FROM "
+                + "Ship.Health, Ship.ShieldStrength, Players.Name FROM "
                 + "Ship INNER JOIN Players "
                 + "ON Ship.Player = Players.ID";
             ResultSet shipInfo = stmt.executeQuery(query);
@@ -157,6 +159,7 @@ public class ShipTable implements Table<Ship, Player> {
             Player.getInstance().setShip(new Ship(Ship.ShipType.values()[shipInfo.getInt(1)]));
             Player.getInstance().getShip().setFuel(shipInfo.getDouble(2));
             Player.getInstance().getShip().setHealth(shipInfo.getDouble(3));
+            Player.getInstance().getShip().setShieldStrength(shipInfo.getDouble(4));
             
             shipInfo.close();
         } catch (SQLException e) {
