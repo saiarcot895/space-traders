@@ -1,6 +1,7 @@
 package hyenas;
 
 import hyenas.Models.ABPair;
+import hyenas.Models.Company;
 import hyenas.Models.DijkstraHelper;
 import hyenas.Models.Gadget;
 import hyenas.Models.Galaxy;
@@ -319,6 +320,11 @@ public class MapUIController implements Initializable {
         journey.getStartingSystemButton().getStyleClass().remove(CURRENT_PLANET_STYLE_CLASS);
         journey.getDestinationSystemButton().getStyleClass().add(CURRENT_PLANET_STYLE_CLASS);
         currentSolarSystemButton = journey.getDestinationSystemButton();
+        
+        List<Company> companies = Galaxy.getInstance().getCompanies();
+        for (Company company : companies) {
+            company.setPrice(company.calculateNewPrice());
+        }
 
         HyenasLoader.getInstance().goToSystemScreen();
     }
