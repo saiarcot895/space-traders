@@ -235,6 +235,9 @@ public class MapUIController implements Initializable {
      * @return true if a random event occurred; false otherwise
      */
     private boolean randomEventOccurred() {
+        handleRandomEvent(RandomEventType.PIRATE);
+        return true;
+        /*
         Random rand = new Random();
         int roll = rand.nextInt(5);
         
@@ -267,7 +270,7 @@ public class MapUIController implements Initializable {
             
             return true;
         }
-        return false;
+        return false;*/
     }
 
     /**

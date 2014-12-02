@@ -176,7 +176,8 @@ public class CombatController implements Initializable {
         borderPane.setRight(rightPane);
         centerPane.getChildren().add(borderPane);
         
-        enemyInfoPane.getChildren().removeAll(enemyInfoPane.getSellButton(), enemyInfoPane.getBuyButton());
+        enemyInfoPane.getBuyButton().setText("Fight");
+        enemyInfoPane.getSellButton().setText("Gadget");
         
         playerShip = Player.getInstance().getShip();
         stealthed = false;
