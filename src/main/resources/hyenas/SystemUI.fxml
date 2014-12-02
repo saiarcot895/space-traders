@@ -16,6 +16,7 @@
                     <children>
                         <Button fx:id="marketPlaceButton" styleClass="standard-button" prefHeight="37.0" prefWidth="143.0" mnemonicParsing="false" onAction="#goToMarketplace" text="Marketplace" AnchorPane.topAnchor="14.0" AnchorPane.leftAnchor="14.0"/>
                         <Button fx:id="shipyardButton" styleClass="standard-button" prefHeight="37.0" prefWidth="143.0" mnemonicParsing="false" onAction="#goToShipyard" text="Shipyard" AnchorPane.topAnchor="14.0" AnchorPane.leftAnchor="171.0"/>
+                        <Button fx:id="stockMarketButton" styleClass="standard-button" prefHeight="37.0" prefWidth="143.0" mnemonicParsing="false" onAction="#goToStockMarket" text="Stock Market" AnchorPane.topAnchor="14.0" AnchorPane.leftAnchor="328.0"/>
                     </children>
                 </AnchorPane>
                 <BorderPane>

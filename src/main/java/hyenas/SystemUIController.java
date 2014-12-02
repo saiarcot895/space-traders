@@ -249,6 +249,22 @@ public class SystemUIController implements Initializable {
     }
     
     /**
+     * Changes screens to shipyard assuming planet has high enough tech level.
+     * @param e unused
+     */
+    public void goToStockMarket(ActionEvent e) {
+        Planet planet = Player.getInstance().getCurrentPlanet();
+        
+        if (planet.hasShipyard()) {
+            HyenasLoader.getInstance().goToStockMarket();
+            animationTimer.cancel();
+            animationTimer.purge();
+        } else {
+            displayAlert("Insufficient Tech Level", "Your planet does not have a high enough tech level to access the stock market.");
+        }
+    }    
+    
+    /**
      * Convenience method for displaying alert.
      * @param title the title of the alert
      * @param message the message to display on the label

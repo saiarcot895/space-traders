@@ -2,6 +2,8 @@ package hyenas.Models;
 
 import hyenas.Models.Ship.ShipType;
 import java.util.Random;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents the player.

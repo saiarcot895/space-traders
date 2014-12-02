@@ -29,7 +29,15 @@ public class MaketTableView extends TableView {
         /**
          * For the player market table.
          */
-        PLAYER
+        PLAYER,
+        /**
+         * For the stock market table.
+         */
+        STOCK,
+        /**
+         * For the player stock market table.
+         */
+        PLAYER_2
     }
     
     /**
@@ -70,6 +78,26 @@ public class MaketTableView extends TableView {
                 );
                 
                 getColumns().addAll(playerWareCol, cargoCol);
+                break;
+            } 
+            case STOCK: {
+                TableColumn companyCol = new MarketTableColumn("Company");
+                TableColumn availableCol = new MarketTableColumn("Available");
+                TableColumn priceCol = new MarketTableColumn("Price");
+                TableColumn yoursCol = new MarketTableColumn("Amount you own");
+                companyCol.setCellValueFactory(
+                        new PropertyValueFactory<>(NAME_PROPERTY_VALUE)
+                );
+                availableCol.setCellValueFactory(
+                        new PropertyValueFactory<>("available")
+                );
+                priceCol.setCellValueFactory(
+                        new PropertyValueFactory<>("price")
+                );
+                yoursCol.setCellValueFactory(
+                        new PropertyValueFactory<>("playerAmount")
+                );
+                getColumns().addAll(companyCol, availableCol, priceCol, yoursCol);
                 break;
             }
         }
