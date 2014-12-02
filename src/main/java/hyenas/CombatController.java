@@ -2,6 +2,7 @@ package hyenas;
 
 import hyenas.Models.Gadget;
 import hyenas.Models.Player;
+import hyenas.Models.Shield;
 import hyenas.Models.Ship;
 import hyenas.Models.Weapon;
 import hyenas.UI.AlertPane;
@@ -101,7 +102,28 @@ public class CombatController implements Initializable {
         enemyShip = new Ship(Ship.getDefaultShips().
                 get(randomInt+1).getShipType());
         for (int i = 0; i < enemyShip.getWeaponSlots(); i++)    {
-            enemyShip.getWeapons().add(new Weapon(Weapon.WeaponType.PULSE));
+            int randomWep = rand.nextInt(3);
+            if(randomWep == 0)
+                enemyShip.getWeapons().add(new Weapon(Weapon.WeaponType.PULSE));
+            else if(randomWep == 1)
+                enemyShip.getWeapons().add(new Weapon(Weapon.WeaponType.BEAM));
+            else 
+                enemyShip.getWeapons().add(new Weapon(Weapon.WeaponType.MISSILE));
+        }
+        for(int i=0; i < enemyShip.getShieldSlots(); i++)   {
+            int randomShield = rand.nextInt(6);
+            if(randomShield == 0)
+                enemyShip.getShields().add(new Shield(Shield.ShieldType.CIVILIAN_ENERGY));
+            else if(randomShield == 1)
+                enemyShip.getShields().add(new Shield(Shield.ShieldType.CIVILIAN_REFLECTIVE));
+            else if(randomShield == 2)
+                enemyShip.getShields().add(new Shield(Shield.ShieldType.MILITARY_ENERGY));
+            else if(randomShield == 3)
+                enemyShip.getShields().add(new Shield(Shield.ShieldType.MILITARY_REFLECTIVE));
+            else if(randomShield == 4)
+                enemyShip.getShields().add(new Shield(Shield.ShieldType.MILITIA_ENERGY));
+            else if(randomShield == 5)
+                enemyShip.getShields().add(new Shield(Shield.ShieldType.MILITIA_REFLECTIVE));
         }
         
         HBox hbox = new HBox();
