@@ -203,7 +203,6 @@ public class Ship {
         health = maxHealth;
         weaponSlots = 1;
         shieldSlots = 1;
-        shields.add(new Shield(Shield.ShieldType.CIVILIAN_ENERGY));
         gadgetSlots = 1;
         crewSlots = 1;
         cargoSlots = 20;
@@ -225,8 +224,6 @@ public class Ship {
         health = maxHealth;
         weaponSlots = 2;
         shieldSlots = 2;
-        shields.add(new Shield(Shield.ShieldType.CIVILIAN_ENERGY));
-        shields.add(new Shield(Shield.ShieldType.CIVILIAN_ENERGY));
         gadgetSlots = 1;
         crewSlots = 2;
         cargoSlots = 15;
@@ -248,9 +245,6 @@ public class Ship {
         health = maxHealth;
         weaponSlots = 3;
         shieldSlots = 3;
-        shields.add(new Shield(Shield.ShieldType.CIVILIAN_ENERGY));
-        shields.add(new Shield(Shield.ShieldType.CIVILIAN_ENERGY));
-        shields.add(new Shield(Shield.ShieldType.CIVILIAN_ENERGY));
         gadgetSlots = 2;
         crewSlots = 3;
         cargoSlots = 25;
